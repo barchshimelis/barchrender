@@ -1,0 +1,393 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Wallet dashboard" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        background:
+            linear-gradient(rgba(5, 6, 8, 0.7), rgba(5, 6, 8, 0.7)),
+            url("{% static 'img/bg.jpg' %}") center/cover fixed no-repeat;
+        background-color: #050608;
+    }
+
+    .mobile-shell {
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+        padding: 0 0 60px;
+    }
+    .glass-card {
+        border-radius: 20px;
+        padding: 0.95rem 1rem;
+        background: rgba(19, 25, 33, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(12px);
+        color: #f7fafa;
+    }
+    .hero-card {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        background: linear-gradient(135deg, rgba(32, 41, 57, 0.95), rgba(12, 16, 21, 0.92));
+    }
+    .hero-avatar {
+        width: 54px;
+        height: 54px;
+        border-radius: 50%;
+        background: linear-gradient(145deg, #f5c274, #e3942d);
+        padding: 3px;
+        box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+    }
+    .hero-avatar-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        background: rgba(15,17,17,0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: rgba(247,250,250,0.75);
+        overflow: hidden;
+    }
+    .hero-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+    }
+    .hero-greeting .hello {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+    .hero-greeting .username {
+        margin: 0.1rem 0 0;
+        font-size: 0.78rem;
+        opacity: 0.75;
+    }
+    .hero-balance {
+        margin-left: auto;
+        text-align: right;
+    }
+    .hero-balance .label {
+        font-size: 0.58rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(247,250,250,0.6);
+    }
+    .hero-balance .amount {
+        margin-top: 0.2rem;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #f2b35c;
+    }
+    .hero-balance .invite {
+        font-size: 0.58rem;
+        color: rgba(247,250,250,0.65);
+    }
+    .metric-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0,1fr));
+        gap: 0.5rem;
+    }
+    .metric-card {
+        padding: 0.6rem 0.5rem;
+        border-radius: 16px;
+        background: rgba(15,17,17,0.68);
+        border: 1px solid rgba(255,255,255,0.05);
+        text-align: center;
+    }
+    .metric-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 9px;
+        margin: 0 auto 0.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0f1111;
+        font-weight: 600;
+    }
+    .metric-icon.teal { background: #007185; color: #f7fafa; }
+    .metric-icon.amber { background: #f2b35c; }
+    .metric-icon.sky { background: #00a8e1; color: #0f1111; }
+    .metric-card p {
+        margin: 0;
+        font-size: 0.48rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(247,250,250,0.65);
+    }
+    .metric-card strong {
+        font-size: 0.9rem;
+        color: #f7fafa;
+    }
+    .action-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap: 0.55rem;
+    }
+    .action-tile {
+        border-radius: 16px;
+        padding: 0.65rem;
+        border: none;
+        font-weight: 600;
+        font-size: 0.82rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.3rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 6px 14px rgba(0,0,0,0.28);
+    }
+    .action-tile svg { width: 16px; height: 16px; }
+    .action-tile:hover { transform: translateY(-1px); }
+    .action-amazon { background: linear-gradient(135deg, #f5c274, #e3942d); color: #0f1111; }
+    .action-teal { background: linear-gradient(135deg, #00a8e1, #007185); color: #f7fafa; }
+    .action-invite { background: linear-gradient(135deg, #f3c974, #e3942d); color: #0f1111; }
+    .action-dark { background: linear-gradient(135deg, #1f2933, #131921); color: #f7fafa; border: 1px solid rgba(255,255,255,0.08); }
+    .notice-card {
+        background: rgba(245, 194, 116, 0.15);
+        border: 1px solid rgba(245,194,116,0.4);
+        color: #f5c274;
+    }
+    .mission-card {
+        background: linear-gradient(135deg, rgba(26,38,52,0.95), rgba(12,16,21,0.92));
+        border-radius: 20px;
+        padding: 1rem;
+        border: 1px solid rgba(255,255,255,0.07);
+    }
+    .mission-head {
+        display: flex;
+        justify-content: space-between;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.68rem;
+        color: rgba(247,250,250,0.7);
+        margin-bottom: 0.6rem;
+    }
+    .commission-breakdown {
+        display: flex;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+    }
+    .commission-chip {
+        flex: 1 1 120px;
+        border-radius: 16px;
+        padding: 0.7rem;
+        background: rgba(15,17,17,0.65);
+        border: 1px solid rgba(255,255,255,0.05);
+    }
+    .commission-chip span {
+        display: block;
+        font-size: 0.65rem;
+        letter-spacing: 0.08em;
+        color: rgba(247,250,250,0.65);
+        text-transform: uppercase;
+        margin-bottom: 0.2rem;
+    }
+    .commission-chip strong {
+        font-size: 0.95rem;
+    }
+    .amount-buttons {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        gap: 0.45rem;
+    }
+    .amount-btn {
+        width: 100%;
+        border-radius: 14px;
+        padding: 0.55rem 0.6rem;
+        background: rgba(10,15,21,0.9);
+        border: 1px solid rgba(255,255,255,0.08);
+        color: #f7fafa;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.15s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .amount-btn.active,
+    .amount-btn:hover {
+        color: #f5c274;
+        border-color: #f5c274;
+    }
+    .form-card label {
+        display: block;
+        margin-bottom: 0.4rem;
+        font-size: 0.82rem;
+        color: rgba(247,250,250,0.75);
+    }
+    .form-card input[type="number"] {
+        width: 100%;
+        border-radius: 14px;
+        border: 1px solid rgba(255,255,255,0.08);
+        padding: 0.85rem 1rem;
+        background: rgba(15,17,17,0.9);
+        color: #f7fafa;
+    }
+    .history-table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+    .history-table th,
+    .history-table td {
+        padding: 0.65rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+        text-align: left;
+        font-size: 0.86rem;
+    }
+    .history-table th {
+        text-transform: uppercase;
+        font-size: 0.62rem;
+        letter-spacing: 0.08em;
+        color: rgba(247,250,250,0.6);
+    }
+    .status-pill {
+        border-radius: 999px;
+        padding: 0.25rem 0.75rem;
+        font-size: 0.72rem;
+        font-weight: 600;
+    }
+    .status-pill.approved { background: rgba(37,184,85,0.18); color: #6adf9b; }
+    .status-pill.pending { background: rgba(245,194,116,0.18); color: #f5c274; }
+    .status-pill.rejected { background: rgba(224,82,82,0.18); color: #f98585; }
+    .empty-state {
+        text-align: center;
+        padding: 1.2rem 0;
+        color: rgba(247,250,250,0.7);
+    }
+    @media (min-width: 992px) {
+        .page-shell {
+            padding-left: clamp(1rem, 2.5vw, 2.5rem);
+            padding-right: clamp(1rem, 2.5vw, 2.5rem);
+        }
+        .page-shell > .container {
+            max-width: none;
+            width: 100%;
+        }
+        .mobile-shell {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="mobile-shell">
+    
+           
+
+    <section class="metric-strip">
+        <div class="metric-card">
+            <div class="metric-icon teal">₿</div>
+            <strong id="totalBalanceValue">${{ wallet.cumulative_total|floatformat:2 }}</strong>
+            <p>{% trans "Total earned" %}</p>
+        </div>
+        <div class="metric-card">
+            <div class="metric-icon amber">★</div>
+            <strong id="productCommissionValue">${{ wallet.product_commission|floatformat:2 }}</strong>
+            <p>{% trans "Product commission" %}</p>
+        </div>
+        <div class="metric-card">
+            <div class="metric-icon sky">⚡</div>
+            <strong id="referralCommissionValue">${{ wallet.referral_commission|floatformat:2 }}</strong>
+            <p>{% trans "Referral commission" %}</p>
+        </div>
+    </section>
+
+    {% if pending_recharge %}
+        
+    {% endif %}
+
+    
+      
+    
+
+    <section class="glass-card form-card" id="rechargeForm">
+       
+        <form method="POST" action="{% url 'balance:recharge_amount' %}">
+            {% csrf_token %}
+            <div>
+                <label>{% trans "Recharge" %}</label>
+                <div class="amount-buttons">
+                    {% for amount in recharge_amounts %}
+                        <button type="button" class="amount-btn" data-amount="{{ amount }}">${{ amount }}</button>
+                    {% endfor %}
+                </div>
+            </div>
+            <div style="margin-bottom:0.8rem;">
+               
+                <input type="number"
+                       id="amount-input"
+                       name="amount"
+                       placeholder="{% trans 'Enter amount' %}"
+                       required
+                       step="0.01"
+                       min="0">
+            </div>
+            <button type="submit" class="action-tile action-amazon" style="width:100%;box-shadow:none;">
+                {% trans "Continue to payment" %}
+            </button>
+        </form>
+    </section>
+
+    
+            
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const amountBtns = document.querySelectorAll('.amount-btn');
+    const amountInput = document.getElementById('amount-input');
+
+    amountBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const amount = this.getAttribute('data-amount');
+            amountInput.value = amount;
+            amountBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+
+    amountInput.addEventListener('input', function() {
+        this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./, '$1');
+        if (this.value) {
+            amountBtns.forEach(b => b.classList.remove('active'));
+        }
+    });
+
+    function updateWalletBalance() {
+        fetch('{% url "balance:wallet_balance_api" %}')
+            .then(response => response.json())
+            .then(data => {
+                const setText = (selector, value) => {
+                    const el = document.querySelector(selector);
+                    if (el) el.textContent = '$' + parseFloat(value).toFixed(2);
+                };
+                setText('#currentBalanceValue', data.current_balance);
+                setText('#totalBalanceValue', data.cumulative_total);
+                setText('#productCommissionValue', data.product_commission);
+                setText('#referralCommissionValue', data.referral_commission);
+                setText('#todayProductValue', data.today_product_commission);
+                setText('#todayReferralValue', data.today_referral_commission);
+            })
+            .catch(error => console.error('Error fetching wallet balance:', error));
+    }
+
+    updateWalletBalance();
+    setInterval(updateWalletBalance, 3000);
+});
+</script>
+{% endblock %}

@@ -1,0 +1,1039 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .action-btn {
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms;
+        }
+        .reset-pw-btn {
+            background-color: #6b7280;
+            color: rgb(255 255 255);
+        }
+        .reset-pw-btn:hover {
+            background-color:#6b7280;
+        }
+        .reset-fp-btn {
+            background-color: #6b7280;
+            color: rgb(255 255 255);
+        }
+        .reset-fp-btn:hover {
+            background-color: #6b7280;
+        }
+        .delete-btn {
+            background-color:  rgb(220 38 38);
+            color: rgb(255 255 255);
+        }
+        .delete-btn:hover {
+            background-color: rgb(220 38 38);
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        .modal-content {
+            background-color: rgb(255 255 255);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            max-width: 28rem;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 5rem;
+        }
+        .balance-chip {
+            display: inline-flex;
+            flex-direction: column;
+            gap: 2px;
+            padding: 0.5rem 0.75rem;
+            border-radius: 0.5rem;
+            background: #f9fafb;
+            border: 1px solid #eceff3;
+            min-width: 120px;
+        }
+        .balance-chip__label {
+            font-size: 0.7rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+        .balance-chip__value {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #111827;
+        }
+        .adjust-balance-btn {
+            background-color: #6b7280;
+            color: #fff;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+        }
+        .adjust-balance-btn:hover {
+            background-color: #6b7280;
+        }
+        .adjust-modal-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            margin-bottom: 1rem;
+        }
+        .adjust-info-card {
+            border: 1px solid #eef2f7;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            background: #fdfdfd;
+        }
+        .adjust-info-card__label {
+            font-size: 0.75rem;
+            color: #6b7280;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-bottom: 0.25rem;
+        }
+        .adjust-info-card__value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111827;
+        }
+        .adjust-card-grid {
+            display: grid;
+            gap: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            margin-bottom: 1.25rem;
+        }
+        .adjust-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 0.75rem;
+            padding: 0.85rem;
+            background: #fff;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            position: relative;
+        }
+        .adjust-card input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .adjust-card__label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #6b7280;
+        }
+        .adjust-card__value {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111827;
+        }
+        .adjust-card__hint {
+            font-size: 0.75rem;
+            color: #9ca3af;
+            margin-top: 0.15rem;
+        }
+        .adjust-card--active {
+            border-color: #4f46e5;
+            box-shadow: 0 6px 18px rgba(79, 70, 229, 0.15);
+        }
+        .adjust-card--active .adjust-card__label {
+            color: #4f46e5;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-8">
+        <!-- Professional Header -->
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-8">
+            <div class="flex items-center justify-between">
+                <!-- Avatar and Greeting -->
+                <div class="flex items-center space-x-4">
+                    <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-semibold">
+                        {{ request.user.username|first|upper }}
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-semibold text-gray-800">Hello, {{ request.user.username|title }}</h1>
+                    </div>
+                </div>
+
+                <!-- Search and Notifications -->
+                <div class="flex items-center space-x-4">
+                    <!-- Search Bar -->
+                    <form method="GET" class="relative">
+                        <input type="text" 
+                               name="q" 
+                               value="{{ request.GET.q }}"
+                               placeholder="Search by name or phone..." 
+                               class="w-64 px-4 py-2 pl-10 pr-4 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3">
+                            <i class="fas fa-search text-gray-400"></i>
+                        </div>
+                        {% if request.GET.q %}
+                            <a href="{% url 'accounts:customerservice_dashboard' %}" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600">
+                                <i class="fas fa-times"></i>
+                            </a>
+                        {% endif %}
+                    </form>
+
+                    <!-- Notification Bell -->
+                    <div class="relative">
+                        <button class="relative p-2 text-gray-600 hover:text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg" id="notificationBell" type="button">
+                            <i class="fas fa-bell text-xl"></i>
+                            {% if unread_notifications_count > 0 %}
+                            <span class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center" id="notificationBadge">
+                                {{ unread_notifications_count }}
+                            </span>
+                            {% endif %}
+                        </button>
+                        <!-- Dropdown -->
+                        <div id="notificationDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-100 z-50">
+                            <div class="px-4 py-3 border-b border-gray-100 flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-gray-700">Notifications</p>
+                                    <p class="text-xs text-gray-400">Latest system updates</p>
+                                </div>
+                                <span class="text-xs text-blue-500 font-medium" id="notificationCountLabel">0 new</span>
+                            </div>
+                            <div id="notificationList" class="max-h-80 overflow-y-auto divide-y divide-gray-50">
+                                <div class="p-4 text-sm text-gray-500 text-center">No notifications yet.</div>
+                            </div>
+                            <div class="px-4 py-2 border-t border-gray-100 text-right">
+                                <a href="{% url 'accounts:customerservice_dashboard' %}" class="text-xs text-blue-500 hover:text-blue-600">View dashboard</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CS Chat Desk -->
+                    <a href="{% url 'chat:cs_panel' %}"
+                       id="csChatButton"
+                       class="relative bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-400 transition text-sm flex items-center gap-2"
+                       title="Open customer chats"
+                       aria-label="Open customer chats{% if guest_unread_count > 0 %}, {{ guest_unread_count }} new{% endif %}">
+                        <i class="fas fa-headset"></i>
+                        <span>Chat</span>
+                        {% if guest_unread_count > 0 %}
+                        <span id="csChatBadge" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-semibold rounded-full h-5 min-w-[1.25rem] px-1 flex items-center justify-center">
+                            {{ guest_unread_count }}
+                        </span>
+                        {% endif %}
+                    </a>
+
+                    <!-- Logout -->
+                    <a href="{% url 'accounts:logout' %}" 
+                       class="bg-gray-600 text-white px-4 py-2 rounded-lg hover:bg-gray-700 transition text-sm">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {% if messages %}
+        <div class="mb-6">
+            {% for message in messages %}
+            <div class="p-4 mb-4 text-sm rounded-lg {% if message.tags %}{{ message.tags }}{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <!-- User Management Table -->
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            {% if users %}
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Owner Admin</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Wallet Address</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Adjust Balance</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Account Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for user in users %}
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ user.username }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {% if user.owner_admin %}
+                                    <a href="{% url 'accounts:adminlogin' %}"
+                                       class="text-blue-600 hover:text-blue-800 underline">
+                                        {{ user.owner_admin.username }}
+                                    </a>
+                                {% else %}
+                                    <span class="text-gray-400">No admin</span>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.phone }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {% if user.userwalletaddress %}
+                                    <div>
+                                        <div class="font-medium text-gray-900">{{ user.userwalletaddress.address|truncatechars:20 }}</div>
+                                        <div class="text-xs text-gray-500">{{ user.userwalletaddress.get_network_display }}</div>
+                                    </div>
+                                    <div class="mt-2 space-x-2">
+                                        <button type="button"
+                                                class="text-blue-600 hover:text-blue-800 text-xs wallet-manage-btn"
+                                                data-user-id="{{ user.id }}"
+                                                data-username="{{ user.username }}"
+                                                data-wallet-address="{{ user.userwalletaddress.address }}"
+                                                data-wallet-network="{{ user.userwalletaddress.network }}">
+                                            Edit
+                                        </button>
+                                        <form method="post" action="" style="display:inline;">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="action" value="delete_wallet_address">
+                                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                                            <button type="submit" class="text-red-600 hover:text-red-800 text-xs" onclick="return confirm('Delete wallet for {{ user.username }}?');">
+                                                Remove
+                                            </button>
+                                        </form>
+                                    </div>
+                                {% else %}
+                                    <div class="text-gray-400">No wallet bound</div>
+                                    <button type="button"
+                                            class="text-blue-600 hover:text-blue-800 text-xs wallet-manage-btn"
+                                            data-user-id="{{ user.id }}"
+                                            data-username="{{ user.username }}"
+                                            data-wallet-address=""
+                                            data-wallet-network="">
+                                        Add Wallet
+                                    </button>
+                                {% endif %}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {% with wallet=user.wallet_snapshot %}
+                                <button
+                                    type="button"
+                                    class="adjust-balance-btn adjust-balance-trigger"
+                                    data-user-id="{{ user.id }}"
+                                    data-username="{{ user.username }}"
+                                    data-current-balance="{% if wallet %}{{ wallet.current_balance|default:'0.00' }}{% else %}0.00{% endif %}"
+                                    data-cumulative-total="{% if wallet %}{{ wallet.cumulative_total|default:'0.00' }}{% else %}0.00{% endif %}"
+                                    data-product-commission="{% if wallet %}{{ wallet.product_commission|default:'0.00' }}{% else %}0.00{% endif %}"
+                                    data-referral-commission="{% if wallet %}{{ wallet.referral_commission|default:'0.00' }}{% else %}0.00{% endif %}"
+                                >
+                                    <i class="fas fa-sliders-h text-sm"></i>
+                                    <span>Adjest</span>
+                                </button>
+                                {% endwith %}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                <button type="button"
+                                        class="bg-blue-500 text-white px-2 py-1 rounded text-xs hover:bg-blue-600 reset-login-btn"
+                                        data-user-id="{{ user.id }}"
+                                        data-username="{{ user.username }}">
+                                    Reset PW
+                                </button>
+                                <button type="button"
+                                        class="bg-green-500 text-white px-2 py-1 rounded text-xs hover:bg-green-600 reset-fund-btn"
+                                        data-user-id="{{ user.id }}"
+                                        data-username="{{ user.username }}">
+                                    Fund PW
+                                </button>
+                                {% if user.is_frozen %}
+                                    <button type="button"
+                                            class="bg-orange-500 text-white px-2 py-1 rounded text-xs hover:bg-orange-600 unfreeze-btn"
+                                            data-user-id="{{ user.id }}"
+                                            data-username="{{ user.username }}">
+                                        Unfreeze
+                                    </button>
+                                {% else %}
+                                    <button type="button"
+                                            class="bg-red-500 text-white px-2 py-1 rounded text-xs hover:bg-red-600 freeze-btn"
+                                            data-user-id="{{ user.id }}"
+                                            data-username="{{ user.username }}">
+                                        Freeze
+                                    </button>
+                                {% endif %}
+                                <button type="button"
+                                        class="bg-red-500 text-white px-2 py-1 rounded text-xs hover:bg-red-600 delete-btn"
+                                        data-user-id="{{ user.id }}"
+                                        data-username="{{ user.username }}">
+                                    Delete
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="p-6 text-center text-gray-500">
+                No users found.
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Reset Password Modal -->
+    <div id="resetPasswordModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-lg font-medium mb-4">Reset Password for <span id="resetUsername"></span></h3>
+            <form method="POST" id="resetPasswordForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="reset_login_password">
+                <input type="hidden" name="user_id" id="resetUserId">
+                <div class="mb-4">
+                    <label for="new_password" class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+                    <input type="password" name="new_password" id="new_password" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal('resetPasswordModal')" 
+                            class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        Update Password
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Reset Fund Password Modal -->
+    <div id="resetFundPasswordModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-lg font-medium mb-4">Reset Fund Password for <span id="resetFundUsername"></span></h3>
+            <form method="POST" id="resetFundPasswordForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="reset_fund_password">
+                <input type="hidden" name="user_id" id="resetFundUserId">
+                <div class="mb-4">
+                    <label for="new_fund_password" class="block text-sm font-medium text-gray-700 mb-1">New Fund Password</label>
+                    <input type="password" name="new_fund_password" id="new_fund_password" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500">
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal('resetFundPasswordModal')" 
+                            class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
+                        Update Fund Password
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Freeze User Modal -->
+    <div id="freezeUserModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-lg font-medium mb-4">Confirm User Freeze</h3>
+            <p class="mb-6">Are you sure you want to freeze user <span id="freezeUsername" class="font-semibold"></span>?</p>
+            <form method="POST" id="freezeUserForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="freeze">
+                <input type="hidden" name="user_id" id="freezeUserId">
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal('freezeUserModal')" 
+                            class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700">
+                        Freeze User
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Unfreeze User Modal -->
+    <div id="unfreezeUserModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-lg font-medium mb-4">Confirm User Unfreeze</h3>
+            <p class="mb-6">Are you sure you want to unfreeze user <span id="unfreezeUsername" class="font-semibold"></span>?</p>
+            <form method="POST" id="unfreezeUserForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="unfreeze">
+                <input type="hidden" name="user_id" id="unfreezeUserId">
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal('unfreezeUserModal')" 
+                            class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-orange-600 hover:bg-orange-700">
+                        Unfreeze User
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete User Modal -->
+    <div id="deleteUserModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-lg font-medium mb-4">Confirm User Deletion</h3>
+            <p class="mb-6">Are you sure you want to delete user <span id="deleteUsername" class="font-semibold"></span>? This action cannot be undone.</p>
+            <form method="POST" id="deleteUserForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="user_id" id="deleteUserId">
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal('deleteUserModal')" 
+                            class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700">
+                        Delete User
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Wallet Modal -->
+    <div id="walletModal" class="modal">
+        <div class="modal-content">
+            <h3 class="text-lg font-medium mb-4">Manage Wallet for <span id="walletUsername"></span></h3>
+            <form method="POST" id="walletForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="update_wallet_address">
+                <input type="hidden" name="user_id" id="walletUserId">
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Wallet Address</label>
+                    <input type="text" name="wallet_address" id="walletAddressInput" required
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Network</label>
+                    <select name="network" id="walletNetworkSelect" required
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        {% for value,label in network_choices %}
+                            <option value="{{ value }}">{{ label }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" onclick="closeModal('walletModal')"
+                            class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        Save Wallet
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Balance Adjustment Modal -->
+    <div id="adjustBalanceModal" class="modal">
+        <div class="modal-content" style="max-width: 36rem;">
+            <h3 class="text-lg font-medium mb-1">Adjust Balance for <span id="adjustBalanceUsername"></span></h3>
+            <p class="text-sm text-gray-500 mb-4">All adjustments are logged for auditing. Debits cannot reduce a value below $0.</p>
+            <form method="POST" id="adjustBalanceForm">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="adjust_balance">
+                <input type="hidden" name="user_id" id="adjustBalanceUserId">
+                <div class="adjust-card-grid mb-4" id="adjustBalanceCards"></div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Adjustment type</label>
+                        <select name="adjustment_type" id="adjustmentTypeSelect" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500" required>
+                            <option value="credit">Add</option>
+                            <option value="debit">Subtract</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Amount</label>
+                        <input type="number" step="0.01" min="0.01" name="amount" id="adjustAmountInput" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500" placeholder="e.g., 50.00" required>
+                    </div>
+                </div>
+                <div class="mb-5">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Reference note <span class="text-gray-400 text-xs">(optional)</span></label>
+                    <input type="text" name="note" id="adjustNoteInput" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-blue-500 focus:border-blue-500" placeholder="Reason for audit (optional)" maxlength="255">
+                </div>
+                <div class="flex justify-end space-x-3">
+                    <button type="button" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50" onclick="closeModal('adjustBalanceModal')">
+                        Cancel
+                    </button>
+                    <button type="submit" class="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+                        Save Adjustment
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function showResetPasswordModal(userId, username) {
+            document.getElementById('resetUsername').textContent = username;
+            document.getElementById('resetUserId').value = userId;
+            document.getElementById('resetPasswordModal').style.display = 'block';
+        }
+
+        function showResetFundPasswordModal(userId, username) {
+            document.getElementById('resetFundUsername').textContent = username;
+            document.getElementById('resetFundUserId').value = userId;
+            document.getElementById('resetFundPasswordModal').style.display = 'block';
+        }
+
+        function showFreezeModal(userId, username) {
+            document.getElementById('freezeUsername').textContent = username;
+            document.getElementById('freezeUserId').value = userId;
+            document.getElementById('freezeUserModal').style.display = 'block';
+        }
+
+        function showUnfreezeModal(userId, username) {
+            document.getElementById('unfreezeUsername').textContent = username;
+            document.getElementById('unfreezeUserId').value = userId;
+            document.getElementById('unfreezeUserModal').style.display = 'block';
+        }
+
+        function showDeleteModal(userId, username) {
+            document.getElementById('deleteUsername').textContent = username;
+            document.getElementById('deleteUserId').value = userId;
+            document.getElementById('deleteUserModal').style.display = 'block';
+        }
+
+        function showWalletModal(userId, username, address = '', network = '') {
+            document.getElementById('walletUsername').textContent = username;
+            document.getElementById('walletUserId').value = userId;
+            document.getElementById('walletAddressInput').value = address;
+            const select = document.getElementById('walletNetworkSelect');
+            if (network) {
+                select.value = network;
+            } else {
+                select.selectedIndex = 0;
+            }
+            document.getElementById('walletModal').style.display = 'block';
+        }
+
+        const BALANCE_CARD_CONFIG = [
+            { key: 'current', field: 'current_balance', label: 'Currnet Balance', hint: 'Active wallet funds' },
+            { key: 'cumulative', field: 'cumulative_total', label: 'Total Balance', hint: 'Total earned overall' },
+            { key: 'product', field: 'product_commission', label: 'Product Comm.', hint: 'Product task earnings' },
+            { key: 'referral', field: 'referral_commission', label: 'Referral Comm.', hint: 'Referral earnings' },
+        ];
+
+        function formatCurrency(value) {
+            const amount = Number(value || 0);
+            return amount.toLocaleString(undefined, { style: 'currency', currency: 'USD' });
+        }
+
+        function renderAdjustCards(data) {
+            const container = document.getElementById('adjustBalanceCards');
+            if (!container) return;
+            container.innerHTML = BALANCE_CARD_CONFIG.map((config, index) => `
+                <label class="adjust-card">
+                    <input type="radio" name="balance_field" value="${config.field}" ${index === 0 ? 'checked' : ''}>
+                    <div class="adjust-card__label">${config.label}</div>
+                    <div class="adjust-card__value">${formatCurrency(data[config.key])}</div>
+                    <div class="adjust-card__hint">${config.hint}</div>
+                </label>
+            `).join('');
+
+            const cards = container.querySelectorAll('.adjust-card');
+            cards.forEach((card) => {
+                const input = card.querySelector('input[type="radio"]');
+                const activate = () => {
+                    cards.forEach((node) => node.classList.remove('adjust-card--active'));
+                    card.classList.add('adjust-card--active');
+                    input.checked = true;
+                };
+                card.addEventListener('click', activate);
+                if (input.checked) {
+                    card.classList.add('adjust-card--active');
+                }
+            });
+        }
+
+        function showAdjustBalanceModal(buttonEl) {
+            const userId = buttonEl.getAttribute('data-user-id');
+            const username = buttonEl.getAttribute('data-username');
+            const balances = {
+                current: buttonEl.getAttribute('data-current-balance') || '0.00',
+                cumulative: buttonEl.getAttribute('data-cumulative-total') || '0.00',
+                product: buttonEl.getAttribute('data-product-commission') || '0.00',
+                referral: buttonEl.getAttribute('data-referral-commission') || '0.00',
+            };
+
+            document.getElementById('adjustBalanceUsername').textContent = username;
+            document.getElementById('adjustBalanceUserId').value = userId;
+            document.getElementById('adjustAmountInput').value = '';
+            document.getElementById('adjustNoteInput').value = '';
+            document.getElementById('adjustmentTypeSelect').selectedIndex = 0;
+            renderAdjustCards(balances);
+            document.getElementById('adjustBalanceModal').style.display = 'block';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const attachHandler = (selector, handler) => {
+                document.querySelectorAll(selector).forEach((btn) => {
+                    btn.addEventListener('click', () => handler(btn));
+                });
+            };
+
+            attachHandler('.reset-login-btn', (btn) => {
+                showResetPasswordModal(btn.dataset.userId, btn.dataset.username);
+            });
+
+            attachHandler('.reset-fund-btn', (btn) => {
+                showResetFundPasswordModal(btn.dataset.userId, btn.dataset.username);
+            });
+
+            attachHandler('.freeze-btn', (btn) => {
+                showFreezeModal(btn.dataset.userId, btn.dataset.username);
+            });
+
+            attachHandler('.unfreeze-btn', (btn) => {
+                showUnfreezeModal(btn.dataset.userId, btn.dataset.username);
+            });
+
+            attachHandler('.delete-btn', (btn) => {
+                showDeleteModal(btn.dataset.userId, btn.dataset.username);
+            });
+
+            attachHandler('.wallet-manage-btn', (btn) => {
+                showWalletModal(
+                    btn.dataset.userId,
+                    btn.dataset.username,
+                    btn.dataset.walletAddress || '',
+                    btn.dataset.walletNetwork || ''
+                );
+            });
+
+            attachHandler('.adjust-balance-trigger', (btn) => {
+                showAdjustBalanceModal(btn);
+            });
+        });
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+            }
+
+            const dropdown = document.getElementById('notificationDropdown');
+            const bell = document.getElementById('notificationBell');
+            if (dropdown && !dropdown.classList.contains('hidden')) {
+                if (!dropdown.contains(event.target) && !bell.contains(event.target)) {
+                    dropdown.classList.add('hidden');
+                }
+            }
+        }
+
+        // Form submissions
+        const resetPasswordForm = document.getElementById('resetPasswordForm');
+        if (resetPasswordForm) {
+            resetPasswordForm.addEventListener('submit', function(e) {
+                if (!confirm('Are you sure you want to reset this user\'s password?')) {
+                    e.preventDefault();
+                }
+            });
+        }
+
+        const resetFundPasswordForm = document.getElementById('resetFundPasswordForm');
+        if (resetFundPasswordForm) {
+            resetFundPasswordForm.addEventListener('submit', function(e) {
+                if (!confirm('Are you sure you want to reset this user\'s fund password?')) {
+                    e.preventDefault();
+                }
+            });
+        }
+
+        const freezeUserForm = document.getElementById('freezeUserForm');
+        if (freezeUserForm) {
+            freezeUserForm.addEventListener('submit', function(e) {
+                if (!confirm('Are you sure you want to freeze this user?')) {
+                    e.preventDefault();
+                }
+            });
+        }
+
+        const unfreezeUserForm = document.getElementById('unfreezeUserForm');
+        if (unfreezeUserForm) {
+            unfreezeUserForm.addEventListener('submit', function(e) {
+                if (!confirm('Are you sure you want to unfreeze this user?')) {
+                    e.preventDefault();
+                }
+            });
+        }
+
+        const deleteUserForm = document.getElementById('deleteUserForm');
+        if (deleteUserForm) {
+            deleteUserForm.addEventListener('submit', function(e) {
+                if (!confirm('WARNING: This will permanently delete the user. Continue?')) {
+                    e.preventDefault();
+                }
+            });
+        }
+    </script>
+    
+    <!-- Audio element for notification sound -->
+    <audio id="notificationSound" preload="auto">
+        <source src="{% static 'sounds/notification.mp3' %}" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        // Notification sound + dropdown functionality
+        let previousUnreadCount = parseInt('{{ unread_notifications_count|default:0 }}') || 0;
+        let latestNotifications = [];
+        const notificationListEl = document.getElementById('notificationList');
+        const notificationCountLabel = document.getElementById('notificationCountLabel');
+        const notificationDropdown = document.getElementById('notificationDropdown');
+        const notificationBell = document.getElementById('notificationBell');
+        const READ_RETENTION_MS = 30 * 60 * 1000; // 30 minutes
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrfToken = getCookie('csrftoken');
+        const notificationAudioEl = document.getElementById('notificationSound');
+        let notificationSoundReady = false;
+        const REMINDER_INTERVAL_MS = 5 * 60 * 1000;
+        let lastReminderTimestamp = previousUnreadCount > 0 ? Date.now() : 0;
+        
+        function primeNotificationSound() {
+            if (!notificationAudioEl || notificationSoundReady) return;
+            notificationAudioEl.play().then(() => {
+                notificationAudioEl.pause();
+                notificationAudioEl.currentTime = 0;
+                notificationSoundReady = true;
+            }).catch(() => {
+                // Browser still blocking; will retry on next interaction
+            });
+        }
+        ['click', 'touchstart'].forEach(evt => {
+            document.addEventListener(evt, primeNotificationSound, { once: true });
+        });
+        
+        function playNotificationSound() {
+            if (!notificationAudioEl) return;
+            if (!notificationSoundReady) {
+                primeNotificationSound();
+            }
+            notificationAudioEl.play().catch(e => console.log('Audio play failed:', e));
+        }
+        
+        function formatDate(isoString) {
+            try {
+                return new Date(isoString).toLocaleString();
+            } catch (err) {
+                return isoString;
+            }
+        }
+        
+        function shouldDisplayNotification(item) {
+            if (!item.read_at) {
+                return true;
+            }
+            try {
+                const readTime = new Date(item.read_at).getTime();
+                return (Date.now() - readTime) < READ_RETENTION_MS;
+            } catch (err) {
+                return false;
+            }
+        }
+        
+        function renderNotifications(notifications) {
+            if (!notificationListEl) return;
+            const visibleItems = (notifications || []).filter(shouldDisplayNotification);
+            if (!visibleItems.length) {
+                notificationListEl.innerHTML = '<div class="p-4 text-sm text-gray-500 text-center">No notifications yet.</div>';
+                return;
+            }
+            notificationListEl.innerHTML = visibleItems.map((item) => {
+                const meta = item.metadata || {};
+                const username = meta.username || item.title || 'Unknown user';
+                const amount = meta.amount ? `$${meta.amount}` : '';
+                const referrer = meta.referrer ? `Referrer: ${meta.referrer}` : '';
+                const status = meta.status ? meta.status.replace('_', ' ') : '';
+                const createdAt = formatDate(item.created_at);
+                return `
+                    <div class="p-4 hover:bg-gray-50 transition">
+                        <p class="text-sm font-semibold text-gray-800">${username} <span class="text-xs text-gray-400">${createdAt}</span></p>
+                        <p class="text-sm text-gray-600">${item.message}</p>
+                        <div class="mt-1 text-xs text-gray-500 space-x-2">
+                            ${amount ? `<span class="font-medium text-green-600">${amount}</span>` : ''}
+                            ${referrer ? `<span>${referrer}</span>` : ''}
+                            ${status ? `<span class="uppercase tracking-wide text-[10px] text-blue-500">${status}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+        
+        async function markNotificationsRead() {
+            try {
+                await fetch('{% url "mark_notifications_read" %}', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': csrfToken,
+                    },
+                });
+                const nowIso = new Date().toISOString();
+                latestNotifications = latestNotifications.map((item) => (
+                    item.read_at ? item : { ...item, read_at: nowIso }
+                ));
+                previousUnreadCount = 0;
+                lastReminderTimestamp = 0;
+                if (notificationCountLabel) {
+                    notificationCountLabel.textContent = '0 new';
+                }
+                const badge = document.getElementById('notificationBadge');
+                if (badge) {
+                    badge.remove();
+                }
+                renderNotifications(latestNotifications);
+            } catch (error) {
+                console.error('Error marking notifications read:', error);
+            }
+        }
+        
+        if (notificationBell && notificationDropdown) {
+            notificationBell.addEventListener('click', () => {
+                const wasHidden = notificationDropdown.classList.contains('hidden');
+                notificationDropdown.classList.toggle('hidden');
+                if (wasHidden && previousUnreadCount > 0) {
+                    markNotificationsRead();
+                }
+                renderNotifications(latestNotifications);
+            });
+        }
+        
+        async function checkNotifications() {
+            try {
+                const response = await fetch('{% url "unread_notification_count" %}');
+                const data = await response.json();
+                const currentCount = data.count;
+                latestNotifications = data.notifications || [];
+                renderNotifications(latestNotifications);
+                
+                if (notificationCountLabel) {
+                    notificationCountLabel.textContent = `${currentCount} new`;
+                }
+                
+                const badge = document.getElementById('notificationBadge');
+                const bell = notificationBell;
+                const now = Date.now();
+                const priorCount = previousUnreadCount;
+                
+                if (currentCount > 0) {
+                    if (!badge && bell) {
+                        const newBadge = document.createElement('span');
+                        newBadge.id = 'notificationBadge';
+                        newBadge.className = 'absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center';
+                        newBadge.textContent = currentCount;
+                        bell.appendChild(newBadge);
+                    } else if (badge) {
+                        badge.textContent = currentCount;
+                    }
+                    
+                    if (currentCount > priorCount) {
+                        playNotificationSound();
+                        lastReminderTimestamp = now;
+                    } else {
+                        if (!lastReminderTimestamp) {
+                            lastReminderTimestamp = now;
+                        } else if (now - lastReminderTimestamp >= REMINDER_INTERVAL_MS) {
+                            playNotificationSound();
+                            lastReminderTimestamp = now;
+                        }
+                    }
+                } else if (badge) {
+                    badge.remove();
+                    lastReminderTimestamp = 0;
+                } else {
+                    lastReminderTimestamp = 0;
+                }
+                
+                previousUnreadCount = currentCount;
+            } catch (error) {
+                console.error('Error checking notifications:', error);
+            }
+        }
+        
+        // Check for new notifications every 10 seconds
+        setInterval(checkNotifications, 10000);
+        
+        // Check immediately on page load
+        checkNotifications();
+
+        // --- Guest chat unread auto-refresh ---
+        const chatButton = document.getElementById('csChatButton');
+        let chatBadge = document.getElementById('csChatBadge');
+
+        function updateChatBadge(count) {
+            if (!chatButton) return;
+            if (count > 0) {
+                if (!chatBadge) {
+                    chatBadge = document.createElement('span');
+                    chatBadge.id = 'csChatBadge';
+                    chatBadge.className = 'absolute -top-2 -right-2 bg-red-600 text-white text-xs font-semibold rounded-full h-5 min-w-[1.25rem] px-1 flex items-center justify-center';
+                    chatButton.appendChild(chatBadge);
+                }
+                chatBadge.textContent = count;
+                chatButton.setAttribute('aria-label', `Open customer chats, ${count} new`);
+            } else if (chatBadge) {
+                chatBadge.remove();
+                chatBadge = null;
+                chatButton.setAttribute('aria-label', 'Open customer chats');
+            }
+        }
+
+        async function refreshGuestUnread() {
+            try {
+                const response = await fetch('{% url "accounts:customerservice_guest_unread" %}', {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to fetch guest chat stats');
+                }
+                const data = await response.json();
+                const count = parseInt(data.guest_unread_count, 10) || 0;
+                updateChatBadge(count);
+            } catch (error) {
+                console.error('Error refreshing guest chat count:', error);
+            }
+        }
+
+        refreshGuestUnread();
+        setInterval(refreshGuestUnread, 5000);
+    </script>
+</body>
+</html>

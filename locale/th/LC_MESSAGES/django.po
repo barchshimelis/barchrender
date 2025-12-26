@@ -1,0 +1,2268 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#: .\balance\templates\balance\upload_voucher.html:452
+#: .\templates\index.html:471
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-12-26 07:47-0800\n"
+"PO-Revision-Date: 2025-12-17 07:47+0000\n"
+"Last-Translator: Cascade <cascade@example.com>\n"
+"Language-Team: Thai <LL@li.org>\n"
+"Language: th\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: .\accounts\templates\accounts\activities.html:4 .\templates\base.html:253
+msgid "Activities"
+msgstr "กิจกรรม"
+
+#: .\accounts\templates\accounts\activities.html:301
+msgid "Activity filters"
+msgstr "ตัวกรองกิจกรรม"
+
+#: .\accounts\templates\accounts\activities.html:303
+msgid "Start date"
+msgstr "วันที่เริ่ม"
+
+#: .\accounts\templates\accounts\activities.html:307
+msgid "End date"
+msgstr "วันที่สิ้นสุด"
+
+#: .\accounts\templates\accounts\activities.html:311
+msgid "Activity type"
+msgstr "ประเภทกิจกรรม"
+
+#: .\accounts\templates\accounts\activities.html:313
+msgid "All"
+msgstr "ทั้งหมด"
+
+#: .\accounts\templates\accounts\activities.html:323
+#: .\accounts\templates\accounts\activities.html:327
+msgid "Recharge history"
+msgstr "ประวัติการเติมเงิน"
+
+#: .\accounts\templates\accounts\activities.html:337
+#: .\accounts\templates\accounts\activities.html:359
+#: .\accounts\templates\accounts\me.html:580
+#: .\balance\templates\balance\wallet_dashboard.html:321
+#: .\products\templates\products\products.html:955
+#: .\products\templates\products\products.html:1129 .\templates\index.html:391
+msgid "Recharge"
+msgstr "เติมเงิน"
+
+#: .\accounts\templates\accounts\activities.html:339
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                                ID: %(record_id)s • %(timestamp)s\n"
+#| "                            "
+msgid ""
+"\n"
+"                                     %(timestamp)s\n"
+"                                "
+msgstr ""
+"\n"
+"                                รหัส: %(record_id)s • %(timestamp)s\n"
+"                            "
+
+#: .\accounts\templates\accounts\activities.html:361
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                                ID: %(record_id)s • %(timestamp)s\n"
+#| "                            "
+msgid ""
+"\n"
+"                                          %(timestamp)s\n"
+"                                    "
+msgstr ""
+"\n"
+"                                รหัส: %(record_id)s • %(timestamp)s\n"
+"                            "
+
+#: .\accounts\templates\accounts\activities.html:376
+msgid "More"
+msgstr ""
+
+#: .\accounts\templates\accounts\activities.html:381
+msgid "No recharge history"
+msgstr "ยังไม่มีประวัติการเติมเงิน"
+
+#: .\accounts\templates\accounts\activities.html:382
+msgid "Submit a recharge request to see it tracked here."
+msgstr "ส่งคำขอเติมเงินเพื่อให้ติดตามสถานะได้ที่นี่"
+
+#: .\accounts\templates\accounts\activities.html:387
+#: .\accounts\templates\accounts\activities.html:391
+msgid "Withdrawal history"
+msgstr "ประวัติการถอนเงิน"
+
+#: .\accounts\templates\accounts\activities.html:401
+#: .\accounts\templates\accounts\activities.html:421
+msgid "Withdrawal"
+msgstr "ถอนเงิน"
+
+#: .\accounts\templates\accounts\activities.html:404
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                                ID: %(record_id)s • %(timestamp)s\n"
+#| "                            "
+msgid ""
+"\n"
+"                                    %(timestamp)s\n"
+"                                "
+msgstr ""
+"\n"
+"                                รหัส: %(record_id)s • %(timestamp)s\n"
+"                            "
+
+#: .\accounts\templates\accounts\activities.html:424
+#, fuzzy, python-format
+#| msgid ""
+#| "\n"
+#| "                                ID: %(record_id)s • %(timestamp)s\n"
+#| "                            "
+msgid ""
+"\n"
+"                                         %(timestamp)s\n"
+"                                    "
+msgstr ""
+"\n"
+"                                รหัส: %(record_id)s • %(timestamp)s\n"
+"                            "
+
+#: .\accounts\templates\accounts\activities.html:436
+msgid "more"
+msgstr ""
+
+#: .\accounts\templates\accounts\activities.html:441
+msgid "No withdrawal history"
+msgstr "ยังไม่มีประวัติการถอนเงิน"
+
+#: .\accounts\templates\accounts\activities.html:442
+msgid "Once you submit a withdrawal request it will show up here."
+msgstr "เมื่อส่งคำขอถอนเงินแล้ว รายการจะแสดงที่นี่"
+
+#: .\accounts\templates\accounts\activities.html:460
+msgid "Show"
+msgstr ""
+
+#: .\accounts\templates\accounts\activities.html:460
+msgid "Hide"
+msgstr ""
+
+#: .\accounts\templates\accounts\admin_base_auth.html:8
+msgid "Admin Console"
+msgstr "คอนโซลผู้ดูแล"
+
+#: .\accounts\templates\accounts\admin_base_auth.html:485
+msgid "Administration"
+msgstr "การจัดการ"
+
+#: .\accounts\templates\accounts\admin_base_auth.html:486
+#: .\accounts\templates\accounts\base_auth.html:8
+msgid "Amazon Market"
+msgstr "Amazon Market"
+
+#: .\accounts\templates\accounts\admin_base_auth.html:505
+msgid "Internal Access"
+msgstr "การเข้าถึงภายใน"
+
+#: .\accounts\templates\accounts\adminlogin.html:4
+msgid "Admin Login"
+msgstr "เข้าสู่ระบบผู้ดูแล"
+
+#: .\accounts\templates\accounts\adminlogin.html:5
+msgid "Admin Access"
+msgstr "สิทธิ์เข้าถึงผู้ดูแล"
+
+#: .\accounts\templates\accounts\adminlogin.html:15
+msgid "Admin"
+msgstr "ผู้ดูแล"
+
+#: .\accounts\templates\accounts\adminlogin.html:42
+#: .\accounts\templates\accounts\customerservicelogin.html:42
+#: .\accounts\templates\accounts\superadminlogin.html:42
+#: .\accounts\templates\accounts\user_register.html:114
+msgid "Username"
+msgstr "ชื่อผู้ใช้"
+
+#: .\accounts\templates\accounts\adminlogin.html:45
+#: .\accounts\templates\accounts\customerservicelogin.html:45
+#: .\accounts\templates\accounts\superadminlogin.html:45
+#: .\accounts\templates\accounts\user_login.html:15
+#: .\accounts\templates\accounts\user_register.html:117
+msgid "Password"
+msgstr "รหัสผ่าน"
+
+#: .\accounts\templates\accounts\adminlogin.html:48
+#: .\accounts\templates\accounts\customerservicelogin.html:48
+#: .\accounts\templates\accounts\superadminlogin.html:48
+msgid "Sign In"
+msgstr "ลงชื่อเข้าใช้"
+
+#: .\accounts\templates\accounts\adminlogin.html:53
+#: .\accounts\templates\accounts\customerservicelogin.html:53
+#: .\accounts\templates\accounts\superadminlogin.html:53
+#, fuzzy
+#| msgid "Enter amount"
+msgid "Enter result"
+msgstr "กรอกจำนวนเงิน"
+
+#: .\accounts\templates\accounts\base_auth.html:600
+#, fuzzy
+#| msgid "Amazon Sign-In"
+msgid "Amazon logo"
+msgstr "เข้าสู่ระบบ Amazon"
+
+#: .\accounts\templates\accounts\base_auth.html:605
+#: .\accounts\templates\accounts\me.html:513
+#: .\accounts\templates\accounts\me.html:518
+msgid "Change language"
+msgstr "เปลี่ยนภาษา"
+
+#: .\accounts\templates\accounts\base_auth.html:612
+#: .\accounts\templates\accounts\me.html:524
+msgid "Choose language"
+msgstr "เลือกภาษา"
+
+#: .\accounts\templates\accounts\base_auth.html:613
+#: .\accounts\templates\accounts\me.html:525
+msgid "Close language menu"
+msgstr "ปิดเมนูภาษา"
+
+#: .\accounts\templates\accounts\base_auth.html:650
+msgid "Error"
+msgstr "ข้อผิดพลาด"
+
+#: .\accounts\templates\accounts\base_auth.html:652
+msgid "Warning"
+msgstr "คำเตือน"
+
+#: .\accounts\templates\accounts\base_auth.html:654 .\accounts\views.py:1042
+msgid "Success"
+msgstr "สำเร็จ"
+
+#: .\accounts\templates\accounts\base_auth.html:656
+msgid "Notice"
+msgstr "ประกาศ"
+
+#: .\accounts\templates\accounts\base_auth.html:672
+msgid "Conditions of Use"
+msgstr "เงื่อนไขการใช้บริการ"
+
+#: .\accounts\templates\accounts\base_auth.html:673
+msgid "Privacy Notice"
+msgstr "ประกาศความเป็นส่วนตัว"
+
+#: .\accounts\templates\accounts\base_auth.html:674
+msgid "Help"
+msgstr "ช่วยเหลือ"
+
+#: .\accounts\templates\accounts\base_auth.html:676
+#, python-format
+msgid "&copy; %(year)s Amazon Market"
+msgstr "&copy; %(year)s Amazon Market"
+
+#: .\accounts\templates\accounts\customerservicelogin.html:4
+msgid "Customer Service Login"
+msgstr "เข้าสู่ระบบฝ่ายบริการลูกค้า"
+
+#: .\accounts\templates\accounts\customerservicelogin.html:5
+#: .\accounts\templates\accounts\customerservicelogin.html:15
+#: .\chat\templates\chat\guest_chat.html:249
+msgid "Customer Service"
+msgstr "บริการลูกค้า"
+
+#: .\accounts\templates\accounts\me.html:4
+msgid "My Account"
+msgstr "บัญชีของฉัน"
+
+#: .\accounts\templates\accounts\me.html:506
+msgid "Notifications"
+msgstr "การแจ้งเตือน"
+
+#: .\accounts\templates\accounts\me.html:551
+msgid "Settings"
+msgstr "การตั้งค่า"
+
+#: .\accounts\templates\accounts\me.html:587
+#: .\products\templates\products\products.html:1106 .\templates\index.html:398
+msgid "Withdraw"
+msgstr "ถอนเงิน"
+
+#: .\accounts\templates\accounts\me.html:596
+msgid "Quick access"
+msgstr "เข้าถึงด่วน"
+
+#: .\accounts\templates\accounts\me.html:603
+msgid "Personal info"
+msgstr "ข้อมูลส่วนตัว"
+
+#: .\accounts\templates\accounts\me.html:610
+msgid "Order record"
+msgstr "ประวัติคำสั่งซื้อ"
+
+#: .\accounts\templates\accounts\me.html:617
+msgid "Recharge record"
+msgstr "ประวัติเติมเงิน"
+
+#: .\accounts\templates\accounts\me.html:624
+msgid "Withdrawal record"
+msgstr "ประวัติถอนเงิน"
+
+#: .\accounts\templates\accounts\me.html:639
+msgid "Sign out"
+msgstr "ออกจากระบบ"
+
+#: .\accounts\templates\accounts\profile.html:4
+msgid "Profile"
+msgstr "โปรไฟล์"
+
+#: .\accounts\templates\accounts\profile.html:246
+msgid "Member since"
+msgstr "เป็นสมาชิกตั้งแต่"
+
+#: .\accounts\templates\accounts\profile.html:258
+msgid "Contact information"
+msgstr "ข้อมูลติดต่อ"
+
+#: .\accounts\templates\accounts\profile.html:261
+msgid "Phone"
+msgstr "โทรศัพท์"
+
+#: .\accounts\templates\accounts\profile.html:262
+#: .\accounts\templates\accounts\profile.html:266
+msgid "Not provided"
+msgstr "ไม่ได้ระบุ"
+
+#: .\accounts\templates\accounts\profile.html:265
+msgid "Email"
+msgstr "อีเมล"
+
+#: .\accounts\templates\accounts\profile.html:269
+#: .\accounts\templates\accounts\user_register.html:124
+msgid "Referral code"
+msgstr "รหัสอ้างอิง"
+
+#: .\accounts\templates\accounts\profile.html:270
+msgid "Not available"
+msgstr "ไม่มีข้อมูล"
+
+#: .\accounts\templates\accounts\profile.html:279
+msgid "Recent activity"
+msgstr "กิจกรรมล่าสุด"
+
+#: .\accounts\templates\accounts\profile.html:284
+msgid "Profile updated"
+msgstr "อัปเดตโปรไฟล์แล้ว"
+
+#: .\accounts\templates\accounts\profile.html:285
+msgid "You refreshed your personal information."
+msgstr "คุณรีเฟรชข้อมูลส่วนตัวแล้ว"
+
+#: .\accounts\templates\accounts\profile.html:286
+msgid "Just now"
+msgstr "เมื่อสักครู่"
+
+#: .\accounts\templates\accounts\profile.html:292
+msgid "Security check"
+msgstr "ตรวจสอบความปลอดภัย"
+
+#: .\accounts\templates\accounts\profile.html:293
+msgid "Fund password confirmed for withdrawal."
+msgstr "ยืนยันรหัสผ่านกองทุนสำหรับการถอนแล้ว"
+
+#: .\accounts\templates\accounts\profile.html:294
+msgid "+12h"
+msgstr "+12 ชม."
+
+#: .\accounts\templates\accounts\profile.html:300
+msgid "Referral milestone"
+msgstr "ไมล์สโตนการแนะนำ"
+
+#: .\accounts\templates\accounts\profile.html:301
+msgid "You unlocked a new referral bonus tier."
+msgstr "คุณปลดล็อกระดับโบนัสแนะนำใหม่แล้ว"
+
+#: .\accounts\templates\accounts\profile.html:302
+msgid "+2d"
+msgstr "+2 วัน"
+
+#: .\accounts\templates\accounts\superadminlogin.html:4
+msgid "Super Admin Login"
+msgstr "เข้าสู่ระบบซูเปอร์แอดมิน"
+
+#: .\accounts\templates\accounts\superadminlogin.html:5
+#: .\accounts\templates\accounts\superadminlogin.html:15
+msgid "Super Admin"
+msgstr "ซูเปอร์แอดมิน"
+
+#: .\accounts\templates\accounts\user_login.html:4
+msgid "Amazon Sign-In"
+msgstr "เข้าสู่ระบบ Amazon"
+
+#: .\accounts\templates\accounts\user_login.html:8
+#: .\accounts\templates\accounts\user_login.html:18
+#: .\accounts\templates\accounts\user_register.html:132
+msgid "Sign in"
+msgstr "ลงชื่อเข้าใช้"
+
+#: .\accounts\templates\accounts\user_login.html:12
+msgid "Username or phone number"
+msgstr "อีเมลหรือหมายเลขโทรศัพท์"
+
+#: .\accounts\templates\accounts\user_login.html:22
+msgid "Forgot your password?"
+msgstr "ลืมรหัสผ่าน?"
+
+#: .\accounts\templates\accounts\user_login.html:24
+msgid "Create your account"
+msgstr "สร้างบัญชีของคุณ"
+
+#: .\accounts\templates\accounts\user_login.html:27
+msgid "New to Amazon?"
+msgstr "ยังใหม่กับ Amazon?"
+
+#: .\accounts\templates\accounts\user_login.html:29
+#: .\accounts\templates\accounts\user_register.html:127
+msgid "Create your Amazon account"
+msgstr "สร้างบัญชี Amazon ของคุณ"
+
+#: .\accounts\templates\accounts\user_register.html:4
+#: .\accounts\templates\accounts\user_register.html:106
+msgid "Create account"
+msgstr "สร้างบัญชี"
+
+#: .\accounts\templates\accounts\user_register.html:111
+msgid "Mobile number"
+msgstr "หมายเลขโทรศัพท์มือถือ"
+
+#: .\accounts\templates\accounts\user_register.html:112
+msgid "e.g., +1234567890"
+msgstr "เช่น +1234567890"
+
+#: .\accounts\templates\accounts\user_register.html:115
+#: .\accounts\templates\accounts\user_register.html:122
+msgid "6-15 characters"
+msgstr "6-15 ตัวอักษร"
+
+#: .\accounts\templates\accounts\user_register.html:118
+msgid "At least 6 characters"
+msgstr "อย่างน้อย 6 ตัวอักษร"
+
+#: .\accounts\templates\accounts\user_register.html:121
+#: .\wallet\templates\wallet\wallet_management.html:655
+msgid "Fund password"
+msgstr "รหัสผ่านกองทุน"
+
+#: .\accounts\templates\accounts\user_register.html:125
+msgid "6 characters"
+msgstr "6 ตัวอักษร"
+
+#: .\accounts\templates\accounts\user_register.html:131
+msgid "Already have an account?"
+msgstr "มีบัญชีอยู่แล้ว?"
+
+#: .\accounts\views.py:102 .\accounts\views.py:505 .\accounts\views.py:536
+msgid "Try again"
+msgstr ""
+
+#: .\accounts\views.py:1033
+msgid "Product task"
+msgstr "งานสินค้า"
+
+#: .\accounts\views.py:1039
+msgid "Task commission earned"
+msgstr "รับค่าคอมมิชชั่นงานแล้ว"
+
+#: .\accounts\views.py:1040
+#, python-format
+msgid "Completed %(product)s task."
+msgstr "ทำงาน %(product)s เสร็จแล้ว"
+
+#: .\accounts\views.py:1050 .\accounts\views.py:1077 .\accounts\views.py:1104
+msgid "Pending"
+msgstr "รอดำเนินการ"
+
+#: .\accounts\views.py:1051 .\accounts\views.py:1078 .\accounts\views.py:1106
+msgid "Approved"
+msgstr "อนุมัติแล้ว"
+
+#: .\accounts\views.py:1052 .\accounts\views.py:1079 .\accounts\views.py:1107
+msgid "Rejected"
+msgstr "ถูกปฏิเสธ"
+
+#: .\accounts\views.py:1063
+msgid "Recharge request"
+msgstr "คำขอเติมเงิน"
+
+#: .\accounts\views.py:1064
+#, python-format
+msgid "Recharge of %(amount)s is %(status)s."
+msgstr "การเติมเงิน %(amount)s อยู่ในสถานะ %(status)s"
+
+#: .\accounts\views.py:1090
+msgid "Balance request"
+msgstr "คำขอสรุปยอด"
+
+#: .\accounts\views.py:1091
+#, python-format
+msgid "Balance request of %(amount)s is %(status)s."
+msgstr "คำขอสรุปยอด %(amount)s อยู่ในสถานะ %(status)s"
+
+#: .\accounts\views.py:1105
+msgid "Processing"
+msgstr "กำลังดำเนินการ"
+
+#: .\accounts\views.py:1108
+msgid "Cancelled"
+msgstr "ยกเลิกแล้ว"
+
+#: .\accounts\views.py:1119
+msgid "Withdrawal request"
+msgstr "คำขอถอนเงิน"
+
+#: .\accounts\views.py:1120
+#, python-format
+msgid "Withdrawal of %(amount)s via %(network)s."
+msgstr "ถอนเงิน %(amount)s ผ่านเครือข่าย %(network)s"
+
+#: .\accounts\views.py:1134
+msgid "Read"
+msgstr "อ่านแล้ว"
+
+#: .\accounts\views.py:1134
+msgid "Unread"
+msgstr "ยังไม่ได้อ่าน"
+
+#: .\balance\templates\balance\upload_voucher.html:4
+#: .\balance\templates\balance\upload_voucher.html:466
+msgid "Upload voucher"
+msgstr "อัปโหลดใบเสร็จ"
+
+#: .\balance\templates\balance\upload_voucher.html:411
+#, python-format
+msgid ""
+"\n"
+"                            Amount $%(amount)s\n"
+"                        "
+msgstr ""
+"\n"
+"                            จำนวนเงิน $%(amount)s\n"
+"                        "
+
+#: .\balance\templates\balance\upload_voucher.html:428
+#: .\balance\templates\balance\upload_voucher.html:431
+msgid "Copy address"
+msgstr "คัดลอกที่อยู่"
+
+#: .\balance\templates\balance\upload_voucher.html:429
+msgid "Copied"
+msgstr "คัดลอกแล้ว"
+
+#: .\balance\templates\balance\upload_voucher.html:446
+msgid "Voucher uploaded"
+msgstr "อัปโหลดใบเสร็จแล้ว"
+
+#: .\balance\templates\balance\upload_voucher.html:460
+msgid "Please upload the transfer voucher"
+msgstr "โปรดอัปโหลดหลักฐานการโอน"
+
+#: .\balance\templates\balance\upload_voucher.html:461
+msgid "Replace voucher"
+msgstr "แทนที่ใบเสร็จ"
+
+#: .\balance\templates\balance\upload_voucher.html:474
+msgid "Back to wallet dashboard"
+msgstr "กลับไปแดชบอร์ดกระเป๋าเงิน"
+
+#: .\balance\templates\balance\wallet_dashboard.html:4
+msgid "Wallet dashboard"
+msgstr "แดชบอร์ดกระเป๋าเงิน"
+
+#: .\balance\templates\balance\wallet_dashboard.html:294
+msgid "Total earned"
+msgstr "รายได้รวม"
+
+#: .\balance\templates\balance\wallet_dashboard.html:299
+#: .\templates\index.html:372
+msgid "Product commission"
+msgstr "ค่าคอมมิชชั่นสินค้า"
+
+#: .\balance\templates\balance\wallet_dashboard.html:304
+#: .\templates\index.html:381
+msgid "Referral commission"
+msgstr "ค่าคอมมิชชั่นแนะนำ"
+
+#: .\balance\templates\balance\wallet_dashboard.html:333
+msgid "Enter amount"
+msgstr "กรอกจำนวนเงิน"
+
+#: .\balance\templates\balance\wallet_dashboard.html:339
+msgid "Continue to payment"
+msgstr "ดำเนินการชำระเงิน"
+
+#: .\chat\templates\chat\guest_chat.html:9
+msgid "Chat with Support"
+msgstr "แชทกับฝ่ายสนับสนุน"
+
+#: .\chat\templates\chat\guest_chat.html:251
+msgid "Close chat"
+msgstr "ปิดแชท"
+
+#: .\chat\templates\chat\guest_chat.html:259
+msgid "Hello! Welcome to Amazon Support. How can I help you today?"
+msgstr "สวัสดี! ยินดีต้อนรับสู่ฝ่ายสนับสนุน Amazon ให้ช่วยอะไรได้บ้าง?"
+
+#: .\chat\templates\chat\guest_chat.html:265
+msgid "Type a message…"
+msgstr "พิมพ์ข้อความ…"
+
+#: .\chat\templates\chat\guest_chat.html:268
+msgid "Send"
+msgstr "ส่ง"
+
+#: .\chat\templates\chat\guest_chat.html:276
+msgid "File must be ≤ 2 MB"
+msgstr "ไฟล์ต้องมีขนาด ≤ 2 MB"
+
+#: .\chat\templates\chat\guest_chat.html:277
+msgid "File type not allowed"
+msgstr "ประเภทไฟล์ไม่ได้รับอนุญาต"
+
+#: .\products\templates\products\products.html:5
+msgid "Products"
+msgstr "สินค้า"
+
+#: .\products\templates\products\products.html:947
+msgid "Current balance"
+msgstr "ยอดคงเหลือปัจจุบัน"
+
+#: .\products\templates\products\products.html:968
+msgid "Daily limit"
+msgstr "ขีดจำกัดรายวัน"
+
+#: .\products\templates\products\products.html:975
+msgid "Completed"
+msgstr "เสร็จแล้ว"
+
+#: .\products\templates\products\products.html:982
+msgid "Remaining"
+msgstr "คงเหลือ"
+
+#: .\products\templates\products\products.html:993
+#: .\products\templates\products\products.html:1011 .\templates\index.html:349
+msgid "N/A"
+msgstr "—"
+
+#: .\products\templates\products\products.html:1000
+msgid "Date"
+msgstr "วันที่"
+
+#: .\products\templates\products\products.html:1004
+msgid "Code"
+msgstr "รหัส"
+
+#: .\products\templates\products\products.html:1016
+msgid "Price"
+msgstr "ราคา"
+
+#: .\products\templates\products\products.html:1034
+msgid "Cannot proceed with this task."
+msgstr "ไม่สามารถทำงานนี้ต่อได้"
+
+#: .\products\templates\products\products.html:1041
+msgid "All tasks completed"
+msgstr "ทำงานทั้งหมดเสร็จแล้ว"
+
+#: .\products\templates\products\products.html:1041
+msgid "Next product"
+msgstr "สินค้า ถัดไป"
+
+#: .\products\templates\products\products.html:1102
+#: .\products\templates\products\products.html:1125 .\templates\base.html:245
+msgid "Home"
+msgstr "หน้าหลัก"
+
+#: .\products\templates\products\products.html:1119
+msgid "You Are Not Eligable"
+msgstr ""
+
+#: .\products\templates\products\regulation_policy.html:4
+msgid "Regulation policy"
+msgstr "นโยบายข้อกำกับ"
+
+#: .\products\templates\products\regulation_policy.html:266
+msgid "Account & Identity Standards"
+msgstr "มาตรฐานบัญชีและตัวตน"
+
+#: .\products\templates\products\regulation_policy.html:268
+msgid ""
+"Register with authentic personal information. Multi-accounting, identity "
+"falsification, or sharing credentials with third parties is strictly "
+"prohibited and may result in immediate suspension pending review."
+msgstr ""
+"ลงทะเบียนด้วยข้อมูลจริงเท่านั้น การมีหลายบัญชี ปลอมแปลงตัวตน "
+"หรือแบ่งปันข้อมูลเข้าสู่ระบบกับบุคคลที่สามถูกห้ามอย่างเด็ดขาดและอาจถูกพักการใช้งานทันทีระหว่างตรวจสอบ"
+
+#: .\products\templates\products\regulation_policy.html:275
+msgid "Task Integrity & Completion"
+msgstr "ความซื่อสัตย์และการทำงานให้เสร็จ"
+
+#: .\products\templates\products\regulation_policy.html:277
+msgid ""
+"Follow each task briefing precisely. Automated tools, proxy usage, "
+"misreporting progress, or manipulating screenshots are misconduct and lead "
+"to forfeiture of commissions and possible account closure."
+msgstr ""
+"ทำตามคำชี้แจงงานทุกข้ออย่างเคร่งครัด ห้ามใช้เครื่องมืออัตโนมัติ พร็อกซี รายงานผิด "
+"หรือดัดแปลงภาพหน้าจอ การฝ่าฝืนทำให้ถูกยึดค่าคอมมิชชั่นและอาจปิดบัญชี"
+
+#: .\products\templates\products\regulation_policy.html:284
+msgid "Financial Compliance"
+msgstr "การปฏิบัติตามทางการเงิน"
+
+#: .\products\templates\products\regulation_policy.html:286
+msgid ""
+"Deposits undergo anti-fraud screening before becoming available for tasks."
+msgstr "ยอดฝากจะผ่านการตรวจสอบป้องกันการฉ้อโกงก่อนใช้ทำงานได้"
+
+#: .\products\templates\products\regulation_policy.html:287
+msgid ""
+"Withdrawals require two-factor confirmation and may take up to 24 hours for "
+"compliance checks."
+msgstr "การถอนต้องยืนยันสองขั้นตอนและอาจใช้เวลาได้ถึง 24 ชั่วโมงเพื่อการตรวจสอบ"
+
+#: .\products\templates\products\regulation_policy.html:288
+msgid ""
+"Commission earnings are fully logged and accessible inside the wallet "
+"dashboard."
+msgstr "ค่าคอมมิชชั่นถูกบันทึกครบและดูได้ในแดชบอร์ดกระเป๋าเงิน"
+
+#: .\products\templates\products\regulation_policy.html:296
+msgid "Data Protection"
+msgstr "การปกป้องข้อมูล"
+
+#: .\products\templates\products\regulation_policy.html:298
+msgid ""
+"We collect only the data required to manage task assignments and payments. "
+"Personal information is encrypted, stored securely, and never shared without "
+"consent unless required by law. Users must keep task data confidential to "
+"protect merchants and platform integrity."
+msgstr ""
+"เรารวบรวมเฉพาะข้อมูลที่จำเป็นต่อการจัดสรรงานและชำระเงิน ข้อมูลส่วนบุคคลถูกเข้ารหัส "
+"เก็บอย่างปลอดภัย และไม่แบ่งปันหากไม่ได้รับความยินยอมยกเว้นตามกฎหมาย "
+"ผู้ใช้ต้องเก็บข้อมูลงานเป็นความลับเพื่อปกป้องผู้ค้าและความสมบูรณ์ของแพลตฟอร์ม"
+
+#: .\products\templates\products\regulation_policy.html:305
+msgid "Dispute Resolution"
+msgstr "การระงับข้อพิพาท"
+
+#: .\products\templates\products\regulation_policy.html:307
+msgid ""
+"Report discrepancies within 48 hours, providing task references and "
+"evidence. Compliance specialists review all disputes objectively and "
+"document outcomes for full transparency."
+msgstr ""
+"รายงานความผิดปกติภายใน 48 ชั่วโมงพร้อมอ้างอิงงานและหลักฐาน "
+"ผู้เชี่ยวชาญด้านการปฏิบัติตามจะตรวจสอบอย่างเป็นกลางและบันทึกผลเพื่อความโปร่งใส"
+
+#: .\products\templates\products\regulation_policy.html:314
+msgid ""
+"Need clarification or wish to report a policy concern? Our compliance desk "
+"is available daily."
+msgstr "ต้องการคำชี้แจงหรือรายงานปัญหานโยบาย? ทีมกำกับดูแลพร้อมให้บริการทุกวัน"
+
+#: .\products\templates\products\regulation_policy.html:319
+msgid "Back"
+msgstr "กลับ"
+
+#: .\products\templates\products\regulation_policy.html:323
+msgid "Chat"
+msgstr "แชท"
+
+#: .\templates\base.html:9
+msgid "My Site"
+msgstr "ไซต์ของฉัน"
+
+#: .\templates\base.html:249
+msgid "Balance"
+msgstr "ยอดเงิน"
+
+#: .\templates\base.html:257
+msgid "Me"
+msgstr "ฉัน"
+
+#: .\templates\index.html:343
+msgid "Hello"
+msgstr "สวัสดี"
+
+#: .\templates\index.html:345
+msgid "No phone"
+msgstr "ไม่มีหมายเลขโทรศัพท์"
+
+#: .\templates\index.html:348
+msgid "Invite code"
+msgstr "รหัสเชิญ"
+
+#: .\templates\index.html:362
+msgid "Cumulative balance"
+msgstr "ยอดสะสม"
+
+#: .\templates\index.html:405
+msgid "About us"
+msgstr "เกี่ยวกับเรา"
+
+#: .\templates\index.html:412
+msgid "Start task"
+msgstr "เริ่มงาน"
+
+#: .\templates\index.html:418
+msgid "Available products"
+msgstr "สินค้าที่พร้อม"
+
+#: .\templates\index.html:436
+msgid "Featured opportunity"
+msgstr "โอกาสแนะนำ"
+
+#: .\templates\index.html:438
+#, python-format
+msgid "Earn $%(amount)s"
+msgstr "รับ $%(amount)s"
+
+#: .\templates\index.html:439
+#, python-format
+msgid "Price $%(price)s"
+msgstr "ราคา $%(price)s"
+
+#: .\templates\index.html:448
+msgid "Prime pick drop"
+msgstr "Prime pick"
+
+#: .\templates\index.html:450
+msgid "Earn up to $185"
+msgstr "รับได้สูงสุด $185"
+
+#: .\templates\index.html:451
+msgid "Price $129.00"
+msgstr "ราคา $129.00"
+
+#: .\templates\index.html:457
+msgid "No featured product"
+msgstr "ไม่มีสินค้าพิเศษ"
+
+#: .\templates\index.html:458
+msgid "Fresh missions arrive throughout the day."
+msgstr "มีภารกิจใหม่ตลอดทั้งวัน"
+
+#: .\templates\index.html:460
+msgid "Check back soon"
+msgstr "กลับมาอีกครั้ง"
+
+#: .\venv\Lib\site-packages\django\contrib\messages\apps.py:16
+msgid "Messages"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
+msgid "Site Maps"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\staticfiles\apps.py:9
+msgid "Static Files"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\contrib\syndication\apps.py:7
+msgid "Syndication"
+msgstr ""
+
+#. Translators: String used to replace omitted page numbers in elided page
+#. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
+#: .\venv\Lib\site-packages\django\core\paginator.py:30
+msgid "…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:32
+msgid "That page number is not an integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:33
+msgid "That page number is less than 1"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\paginator.py:34
+msgid "That page contains no results"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:22
+msgid "Enter a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:70
+msgid "Enter a valid domain name."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:153
+#: .\venv\Lib\site-packages\django\forms\fields.py:775
+msgid "Enter a valid URL."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:200
+msgid "Enter a valid integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:211
+#, fuzzy
+#| msgid "Enter your crypto wallet address"
+msgid "Enter a valid email address."
+msgstr "กรอกที่อยู่กระเป๋าคริปโตของคุณ"
+
+#. Translators: "letters" means latin letters: a-z and A-Z.
+#: .\venv\Lib\site-packages\django\core\validators.py:289
+msgid ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:297
+msgid ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:309
+#: .\venv\Lib\site-packages\django\core\validators.py:318
+#: .\venv\Lib\site-packages\django\core\validators.py:332
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2220
+#, python-format
+msgid "Enter a valid %(protocol)s address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:311
+msgid "IPv4"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:320
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:43
+msgid "IPv6"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:334
+msgid "IPv4 or IPv6"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:375
+msgid "Enter only digits separated by commas."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:381
+#, python-format
+msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:416
+#, python-format
+msgid "Ensure this value is less than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:425
+#, python-format
+msgid "Ensure this value is greater than or equal to %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:434
+#, python-format
+msgid "Ensure this value is a multiple of step size %(limit_value)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:441
+#, python-format
+msgid ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:473
+#, python-format
+msgid ""
+"Ensure this value has at least %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at least %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:491
+#, python-format
+msgid ""
+"Ensure this value has at most %(limit_value)d character (it has "
+"%(show_value)d)."
+msgid_plural ""
+"Ensure this value has at most %(limit_value)d characters (it has "
+"%(show_value)d)."
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:514
+#: .\venv\Lib\site-packages\django\forms\fields.py:366
+#: .\venv\Lib\site-packages\django\forms\fields.py:405
+msgid "Enter a number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:516
+#, python-format
+msgid "Ensure that there are no more than %(max)s digit in total."
+msgid_plural "Ensure that there are no more than %(max)s digits in total."
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:521
+#, python-format
+msgid "Ensure that there are no more than %(max)s decimal place."
+msgid_plural "Ensure that there are no more than %(max)s decimal places."
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:526
+#, python-format
+msgid ""
+"Ensure that there are no more than %(max)s digit before the decimal point."
+msgid_plural ""
+"Ensure that there are no more than %(max)s digits before the decimal point."
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:597
+#, python-format
+msgid ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\core\validators.py:659
+#, fuzzy
+#| msgid "File type not allowed"
+msgid "Null characters are not allowed."
+msgstr "ประเภทไฟล์ไม่ได้รับอนุญาต"
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1600
+#: .\venv\Lib\site-packages\django\forms\models.py:908
+msgid "and"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\base.py:1602
+#, python-format
+msgid "%(model_name)s with this %(field_labels)s already exists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\constraints.py:22
+#, python-format
+msgid "Constraint “%(name)s” is violated."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:134
+#, python-format
+msgid "Value %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:135
+msgid "This field cannot be null."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:136
+msgid "This field cannot be blank."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:137
+#, python-format
+msgid "%(model_name)s with this %(field_label)s already exists."
+msgstr ""
+
+#. Translators: The 'lookup_type' is one of 'date', 'year' or
+#. 'month'. Eg: "Title must be unique for pub_date year"
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:141
+#, python-format
+msgid ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:180
+#, python-format
+msgid "Field of type: %(field_type)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1162
+#, python-format
+msgid "“%(value)s” value must be either True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1163
+#, python-format
+msgid "“%(value)s” value must be either True, False, or None."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1165
+msgid "Boolean (Either True or False)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1215
+#, python-format
+msgid "String (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1217
+msgid "String (unlimited)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1326
+msgid "Comma-separated integers"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1427
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1431
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1566
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1435
+msgid "Date (without time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1562
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1570
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1575
+msgid "Date (with time)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1702
+#, python-format
+msgid "“%(value)s” value must be a decimal number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1704
+#, fuzzy
+#| msgid "Mobile number"
+msgid "Decimal number"
+msgstr "หมายเลขโทรศัพท์มือถือ"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1864
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1868
+msgid "Duration"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1920
+#, fuzzy
+#| msgid "Copy address"
+msgid "Email address"
+msgstr "คัดลอกที่อยู่"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1945
+msgid "File path"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2023
+#, python-format
+msgid "“%(value)s” value must be a float."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2025
+msgid "Floating point number"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2065
+#, python-format
+msgid "“%(value)s” value must be an integer."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2067
+msgid "Integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2163
+msgid "Big (8 byte) integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2180
+msgid "Small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2188
+#, fuzzy
+#| msgid "Copy address"
+msgid "IPv4 address"
+msgstr "คัดลอกที่อยู่"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2219
+#, fuzzy
+#| msgid "Copy address"
+msgid "IP address"
+msgstr "คัดลอกที่อยู่"
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2310
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2311
+#, python-format
+msgid "“%(value)s” value must be either None, True or False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2313
+msgid "Boolean (Either True, False or None)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2364
+msgid "Positive big integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2379
+msgid "Positive integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2394
+msgid "Positive small integer"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2410
+#, python-format
+msgid "Slug (up to %(max_length)s)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2446
+msgid "Text"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2526
+#, python-format
+msgid ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2530
+#, python-format
+msgid ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2534
+msgid "Time"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2642
+msgid "URL"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2666
+msgid "Raw binary data"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2731
+#, python-format
+msgid "“%(value)s” is not a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2733
+msgid "Universally unique identifier"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:244
+msgid "File"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:420
+msgid "Image"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:24
+msgid "A JSON object"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\json.py:26
+msgid "Value must be valid JSON."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:979
+#, python-format
+msgid "%(model)s instance with %(field)s %(value)r is not a valid choice."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:982
+msgid "Foreign Key (type determined by related field)"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1276
+msgid "One-to-one relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1333
+#, python-format
+msgid "%(from)s-%(to)s relationship"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1335
+#, python-format
+msgid "%(from)s-%(to)s relationships"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\db\models\fields\related.py:1383
+msgid "Many-to-many relationship"
+msgstr ""
+
+#. Translators: If found as last label character, these punctuation
+#. characters will prevent the default label_suffix to be appended to the label
+#: .\venv\Lib\site-packages\django\forms\boundfield.py:185
+msgid ":?.!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:95
+msgid "This field is required."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:315
+msgid "Enter a whole number."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:486
+#: .\venv\Lib\site-packages\django\forms\fields.py:1267
+msgid "Enter a valid date."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:509
+#: .\venv\Lib\site-packages\django\forms\fields.py:1268
+msgid "Enter a valid time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:536
+msgid "Enter a valid date/time."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:570
+msgid "Enter a valid duration."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:571
+#, python-brace-format
+msgid "The number of days must be between {min_days} and {max_days}."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:640
+msgid "No file was submitted. Check the encoding type on the form."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:641
+msgid "No file was submitted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:642
+msgid "The submitted file is empty."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:644
+#, python-format
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid_plural ""
+"Ensure this filename has at most %(max)d characters (it has %(length)d)."
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:649
+msgid "Please either submit a file or check the clear checkbox, not both."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:717
+msgid ""
+"Upload a valid image. The file you uploaded was either not an image or a "
+"corrupted image."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:889
+#: .\venv\Lib\site-packages\django\forms\fields.py:975
+#: .\venv\Lib\site-packages\django\forms\models.py:1592
+#, python-format
+msgid "Select a valid choice. %(value)s is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:977
+#: .\venv\Lib\site-packages\django\forms\fields.py:1096
+#: .\venv\Lib\site-packages\django\forms\models.py:1590
+msgid "Enter a list of values."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1097
+msgid "Enter a complete value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1339
+msgid "Enter a valid UUID."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\fields.py:1369
+msgid "Enter a valid JSON."
+msgstr ""
+
+#. Translators: This is the default suffix added to form field labels
+#: .\venv\Lib\site-packages\django\forms\forms.py:97
+msgid ":"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\forms.py:239
+#, python-format
+msgid "(Hidden field %(name)s) %(error)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:61
+#, python-format
+msgid ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:65
+#, python-format
+msgid "Please submit at most %(num)d form."
+msgid_plural "Please submit at most %(num)d forms."
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:70
+#, python-format
+msgid "Please submit at least %(num)d form."
+msgid_plural "Please submit at least %(num)d forms."
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:484
+#: .\venv\Lib\site-packages\django\forms\formsets.py:491
+msgid "Order"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\formsets.py:499
+msgid "Delete"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:901
+#, python-format
+msgid "Please correct the duplicate data for %(field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:906
+#, python-format
+msgid "Please correct the duplicate data for %(field)s, which must be unique."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:913
+#, python-format
+msgid ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:922
+msgid "Please correct the duplicate values below."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1359
+msgid "The inline value did not match the parent instance."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1450
+msgid "Select a valid choice. That choice is not one of the available choices."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\models.py:1594
+#, python-format
+msgid "“%(pk)s” is not a valid value."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\utils.py:229
+#, python-format
+msgid ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:527
+msgid "Clear"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:528
+#, fuzzy
+#| msgid "Current balance"
+msgid "Currently"
+msgstr "ยอดคงเหลือปัจจุบัน"
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:529
+msgid "Change"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:866
+msgid "Unknown"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:867
+msgid "Yes"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\forms\widgets.py:868
+msgid "No"
+msgstr ""
+
+#. Translators: Please do not add spaces around commas.
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:873
+msgid "yes,no,maybe"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:903
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:920
+#, python-format
+msgid "%(size)d byte"
+msgid_plural "%(size)d bytes"
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:922
+#, python-format
+msgid "%s KB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:924
+#, python-format
+msgid "%s MB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:926
+#, python-format
+msgid "%s GB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:928
+#, python-format
+msgid "%s TB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\template\defaultfilters.py:930
+#, python-format
+msgid "%s PB"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:74
+msgid "p.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:75
+msgid "a.m."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:80
+msgid "PM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:81
+msgid "AM"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:153
+msgid "midnight"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dateformat.py:155
+msgid "noon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:7
+msgid "Monday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:8
+msgid "Tuesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:9
+msgid "Wednesday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:10
+msgid "Thursday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:11
+msgid "Friday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:12
+msgid "Saturday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:13
+msgid "Sunday"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:16
+msgid "Mon"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:17
+msgid "Tue"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:18
+msgid "Wed"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:19
+msgid "Thu"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:20
+msgid "Fri"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:21
+msgid "Sat"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:22
+msgid "Sun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:25
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:26
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:27
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:28
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:29
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:30
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:31
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:32
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:33
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:34
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:35
+msgid "November"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:36
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:39
+msgid "jan"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:40
+msgid "feb"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:41
+msgid "mar"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:42
+msgid "apr"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:43
+msgid "may"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:44
+msgid "jun"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:45
+msgid "jul"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:46
+msgid "aug"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:47
+msgid "sep"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:48
+msgid "oct"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:49
+msgid "nov"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:50
+msgid "dec"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:53
+msgctxt "abbrev. month"
+msgid "Jan."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:54
+msgctxt "abbrev. month"
+msgid "Feb."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:55
+msgctxt "abbrev. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:56
+msgctxt "abbrev. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:57
+msgctxt "abbrev. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:58
+msgctxt "abbrev. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:59
+msgctxt "abbrev. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:60
+msgctxt "abbrev. month"
+msgid "Aug."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:61
+msgctxt "abbrev. month"
+msgid "Sept."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:62
+msgctxt "abbrev. month"
+msgid "Oct."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:63
+msgctxt "abbrev. month"
+msgid "Nov."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:64
+msgctxt "abbrev. month"
+msgid "Dec."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:67
+msgctxt "alt. month"
+msgid "January"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:68
+msgctxt "alt. month"
+msgid "February"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:69
+msgctxt "alt. month"
+msgid "March"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:70
+msgctxt "alt. month"
+msgid "April"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:71
+msgctxt "alt. month"
+msgid "May"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:72
+msgctxt "alt. month"
+msgid "June"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:73
+msgctxt "alt. month"
+msgid "July"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:74
+msgctxt "alt. month"
+msgid "August"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:75
+msgctxt "alt. month"
+msgid "September"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:76
+msgctxt "alt. month"
+msgid "October"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:77
+msgctxt "alt. month"
+msgid "November"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\dates.py:78
+msgctxt "alt. month"
+msgid "December"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\ipv6.py:20
+msgid "This is not a valid IPv6 address."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:76
+#, python-format
+msgctxt "String to return when truncating text"
+msgid "%(truncated_text)s…"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\text.py:287
+msgid "or"
+msgstr ""
+
+#. Translators: This string is used as a separator between list elements
+#: .\venv\Lib\site-packages\django\utils\text.py:306
+#: .\venv\Lib\site-packages\django\utils\timesince.py:135
+msgid ", "
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:8
+#, python-format
+msgid "%(num)d year"
+msgid_plural "%(num)d years"
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:9
+#, python-format
+msgid "%(num)d month"
+msgid_plural "%(num)d months"
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:10
+#, python-format
+msgid "%(num)d week"
+msgid_plural "%(num)d weeks"
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:11
+#, python-format
+msgid "%(num)d day"
+msgid_plural "%(num)d days"
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:12
+#, python-format
+msgid "%(num)d hour"
+msgid_plural "%(num)d hours"
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\utils\timesince.py:13
+#, python-format
+msgid "%(num)d minute"
+msgid_plural "%(num)d minutes"
+msgstr[0] ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:29
+msgid "Forbidden"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:30
+msgid "CSRF verification failed. Request aborted."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:34
+msgid ""
+"You are seeing this message because this HTTPS site requires a “Referer "
+"header” to be sent by your web browser, but none was sent. This header is "
+"required for security reasons, to ensure that your browser is not being "
+"hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:40
+msgid ""
+"If you have configured your browser to disable “Referer” headers, please re-"
+"enable them, at least for this site, or for HTTPS connections, or for “same-"
+"origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:45
+msgid ""
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
+"rel=\"noreferrer\" …> for links to third-party sites."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:54
+msgid ""
+"You are seeing this message because this site requires a CSRF cookie when "
+"submitting forms. This cookie is required for security reasons, to ensure "
+"that your browser is not being hijacked by third parties."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:60
+msgid ""
+"If you have configured your browser to disable cookies, please re-enable "
+"them, at least for this site, or for “same-origin” requests."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\csrf.py:66
+msgid "More information is available with DEBUG=True."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:44
+msgid "No year specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:64
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:115
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:214
+msgid "Date out of range"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:94
+msgid "No month specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:147
+msgid "No day specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:194
+msgid "No week specified"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:353
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:384
+#, python-format
+msgid "No %(verbose_name_plural)s available"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:680
+#, python-format
+msgid ""
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\dates.py:720
+#, python-format
+msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\detail.py:56
+#, python-format
+msgid "No %(verbose_name)s found matching the query"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:70
+msgid "Page is not “last”, nor can it be converted to an int."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:77
+#, python-format
+msgid "Invalid page (%(page_number)s): %(message)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\generic\list.py:173
+#, python-format
+msgid "Empty list and “%(class_name)s.allow_empty” is False."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:49
+msgid "Directory indexes are not allowed here."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:51
+#, python-format
+msgid "“%(path)s” does not exist"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\static.py:68
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:8
+#: .\venv\Lib\site-packages\django\views\templates\directory_index.html:11
+#, python-format
+msgid "Index of %(directory)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:7
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:204
+msgid "The install worked successfully! Congratulations!"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:206
+#, python-format
+msgid ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:208
+#, python-format
+msgid ""
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:217
+msgid "Django Documentation"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:218
+msgid "Topics, references, &amp; how-to’s"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:226
+msgid "Tutorial: A Polling App"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:227
+msgid "Get started with Django"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:235
+msgid "Django Community"
+msgstr ""
+
+#: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:236
+msgid "Connect, get help, or contribute"
+msgstr ""
+
+#: .\wallet\templates\wallet\wallet_management.html:594
+#: .\wallet\templates\wallet\wallet_management.html:615
+msgid "Save wallet"
+msgstr "บันทึกกระเป๋าเงิน"
+
+#: .\wallet\templates\wallet\wallet_management.html:601
+#, python-format
+msgid ""
+"\n"
+"                    Complete all %(count)s tasks before binding "
+"(%(completed)s/%(count)s done).\n"
+"                "
+msgstr ""
+"\n"
+"                    ทำงาน %(count)s งานให้ครบก่อนเชื่อม (เสร็จ %(completed)s/"
+"%(count)s)\n"
+"                "
+
+#: .\wallet\templates\wallet\wallet_management.html:611
+#, fuzzy
+#| msgid "Enter your crypto wallet address"
+msgid "Enter your  wallet address"
+msgstr "กรอกที่อยู่กระเป๋าคริปโตของคุณ"
+
+#: .\wallet\templates\wallet\wallet_management.html:621
+msgid "Withdrawal form"
+msgstr "แบบฟอร์มถอนเงิน"
+
+#: .\wallet\templates\wallet\wallet_management.html:628
+msgid "Select network"
+msgstr "เลือกเครือข่าย"
+
+#: .\wallet\templates\wallet\wallet_management.html:637
+msgid "Withdrawal amount (USD)"
+msgstr "จำนวนถอน (USD)"
+
+#: .\wallet\templates\wallet\wallet_management.html:646
+msgid "Enter withdrawal amount"
+msgstr "กรอกจำนวนถอน"
+
+#: .\wallet\templates\wallet\wallet_management.html:647
+#: .\wallet\templates\wallet\wallet_management.html:691
+msgid "Withdraw all"
+msgstr "ถอนทั้งหมด"
+
+#: .\wallet\templates\wallet\wallet_management.html:660
+#, fuzzy
+#| msgid "Fund password"
+msgid "Enter fund password"
+msgstr "รหัสผ่านกองทุน"
+
+#: .\wallet\templates\wallet\wallet_management.html:664
+#, fuzzy
+#| msgid "Withdrawal"
+msgid "Submit withdrawal"
+msgstr "ถอนเงิน"
+
+#: .\wallet\templates\wallet\wallet_management.html:683
+msgid "All selected"
+msgstr "เลือกทั้งหมด"
+
+#, fuzzy
+#~| msgid "Continue to payment"
+#~ msgid "Continue task"
+#~ msgstr "ดำเนินการชำระเงิน"
+
+#, fuzzy
+#~| msgid "Copy address"
+#~ msgid "Wallet address"
+#~ msgstr "คัดลอกที่อยู่"
+
+#, fuzzy
+#~| msgid "No withdrawal history"
+#~ msgid "Show all withdrawals"
+#~ msgstr "ยังไม่มีประวัติการถอนเงิน"
+
+#~ msgid "Contact Customer Service before uploading a voucher."
+#~ msgstr "กรุณาติดต่อฝ่ายบริการลูกค้าก่อนอัปโหลดใบเสร็จ"
+
+#~ msgid "Voucher"
+#~ msgstr "ใบเสร็จ"
+
+#~ msgid "View file"
+#~ msgstr "ดูไฟล์"
+
+#~ msgid "Pending recharge detected"
+#~ msgstr "พบคำขอเติมเงินที่รอดำเนินการ"
+
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "                    Amount <strong>$%(amount)s</strong> is awaiting "
+#~ "voucher upload.\n"
+#~ "                "
+#~ msgstr ""
+#~ "\n"
+#~ "                    จำนวนเงิน <strong>$%(amount)s</strong> "
+#~ "กำลังรอการอัปโหลดใบเสร็จ\n"
+#~ "                "
+
+#~ msgid "Start tasks"
+#~ msgstr "เริ่มงาน"
+
+#~ msgid "Sign-In"
+#~ msgstr "ลงชื่อเข้าใช้"
+
+#, fuzzy
+#~| msgid "Sign In"
+#~ msgid "Sign Up"
+#~ msgstr "ลงชื่อเข้าใช้"
+
+#~ msgid "Let's Go!"
+#~ msgstr "ไปกันเลย!"
+
+#~ msgid "Assist and resolve!"
+#~ msgstr "ช่วยเหลือและแก้ไข!"
+
+#~ msgid "Full governance!"
+#~ msgstr "ควบคุมได้เต็มที่!"
+
+#~ msgid "Daily limit not configured"
+#~ msgstr "ยังไม่ได้กำหนดขีดจำกัดรายวัน"
+
+#~ msgid "Daily tasks complete"
+#~ msgstr "งานรายวันครบแล้ว"
+
+#~ msgid "No active products right now"
+#~ msgstr "ขณะนี้ไม่มีสินค้าที่ใช้งาน"
+
+#~ msgid "Task queue unavailable"
+#~ msgstr "คิวงานไม่พร้อมใช้งาน"
+
+#~ msgid ""
+#~ "Your administrator still needs to set today’s task limit. You’ll be "
+#~ "notified as soon as missions open."
+#~ msgstr "ผู้ดูแลระบบยังต้องกำหนดขีดจำกัดงานของวันนี้ จะมีการแจ้งเตือนเมื่อเปิดภารกิจ"
+
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "                                Great work! You’ve finished "
+#~ "%(task_count)s task for today.\n"
+#~ "                            "
+#~ msgid_plural ""
+#~ "\n"
+#~ "                                Great work! You’ve finished "
+#~ "%(task_count)s tasks for today.\n"
+#~ "                            "
+#~ msgstr[0] ""
+#~ "\n"
+#~ "                                ยอดเยี่ยม! คุณทำงาน %(task_count)s "
+#~ "งานเสร็จแล้ววันนี้\n"
+#~ "                            "
+
+#~ msgid ""
+#~ "We’ve temporarily paused new missions while the catalog refreshes. Check "
+#~ "back shortly for new assignments."
+#~ msgstr "ภารกิจใหม่ถูกหยุดชั่วคราวระหว่างอัปเดตแค็ตตาล็อก โปรดกลับมาตรวจสอบอีกครั้ง"
+
+#~ msgid "Please refresh in a moment while we sync available missions."
+#~ msgstr "โปรดรีเฟรชในอีกสักครู่ขณะเราซิงค์ภารกิจที่มี"
+
+#~ msgid "Dashboard"
+#~ msgstr "แดชบอร์ด"
+
+#~ msgid "Support chat"
+#~ msgstr "แชทสนับสนุน"
+
+#~ msgid "Compliance standards"
+#~ msgstr "มาตรฐานการปฏิบัติตาม"
+
+#~ msgid ""
+#~ "A transparent code of conduct for every mission, payout, and customer "
+#~ "interaction."
+#~ msgstr "จรรยาบรรณที่โปร่งใสสำหรับทุกภารกิจ การจ่ายเงิน และการติดต่อกับลูกค้า"

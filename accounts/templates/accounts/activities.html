@@ -1,0 +1,470 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+
+{% block title %}{% trans "Activities" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        background:
+            linear-gradient(rgba(5, 6, 8, 0.7), rgba(5, 6, 8, 0.7)),
+            url("{% static 'img/bg.jpg' %}") center/cover fixed no-repeat;
+        background-color: #050608;
+    }
+    .activity-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+    }
+    .section-header {
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+    @media (min-width: 600px) {
+        .section-header {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+    .section-eyebrow {
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(247,250,250,0.55);
+        margin: 0;
+    }
+    .section-title {
+        margin: 0;
+        font-size: 1.05rem;
+        color: #f7fafa;
+    }
+    .section-count {
+        font-size: 0.78rem;
+        color: rgba(247,250,250,0.65);
+        background: rgba(247,250,250,0.08);
+        border-radius: 999px;
+        padding: 0.2rem 0.8rem;
+    }
+    .extra-feed[hidden] {
+        display: none !important;
+    }
+    .show-more-btn {
+        border: 1px solid rgba(247,250,250,0.2);
+        border-radius: 999px;
+        padding: 0.55rem 0.9rem;
+        background: transparent;
+        color: rgba(247,250,250,0.85);
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        width: 100%;
+    }
+    @media (min-width: 600px) {
+        .show-more-btn {
+            width: auto;
+            align-self: flex-start;
+        }
+    }
+    .show-more-btn:hover,
+    .show-more-btn:focus-visible {
+        background: rgba(247,250,250,0.08);
+        outline: none;
+    }
+
+    .activities-shell {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 0 0 60px;
+    }
+    .glass-card {
+        border-radius: 20px;
+        padding: 1rem;
+        background: rgba(19, 25, 33, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(12px);
+    }
+    .hero-card {
+        background: linear-gradient(135deg, rgba(32, 41, 57, 0.95), rgba(12, 16, 21, 0.92));
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        position: relative;
+        overflow: hidden;
+    }
+    .hero-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top right, rgba(0,168,225,0.22), transparent 55%);
+        pointer-events: none;
+    }
+    .hero-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        position: relative;
+        z-index: 1;
+    }
+    .hero-header h1 {
+        margin: 0;
+        font-size: 1.35rem;
+        color: #f7fafa;
+    }
+    .hero-actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+    .pill-btn {
+        border: none;
+        border-radius: 999px;
+        padding: 0.4rem 0.9rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        cursor: pointer;
+        background: rgba(247,250,250,0.12);
+        color: #f7fafa;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+    }
+    .pill-btn.active {
+        background: linear-gradient(135deg, #f5c274, #e3942d);
+        color: #0f1111;
+    }
+    .hero-metrics {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 0.6rem;
+        position: relative;
+        z-index: 1;
+    }
+    .metric {
+        padding: 0.7rem;
+        border-radius: 16px;
+        background: rgba(15,17,17,0.75);
+        border: 1px solid rgba(255,255,255,0.06);
+    }
+    .metric span {
+        display: block;
+        font-size: 0.6rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(247,250,250,0.6);
+    }
+    .metric strong {
+        font-size: 1.1rem;
+        color: #f5c274;
+    }
+    .filters-card {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.85rem;
+        align-items: flex-end;
+    }
+    .filter-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        font-size: 0.75rem;
+        color: rgba(247,250,250,0.75);
+        min-width: 0;
+    }
+    .filter-group input,
+    .filter-group select {
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 12px;
+        padding: 0.45rem 0.7rem;
+        background: rgba(12,16,21,0.8);
+        color: #f7fafa;
+        font-size: 0.85rem;
+    }
+    .tabs {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+    }
+    .tab-btn {
+        border: 1px solid rgba(247,250,250,0.18);
+        border-radius: 12px;
+        padding: 0.4rem 0.85rem;
+        background: transparent;
+        color: rgba(247,250,250,0.75);
+        font-size: 0.8rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+    .tab-btn.active {
+        background: rgba(247,250,250,0.12);
+        color: #f7fafa;
+    }
+    .activity-feed {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    .activity-card {
+        padding: 0.9rem;
+        border-radius: 18px;
+        background: rgba(13,17,23,0.85);
+        border: 1px solid rgba(255,255,255,0.04);
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 0.75rem;
+        align-items: center;
+    }
+    .activity-icon {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0f1111;
+        font-weight: 700;
+    }
+    .activity-icon.task { background: linear-gradient(135deg, #f5c274, #e3942d); }
+    .activity-icon.finance { background: linear-gradient(135deg, #00a8e1, #007185); color: #f7fafa; }
+    .activity-icon.system { background: rgba(247,250,250,0.12); color: #f7fafa; }
+    .activity-body h3 {
+        margin: 0;
+        font-size: 0.95rem;
+    }
+    .activity-body p {
+        margin: 0.2rem 0 0.3rem;
+        font-size: 0.8rem;
+        color: rgba(247,250,250,0.7);
+    }
+    .activity-meta {
+        font-size: 0.72rem;
+        color: rgba(247,250,250,0.55);
+    }
+    .activity-status {
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.3rem 0.75rem;
+        border-radius: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .status-success {
+        background: rgba(37,184,85,0.18);
+        color: #6adf9b;
+    }
+    .status-pending {
+        background: rgba(245,194,116,0.18);
+        color: #f5c274;
+    }
+    .status-failed {
+        background: rgba(224,82,82,0.18);
+        color: #f98585;
+    }
+    .empty-state {
+        text-align: center;
+        padding: 2rem 1rem;
+        color: rgba(247,250,250,0.7);
+    }
+    .empty-state h3 {
+        margin: 0.5rem 0 0.3rem;
+    }
+    .empty-state p {
+        margin: 0;
+        font-size: 0.85rem;
+    }
+    @media (min-width: 992px) {
+        .page-shell {
+            padding-left: clamp(1rem, 2.5vw, 2.5rem);
+            padding-right: clamp(1rem, 2.5vw, 2.5rem);
+        }
+        .page-shell > .container {
+            max-width: none;
+            width: 100%;
+        }
+        .activities-shell {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="activities-shell" role="main" aria-labelledby="activitiesHeading">
+    
+
+    <section class="glass-card filters-card" aria-label="{% trans 'Activity filters' %}">
+        <div class="filter-group">
+            <label for="dateStart">{% trans "Start date" %}</label>
+            <input type="date" id="dateStart" name="start">
+        </div>
+        <div class="filter-group">
+            <label for="dateEnd">{% trans "End date" %}</label>
+            <input type="date" id="dateEnd" name="end">
+        </div>
+        <div class="filter-group">
+            <label for="activityType">{% trans "Activity type" %}</label>
+            <select id="activityType" name="type">
+                <option value="all">{% trans "All" %}</option>
+                
+                
+            </select>
+        </div>
+        
+    </section>
+
+    
+
+    <section id="recharge-history" class="glass-card activity-section" aria-label="{% trans 'Recharge history' %}">
+        <div class="section-header">
+            <div>
+                
+                <h2 class="section-title">{% trans "Recharge history" %}</h2>
+            </div>
+            
+        </div>
+        {% if recharge_history %}
+            <div class="activity-feed">
+                {% for record in recharge_latest %}
+                    <article class="activity-card">
+                        <div class="activity-icon finance">$</div>
+                        <div class="activity-body">
+                            <h3>{% trans "Recharge" %} • {{ record.amount }}</h3>
+                            <div class="activity-meta">
+                                {% blocktrans with record_id=record.id timestamp=record.timestamp|date:"M d, Y H:i" %}
+                                     {{ timestamp }}
+                                {% endblocktrans %}
+                                {% if record.voucher_url %}
+                                    
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="activity-status {{ record.status_class }}">
+                            {{ record.status_label }}
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+            {% if recharge_more %}
+                <div class="activity-feed extra-feed" id="rechargeMore" hidden>
+                    {% for record in recharge_more %}
+                        <article class="activity-card">
+                            <div class="activity-icon finance">$</div>
+                            <div class="activity-body">
+                                <h3>{% trans "Recharge" %} • {{ record.amount }}</h3>
+                                <div class="activity-meta">
+                                    {% blocktrans with  timestamp=record.timestamp|date:"M d, Y H:i" %}
+                                          {{ timestamp }}
+                                    {% endblocktrans %}
+                                    {% if record.voucher_url %}
+                                        
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="activity-status {{ record.status_class }}">
+                                {{ record.status_label }}
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+                <button class="show-more-btn" data-toggle="rechargeMore">
+                    {% trans "More" %}
+                </button>
+            {% endif %}
+        {% else %}
+            <div class="empty-state">
+                <h3>{% trans "No recharge history" %}</h3>
+                <p>{% trans "Submit a recharge request to see it tracked here." %}</p>
+            </div>
+        {% endif %}
+    </section>
+
+    <section id="withdraw-history" class="glass-card activity-section" aria-label="{% trans 'Withdrawal history' %}">
+        <div class="section-header">
+            <div>
+               
+                <h2 class="section-title">{% trans "Withdrawal history" %}</h2>
+            </div>
+           
+        </div>
+        {% if withdraw_history %}
+            <div class="activity-feed">
+                {% for record in withdraw_latest %}
+                    <article class="activity-card">
+                        <div class="activity-icon finance">$</div>
+                        <div class="activity-body">
+                            <h3>{% trans "Withdrawal" %} • {{ record.amount }}</h3>
+                            <p>{{ record.network }}</p>
+                            <div class="activity-meta">
+                                {% blocktrans with  timestamp=record.timestamp|date:"M d, Y H:i" %}
+                                    {{ timestamp }}
+                                {% endblocktrans %}
+                            </div>
+                        </div>
+                        <div class="activity-status {{ record.status_class }}">
+                            {{ record.status_label }}
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+            {% if withdraw_more %}
+                <div class="activity-feed extra-feed" id="withdrawMore" hidden>
+                    {% for record in withdraw_more %}
+                        <article class="activity-card">
+                            <div class="activity-icon finance">$</div>
+                            <div class="activity-body">
+                                <h3>{% trans "Withdrawal" %} • {{ record.amount }}</h3>
+                                <p>{{ record.network }}</p>
+                                <div class="activity-meta">
+                                    {% blocktrans with  timestamp=record.timestamp|date:"M d, Y H:i" %}
+                                         {{ timestamp }}
+                                    {% endblocktrans %}
+                                </div>
+                            </div>
+                            <div class="activity-status {{ record.status_class }}">
+                                {{ record.status_label }}
+                            </div>
+                        </article>
+                    {% endfor %}
+                </div>
+                <button class="show-more-btn" data-toggle="withdrawMore">
+                    {% trans "more" %}
+                </button>
+            {% endif %}
+        {% else %}
+            <div class="empty-state">
+                <h3>{% trans "No withdrawal history" %}</h3>
+                <p>{% trans "Once you submit a withdrawal request it will show up here." %}</p>
+            </div>
+        {% endif %}
+    </section>
+</div>
+{% endblock %}
+{% block extra_js %}
+{{ block.super }}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.show-more-btn').forEach(button => {
+        button.addEventListener('click', () => {
+            const targetId = button.dataset.toggle;
+            const section = document.getElementById(targetId);
+            if (!section) return;
+            const isHidden = section.hasAttribute('hidden');
+            if (isHidden) {
+                section.removeAttribute('hidden');
+                button.textContent = button.textContent.replace('{% trans "Show" %}', '{% trans "Hide" %}');
+            } else {
+                section.setAttribute('hidden', '');
+                button.textContent = button.dataset.originalLabel || button.textContent;
+            }
+        });
+        button.dataset.originalLabel = button.textContent;
+    });
+});
+</script>
+{% endblock %}

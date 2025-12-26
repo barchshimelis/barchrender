@@ -1,0 +1,2274 @@
+ {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            background: radial-gradient(circle at top, #1f2b3c 0%, #0d141e 45%, #05070c 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: "Amazon Ember", "Segoe UI", -apple-system, BlinkMacSystemFont, sans-serif;
+            color: #f5f7fa;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.7), rgba(30, 64, 175, 0.7));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 22px 26px;
+            box-shadow: 0 25px 45px rgba(0, 0, 0, 0.45);
+            margin-bottom: 24px;
+        }
+
+        .dashboard-header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .dashboard-header small {
+            color: #d1d9e6;
+            font-size: 14px;
+        }
+
+        .refresh-meta {
+            font-size: 13px;
+            color: #c5cde0;
+        }
+
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .motif-card {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+        }
+
+        .metric-label {
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.05em;
+            color: #8ea2c4;
+        }
+
+        .metric-value {
+            font-size: 26px;
+            font-weight: 700;
+            color: #fefefe;
+            margin: 6px 0 8px;
+        }
+
+        .metric-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 999px;
+            padding: 3px 10px;
+            font-size: 12px;
+            color: #dbe3f6;
+        }
+
+        .card {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.45);
+            margin-bottom: 18px;
+            background: rgba(10, 13, 22, 0.85);
+            backdrop-filter: blur(6px);
+        }
+
+        .card-header {
+            padding: 14px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-weight: 600;
+            font-size: 15px;
+            color: #f5f7fa;
+        }
+
+        .card-body {
+            padding: 18px;
+        }
+        .compact-card .card-body {
+            padding: 16px;
+        }
+
+        .form-label {
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.04em;
+            color: #b7c2d8;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(6, 9, 16, 0.85);
+            color: #f4f6fb;
+            padding: 8px 12px;
+            font-size: 13px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.25);
+        }
+
+        table {
+            width: 100%;
+            margin: 0;
+        }
+
+        thead th {
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            color: #c49b8e;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        tbody td {
+            padding: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            vertical-align: middle;
+            color: #081927;
+        }
+
+        .status-indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+
+        .status-online { background: #22c55e; box-shadow: 0 0 10px rgba(34, 197, 94, 0.8); }
+        .status-offline { background: #525f75; }
+
+        .btn-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wallet-form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .section-note {
+            font-size: 12px;
+            color: #cec8c7;
+        }
+
+        .onboarding-card {
+            max-width: 420px;
+        }
+
+        .table-card .card-body {
+            padding: 0;
+        }
+
+        .table-card .table {
+            margin-bottom: 0;
+        }
+
+        .activity-page { display: none; }
+        .activity-page.active { display: block; }
+        .activity-modal .btn-group .btn { min-width: 60px; }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .wallet-launcher {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(3, 7, 18, 0.65);
+            color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            transition: transform 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+        }
+
+        .wallet-launcher:hover {
+            transform: translateY(-1px) scale(1.03);
+            border-color: #ff9900;
+            color: #ff9900;
+        }
+
+        .utility-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            align-items: center;
+            justify-content: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .utility-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .utility-chip span {
+            font-size: 11px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #8ea2c4;
+        }
+
+        .super-chat-launcher {
+            position: relative;
+            width: 46px;
+            height: 46px;
+            border-radius: 16px;
+            border: 1px solid rgba(148, 163, 184, 0.35);
+            background: linear-gradient(140deg, rgba(30, 64, 175, 0.92) 0%, rgba(17, 45, 112, 0.98) 100%);
+            color: #e5edff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease, border-color 0.25s ease;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+        }
+
+        .super-chat-launcher-icon,
+        .super-chat-action-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .super-chat-launcher-icon svg,
+        .super-chat-action-icon svg {
+            width: 18px;
+            height: 18px;
+            display: block;
+        }
+
+        .super-chat-launcher-icon svg,
+        .super-chat-send-icon svg {
+            fill: currentColor;
+        }
+
+        .super-chat-attach-icon svg,
+        .super-chat-clear-icon svg {
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .super-chat-launcher:hover {
+            transform: translateY(-2px) scale(1.03);
+            border-color: #38bdf8;
+            color: #38bdf8;
+            box-shadow: 0 12px 26px rgba(56, 189, 248, 0.32);
+        }
+
+        .super-chat-badge {
+            position: absolute;
+            top: 5px;
+            right: 6px;
+            min-width: 18px;
+            height: 18px;
+            padding: 0 5px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #ff9900 0%, #ff6f00 100%);
+            color: #0f172a;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 18px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(255, 153, 0, 0.4);
+        }
+
+        .super-chat-badge.d-none {
+            display: none;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        .super-chat-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 2100;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(82, 132, 207, 0.88), rgba(61, 74, 164, 0.92));
+            backdrop-filter: blur(12px);
+            padding: clamp(18px, 4vw, 32px);
+        }
+
+        .super-chat-overlay.is-visible {
+            display: flex;
+        }
+
+        .super-chat-container {
+            width: min(1080px, 96vw);
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(145deg, rgba(34, 54, 96, 0.96) 0%, rgba(20, 31, 62, 0.98) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 22px;
+            box-shadow: 0 40px 85px rgba(7, 11, 24, 0.75);
+            overflow: hidden;
+        }
+
+        .super-chat-header {
+            padding: 22px clamp(20px, 4vw, 32px) 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: clamp(16px, 4vw, 28px);
+            border-bottom: 1px solid rgba(148, 163, 184, 0.12);
+        }
+
+        .super-chat-header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            min-width: 0;
+        }
+
+        .super-chat-active-avatar {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f472b6, #facc15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 19px;
+            color: #1e1b4b;
+            box-shadow: 0 12px 24px rgba(15, 23, 42, 0.35);
+            text-transform: uppercase;
+        }
+
+        .super-chat-header-text {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            min-width: 0;
+        }
+
+        .super-chat-heading {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 700;
+            color: #f8fafc;
+        }
+
+        .super-chat-subheading {
+            margin: 0;
+            font-size: 12px;
+            color: rgba(226, 232, 240, 0.78);
+        }
+
+        .super-chat-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .super-chat-control {
+            width: 38px;
+            height: 38px;
+            border-radius: 14px;
+            border: 1px solid rgba(148, 163, 184, 0.28);
+            background: rgba(15, 23, 42, 0.78);
+            color: #e5edff;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .super-chat-control:hover {
+            color: #38bdf8;
+            border-color: rgba(56, 189, 248, 0.65);
+            transform: translateY(-1px);
+        }
+
+        .super-chat-body {
+            display: flex;
+            flex: 1;
+            min-height: 420px;
+            background: linear-gradient(160deg, rgba(27, 43, 78, 0.95) 0%, rgba(14, 24, 46, 0.98) 100%);
+        }
+
+        .super-chat-thread-pane {
+            width: 296px;
+            background: linear-gradient(180deg, rgba(38, 95, 143, 0.94) 0%, rgba(16, 41, 72, 0.98) 100%);
+            border-right: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .super-chat-search {
+            padding: 20px 18px 8px;
+        }
+
+        .super-chat-search-input {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            border-radius: 14px;
+            background: rgba(8, 20, 36, 0.45);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: rgba(248, 250, 252, 0.78);
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+        }
+
+        .super-chat-search-input i {
+            font-size: 13px;
+            color: rgba(226, 232, 240, 0.72);
+        }
+
+        .super-chat-search-input input {
+            border: none;
+            background: transparent;
+            color: inherit;
+            font-size: 13px;
+            width: 100%;
+            outline: none;
+        }
+
+        .super-chat-thread-list {
+            flex: 1;
+            overflow-y: auto;
+            padding: 8px 12px 18px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .super-chat-thread-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-radius: 16px;
+            padding: 12px 14px;
+            background: rgba(14, 29, 52, 0.55);
+            border: 1px solid rgba(148, 163, 184, 0.18);
+            cursor: pointer;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+        }
+
+        .super-chat-thread-item:hover {
+            border-color: rgba(148, 197, 255, 0.65);
+            box-shadow: 0 14px 28px rgba(15, 23, 42, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .super-chat-thread-item.is-active {
+            background: linear-gradient(135deg, rgba(79, 129, 233, 0.52), rgba(51, 94, 205, 0.82));
+            border-color: rgba(147, 197, 253, 0.95);
+            box-shadow: 0 18px 34px rgba(23, 37, 84, 0.48);
+        }
+
+        .super-chat-thread-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #38bdf8, #6366f1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 700;
+            color: #0b1120;
+            text-transform: uppercase;
+            box-shadow: 0 10px 20px rgba(15, 23, 42, 0.35);
+            flex-shrink: 0;
+        }
+
+        .super-chat-thread-summary {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-width: 0;
+            flex: 1;
+        }
+
+        .super-chat-thread-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .super-chat-thread-name {
+            font-size: 15px;
+            font-weight: 600;
+            color: #f8fafc;
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .super-chat-thread-status {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 11px;
+            color: rgba(226, 232, 240, 0.68);
+        }
+
+        .super-chat-thread-status::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(74, 222, 128, 0.9);
+            box-shadow: 0 0 6px rgba(74, 222, 128, 0.8);
+        }
+
+        .super-chat-thread-timestamp {
+            font-size: 11px;
+            color: rgba(203, 213, 225, 0.7);
+            white-space: nowrap;
+        }
+
+        .super-chat-thread-preview {
+            font-size: 12px;
+            color: rgba(226, 232, 240, 0.76);
+            margin: 0;
+            line-height: 1.4;
+            max-height: 32px;
+            overflow: hidden;
+        }
+
+        .super-chat-thread-count {
+            min-width: 18px;
+            height: 18px;
+            border-radius: 999px;
+            background: linear-gradient(135deg, #fef08a 0%, #facc15 100%);
+            color: #0f172a;
+            font-size: 11px;
+            font-weight: 700;
+            line-height: 18px;
+            text-align: center;
+            padding: 0 6px;
+            position: absolute;
+            top: 10px;
+            right: 12px;
+        }
+
+        .super-chat-thread-count.hidden {
+            display: none;
+        }
+
+        .super-chat-conversation {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: linear-gradient(150deg, rgba(20, 32, 55, 0.96) 0%, rgba(8, 16, 32, 0.98) 100%);
+        }
+
+        .super-chat-state {
+            margin: 22px auto;
+            padding: 12px 18px;
+            border-radius: 999px;
+            background: rgba(56, 189, 248, 0.15);
+            color: #bae6fd;
+            font-size: 13px;
+        }
+
+        .super-chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: clamp(20px, 4vw, 32px);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            scroll-behavior: smooth;
+        }
+
+        .super-chat-messages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .super-chat-messages::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(82, 132, 207, 0.85), rgba(76, 201, 240, 0.7));
+            border-radius: 999px;
+        }
+
+        .super-chat-message {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            align-self: flex-start;
+            width: 100%;
+            max-width: min(360px, 48%);
+        }
+
+        .super-chat-message.is-self {
+            margin-left: auto;
+            align-items: flex-end;
+        }
+
+        .super-chat-message.is-peer {
+            margin-right: auto;
+            align-items: flex-start;
+        }
+
+        .super-chat-bubble {
+            padding: 12px 16px;
+            border-radius: 18px;
+            background: rgba(39, 78, 133, 0.9);
+            border: 1px solid rgba(148, 163, 184, 0.2);
+            box-shadow: 0 18px 32px rgba(15, 23, 42, 0.45);
+            color: #e6f0ff;
+            line-height: 1.6;
+            max-width: 100%;
+        }
+
+        .super-chat-message.is-self .super-chat-bubble {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            color: #064e3b;
+            border-color: rgba(74, 222, 128, 0.55);
+        }
+
+        .super-chat-bubble__content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .super-chat-bubble__content p {
+            margin: 0;
+        }
+
+        .super-chat-attachment {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .super-chat-attachment img {
+            width: 100%;
+            max-height: 240px;
+            object-fit: cover;
+            border-radius: 12px;
+            box-shadow: 0 14px 32px rgba(15, 23, 42, 0.45);
+        }
+
+        .super-chat-attachment audio {
+            width: 100%;
+        }
+
+        .super-chat-attachment__meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: rgba(248, 250, 252, 0.72);
+        }
+
+        .super-chat-attachment__meta i {
+            color: rgba(251, 191, 36, 0.8);
+            font-size: 13px;
+        }
+
+        .super-chat-meta {
+            font-size: 11px;
+            color: rgba(203, 213, 225, 0.72);
+            letter-spacing: 0.02em;
+        }
+
+        .super-chat-message.is-self .super-chat-meta {
+            color: rgba(14, 116, 83, 0.78);
+        }
+
+        .super-chat-form {
+            padding: clamp(16px, 4vw, 24px);
+            border-top: 1px solid rgba(148, 163, 184, 0.16);
+            background: linear-gradient(180deg, rgba(12, 20, 34, 0.95), rgba(7, 13, 24, 0.98));
+        }
+
+        .super-chat-composer {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+        }
+
+        .super-chat-input-wrap {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            min-height: 52px;
+            border-radius: 18px;
+            background: linear-gradient(150deg, rgba(27, 43, 78, 0.86) 0%, rgba(14, 24, 46, 0.94) 100%);
+            border: 1px solid rgba(148, 163, 184, 0.24);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 12px 28px rgba(8, 15, 32, 0.45);
+        }
+
+        .super-chat-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            color: #f1f5f9;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: none;
+            padding: 0;
+        }
+
+        .super-chat-input:focus {
+            outline: none;
+        }
+
+        .super-chat-attach-btn {
+            width: 46px;
+            height: 46px;
+            border-radius: 16px;
+            border: 1px solid rgba(148, 163, 184, 0.32);
+            background: linear-gradient(150deg, rgba(38, 79, 168, 0.92) 0%, rgba(19, 42, 96, 0.95) 100%);
+            color: #e2e8f0;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.18s ease, box-shadow 0.18s ease, color 0.18s ease;
+            box-shadow: 0 16px 32px rgba(10, 24, 54, 0.42);
+        }
+
+        .super-chat-attach-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 22px 46px rgba(10, 24, 54, 0.5);
+            color: #63a4ff;
+        }
+
+        .super-chat-send-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            border: none;
+            background: linear-gradient(135deg, #60f5ff 0%, #38bdf8 100%);
+            color: #0b1729;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 20px 40px rgba(56, 189, 248, 0.42);
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+        }
+
+        .super-chat-send-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 26px 52px rgba(56, 189, 248, 0.5);
+        }
+
+        .super-chat-send-btn:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .super-chat-attachment-preview {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 12px;
+            padding: 6px 12px;
+            border-radius: 14px;
+            background: rgba(15, 23, 42, 0.78);
+            border: 1px solid rgba(148, 163, 184, 0.26);
+            color: rgba(226, 232, 240, 0.82);
+            font-size: 12px;
+            max-width: 320px;
+        }
+
+        .super-chat-attachment-note {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .super-chat-attachment-clear {
+            width: 28px;
+            height: 28px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(11, 18, 34, 0.72);
+            color: rgba(226, 232, 240, 0.9);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.16s ease, box-shadow 0.16s ease;
+        }
+
+        .super-chat-attachment-clear:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 24px rgba(11, 18, 34, 0.45);
+        }
+
+        .super-chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .super-chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .super-chat-messages::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.45);
+            border-radius: 999px;
+        }
+
+
+        .super-chat-thread-list::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .super-chat-thread-list::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.3);
+            border-radius: 999px;
+        }
+
+        .super-chat-thread-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        @media (max-width: 900px) {
+            .super-chat-body {
+                flex-direction: column;
+            }
+
+            .super-chat-thread-pane {
+                width: 100%;
+                flex-direction: row;
+                overflow-x: auto;
+            }
+
+            .super-chat-thread-list {
+                flex-direction: row;
+                padding: 12px;
+            }
+
+            .super-chat-thread-item {
+                min-width: 220px;
+            }
+        }
+
+        .modal-content {
+            background: rgba(10, 13, 22, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #f5f7fa;
+        }
+
+        .modal {
+            z-index: 2010;
+        }
+
+        .modal-header,
+        .modal-footer {
+            border-color: rgba(255, 255, 255, 0.08);
+        }
+
+        body .modal-backdrop {
+            z-index: 2000;
+        }
+
+        .password-reset-modal {
+            z-index: 2025;
+        }
+
+        .password-reset-modal .modal-dialog {
+            max-width: 380px;
+            width: calc(100% - 32px);
+            margin: 1.5rem auto;
+        }
+
+        .password-reset-modal .modal-content {
+            background: #161b22;
+            border: 1px solid rgba(148, 163, 184, 0.4);
+            color: #f8fafc;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.7);
+        }
+
+        .password-reset-modal .modal-header {
+            border-bottom-color: rgba(148, 163, 184, 0.2);
+        }
+
+        .password-reset-modal .modal-footer {
+            border-top-color: rgba(148, 163, 184, 0.2);
+        }
+
+        .password-reset-modal .form-control {
+            background: #1f2937;
+            border-color: rgba(148, 163, 184, 0.7);
+            color: #f8fafc;
+        }
+
+        .password-reset-modal .form-control:focus {
+            border-color: #f8fafc;
+            box-shadow: 0 0 0 2px rgba(229, 231, 235, 0.3);
+        }
+
+        .password-reset-modal .btn-primary {
+            background: #9ca3af;
+            border-color: #9ca3af;
+            color: #111827;
+        }
+
+        .password-reset-modal .btn-primary:hover {
+            background: #d1d5db;
+            border-color: #d1d5db;
+            color: #030712;
+        }
+
+        .password-reset-modal .section-note {
+            color: #cbd5f5;
+        }
+
+        .password-reset-modal .modal-body {
+            padding: 18px 20px;
+        }
+
+        .password-reset-modal .modal-backdrop.show {
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body data-super-chat-user-id="{% firstof request.user.id 0 %}">
+    <div class="dashboard-header">
+        <div class="d-flex flex-column flex-md-row justify-content-between gap-3 align-items-start align-items-md-center">
+            <div>
+                <h1 class="mb-1">Super Admin </h1>
+                
+            </div>
+            <div class="header-actions">
+                <div class="text-end d-flex flex-column align-items-end gap-2">
+                    <div class="refresh-meta">
+                        <i class="fas fa-clock me-1 text-info"></i>
+                        Last synced <span class="fw-semibold" id="lastRefresh" data-timestamp="{{ dashboard_refreshed_at|date:'c' }}">
+                        {{ dashboard_refreshed_at|date:"M d, Y H:i" }}</span>
+                    </div>
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-outline-info btn-sm" onclick="window.location.reload()">
+                            <i class="fas fa-rotate-right me-1"></i>Refresh
+                        </button>
+                        <a href="{% url 'accounts:logout' %}" class="btn btn-outline-danger btn-sm">
+                            <i class="fas fa-power-off me-1"></i>Logout
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="utility-bar">
+        <div class="utility-chip">
+            <button type="button" class="wallet-launcher" data-bs-toggle="modal" data-bs-target="#walletModal" title="Open Wallet Controls">
+                <i class="fas fa-wallet"></i>
+            </button>
+            <span>Wallet Controls</span>
+        </div>
+        <div class="utility-chip">
+            <button type="button" class="wallet-launcher" data-bs-toggle="modal" data-bs-target="#onboardingModal" title="Team Onboarding">
+                <i class="fas fa-user-plus"></i>
+            </button>
+            <span>Team Onboarding</span>
+        </div>
+        <div class="utility-chip">
+            <button type="button" class="super-chat-launcher" id="superChatLauncher" title="Open staff chat">
+                <span class="super-chat-launcher-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                        <path d="M20 3H4a2 2 0 0 0-2 2v11.586A1.5 1.5 0 0 0 3.5 18H6v3.382a.5.5 0 0 0 .79.407L12.12 18H20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm0 11H11.8L8 17.2V14H4V5h16Z" />
+                    </svg>
+                </span>
+                <span class="super-chat-badge d-none" id="superChatBadge">0</span>
+            </button>
+            <span>Staff Chat</span>
+        </div>
+    </div>
+
+    <div class="modal fade" id="walletModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-body pt-4">
+                    <div>
+                        <h5 class="mb-1"><i class="fas fa-wallet me-2 text-warning"></i>Wallet Management</h5>
+                        <small class="section-note d-block mb-3">All wallet operations are protected with server-side verification.</small>
+                    </div>
+                    <div class="mb-4">
+                        <form method="post" class="wallet-form-grid align-items-end">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="wallet_create">
+                            <div>
+                                <label class="form-label">Wallet Address</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-secondary text-light"><i class="fas fa-wallet"></i></span>
+                                    <input type="text" name="address" class="form-control"
+                                           value="{{ wallet.address|default:'' }}" placeholder="Enter wallet address" required>
+                                </div>
+                            </div>
+                            {% if wallet and wallet.has_password %}
+                            <div>
+                                <label class="form-label">Wallet Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-transparent border-secondary text-light"><i class="fas fa-key"></i></span>
+                                    <input type="password" name="wallet_password" class="form-control"
+                                           placeholder="Required before updating wallet" required>
+                                </div>
+                            </div>
+                            {% endif %}
+                            <div class="text-end">
+                                <label class="form-label d-block">&nbsp;</label>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-{{ wallet|yesno:'save,plus' }} me-1"></i>{{ wallet|yesno:'Update Wallet,Create Wallet' }}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    {% if wallet %}
+                    <hr class="border-secondary">
+                    <div>
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <strong>Wallet Security Password</strong>
+                            <span class="badge bg-secondary text-light">
+                                {% if wallet.has_password %}Password active{% else %}Not set{% endif %}
+                            </span>
+                        </div>
+                        <small class="section-note d-block mb-3">
+                            {% if wallet.has_password %}
+                                Provide the current password to rotate credentials.
+                            {% else %}
+                                Set an initial password to secure the wallet.
+                            {% endif %}
+                        </small>
+                        <form method="post" class="wallet-form-grid">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="set_wallet_password">
+                            {% if wallet.has_password %}
+                            <div>
+                                <label class="form-label">Current Password</label>
+                                <input type="password" name="current_wallet_password" class="form-control" required>
+                            </div>
+                            {% endif %}
+                            <div>
+                                <label class="form-label">New Password</label>
+                                <input type="password" name="new_wallet_password" class="form-control" required minlength="8">
+                            </div>
+                            <div>
+                                <label class="form-label">Confirm Password</label>
+                                <input type="password" name="confirm_wallet_password" class="form-control" required minlength="8">
+                            </div>
+                            <div class="text-end">
+                                <label class="form-label d-block">&nbsp;</label>
+                                <button type="submit" class="btn btn-warning w-100">
+                                    <i class="fas fa-key me-1"></i>{% if wallet.has_password %}Change{% else %}Set{% endif %} Password
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="onboardingModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body pt-4">
+                    <div>
+                        <h5 class="mb-1"><i class="fas fa-user-plus me-2 text-success"></i>Team Onboarding</h5>
+                        <small class="section-note d-block mb-3">Create new Admin or Customer Service accounts.</small>
+                    </div>
+                    <form method="post" class="row g-3">
+                        {% csrf_token %}
+                        <input type="hidden" name="action" value="create">
+                        <div class="col-12">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" name="username" placeholder="jane_admin" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" name="password" placeholder="Password" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Role</label>
+                            <select class="form-select" name="role" required>
+                                <option value="">Select role...</option>
+                                <option value="admin">Admin</option>
+                                <option value="customerservice">Customer Service</option>
+                            </select>
+                        </div>
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="fas fa-user-plus me-1"></i>Create Account
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="metric-grid">
+        <div class="motif-card">
+            <div class="metric-label">Admins</div>
+            <div class="metric-value">{{ admin_stats.total }}</div>
+            <div class="d-flex flex-wrap gap-2">
+                <span class="metric-pill"><i class="fas fa-signal text-success"></i>Online: {{ admin_stats.online }}</span>
+                <span class="metric-pill"><i class="fas fa-lock text-warning"></i>Frozen: {{ admin_stats.frozen }}</span>
+            </div>
+        </div>
+        <div class="motif-card">
+            <div class="metric-label">Customer Service</div>
+            <div class="metric-value">{{ cs_stats.total }}</div>
+            <div class="d-flex flex-wrap gap-2">
+                <span class="metric-pill"><i class="fas fa-signal text-success"></i>Online: {{ cs_stats.online }}</span>
+                <span class="metric-pill"><i class="fas fa-lock text-warning"></i>Frozen: {{ cs_stats.frozen }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card table-card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span><i class="fas fa-headset me-2"></i>Customer Service ({{ customer_service|length }})</span>
+        </div>
+        <div class="card-body p-0">
+            {% if customer_service %}
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Username</th>
+                                <th>Last Seen</th>
+                                <th>State</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in customer_service %}
+                            <tr>
+                                <td>
+                                    {% if user.is_online %}
+                                        <span class="status-indicator status-online"></span>
+                                        <span class="badge bg-success">Online</span>
+                                    {% else %}
+                                        <span class="status-indicator status-offline"></span>
+                                        <span class="badge bg-secondary">Offline</span>
+                                    {% endif %}
+                                </td>
+                                <td class="fw-semibold">{{ user.username }}</td>
+                                <td><small class="text-muted">{{ user.get_last_seen_display }}</small></td>
+                                <td>
+                                    {% if user.is_frozen %}
+                                        <span class="badge bg-danger"><i class="fas fa-snowflake me-1"></i>Frozen</span>
+                                    {% else %}
+                                        <span class="badge bg-success"><i class="fas fa-check-circle me-1"></i>Active</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                                            <input type="hidden" name="action" value="{% if user.is_frozen %}unfreeze{% else %}freeze{% endif %}">
+                                            <button type="submit" class="btn btn-outline-warning btn-icon"
+                                                    title="{% if user.is_frozen %}Unfreeze{% else %}Freeze{% endif %}">
+                                                <i class="fas {% if user.is_frozen %}fa-unlock{% else %}fa-snowflake{% endif %}"></i>
+                                            </button>
+                                        </form>
+                                        <button type="button" class="btn btn-outline-primary btn-icon"
+                                                data-bs-toggle="modal" data-bs-target="#resetPasswordModalCS{{ user.id }}"
+                                                title="Reset Password">
+                                            <i class="fas fa-key"></i>
+                                        </button>
+                                        <form method="post" onsubmit="return confirm('Delete this account?');">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                                            <input type="hidden" name="action" value="delete">
+                                            <button type="submit" class="btn btn-outline-danger btn-icon" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="py-5 text-center text-muted">No customer service accounts yet.</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card table-card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <span><i class="fas fa-user-shield me-2"></i>Admins ({{ admins|length }})</span>
+        </div>
+        <div class="card-body p-0">
+            {% if admins %}
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Username</th>
+                                <th>Referral Code</th>
+                                <th>Last Seen</th>
+                                <th>State</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user in admins %}
+                            <tr>
+                                <td>
+                                    {% if user.is_online %}
+                                        <span class="status-indicator status-online"></span>
+                                        <span class="badge bg-success">Online</span>
+                                    {% else %}
+                                        <span class="status-indicator status-offline"></span>
+                                        <span class="badge bg-secondary">Offline</span>
+                                    {% endif %}
+                                </td>
+                                <td class="fw-semibold">{{ user.username }}</td>
+                                <td><code>{{ user.referral_code }}</code></td>
+                                <td><small class="text-muted">{{ user.get_last_seen_display }}</small></td>
+                                <td>
+                                    {% if user.is_frozen %}
+                                        <span class="badge bg-danger"><i class="fas fa-snowflake me-1"></i>Frozen</span>
+                                    {% else %}
+                                        <span class="badge bg-success"><i class="fas fa-check-circle me-1"></i>Active</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <form method="post">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                                            <input type="hidden" name="action" value="{% if user.is_frozen %}unfreeze{% else %}freeze{% endif %}">
+                                            <button type="submit" class="btn btn-outline-warning btn-icon"
+                                                    title="{% if user.is_frozen %}Unfreeze{% else %}Freeze{% endif %}">
+                                                <i class="fas {% if user.is_frozen %}fa-unlock{% else %}fa-snowflake{% endif %}"></i>
+                                            </button>
+                                        </form>
+                                        <button type="button" class="btn btn-outline-primary btn-icon"
+                                                data-bs-toggle="modal" data-bs-target="#resetPasswordModal{{ user.id }}"
+                                                title="Reset Password">
+                                            <i class="fas fa-key"></i>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-info btn-icon"
+                                                data-bs-toggle="modal" data-bs-target="#activityModal{{ user.id }}"
+                                                title="Weekly Metrics">
+                                            <i class="fas fa-chart-line"></i>
+                                        </button>
+                                        <form method="post" onsubmit="return confirm('Delete this admin account?');">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                                            <input type="hidden" name="action" value="delete">
+                                            <button type="submit" class="btn btn-outline-danger btn-icon" title="Delete">
+                                                <i class="fas fa-trash"></i>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="py-5 text-center text-muted">No admins yet.</div>
+            {% endif %}
+        </div>
+    </div>
+
+    {% for user in customer_service %}
+    <div class="modal fade password-reset-modal" id="resetPasswordModalCS{{ user.id }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reset Password - {{ user.username }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                    <input type="hidden" name="action" value="reset_password">
+                    <div class="modal-body">
+                        <p class="section-note mb-3">
+                            <i class="fas fa-info-circle me-1 text-info"></i>
+                            Create a new login password for this account and confirm with your super admin password.
+                        </p>
+                        <div class="mb-3">
+                            <label class="form-label">New Password</label>
+                            <input type="password"
+                                   name="new_password"
+                                   class="form-control"
+                                   placeholder="Enter new temporary password"
+                                   minlength="8"
+                                   required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Super Admin Password</label>
+                            <input type="password"
+                                   name="superadmin_password"
+                                   class="form-control"
+                                   placeholder="Confirm using your password"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% for user in admins %}
+    <div class="modal fade password-reset-modal" id="resetPasswordModal{{ user.id }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reset Password - {{ user.username }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" value="{{ user.id }}">
+                    <input type="hidden" name="action" value="reset_password">
+                    <div class="modal-body">
+                        <p class="section-note mb-3">
+                            <i class="fas fa-info-circle me-1 text-info"></i>
+                            Issue a fresh admin password and verify the request with your credentials.
+                        </p>
+                        <div class="mb-3">
+                            <label class="form-label">New Password</label>
+                            <input type="password"
+                                   name="new_password"
+                                   class="form-control"
+                                   placeholder="Enter new temporary password"
+                                   minlength="8"
+                                   required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Super Admin Password</label>
+                            <input type="password"
+                                   name="superadmin_password"
+                                   class="form-control"
+                                   placeholder="Confirm using your password"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">Reset</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    {% for admin in admins %}
+    <div class="modal fade" id="activityModal{{ admin.id }}" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-chart-line me-2 text-info"></i>Weekly Performance - {{ admin.username }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {% if admin.weekly_activity_pages %}
+                        <div class="activity-modal" data-admin-id="{{ admin.id }}">
+                            <div class="btn-group mb-3" role="group">
+                                {% for page in admin.weekly_activity_pages %}
+                                    <button type="button"
+                                            class="btn btn-sm {% if forloop.first %}btn-primary{% else %}btn-outline-secondary{% endif %} activity-page-btn"
+                                            data-target="#activityPage{{ admin.id }}-{{ page.index }}"
+                                            data-admin-id="{{ admin.id }}">
+                                        Page {{ page.index }}
+                                    </button>
+                                {% endfor %}
+                            </div>
+                            {% for page in admin.weekly_activity_pages %}
+                                <div class="activity-page {% if forloop.first %}active{% endif %}" id="activityPage{{ admin.id }}-{{ page.index }}">
+                                    {% for week in page.weeks %}
+                                        <div class="card bg-dark text-white border-0 mb-3">
+                                            <div class="card-header d-flex justify-content-between align-items-center">
+                                                <strong>{{ week.label }}</strong>
+                                                <span class="badge bg-secondary">Mon - Sat</span>
+                                            </div>
+                                            <div class="card-body p-0">
+                                                <div class="table-responsive">
+                                                    <table class="table table-dark table-striped mb-0">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Metric</th>
+                                                                {% for day in week.days %}
+                                                                    <th>{{ day.label }}<br><small>{{ day.date|date:"M d" }}</small></th>
+                                                                {% endfor %}
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>New Registrations</td>
+                                                                {% for day in week.days %}
+                                                                    <td>{{ day.metrics.registrations }}</td>
+                                                                {% endfor %}
+                                                            </tr>
+                                                            <tr>
+                                                                <td>First Withdrawals</td>
+                                                                {% for day in week.days %}
+                                                                    <td>{{ day.metrics.first_withdrawals }}</td>
+                                                                {% endfor %}
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Second Withdrawals</td>
+                                                                {% for day in week.days %}
+                                                                    <td>{{ day.metrics.second_withdrawals }}</td>
+                                                                {% endfor %}
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Killing
+                                                                    
+                                                                </td>
+                                                                {% for day in week.days %}
+                                                                    <td>{{ day.metrics.third_withdrawals }}</td>
+                                                                {% endfor %}
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% empty %}
+                                        <p class="text-muted">No weekly data available.</p>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-muted">No activity data available.</p>
+                    {% endif %}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="super-chat-overlay" id="superChatOverlay" role="dialog" aria-modal="true" aria-labelledby="superChatHeading">
+        <div class="super-chat-container">
+            <div class="super-chat-header">
+                <div class="super-chat-header-left">
+                    <div class="super-chat-active-avatar" id="superChatActiveAvatar" aria-hidden="true">SA</div>
+                    <div class="super-chat-header-text">
+                        <h3 class="super-chat-heading" id="superChatHeading">Admin Chat</h3>
+                       
+                    </div>
+                </div>
+                <div class="super-chat-header-actions">
+                    <button type="button" class="super-chat-control" id="superChatVoiceCall" title="Voice call (coming soon)" disabled>
+                        <i class="fas fa-phone"></i>
+                    </button>
+                    <button type="button" class="super-chat-control" id="superChatVideoCall" title="Video call (coming soon)" disabled>
+                        <i class="fas fa-video"></i>
+                    </button>
+                    <button type="button" class="super-chat-control" id="superChatRefresh" title="Refresh threads">
+                        <i class="fas fa-rotate"></i>
+                    </button>
+                    <button type="button" class="super-chat-control" id="superChatClose" title="Close chat">
+                        <i class="fas fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="super-chat-body">
+                <aside class="super-chat-thread-pane">
+                    <div class="super-chat-search">
+                        <label for="superChatSearchInput" class="visually-hidden">Search admin threads</label>
+                        <div class="super-chat-search-input">
+                            <i class="fas fa-search" aria-hidden="true"></i>
+                            <input type="text" id="superChatSearchInput" placeholder="Search" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="super-chat-thread-list" id="superChatThreadList" role="tablist" aria-label="Admin threads"></div>
+                    <div class="super-chat-thread-empty" id="superChatThreadEmpty" hidden>No admin conversations yet.</div>
+                </aside>
+                <section class="super-chat-conversation" aria-live="polite">
+                    <div class="super-chat-state" id="superChatState" hidden>Choose a thread to view messages.</div>
+                    <div class="super-chat-messages" id="superChatMessages"></div>
+                    <form class="super-chat-form" id="superChatForm" autocomplete="off">
+                        <div class="super-chat-composer" data-super-chat-composer>
+                            <button type="button" class="super-chat-attach-btn" id="superChatAttachBtn" aria-label="Attach file" disabled>
+                                <span class="super-chat-action-icon super-chat-attach-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                                        <path d="M19.364 4.636a4.5 4.5 0 0 0-6.364 0l-7.07 7.07a5.25 5.25 0 0 0 7.424 7.424l6.01-6.01a2.625 2.625 0 0 0-3.712-3.712l-5.657 5.657" />
+                                        <path d="M14.657 7.343a1.875 1.875 0 1 1 2.652 2.652l-6.01 6.01a3.375 3.375 0 1 1-4.773-4.773l5.657-5.657" />
+                                    </svg>
+                                </span>
+                            </button>
+                            <div class="super-chat-input-wrap">
+                                <textarea class="super-chat-input" id="superChatMessageInput" name="message" placeholder="Type a message…" rows="1" disabled></textarea>
+                                <input type="file" id="superChatAttachmentInput" class="super-chat-attachment-input" accept="image/*,audio/*" hidden>
+                                <button type="submit" class="super-chat-send-btn" id="superChatSendBtn" aria-label="Send message" disabled>
+                                    <span class="super-chat-action-icon super-chat-send-icon" aria-hidden="true">
+                                        <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                                            <path d="M2.32 2.236a.5.5 0 0 0-.65.63l3.07 9.834a1 1 0 0 0 .66.646l5.762 1.795a.5.5 0 0 1 .129.889l-3.63 2.69a.5.5 0 0 0 .46.874l13.64-6.322a.5.5 0 0 0 0-.906Z" />
+                                        </svg>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="super-chat-attachment-preview" id="superChatAttachmentPreview" hidden>
+                            <span class="super-chat-attachment-note" id="superChatAttachmentNote"></span>
+                            <button type="button" class="super-chat-attachment-clear" id="superChatAttachmentClearBtn" aria-label="Remove attachment" hidden>
+                                <span class="super-chat-action-icon super-chat-clear-icon" aria-hidden="true">
+                                    <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                                        <path d="m7 7 10 10" />
+                                        <path d="M17 7 7 17" />
+                                    </svg>
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.addEventListener('click', function(event) {
+            const btn = event.target.closest('.activity-page-btn');
+            if (!btn) return;
+            const modal = btn.closest('.activity-modal');
+            modal.querySelectorAll('.activity-page-btn').forEach(button => {
+                button.classList.remove('btn-primary');
+                button.classList.add('btn-outline-secondary');
+            });
+            btn.classList.remove('btn-outline-secondary');
+            btn.classList.add('btn-primary');
+
+            const targetSelector = btn.dataset.target;
+            modal.querySelectorAll('.activity-page').forEach(page => page.classList.remove('active'));
+            const targetPage = modal.querySelector(targetSelector);
+            if (targetPage) targetPage.classList.add('active');
+        });
+
+        const refreshEl = document.getElementById('lastRefresh');
+        if (refreshEl && refreshEl.dataset.timestamp) {
+            const parsed = new Date(refreshEl.dataset.timestamp);
+            if (!isNaN(parsed)) {
+                refreshEl.textContent = parsed.toLocaleString();
+            }
+        }
+    </script>
+    <script>
+        (function() {
+            const superChatLauncher = document.getElementById('superChatLauncher');
+            const superChatOverlay = document.getElementById('superChatOverlay');
+            const superChatClose = document.getElementById('superChatClose');
+            const superChatRefresh = document.getElementById('superChatRefresh');
+            const superChatThreadList = document.getElementById('superChatThreadList');
+            const superChatThreadEmpty = document.getElementById('superChatThreadEmpty');
+            const superChatMessages = document.getElementById('superChatMessages');
+            const superChatState = document.getElementById('superChatState');
+            const superChatForm = document.getElementById('superChatForm');
+            const superChatInput = document.getElementById('superChatMessageInput');
+            const superChatSendBtn = document.getElementById('superChatSendBtn');
+            const superChatAttachBtn = document.getElementById('superChatAttachBtn');
+            const superChatAttachmentInput = document.getElementById('superChatAttachmentInput');
+            const superChatAttachmentNote = document.getElementById('superChatAttachmentNote');
+            const superChatAttachmentClearBtn = document.getElementById('superChatAttachmentClearBtn');
+            const superChatBadge = document.getElementById('superChatBadge');
+            const superChatCurrentUserId = Number(document.body?.dataset?.superChatUserId || '0');
+
+            if (!superChatLauncher || !superChatOverlay) {
+                return;
+            }
+
+            const staffChatConfig = {
+                threadListUrl: "{% url 'chat:superadmin_staff_thread_list' %}",
+                unreadUrl: "{% url 'chat:staff_chat_unread_summary' %}",
+                messagesTemplate: "{% url 'chat:staff_chat_thread_messages' 0 %}",
+                markReadTemplate: "{% url 'chat:staff_chat_mark_read' 0 %}",
+                uploadTemplate: "{% url 'chat:staff_chat_upload_attachment' 0 %}",
+            };
+
+            const chatState = {
+                threads: [],
+                activeThreadId: null,
+                websocket: null,
+                reconnectDelay: 2000,
+                markReadPending: false,
+                loadingThreads: false,
+                loadingMessages: false,
+                unreadTotal: 0,
+                threadAttachmentUrl: null,
+                pendingAttachment: null,
+            };
+            chatState.renderedMessageIds = new Set();
+
+            function chatLog(...args) {
+                if (window.__DEBUG_SUPER_CHAT__) {
+                    console.debug('[super-chat]', ...args);
+                }
+            }
+
+            function applyBadge(count) {
+                const value = Number.isFinite(count) ? Math.max(0, count) : 0;
+                chatState.unreadTotal = value;
+                if (!superChatBadge) return;
+                if (value > 0) {
+                    superChatBadge.textContent = value;
+                    superChatBadge.classList.remove('d-none');
+                } else {
+                    superChatBadge.textContent = '0';
+                    superChatBadge.classList.add('d-none');
+                }
+            }
+
+            function setStateMessage(message, tone = 'muted') {
+                if (!superChatState) return;
+                if (message) {
+                    superChatState.hidden = false;
+                    superChatState.textContent = message;
+                    superChatState.style.background = tone === 'error'
+                        ? 'rgba(248, 113, 113, 0.18)'
+                        : 'rgba(56, 189, 248, 0.15)';
+                    superChatState.style.color = tone === 'error' ? '#fecaca' : '#bae6fd';
+                } else {
+                    superChatState.hidden = true;
+                }
+            }
+
+            function escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text || '';
+                return div.innerHTML;
+            }
+
+            function formatTime(value) {
+                if (!value) return '';
+                try {
+                    const parsed = new Date(value);
+                    if (!Number.isNaN(parsed.getTime())) {
+                        return parsed.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                    }
+                } catch (error) {
+                    chatLog('time parse error', error);
+                }
+                return '';
+            }
+
+            function updateThreadAttachmentUrl(threadId) {
+                if (!threadId) {
+                    chatState.threadAttachmentUrl = null;
+                    return;
+                }
+                chatState.threadAttachmentUrl = threadUrl(staffChatConfig.uploadTemplate, threadId);
+            }
+
+            function enableComposer() {
+                superChatInput?.removeAttribute('disabled');
+                superChatSendBtn?.removeAttribute('disabled');
+                superChatAttachBtn?.removeAttribute('disabled');
+            }
+
+            function disableComposer() {
+                superChatInput?.setAttribute('disabled', 'disabled');
+                superChatSendBtn?.setAttribute('disabled', 'disabled');
+                superChatAttachBtn?.setAttribute('disabled', 'disabled');
+                resetAttachmentPreview();
+            }
+
+            function resetAttachmentPreview() {
+                if (superChatAttachmentNote) {
+                    superChatAttachmentNote.hidden = true;
+                    superChatAttachmentNote.textContent = '';
+                }
+                if (superChatAttachmentInput) {
+                    superChatAttachmentInput.value = '';
+                }
+                superChatAttachmentClearBtn?.setAttribute('hidden', 'hidden');
+                chatState.pendingAttachment = null;
+            }
+
+            function handleAttachmentSelection(file) {
+                if (!file) {
+                    resetAttachmentPreview();
+                    return;
+                }
+                const maxBytes = 5 * 1024 * 1024;
+                if (file.size > maxBytes) {
+                    setStateMessage('Attachment exceeds the 5 MB limit.', 'error');
+                    resetAttachmentPreview();
+                    return;
+                }
+                const type = (file.type || '').toLowerCase();
+                if (!type.startsWith('image/') && !type.startsWith('audio/')) {
+                    setStateMessage('Only image or audio files are allowed.', 'error');
+                    resetAttachmentPreview();
+                    return;
+                }
+                chatState.pendingAttachment = file;
+                if (superChatAttachmentNote) {
+                    const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
+                    superChatAttachmentNote.textContent = `${file.name} • ${sizeMb} MB`;
+                    superChatAttachmentNote.hidden = false;
+                }
+                superChatAttachmentClearBtn?.removeAttribute('hidden');
+                setStateMessage(null);
+            }
+
+            function buildMessageBubble(message) {
+                const bubble = document.createElement('div');
+                bubble.className = 'super-chat-bubble';
+                if (message?.attachment) {
+                    bubble.classList.add('has-attachment');
+                    const contentWrapper = document.createElement('div');
+                    contentWrapper.className = 'super-chat-bubble__content';
+                    if (message.content) {
+                        const textEl = document.createElement('p');
+                        textEl.innerHTML = escapeHtml(message.content);
+                        contentWrapper.appendChild(textEl);
+                    }
+
+                    const attachmentEl = document.createElement('div');
+                    attachmentEl.className = 'super-chat-attachment';
+                    const attachment = message.attachment;
+                    if (attachment) {
+                        if (attachment.is_image) {
+                            const img = document.createElement('img');
+                            img.src = attachment.url;
+                            img.alt = attachment.name || 'Image attachment';
+                            img.loading = 'lazy';
+                            attachmentEl.appendChild(img);
+                        } else if (attachment.is_audio) {
+                            const audio = document.createElement('audio');
+                            audio.controls = true;
+                            audio.src = attachment.url;
+                            attachmentEl.appendChild(audio);
+                        }
+                        const metaEl = document.createElement('div');
+                        metaEl.className = 'super-chat-attachment__meta';
+                        metaEl.innerHTML = `<i class="fas ${attachment.is_image ? 'fa-image' : attachment.is_audio ? 'fa-microphone' : 'fa-paperclip'}"></i> ${escapeHtml(attachment.name || 'Attachment')}`;
+                        attachmentEl.appendChild(metaEl);
+                    }
+                    contentWrapper.appendChild(attachmentEl);
+                    bubble.appendChild(contentWrapper);
+                } else {
+                    bubble.innerHTML = escapeHtml(message?.content || '[Attachment]');
+                }
+                return bubble;
+            }
+
+            function threadUrl(template, threadId) {
+                if (!template || !threadId) return null;
+                return template.replace('/0/', `/${threadId}/`);
+            }
+
+            async function fetchJson(url, options = {}) {
+                try {
+                    const response = await fetch(url, {
+                        method: options.method || 'GET',
+                        credentials: 'same-origin',
+                        headers: {
+                            'X-Requested-With': 'XMLHttpRequest',
+                            ...(options.headers || {}),
+                        },
+                        body: options.body,
+                    });
+                    const data = await response.json().catch(() => ({}));
+                    return { ok: response.ok, data };
+                } catch (error) {
+                    chatLog('fetch error', url, error);
+                    return { ok: false, data: { error: 'Network error' } };
+                }
+            }
+
+            function recalcBadgeFromThreads() {
+                const total = Array.isArray(chatState.threads)
+                    ? chatState.threads.reduce((sum, thread) => sum + (thread.superadmin_unread_count || 0), 0)
+                    : 0;
+                applyBadge(total);
+            }
+
+            function renderThreads() {
+                if (!superChatThreadList || !superChatThreadEmpty) return;
+                superChatThreadList.innerHTML = '';
+                if (!chatState.threads.length) {
+                    superChatThreadEmpty.hidden = false;
+                    return;
+                }
+                superChatThreadEmpty.hidden = true;
+                const fragment = document.createDocumentFragment();
+                chatState.threads.forEach((thread) => {
+                    const item = document.createElement('button');
+                    item.type = 'button';
+                    item.className = 'super-chat-thread-item';
+                    item.dataset.threadId = thread.id;
+                    item.setAttribute('role', 'tab');
+                    item.innerHTML = `
+                        <div class="super-chat-thread-meta">
+                            <span class="super-chat-thread-name">${escapeHtml(thread.admin?.display_name || thread.admin?.username || 'Admin')}</span>
+                            <span class="super-chat-thread-count ${thread.superadmin_unread_count ? '' : 'hidden'}">${thread.superadmin_unread_count || ''}</span>
+                        </div>
+                        <p class="super-chat-thread-preview">${escapeHtml(thread.last_message_preview || 'No messages yet')}</p>
+                    `;
+                    if (thread.id === chatState.activeThreadId) {
+                        item.classList.add('is-active');
+                    }
+                    fragment.appendChild(item);
+                });
+                superChatThreadList.appendChild(fragment);
+            }
+
+            function renderMessages(messages = [], userId = superChatCurrentUserId) {
+                if (!superChatMessages) return;
+                superChatMessages.innerHTML = '';
+                if (!Array.isArray(messages) || !messages.length) {
+                    setStateMessage('No messages yet. Start the conversation!');
+                    enableComposer();
+                    return;
+                }
+                setStateMessage(null);
+                const fragment = document.createDocumentFragment();
+                messages.forEach((msg) => {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = `super-chat-message ${msg.sender_id === userId ? 'is-self' : 'is-peer'}`;
+                    if (msg.id) {
+                        wrapper.dataset.messageId = String(msg.id);
+                    }
+                    const bubble = buildMessageBubble(msg);
+                    wrapper.appendChild(bubble);
+                    const meta = document.createElement('div');
+                    meta.className = 'super-chat-meta';
+                    meta.textContent = formatTime(msg.created_at);
+                    wrapper.appendChild(meta);
+                    fragment.appendChild(wrapper);
+                });
+                superChatMessages.appendChild(fragment);
+                superChatMessages.scrollTop = superChatMessages.scrollHeight;
+                enableComposer();
+            }
+
+            async function refreshThreads() {
+                if (chatState.loadingThreads) return;
+                chatState.loadingThreads = true;
+                const { ok, data } = await fetchJson(staffChatConfig.threadListUrl);
+                chatState.loadingThreads = false;
+                if (!ok) {
+                    setStateMessage(data.error || 'Unable to load threads.', 'error');
+                    return;
+                }
+                chatState.threads = data.threads || [];
+                applyBadge(data.total_unread || chatState.unreadTotal);
+                renderThreads();
+                recalcBadgeFromThreads();
+                if (chatState.activeThreadId) {
+                    loadThreadMessages(chatState.activeThreadId);
+                }
+            }
+
+            async function refreshBadgeOnly() {
+                const { ok, data } = await fetchJson(staffChatConfig.unreadUrl);
+                if (ok) {
+                    applyBadge(data.total_unread || 0);
+                    if (Array.isArray(data.threads)) {
+                        chatState.threads = data.threads;
+                        renderThreads();
+                        recalcBadgeFromThreads();
+                    }
+                }
+            }
+
+            async function loadThreadMessages(threadId) {
+                if (!threadId || chatState.loadingMessages) return;
+                chatState.loadingMessages = true;
+                setStateMessage('Loading messages…');
+                disableComposer();
+                resetAttachmentPreview();
+                const url = threadUrl(staffChatConfig.messagesTemplate, threadId);
+                const { ok, data } = await fetchJson(url);
+                chatState.loadingMessages = false;
+                if (!ok || data.error) {
+                    setStateMessage(data.error || 'Unable to load messages.', 'error');
+                    return;
+                }
+                chatState.activeThreadId = threadId;
+                updateThreadAttachmentUrl(threadId);
+                chatState.renderedMessageIds.clear();
+                renderThreads();
+                renderMessages(data.messages || []);
+                superChatInput.value = '';
+                markThreadRead(threadId);
+                connectWebSocket(threadId);
+            }
+
+            async function markThreadRead(threadId) {
+                if (!threadId || chatState.markReadPending) return;
+                const url = threadUrl(staffChatConfig.markReadTemplate, threadId);
+                if (!url) return;
+                chatState.markReadPending = true;
+                const { ok, data } = await fetchJson(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCsrfToken(),
+                    },
+                    body: JSON.stringify({}),
+                });
+                chatState.markReadPending = false;
+                if (ok && data.thread) {
+                    const idx = chatState.threads.findIndex((t) => t.id === data.thread.id);
+                    if (idx !== -1) {
+                        chatState.threads[idx] = {
+                            ...chatState.threads[idx],
+                            ...data.thread,
+                        };
+                        renderThreads();
+                    }
+                    recalcBadgeFromThreads();
+                }
+            }
+
+            function getCsrfToken() {
+                const name = 'csrftoken';
+                const cookieValue = document.cookie
+                    .split('; ')
+                    .find((row) => row.startsWith(name + '='));
+                return cookieValue ? decodeURIComponent(cookieValue.split('=')[1]) : '';
+            }
+
+            function connectWebSocket(threadId) {
+                if (!threadId || !window.WebSocket) {
+                    return;
+                }
+                if (chatState.websocket && chatState.websocket.readyState === WebSocket.OPEN) {
+                    chatState.websocket.close();
+                }
+                const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+                const wsUrl = `${protocol}://${window.location.host}/ws/staff/${threadId}/`;
+                const ws = new WebSocket(wsUrl);
+                chatState.websocket = ws;
+
+                ws.onopen = () => {
+                    chatLog('WS connected');
+                    chatState.reconnectDelay = 2000;
+                    if (chatState.activeThreadId) {
+                        ws.send(JSON.stringify({ action: 'read' }));
+                    }
+                };
+
+                ws.onmessage = (event) => {
+                    try {
+                        const payload = JSON.parse(event.data);
+                        handleWsEvent(payload);
+                    } catch (error) {
+                        chatLog('WS payload error', error);
+                    }
+                };
+
+                ws.onclose = () => {
+                    chatLog('WS closed');
+                    chatState.websocket = null;
+                    chatState.reconnectDelay = Math.min(chatState.reconnectDelay * 1.5, 15000);
+                    if (chatState.activeThreadId) {
+                        setTimeout(() => connectWebSocket(chatState.activeThreadId), chatState.reconnectDelay);
+                    }
+                };
+
+                ws.onerror = () => {
+                    chatLog('WS error');
+                };
+            }
+
+            function handleWsEvent(event) {
+                if (!event || !event.event) return;
+                switch (event.event) {
+                    case 'message':
+                        if (event.thread) {
+                            const idx = chatState.threads.findIndex((t) => t.id === event.thread.id);
+                            if (idx !== -1) {
+                                chatState.threads[idx] = {
+                                    ...chatState.threads[idx],
+                                    ...event.thread,
+                                };
+                                if (chatState.activeThreadId === event.thread.id) {
+                                    updateThreadAttachmentUrl(event.thread.id);
+                                }
+                            }
+                        }
+                        if (event.message) {
+                            if (chatState.activeThreadId === event.message.thread_id) {
+                                renderMessageAppend(event.message);
+                                markThreadRead(chatState.activeThreadId);
+                            } else {
+                                refreshBadgeOnly();
+                            }
+                        }
+                        renderThreads();
+                        recalcBadgeFromThreads();
+                        break;
+                    case 'read':
+                        if (event.thread) {
+                            const idx = chatState.threads.findIndex((t) => t.id === event.thread.id);
+                            if (idx !== -1) {
+                                chatState.threads[idx] = {
+                                    ...chatState.threads[idx],
+                                    ...event.thread,
+                                };
+                            }
+                            renderThreads();
+                            recalcBadgeFromThreads();
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            function renderMessageAppend(message) {
+                if (!superChatMessages || !message) return;
+                if (message.thread_id && chatState.activeThreadId && message.thread_id !== chatState.activeThreadId) {
+                    return;
+                }
+                if (message.id && superChatMessages.querySelector(`[data-message-id="${message.id}"]`)) {
+                    return;
+                }
+                const wrapper = document.createElement('div');
+                wrapper.className = `super-chat-message ${message.sender_id === superChatCurrentUserId ? 'is-self' : 'is-peer'}`;
+                if (message.id) {
+                    wrapper.dataset.messageId = String(message.id);
+                }
+                const bubble = buildMessageBubble(message);
+                wrapper.appendChild(bubble);
+                const meta = document.createElement('div');
+                meta.className = 'super-chat-meta';
+                meta.textContent = formatTime(message.created_at);
+                wrapper.appendChild(meta);
+                superChatMessages.appendChild(wrapper);
+                superChatMessages.scrollTop = superChatMessages.scrollHeight;
+                enableComposer();
+            }
+
+            async function handleSend(event) {
+                event.preventDefault();
+                if (!chatState.activeThreadId) {
+                    setStateMessage('Choose a thread before sending.', 'error');
+                    return;
+                }
+                const text = superChatInput?.value.trim() || '';
+                const attachment = chatState.pendingAttachment;
+                if (!text && !attachment) {
+                    setStateMessage('Type a message or attach an image/audio file up to 5 MB.', 'error');
+                    return;
+                }
+
+                if (attachment && chatState.threadAttachmentUrl) {
+                    superChatSendBtn?.setAttribute('disabled', 'disabled');
+                    superChatAttachBtn?.setAttribute('disabled', 'disabled');
+                    setStateMessage('Uploading attachment…');
+                    const formData = new FormData();
+                    formData.append('attachment', attachment);
+                    if (text) {
+                        formData.append('message', text);
+                    }
+
+                    try {
+                        const response = await fetch(chatState.threadAttachmentUrl, {
+                            method: 'POST',
+                            credentials: 'same-origin',
+                            headers: {
+                                'X-CSRFToken': getCsrfToken(),
+                            },
+                            body: formData,
+                        });
+                        const data = await response.json().catch(() => ({}));
+                        superChatSendBtn?.removeAttribute('disabled');
+                        superChatAttachBtn?.removeAttribute('disabled');
+                        if (!response.ok || data.error) {
+                            setStateMessage(data.error || 'Upload failed. Please retry.', 'error');
+                            return;
+                        }
+                        superChatInput.value = '';
+                        resetAttachmentPreview();
+                        setStateMessage(null);
+                        if (data.message) {
+                            renderMessageAppend(data.message);
+                        }
+                    } catch (error) {
+                        superChatSendBtn?.removeAttribute('disabled');
+                        superChatAttachBtn?.removeAttribute('disabled');
+                        setStateMessage('Upload failed. Please retry.', 'error');
+                    }
+                    return;
+                }
+
+                if (!text) {
+                    setStateMessage('Attach an image or audio file up to 5 MB.', 'error');
+                    return;
+                }
+
+                superChatInput.value = '';
+                setStateMessage(null);
+                if (chatState.websocket && chatState.websocket.readyState === WebSocket.OPEN) {
+                    chatState.websocket.send(JSON.stringify({ action: 'message', message: text }));
+                } else {
+                    setStateMessage('Connection lost. Attempting to reconnect…', 'error');
+                    loadThreadMessages(chatState.activeThreadId).then(() => {
+                        if (chatState.websocket && chatState.websocket.readyState === WebSocket.OPEN) {
+                            chatState.websocket.send(JSON.stringify({ action: 'message', message: text }));
+                        } else {
+                            superChatInput.value = text;
+                        }
+                    });
+                }
+            }
+
+            function openOverlay() {
+                superChatOverlay.classList.add('is-visible');
+                refreshThreads();
+                refreshBadgeOnly();
+                disableComposer();
+            }
+
+            function closeOverlay() {
+                superChatOverlay.classList.remove('is-visible');
+                setStateMessage('Choose a thread to view messages.');
+                superChatMessages.innerHTML = '';
+                disableComposer();
+                chatState.activeThreadId = null;
+                updateThreadAttachmentUrl(null);
+                if (chatState.websocket) {
+                    chatState.websocket.close();
+                    chatState.websocket = null;
+                }
+            }
+
+            function handleThreadClick(event) {
+                const item = event.target.closest('.super-chat-thread-item');
+                if (!item) return;
+                const threadId = parseInt(item.dataset.threadId, 10);
+                if (Number.isNaN(threadId)) return;
+                loadThreadMessages(threadId);
+            }
+
+            superChatLauncher.addEventListener('click', openOverlay);
+            superChatClose?.addEventListener('click', closeOverlay);
+            superChatRefresh?.addEventListener('click', refreshThreads);
+            superChatForm?.addEventListener('submit', handleSend);
+            superChatThreadList?.addEventListener('click', handleThreadClick);
+            superChatAttachBtn?.addEventListener('click', (event) => {
+                event.preventDefault();
+                if (superChatAttachBtn?.hasAttribute('disabled')) {
+                    return;
+                }
+                superChatAttachmentInput?.click();
+            });
+            superChatAttachmentInput?.addEventListener('change', (event) => {
+                const file = event.target.files?.[0];
+                handleAttachmentSelection(file);
+            });
+            superChatAttachmentClearBtn?.addEventListener('click', (event) => {
+                event.preventDefault();
+                resetAttachmentPreview();
+            });
+
+            superChatOverlay.addEventListener('click', (event) => {
+                if (event.target === superChatOverlay) {
+                    closeOverlay();
+                }
+            });
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape' && superChatOverlay.classList.contains('is-visible')) {
+                    closeOverlay();
+                }
+            });
+
+            setInterval(refreshBadgeOnly, 20000);
+            refreshBadgeOnly();
+        })();
+    </script>
+</body>
+</html>

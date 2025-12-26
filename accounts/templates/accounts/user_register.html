@@ -1,0 +1,168 @@
+{% extends "accounts/base_auth.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Create account" %}{% endblock %}
+
+{% block extra_css %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'chat/chat.css' %}">
+<style>
+    .guest-chat-modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(6, 10, 16, 0.78);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: clamp(1.5rem, 5vw, 2.5rem);
+        z-index: 1200;
+    }
+
+    .guest-chat-modal[hidden] {
+        display: none;
+    }
+
+    .guest-chat-modal__panel {
+        width: min(900px, 100%);
+        max-height: 88vh;
+        background: rgba(14, 20, 28, 0.92);
+        border-radius: 24px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 40px 90px rgba(5, 10, 18, 0.6);
+        display: flex;
+        flex-direction: column;
+        border: 1px solid var(--surface-border);
+        backdrop-filter: blur(22px);
+    }
+
+    .guest-chat-modal__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: clamp(1.1rem, 3vw, 1.6rem) clamp(1.4rem, 4vw, 2rem);
+        background: linear-gradient(120deg, rgba(0, 168, 225, 0.28), rgba(242, 179, 92, 0.35));
+        border-bottom: 1px solid rgba(0, 168, 225, 0.35);
+    }
+
+    .guest-chat-modal__header h3 {
+        margin: 0;
+        font-size: clamp(1.1rem, 3vw, 1.35rem);
+        color: var(--text-soft);
+        font-weight: 600;
+    }
+
+    .guest-chat-modal__close {
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        background: rgba(5, 10, 16, 0.55);
+        border-radius: 50%;
+        width: 38px;
+        height: 38px;
+        font-size: 1rem;
+        cursor: pointer;
+        color: var(--text-soft);
+        transition: all 0.2s ease;
+    }
+
+    .guest-chat-modal__close:hover {
+        border-color: rgba(0, 168, 225, 0.55);
+        color: var(--amazon-nebula);
+    }
+
+    .guest-chat-modal__body {
+        padding: clamp(1.4rem, 4vw, 2rem);
+        overflow: auto;
+        background: rgba(8, 12, 18, 0.85);
+        color: var(--text-soft);
+    }
+
+    .amazon-auth-card {
+        background: rgba(8, 12, 18, 0.85);
+        color: var(--text-soft);
+    }
+
+    .amazon-auth-card .form-group input {
+        width: 100%;
+        padding: 0.85rem 1rem;
+    }
+
+    @media (max-width: 640px) {
+        .amazon-auth-card .form-group input {
+            width: 100%;
+            padding: 0.85rem 1rem;
+        }
+        .guest-chat-modal__panel {
+            width: 100%;
+            max-height: 100vh;
+            border-radius: 0;
+        }
+    }
+</style>
+
+{% endblock %}
+
+{% block content %}
+<section class="auth-card amazon-auth-card" aria-labelledby="register-title">
+    <h1 id="register-title">{% trans "Create account" %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="phone">{% trans "Mobile number" %}</label>
+        <input id="phone" type="text" name="phone" placeholder="{% trans 'e.g., +1234567890' %}" required>
+
+        <label for="username">{% trans "Username" %}</label>
+        <input id="username" type="text" name="username" placeholder="{% trans '6-15 characters' %}" required>
+
+        <label for="password">{% trans "Password" %}</label>
+        <input id="password" type="password" name="password" placeholder="{% trans 'At least 6 characters' %}" required>
+        
+
+        <label for="fund_password">{% trans "Fund password" %}</label>
+        <input id="fund_password" type="password" name="fund_password" placeholder="{% trans '6-15 characters' %}" required>
+
+        <label for="referral_code">{% trans "Referral code" %}</label>
+        <input id="referral_code" type="text" name="referral_code" placeholder="{% trans '6 characters' %}" maxlength="6" required>
+
+        <button class="primary-btn" type="submit">{% trans "Create your Amazon account" %}</button>
+    </form>
+
+    <div class="existing-account">
+        <span>{% trans "Already have an account?" %}</span>
+        <a href="{% url 'accounts:user_login' %}">{% trans "Sign in" %}</a>
+    </div>
+
+    {% url 'chat:guest_new' as guest_chat_url %}
+
+    <!-- Floating Chat Button -->
+    <button class="chat-fab" onclick="window.location.href='{{ guest_chat_url }}';" aria-label="Chat with Support">
+        <svg class="chat-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 14H6l-2 2V4h16v12z"/>
+            <circle cx="7" cy="10" r="1" fill="currentColor"/>
+            <circle cx="12" cy="10" r="1" fill="currentColor"/>
+            <circle cx="17" cy="10" r="1" fill="currentColor"/>
+        </svg>
+    </button>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+<script src="{% static 'chat/chat.js' %}" defer></script>
+<script>
+    (function() {
+        const phoneInput = document.querySelector('input[name="phone"]');
+        if (phoneInput) {
+            phoneInput.addEventListener('input', function() {
+                const value = this.value;
+
+                if (value.startsWith('+')) {
+                    this.value = '+' + value.slice(1).replace(/\D/g, '');
+                } else {
+                    this.value = value.replace(/\D/g, '');
+                }
+            });
+        }
+    })();
+</script>
+{% endblock %}

@@ -1,0 +1,809 @@
+{% load static i18n %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% trans "Amazon Market" %}{% endblock %}</title>
+    <style>
+        :root {
+            --amazon-font: 'Amazon Ember', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+            --amazon-ink: #0f1111;
+            --amazon-graphite: #131921;
+            --amazon-slate: #1a232f;
+            --amazon-amber: #f2b35c;
+            --amazon-amber-deep: #e3942d;
+            --amazon-nebula: #00a8e1;
+            --text-soft: #f7fafa;
+            --text-muted: rgba(247, 250, 250, 0.7);
+            --surface-border: rgba(255, 255, 255, 0.14);
+            --surface-glow: rgba(0, 198, 255, 0.18);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            margin: 0;
+            font-family: var(--amazon-font);
+            background:
+                linear-gradient(rgba(5, 6, 8, 0.7), rgba(5, 6, 8, 0.75)),
+                url("{% static 'img/bg.jpg' %}") center/cover fixed no-repeat;
+            color: var(--text-soft);
+            min-height: 100vh;
+        }
+
+        /* Header Styles */
+        .auth-header {
+            background: transparent;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(14px);
+            position: relative;
+            z-index: 8000;
+        }
+
+        .auth-header-inner {
+            min-height: 50px; /* keeps header height steady */
+            width: 100%;
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 18px clamp(1.5rem, 6vw, 3.5rem);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .auth-header-inner {
+                padding: 14px clamp(1rem, 6vw, 1.6rem);
+            }
+        }
+
+        .logo-container {
+            height: 44px; /* matches logo height */
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            width: auto;
+            height: 100%;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.35));
+            transition: transform 0.25s ease;
+        }
+
+        .logo-img {
+            height: 100%;
+    transform: scale(1.2);          /* adjust 1.1–1.3 to taste */
+    transform-origin: left center;  /* keeps it aligned without shifting */
+        }
+
+        .logo-container:hover .logo {
+            transform: translateY(-1px);
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                height: 60px;
+            }
+        }
+
+        .language-control {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            z-index: 5000;
+        }
+
+        .language-toggle {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            border: 1px solid var(--amazon-amber);
+            border-radius: 8px;
+            background: rgba(19, 25, 33, 0.7);
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.25s ease;
+        }
+
+        .language-toggle:hover,
+        .language-control.is-open .language-toggle {
+            border-color: var(--amazon-amber);
+            color: var(--text-soft);
+            transform: translateY(-2px);
+        }
+
+        .language-toggle img {
+            width: 10px;
+            height: 10px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+        }
+
+        .language-sheet {
+            position: absolute;
+            top: calc(100% + 12px);
+            right: 0;
+            width: min(110px, 45vw);
+            background: rgba(12, 18, 26, 0.96);
+            border: 1px solid var(--amazon-amber);
+            border-radius: 14px;
+            padding: 4px 6px;
+            display: none;
+            z-index: 6000;
+        }
+
+        .language-sheet.is-visible {
+            display: block;
+        }
+
+        .language-sheet__header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 4px;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .language-sheet__close {
+            width: 24px;
+            height: 24px;
+            border: none;
+            border-radius: 10px;
+            background: transparent;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: background 0.2s ease, color 0.2s ease;
+        }
+
+        .language-sheet__close:hover,
+        .language-sheet__close:focus-visible {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-soft);
+            outline: none;
+        }
+
+        .language-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            max-height: 30vh;
+            overflow-y: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+
+        .language-list::-webkit-scrollbar {
+            display: none;
+        }
+
+        .language-option {
+            width: 100%;
+            border: none;
+            background: transparent;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 2px;
+            border-radius: 6px;
+            color: var(--text-soft);
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.2s ease;
+            text-align: left;
+        }
+
+        .language-option:hover,
+        .language-option:focus-visible {
+            background: rgba(0, 168, 225, 0.15);
+            transform: translateX(4px);
+            outline: none;
+        }
+
+        .language-option.is-current {
+            background: rgba(0, 168, 225, 0.22);
+            cursor: default;
+        }
+
+        .language-option:disabled {
+            opacity: 1;
+        }
+
+        .language-flag {
+            width: 16px;
+            height: 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .language-flag img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .language-option__text {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.9rem;
+            gap: 2px;
+        }
+
+        .language-option__code {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        .auth-container {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .auth-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            padding: clamp(1.5rem, 6vw, 4rem);
+        }
+
+        .auth-card {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(19, 25, 33, 0.78);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 22px;
+            padding: clamp(1.9rem, 4vw, 2.6rem);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(18px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-card::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 22px;
+            background: radial-gradient(circle at 20% 15%, rgba(0, 168, 225, 0.22), transparent 60%),
+                        radial-gradient(circle at 80% 85%, rgba(242, 179, 92, 0.18), transparent 62%);
+            pointer-events: none;
+        }
+
+        h1 {
+            font-size: clamp(1.75rem, 4vw, 2.3rem);
+            font-weight: 600;
+            margin: 0 0 18px;
+            color: var(--text-soft);
+        }
+
+        label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            margin-bottom: 6px;
+            display: block;
+            color: var(--text-muted);
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="tel"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 10px;
+            font-size: 0.95rem;
+            margin-bottom: 16px;
+            background: rgba(12, 16, 24, 0.55);
+            color: var(--text-soft);
+            transition: all 0.2s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="tel"]:focus,
+        input[type="email"]:focus {
+            border-color: rgba(0, 168, 225, 0.9);
+            box-shadow: 0 0 0 3px rgba(0, 168, 225, 0.18);
+            outline: none;
+            background: rgba(8, 12, 18, 0.75);
+        }
+
+        input::placeholder {
+            color: rgba(247, 250, 250, 0.38);
+        }
+
+        .primary-btn {
+            width: 100%;
+            background: linear-gradient(120deg, var(--amazon-amber), var(--amazon-amber-deep));
+            border: 1px solid rgba(242, 179, 92, 0.55);
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--amazon-ink);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .primary-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 28px rgba(229, 158, 47, 0.35);
+        }
+
+        .secondary-btn {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 10px;
+            padding: 12px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: block;
+            text-align: center;
+            text-decoration: none;
+            color: var(--text-soft);
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .secondary-btn:hover {
+            border-color: rgba(0, 168, 225, 0.55);
+            color: var(--amazon-nebula);
+        }
+
+        .helper-text {
+            font-size: 0.75rem;
+            color: rgba(247, 250, 250, 0.55);
+            margin-top: -10px;
+            margin-bottom: 14px;
+        }
+
+        .help-links {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            display: grid;
+            gap: 6px;
+        }
+
+        .help-links a {
+            color: var(--amazon-nebula);
+            text-decoration: none;
+        }
+
+        .help-links a:hover {
+            text-decoration: underline;
+        }
+
+        .divider {
+            margin: 20px 0;
+            text-align: center;
+            position: relative;
+            color: var(--text-muted);
+        }
+
+        .divider::before,
+        .divider::after {
+            content: "";
+            height: 1px;
+            background: rgba(255, 255, 255, 0.12);
+            position: absolute;
+            top: 50%;
+            width: 40%;
+        }
+
+        .divider::before {
+            left: 0;
+        }
+
+        .divider::after {
+            right: 0;
+        }
+
+        .divider span {
+            background: transparent;
+            padding: 0 10px;
+            font-size: 0.8rem;
+            letter-spacing: 0.4px;
+        }
+
+        .existing-account {
+            margin-top: 20px;
+            font-size: 0.85rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .existing-account a {
+            color: var(--amazon-nebula);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .existing-account a:hover {
+            text-decoration: underline;
+        }
+
+        .auth-card strong {
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .auth-footer {
+            text-align: center;
+            font-size: 0.75rem;
+            color: rgba(247, 250, 250, 0.5);
+            padding: 32px clamp(1rem, 6vw, 3rem) 40px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .auth-footer a {
+            color: var(--amazon-nebula);
+            text-decoration: none;
+            margin: 0 12px;
+            font-weight: 600;
+        }
+
+        .auth-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .chat-fab {
+            position: fixed;
+            bottom: clamp(1.5rem, 5vw, 2.8rem);
+            right: clamp(1.2rem, 4vw, 2.6rem);
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: linear-gradient(140deg, rgba(0, 168, 225, 0.95), rgba(0, 168, 225, 0.65));
+            color: var(--amazon-ink);
+            border: 1px solid rgba(0, 168, 225, 0.35);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 40px rgba(0, 152, 210, 0.35);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            z-index: 1200;
+        }
+
+        .chat-fab:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 24px 48px rgba(0, 152, 210, 0.4);
+        }
+
+        .chat-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        @media (max-width: 480px) {
+            .auth-content {
+                padding: clamp(1rem, 8vw, 1.6rem);
+            }
+
+            .auth-card {
+                padding: clamp(1.5rem, 6vw, 1.9rem);
+            }
+
+            .chat-fab {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        .message-overlay {
+            position: fixed;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: clamp(1rem, 8vw, 2.5rem);
+            background: rgba(6, 10, 16, 0.42);
+            backdrop-filter: blur(6px);
+            z-index: 1400;
+            opacity: 1;
+            transition: opacity 0.35s ease;
+        }
+
+        .message-overlay.is-hiding {
+            opacity: 0;
+        }
+
+        .message-toast {
+            min-width: min(220px, 70vw);
+            padding: clamp(1rem, 3vw, 1.3rem);
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            background: rgba(11, 16, 24, 0.88);
+            color: var(--text-soft);
+            font-size: 0.95rem;
+            box-shadow: 0 24px 60px rgba(5, 10, 16, 0.55);
+            display: grid;
+            gap: 0.35rem;
+            text-align: center;
+            transform: scale(1);
+            transition: transform 0.35s ease;
+        }
+
+        .message-overlay.is-hiding .message-toast {
+            transform: scale(0.94);
+        }
+
+        .message-toast.error,
+        .message-toast.warning {
+            border-color: rgba(244, 94, 94, 0.45);
+            background: rgba(78, 12, 18, 0.75);
+        }
+
+        .message-toast.success {
+            border-color: rgba(0, 168, 120, 0.45);
+            background: rgba(6, 54, 43, 0.78);
+        }
+
+        .message-toast__label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-soft);
+            opacity: 0.9;
+        }
+
+        .message-toast__text {
+            margin: 0;
+            font-size: 0.92rem;
+            line-height: 1.4;
+        }
+
+        .language-toggle img {
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.35));
+        }
+    </style>
+
+
+</head>
+<body>
+
+        {% get_current_language as CURRENT_LANGUAGE_CODE %}
+        {% get_available_languages as AVAILABLE_LANGUAGES %}
+        {% get_language_info_list for AVAILABLE_LANGUAGES as language_info_list %}
+        <div class="auth-container">
+
+            <header class="auth-header">
+                <div class="auth-header-inner">
+                    <div class="logo-container">
+                       
+                            <img src="{% static 'img/amazonlogo.png' %}" alt="{% trans 'Amazon logo' %}" class="logo-img">
+                        
+                    </div>
+
+                    <div class="language-control" data-language-control>
+                        <button class="language-toggle" type="button" aria-label="{% trans 'Change language' %}" aria-expanded="false" data-language-toggle>
+                            <img src="{% static 'img/language.png' %}" alt="" aria-hidden="true">
+                        </button>
+                        <form method="post" action="{% url 'set_language' %}" class="language-sheet" data-language-sheet>
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                            <div class="language-sheet__header">
+                                <span>{% trans "Choose language" %}</span>
+                                <button type="button" class="language-sheet__close" aria-label="{% trans 'Close language menu' %}" data-language-close>&times;</button>
+                            </div>
+                            <div class="language-list">
+                                {% for language in language_info_list %}
+                                    {% with language.code as lang_code %}
+                                        {% with CURRENT_LANGUAGE_CODE as current_code %}
+                                            <button
+                                                type="submit"
+                                                name="language"
+                                                value="{{ lang_code }}"
+                                                class="language-option {% if lang_code == current_code %}is-current{% endif %}"
+                                                data-language-option
+                                                data-language-code="{{ lang_code }}"
+                                                {% if lang_code == current_code %}disabled aria-current="true"{% endif %}>
+                                                <span class="language-flag">
+                                                    <img data-flag="{{ lang_code }}" data-flag-label="{{ language.name_local|default:language.name }}" alt="">
+                                                </span>
+                                                <span class="language-option__text">
+                                                    <strong>{{ language.name_local|default:language.name }}</strong>
+                                                    <span class="language-option__code">{{ lang_code|upper }}</span>
+                                                </span>
+                                            </button>
+                                        {% endwith %}
+                                    {% endwith %}
+                                {% endfor %}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </header>
+
+            {% if messages %}
+                <div class="message-overlay" role="status" aria-live="assertive">
+                    {% for message in messages %}
+                        <div class="message-toast {{ message.tags }}">
+                            <span class="message-toast__label">
+                                {% if message.level_tag == 'error' %}
+                                    {% trans "Error" %}
+                                {% elif message.level_tag == 'warning' %}
+                                    {% trans "Warning" %}
+                                {% elif message.level_tag == 'success' %}
+                                    {% trans "Success" %}
+                                {% else %}
+                                    {% trans "Notice" %}
+                                {% endif %}
+                            </span>
+                            <p class="message-toast__text">{{ message }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+        <main class="auth-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="auth-footer">
+            {% now "Y" as current_year %}
+            <div>
+                <a href="#">{% trans "Conditions of Use" %}</a>
+                <a href="#">{% trans "Privacy Notice" %}</a>
+                <a href="#">{% trans "Help" %}</a>
+            </div>
+            <div>{% blocktrans with year=current_year %}&copy; {{ year }} Amazon Market{% endblocktrans %}</div>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const overlay = document.querySelector(".message-overlay");
+            if (overlay) {
+                window.setTimeout(() => {
+                    overlay.classList.add("is-hiding");
+                    window.setTimeout(() => overlay.remove(), 400);
+                }, 3000);
+            }
+
+            const languageControl = document.querySelector("[data-language-control]");
+            const languageToggle = document.querySelector("[data-language-toggle]");
+            const languageSheet = document.querySelector("[data-language-sheet]");
+            const languageClose = document.querySelector("[data-language-close]");
+            const languageOptions = document.querySelectorAll("[data-language-option]");
+            const languageNextInput = languageSheet?.querySelector('input[name="next"]');
+            const flagImages = document.querySelectorAll("[data-flag]");
+
+            const flagMap = {
+                "en": "{% static 'flags/en.png' %}",
+                "ar": "{% static 'flags/ar.png' %}",
+                "tr": "{% static 'flags/tr.png' %}",
+                "ru": "{% static 'flags/ru.png' %}",
+                
+                "az": "{% static 'flags/az.png' %}",
+                "th": "{% static 'flags/th.png' %}",
+                "be": "{% static 'flags/be.png' %}",
+                "es": "{% static 'flags/es.png' %}",
+                "pt": "{% static 'flags/pt.png' %}",
+                "vi": "{% static 'flags/vi.png' %}",
+            };
+            const fallbackFlag = "{% static 'img/language.png' %}";
+
+            const normalizeCode = (code) => {
+                if (!code) return "";
+                return code.toLowerCase().replace("_", "-");
+            };
+
+            const resolveFlag = (code) => flagMap[normalizeCode(code)] || fallbackFlag;
+
+            const supportedLangs = Array.from(languageOptions).map((option) =>
+                normalizeCode(option.dataset.languageCode)
+            );
+
+            const buildLocalizedNext = (targetCode) => {
+                if (!targetCode) return window.location.href;
+
+                const url = new URL(window.location.href);
+                const segments = url.pathname.split("/").filter(Boolean);
+                const normalizedTarget = normalizeCode(targetCode);
+
+                if (segments.length && supportedLangs.includes(normalizeCode(segments[0]))) {
+                    segments[0] = normalizedTarget;
+                } else {
+                    segments.unshift(normalizedTarget);
+                }
+
+                const localizedPath = `/${segments.join("/") || ""}`;
+                return `${localizedPath}${url.search}${url.hash}`;
+            };
+
+            flagImages.forEach((img) => {
+                const code = img.dataset.flag;
+                img.src = resolveFlag(code);
+                const label = img.dataset.flagLabel || code?.toUpperCase() || "";
+
+                img.alt = label ? `${label} flag` : "";
+            });
+
+            const openSheet = () => {
+                languageSheet?.classList.add("is-visible");
+                languageControl?.classList.add("is-open");
+                languageToggle?.setAttribute("aria-expanded", "true");
+            };
+
+            const closeSheet = () => {
+                languageSheet?.classList.remove("is-visible");
+                languageControl?.classList.remove("is-open");
+                languageToggle?.setAttribute("aria-expanded", "false");
+            };
+
+            languageToggle?.addEventListener("click", (event) => {
+                event.preventDefault();
+                if (languageSheet?.classList.contains("is-visible")) {
+                    closeSheet();
+                } else {
+                    openSheet();
+                }
+            });
+
+            languageClose?.addEventListener("click", (event) => {
+                event.preventDefault();
+                closeSheet();
+            });
+
+            languageSheet?.addEventListener("click", (event) => {
+                event.stopPropagation();
+            });
+
+            document.addEventListener("click", (event) => {
+                if (languageSheet?.classList.contains("is-visible") && !languageControl?.contains(event.target)) {
+                    closeSheet();
+                }
+            });
+
+            document.addEventListener("keydown", (event) => {
+                if (event.key === "Escape" && languageSheet?.classList.contains("is-visible")) {
+                    closeSheet();
+                }
+            });
+
+            languageOptions.forEach((option) => {
+                option.addEventListener("focus", () => {
+                    option.classList.add("is-focused");
+                });
+                option.addEventListener("blur", () => {
+                    option.classList.remove("is-focused");
+                });
+                option.addEventListener("click", () => {
+                    if (!languageNextInput) return;
+                    const targetCode = option.dataset.languageCode;
+                    languageNextInput.value = buildLocalizedNext(targetCode);
+                });
+            });
+        });
+    </script>
+
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,450 @@
+{% load static i18n %}
+{% get_current_language as CURRENT_LANGUAGE_CODE %}
+{% get_current_language_bidi as LANGUAGE_BIDI %}
+<!DOCTYPE html>
+<html lang="{{ CURRENT_LANGUAGE_CODE|default:'en' }}" dir="{% if LANGUAGE_BIDI %}rtl{% else %}ltr{% endif %}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{% trans "Chat with Support" %}</title>
+    <style>
+        :root {
+            --amazon-blue: #232f3e;
+            --amazon-orange: #815717;
+            --amazon-light-orange: #ffb347;
+            --amazon-gray: #f7f8fa;
+            --amazon-border: #d5dbdb;
+            --amazon-text: #0f1111;
+            --amazon-muted: #565959;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Amazon Ember', Arial, sans-serif;
+            background: var(--amazon-gray);
+            color: var(--amazon-text);
+            height: 100vh;
+            overflow: hidden;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+        }
+        .chat-container {
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            border: none;
+            background: linear-gradient(145deg, #ffffff, #f8f9fa);
+            border-radius: 0;
+            box-shadow: none;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .chat-header {
+            background: linear-gradient(135deg, var(--amazon-blue), #1a2332);
+            color: #fff;
+            padding: 16px 20px;
+            font-weight: 600;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border-radius: 0;
+            min-height: 60px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .close-btn {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .close-btn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+        .close-btn:active {
+            transform: scale(0.95);
+        }
+        .cs-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            flex-shrink: 0;
+            border: 2px solid rgba(255,255,255,0.9);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 16px 12px;
+            overflow-y: auto;
+            background: linear-gradient(180deg, #fafafa 0%, #f0f2f5 100%);
+            -webkit-overflow-scrolling: touch;
+        }
+        .chat-message {
+            margin: 8px 0;
+            display: flex;
+            gap: 8px;
+            max-width: 85%;
+        }
+        .chat-message.is-self {
+            flex-direction: row-reverse;
+            align-self: flex-end;
+            margin-right: 0;
+            margin-left: auto;
+        }
+        .chat-message.is-self .msg-avatar {
+            display: none;
+        }
+        .msg-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--amazon-orange);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .msg-content {
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-bubble {
+            background: #fff;
+            padding: 12px 16px;
+            border-radius: 18px;
+            border: 1px solid rgba(0,0,0,0.08);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            line-height: 1.4;
+            font-size: 16px;
+            transition: transform 0.15s, box-shadow 0.15s;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .chat-bubble:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .msg-time {
+            font-size: 12px;
+            color: var(--amazon-muted);
+            margin-top: 4px;
+            padding: 0 4px;
+        }
+        .chat-footer {
+            padding: 12px;
+            border-top: 1px solid rgba(0,0,0,0.08);
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+            display: flex;
+            gap: 6px;
+            align-items: flex-end;
+            border-radius: 0;
+            min-height: 70px;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+        }
+        .chat-input {
+            flex: 1;
+            width: 100%;
+            border: 2px solid rgba(0,0,0,0.08);
+            padding: 14px 18px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-family: inherit;
+            resize: none;
+            min-height: 44px;
+            max-height: 120px;
+            line-height: 1.4;
+            outline: none;
+            transition: all 0.25s ease;
+            background: rgba(255,255,255,0.95);
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .chat-input:focus {
+            border-color: var(--amazon-orange);
+            box-shadow: 0 0 0 3px rgba(255, 153, 0, 0.1);
+            background: #fff;
+        }
+        .chat-attach {
+            background: linear-gradient(135deg, var(--amazon-gray), #e9ecef);
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            color: var(--amazon-muted);
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.25s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            flex-shrink: 0;
+        }
+        .chat-attach:hover {
+            background: linear-gradient(135deg, var(--amazon-orange), var(--amazon-light-orange));
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(255, 153, 0, 0.3);
+        }
+        .chat-send {
+            padding: 10px 16px;
+            background: linear-gradient(135deg, var(--amazon-orange), var(--amazon-light-orange));
+            color: #000;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.25s ease;
+            box-shadow: 0 3px 12px rgba(255, 153, 0, 0.3);
+            -webkit-tap-highlight-color: transparent;
+            touch-action: manipulation;
+            min-width: 60px;
+            height: 36px;
+            flex-shrink: 0;
+        }
+        .chat-send:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 153, 0, 0.4);
+        }
+        .typing-indicator {
+            padding: 8px 20px;
+            font-size: 13px;
+            color: var(--amazon-muted);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container" data-role="guest" data-slug="{{ slug }}">
+        <header class="chat-header">
+            <div class="header-left">
+                <div class="cs-avatar">
+                   <img src="https://tse1.mm.bing.net/th/id/OIP.UhQsYtB3M4KfiG-cycydpwHaFj?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Customer Service" style="width:100%; height:100%; border-radius:50%; object-fit:cover;">
+                </div>
+                <div>{% trans "Customer Service" %}</div>
+            </div>
+            <button class="close-btn" onclick="window.location.href='{% url 'accounts:user_register' %}'" aria-label="{% trans 'Close chat' %}">
+                ×
+            </button>
+        </header>   
+        <section class="chat-messages" data-messages>
+            <div class="chat-message">
+                <div class="msg-avatar">CS</div>
+                <div class="msg-content">
+                    <div class="chat-bubble">{% trans "Hello! Welcome to Amazon Support. How can I help you today?" %}</div>
+                    <div class="msg-time"></div>
+                </div>
+            </div>
+        </section>
+        <footer class="chat-footer">
+            <textarea class="chat-input" data-chat-input placeholder="{% trans 'Type a message…' %}" rows="1"></textarea>
+            <input type="file" hidden data-attachment-input accept="image/*,.pdf,.doc,.docx,.txt">
+            <button class="chat-attach" data-attachment-trigger>📎</button>
+            <button class="chat-send" data-send>{% trans "Send" %}</button>
+        </footer>
+    </div>
+    <script>
+(function () {
+    const WS_PROTOCOL = window.location.protocol === 'https:' ? 'wss' : 'ws';
+
+    const i18nMessages = {
+        fileTooLarge: "{% trans 'File must be ≤ 2 MB' %}",
+        fileTypeNotAllowed: "{% trans 'File type not allowed' %}"
+    };
+
+    // Helpers -----------------------------------------------------------
+    function formatTime(iso) {
+        if (!iso) return '';
+        const d = new Date(iso);
+        return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+
+    async function fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+                const result = reader.result;
+                const commaIdx = result.indexOf(',');
+                resolve(result.slice(commaIdx + 1)); // pure base64
+            };
+            reader.onerror = reject;
+            reader.readAsDataURL(file);
+        });
+    }
+
+    // Guest widget -------------------------------------------------------
+    class GuestWidget {
+        constructor(root) {
+            this.root = root;
+            this.slug = root.dataset.slug;
+            this.ws = null;
+            this.messagesEl = root.querySelector('[data-messages]');
+            this.inputEl = root.querySelector('[data-chat-input]');
+            this.sendBtn = root.querySelector('[data-send]');
+            this.fileInput = root.querySelector('[data-attachment-input]');
+            this.attachBtn = root.querySelector('[data-attachment-trigger]');
+
+            this.bindEvents();
+            this.connect();
+        }
+
+        bindEvents() {
+            this.sendBtn?.addEventListener('click', () => this.send());
+            this.inputEl?.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    this.send();
+                }
+            });
+            this.attachBtn?.addEventListener('click', () => this.fileInput?.click());
+            this.fileInput?.addEventListener('change', (e) => this.handleFile(e));
+        }
+
+        connect() {
+            const url = `${WS_PROTOCOL}://${window.location.host}/ws/chat/${this.slug}/`;
+            this.ws = new WebSocket(url);
+
+            this.ws.addEventListener('open', () => {
+                // No special init needed for guest
+            });
+
+            this.ws.addEventListener('message', (event) => {
+                const payload = JSON.parse(event.data);
+                if (payload.event === 'bootstrap') {
+                    payload.messages.forEach(msg => this.appendMessage(msg));
+                } else if (payload.event === 'message') {
+                    this.appendMessage(payload.message);
+                } else if (payload.event === 'read') {
+                    // CS read the thread – no UI change needed for guest
+                } else if (payload.event === 'typing') {
+                    // Optional: show CS typing indicator
+                } else if (payload.event === 'error') {
+                    console.error('Chat error:', payload.detail);
+                }
+            });
+
+            this.ws.addEventListener('close', () => {
+                // Reconnect after 2 seconds
+                setTimeout(() => this.connect(), 2000);
+            });
+        }
+
+        async send() {
+            const text = this.inputEl?.value.trim();
+            if (!text || !this.ws || this.ws.readyState !== WebSocket.OPEN) return;
+            this.ws.send(JSON.stringify({ action: 'message', message: text }));
+            this.inputEl.value = '';
+        }
+
+        async handleFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            if (file.size > 2 * 1024 * 1024) {
+                alert(i18nMessages.fileTooLarge);
+                return;
+            }
+            const allowedMimes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp', 'application/pdf', 'text/plain', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+            if (!allowedMimes.includes(file.type)) {
+                alert(i18nMessages.fileTypeNotAllowed);
+                return;
+            }
+            const base64 = await fileToBase64(file);
+            this.ws.send(JSON.stringify({
+                action: 'file',
+                file_name: file.name,
+                mime_type: file.type,
+                file_data: base64,
+            }));
+            // Reset file input
+            this.fileInput.value = '';
+        }
+
+        appendMessage(msg) {
+            const div = document.createElement('div');
+            div.className = 'chat-message';
+            if (msg.sender_role === 'guest') div.classList.add('is-self');
+
+            const bubble = document.createElement('div');
+            bubble.className = 'chat-bubble';
+
+            if (msg.attachment && msg.attachment.url) {
+                // Check if attachment is an image
+                if (msg.attachment.mime_type && msg.attachment.mime_type.startsWith('image/')) {
+                    const img = document.createElement('img');
+                    img.src = msg.attachment.url;
+                    img.alt = msg.attachment.name || 'Image';
+                    img.style.maxWidth = '200px';
+                    img.style.maxHeight = '200px';
+                    img.style.borderRadius = '8px';
+                    img.style.cursor = 'pointer';
+                    img.onclick = () => window.open(msg.attachment.url, '_blank');
+                    bubble.appendChild(img);
+                } else {
+                    // For non-image files, show as download link
+                    const a = document.createElement('a');
+                    a.href = msg.attachment.url;
+                    a.target = '_blank';
+                    a.rel = 'noopener noreferrer';
+                    a.textContent = `📎 ${msg.attachment.name || 'Attachment'}`;
+                    bubble.appendChild(a);
+                }
+            }
+            if (msg.content) {
+                const txt = document.createElement('div');
+                txt.textContent = msg.content;
+                bubble.appendChild(txt);
+            }
+
+            const time = document.createElement('div');
+            time.style.fontSize = '0.75em';
+            time.style.color = '#666';
+            time.style.marginTop = '4px';
+            time.textContent = formatTime(msg.created_at);
+
+            div.appendChild(bubble);
+            div.appendChild(time);
+            this.messagesEl.appendChild(div);
+            this.messagesEl.scrollTop = this.messagesEl.scrollHeight;
+        }
+    }
+
+    // Init ---------------------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
+        const root = document.querySelector('[data-role]');
+        if (!root) return;
+        const role = root.dataset.role;
+        if (role === 'guest') {
+            new GuestWidget(root);
+        } else {
+            console.warn('Unknown chat role:', role);
+        }
+    });
+})();
+    </script>
+</body>
+</html>

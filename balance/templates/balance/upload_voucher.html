@@ -1,0 +1,533 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% trans "Upload voucher" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        background:
+            linear-gradient(rgba(5, 6, 8, 0.7), rgba(5, 6, 8, 0.7)),
+            url("{% static 'img/bg.jpg' %}") center/cover fixed no-repeat;
+        background-color: #050608;
+    }
+
+    .mobile-shell {
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+        padding-bottom: 4rem;
+    }
+
+    .glass-card {
+        border-radius: 20px;
+        padding: 1rem 1.1rem;
+        background: rgba(19, 25, 33, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 18px 38px rgba(0, 0, 0, 0.5);
+        backdrop-filter: blur(12px);
+        color: #faf9f7;
+    }
+
+    .mega-card {
+        display: flex;
+        flex-direction: column;
+        gap: 1.1rem;
+    }
+    .section-divider {
+        height: 1px;
+        background: rgba(255,255,255,0.08);
+        margin: 0.4rem 0;
+    }
+
+    .hero-card {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        background: linear-gradient(135deg, rgba(32, 41, 57, 0.95), rgba(12, 16, 21, 0.92));
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-card::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at top right, rgba(0,168,225,0.28), transparent 55%);
+        pointer-events: none;
+    }
+    .hero-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 14px;
+        background: rgba(15,17,17,0.8);
+        border: 1px solid rgba(255,255,255,0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.6rem;
+        color: #f3c974;
+        position: relative;
+        z-index: 1;
+        box-shadow: 0 10px 22px rgba(0,0,0,0.35);
+    }
+    .hero-content {
+        position: relative;
+        z-index: 1;
+        flex: 1;
+    }
+
+    .hero-eyebrow {
+        text-transform: uppercase;
+        font-size: 0.65rem;
+        letter-spacing: 0.12em;
+        color: rgba(247,250,250,0.7);
+    }
+    .hero-title {
+        margin: 0.15rem 0 0.25rem;
+        font-size: 1.25rem;
+    }
+    .hero-subtext {
+        margin: 0;
+        font-size: 0.8rem;
+        color: rgba(247,250,250,0.8);
+    }
+    .hero-tags {
+        margin-top: 0.6rem;
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+    }
+    .tag {
+        border-radius: 999px;
+        padding: 0.2rem 0.85rem;
+        font-size: 0.7rem;
+        font-weight: 600;
+        border: 1px solid rgba(255,255,255,0.12);
+        background: rgba(15,17,17,0.65);
+        color: rgba(247,250,250,0.8);
+    }
+    .wallet-panel {
+        display: flex;
+        flex-direction: column;
+        gap: 0.9rem;
+    }
+    .chain-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.6rem;
+    }
+    .chain-header .chain-label {
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: rgba(247,250,250,0.72);
+    }
+    .chain-switch {
+        display: inline-flex;
+        gap: 0.45rem;
+        align-items: center;
+    }
+    .amount-chip {
+        border-radius: 14px;
+        padding: 0.35rem 0.75rem;
+        background: rgba(245,194,116,0.14);
+        border: 1px solid rgba(245,194,116,0.35);
+        color: #f5c274;
+        font-size: 0.74rem;
+    }
+
+    .recharge-card {
+        border-radius: 24px;
+        background: linear-gradient(140deg, rgba(26,34,52,0.92), rgba(12,16,21,0.92));
+        border: 1px solid rgba(255,255,255,0.08);
+        padding: 1.2rem 1.1rem 1.35rem;
+        box-shadow: 0 18px 36px rgba(9,11,18,0.5);
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        text-align: center;
+    }
+    .recharge-title {
+        font-size: 0.9rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(247,250,250,0.78);
+        font-weight: 600;
+    }
+    .wallet-address {
+        font-size: 0.75rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        line-height: 1.5;
+        word-break: break-all;
+        color: rgba(247,250,250,0.92);
+    }
+    .wallet-address-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+    }
+    .recharge-card__head {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+    .copy-btn {
+        border: none;
+        border-radius: 18px;
+        padding: 0.1rem 0.3rem;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+        color: #0f1111;
+        background: linear-gradient(135deg, #f5c274, #e3942d);
+        cursor: pointer;
+        min-width: 100px;
+        box-shadow: 0 12px 24px rgba(0,0,0,0.35);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .copy-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 16px 28px rgba(0,0,0,0.4);
+    }
+
+    .meta-row {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.85rem;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .meta-row:last-child {
+        border-bottom: none;
+    }
+    .meta-label {
+        color: rgba(247,250,250,0.65);
+        letter-spacing: 0.05em;
+        font-size: 0.7rem;
+        text-transform: uppercase;
+    }
+    .meta-value {
+        font-weight: 600;
+    }
+    .network-options {
+        display: inline-flex;
+        gap: 0.45rem;
+    }
+    .network-option {
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.08);
+        background: rgba(15,17,17,0.75);
+        padding: 0.35rem 0.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+        cursor: pointer;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+        font-size: 0.72rem;
+        text-align: left;
+    }
+    .network-option .network-name {
+        font-weight: 600;
+        color: #f7fafa;
+        font-size: 0.78rem;
+    }
+    .network-option small {
+        font-size: 0.6rem;
+        color: rgba(247,250,250,0.65);
+    }
+    .network-option.active {
+        border-color: #f5c274;
+        box-shadow: 0 0 0 1px rgba(245,194,116,0.35);
+        transform: translateY(-1px);
+    }
+
+    .status-pill {
+        border-radius: 999px;
+        padding: 0.25rem 0.9rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        background: rgba(245,194,116,0.18);
+        color: #f5c274;
+    }
+    .form-card form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .file-input {
+        display: none;
+    }
+    .upload-trigger {
+        border-radius: 20px;
+        border: 1px dashed rgba(245,194,116,0.65);
+        background: linear-gradient(135deg, rgba(19,25,33,0.9), rgba(12,16,21,0.85));
+        padding: 1.4rem;
+        text-align: center;
+        cursor: pointer;
+        transition: border-color 0.2s ease, transform 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+        justify-content: center;
+        min-height: 220px;
+        position: relative;
+        overflow: hidden;
+    }
+    .upload-trigger:hover {
+        border-color: #f5c274;
+        transform: translateY(-2px);
+    }
+    .upload-trigger > * {
+        position: relative;
+        z-index: 1;
+    }
+    .upload-trigger .upload-icon {
+        width: 72px;
+        height: 72px;
+        border-radius: 22px;
+        border: 2px dashed rgba(255,255,255,0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        font-weight: 600;
+        color: #ffffff;
+        background: rgba(255,255,255,0.04);
+    }
+    .upload-trigger .upload-text {
+        font-size: 0.85rem;
+        color: rgba(247,250,250,0.75);
+    }
+    .upload-trigger .upload-replace {
+        display: none;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 0.35rem 0.9rem;
+        border-radius: 999px;
+        background: rgba(15,17,17,0.7);
+        color: #f7fafa;
+        box-shadow: 0 8px 18px rgba(0,0,0,0.25);
+    }
+    .upload-trigger.has-preview {
+        border-style: solid;
+        border-color: rgba(255,255,255,0.18);
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-color: rgba(9,12,17,0.9);
+    }
+    .upload-trigger.has-preview::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(8,12,18,0.2), rgba(8,12,18,0.65));
+        z-index: 0;
+    }
+    .upload-trigger.has-preview .upload-icon,
+    .upload-trigger.has-preview .upload-text {
+        display: none;
+    }
+    .upload-trigger.has-preview .upload-replace {
+        display: inline-flex;
+    }
+
+    .primary-btn {
+        border: none;
+        border-radius: 18px;
+        padding: 0.95rem;
+        font-size: 0.95rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #f5c274, #e3942d);
+        color: #0f1111;
+        cursor: pointer;
+        transition: transform 0.2s ease;
+    }
+    .primary-btn:hover {
+        transform: translateY(-1px);
+    }
+    .empty-state {
+        border-radius: 18px;
+        padding: 1rem;
+        background: rgba(224, 82, 82, 0.12);
+        border: 1px solid rgba(224,82,82,0.35);
+        color: #f98585;
+        text-align: center;
+        font-weight: 600;
+    }
+    .back-link {
+        text-align: center;
+        margin-top: 0.6rem;
+    }
+    .back-link a {
+        color: #56d5ff;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    @media (max-width: 600px) {
+        .chain-header {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+    }
+    @media (min-width: 992px) {
+        .page-shell {
+            padding-left: clamp(1rem, 2.5vw, 2.5rem);
+            padding-right: clamp(1rem, 2.5vw, 2.5rem);
+        }
+        .page-shell > .container {
+            max-width: none;
+            width: 100%;
+        }
+        .mobile-shell {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="mobile-shell">
+    <section class="glass-card mega-card">
+       
+
+       
+
+        {% if superadmin_wallet %}
+            <div class="wallet-panel">
+                <div class="chain-header">
+                    
+                    <span class="amount-chip">
+                        {% blocktrans with amount=recharge_request.amount|floatformat:2 %}
+                            Amount ${{ amount }}
+                        {% endblocktrans %}
+                    </span>
+                   
+                </div>
+                <div class="chain-switch">
+                
+                </div>
+                <div class="recharge-card">
+                   
+                    <div class="wallet-address-container">
+                        <span class="wallet-address" id="walletAddress">{{ superadmin_wallet.address }}</span>
+                        <button
+                            class="copy-btn"
+                            type="button"
+                            id="copyWalletBtn"
+                            data-copy-label="{% trans 'Copy address' %}"
+                            data-copied-label="{% trans 'Copied' %}"
+                        >
+                            {% trans "Copy address" %}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+           
+        {% endif %}
+
+        <div class="section-divider"></div>
+
+        {% if recharge_request.voucher %}
+            
+                
+                <div class="upload-trigger has-preview" style="margin-top:0.75rem;background-image:url('{{ recharge_request.voucher.file.url }}');">
+                    <span class="upload-replace">{% trans "Voucher uploaded" %}</span>
+                </div>
+            </div>
+        {% else %}
+            <div class="form-card">
+                <div style="margin-bottom:0.8rem;">
+                    <p class="hero-eyebrow" style="margin-bottom:0.2rem;">{% trans "" %}</p>
+                    
+                </div>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                   
+                    <label for="voucherFile" class="upload-trigger" id="voucherTrigger" aria-live="polite">
+                        <div class="upload-icon">+</div>
+                        <span class="upload-text">{% trans "Please upload the transfer voucher" %}</span>
+                        <span class="upload-replace">{% trans "Replace voucher" %}</span>
+                    </label>
+                    <input id="voucherFile" class="file-input" type="file" name="voucher_file" accept="image/*" required>
+
+                    <input type="hidden" name="network" id="selectedNetwork" value="TRC20">
+                    <button type="submit" class="primary-btn">{% trans "Upload voucher" %}</button>
+                </form>
+            </div>
+        {% endif %}
+
+        <div class="section-divider"></div>
+
+        <div class="back-link">
+            <a href="{% url 'balance:wallet_dashboard' %}">&larr; {% trans "Back to wallet dashboard" %}</a>
+        </div>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const copyBtn = document.getElementById('copyWalletBtn');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', function() {
+            const address = document.getElementById('walletAddress').textContent.trim();
+            navigator.clipboard.writeText(address).then(function() {
+                const originalLabel = copyBtn.getAttribute('data-copy-label');
+                const copiedLabel = copyBtn.getAttribute('data-copied-label');
+                copyBtn.textContent = copiedLabel || originalLabel;
+                setTimeout(() => {
+                    copyBtn.textContent = originalLabel;
+                }, 1500);
+            });
+        });
+    }
+
+    const networkButtons = document.querySelectorAll('.network-option');
+    const selectedNetworkInput = document.getElementById('selectedNetwork');
+    networkButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            networkButtons.forEach(btn => btn.classList.remove('active'));
+            this.classList.add('active');
+            const value = this.getAttribute('data-network');
+            if (selectedNetworkInput) {
+                selectedNetworkInput.value = value;
+            }
+        });
+    });
+
+    const voucherInput = document.getElementById('voucherFile');
+    const voucherTrigger = document.getElementById('voucherTrigger');
+
+    if (voucherInput && voucherTrigger) {
+        voucherInput.addEventListener('change', function (event) {
+            const file = event.target.files && event.target.files[0];
+            if (!file) {
+                voucherTrigger.classList.remove('has-preview');
+                voucherTrigger.style.removeProperty('background-image');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function (loadEvent) {
+                voucherTrigger.style.backgroundImage = `url('${loadEvent.target.result}')`;
+                voucherTrigger.classList.add('has-preview');
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+});
+</script>
+{% endblock %}

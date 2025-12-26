@@ -1,0 +1,647 @@
+{% extends "base.html" %}
+{% load i18n static product_formatting %}
+
+{% block extra_css %}
+<style>
+    body {
+        background:
+            linear-gradient(rgba(5, 6, 8, 0.8), rgba(5, 6, 8, 0.8)),
+            url("{% static 'img/bg.jpg' %}") center/cover fixed no-repeat;
+        background-color: #050608;
+    }
+
+    .mobile-shell {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 0 0 60px 0;
+    }
+
+    .glass-card {
+        border-radius: 20px;
+        padding: 0.85rem 0.95rem;
+        background: rgba(19, 25, 33, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(12px);
+    }
+    .hero-card {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        flex-direction: row;
+
+        background: linear-gradient(135deg, rgba(32, 41, 57, 0.95), rgba(12, 16, 21, 0.92));
+    }
+    .hero-avatar {
+        width: 50px;
+        height: 50px;
+
+        border-radius: 999px;
+        background: linear-gradient(145deg, #f5c274, #e3942d);
+        padding: 3px;
+        box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+    }
+    .hero-avatar-inner {
+
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        background: rgba(15,17,17,0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+
+        font-weight: 600;
+        color: var(--text-soft);
+        overflow: hidden;
+    }
+    .hero-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+    }
+    .hero-greeting .hello {
+        font-size: 0.70rem;
+
+        font-weight: 600;
+        margin: 0;
+    }
+    .hero-greeting .username {
+        font-size: 0.65rem;
+        margin: 0.1rem 0 0;
+
+        opacity: 0.75;
+    }
+    .hero-balance {
+        margin-inline-start: auto;
+        text-align: end;
+    }
+    .hero-balance .label {
+        font-size: 0.70rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(247,250,250,0.55);
+    }
+    .hero-balance .invite {
+        font-size: 0.65rem;
+
+        font-weight: 600;
+        color: #f2b35c;
+    }
+    .hero-balance .amount {
+        margin-top: 0.2rem;
+        font-size: 0.7rem;
+
+        font-weight: 700;
+        color: #f2b35c;
+    }
+    .metric-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0,1fr));
+        gap: 0.45rem;
+    }
+    .metric-card {
+        padding: 0.55rem 0.45rem;
+        border-radius: 14px;
+
+        background: rgba(15,17,17,0.65);
+        border: 1px solid rgba(255,255,255,0.04);
+        text-align: center;
+    }
+    .metric-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 9px;
+        margin: 0 auto 0.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0f1111;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
+    .metric-icon.teal { background: #007185; color: #f7fafa; }
+    .metric-icon.amber { background: #f2b35c; }
+    .metric-icon.sky { background: #00a8e1; color: #0f1111; }
+    .metric-card p {
+        margin: 0;
+        font-size: 0.45rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(247,250,250,0.65);
+    }
+    .metric-card strong {
+        font-size: 0.82rem;
+        color: #f7fafa;
+    }
+
+    .action-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+        gap: 0.55rem;
+    }
+    .action-tile {
+        border-radius: 16px;
+        padding: 0.6rem;
+        border: none;
+        font-weight: 600;
+        font-size: 0.78rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.3rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.2s, box-shadow 0.2s;
+        box-shadow: 0 6px 14px rgba(0,0,0,0.28);
+    }
+    .action-tile svg { width: 16px; height: 16px; }
+
+    .action-tile:hover { transform: translateY(-1px); }
+    .action-amazon { background: linear-gradient(135deg, #f5c274, #e3942d); color: #0f1111; }
+    .action-teal { background: linear-gradient(135deg, #00a8e1, #007185); color: #f7fafa; }
+    .action-invite { background: linear-gradient(135deg, #f3c974, #e3942d); color: #0f1111; }
+    .action-dark { background: linear-gradient(135deg, #1f2933, #131921); color: #f7fafa; border: 1px solid rgba(255,255,255,0.08); }
+    .mission-card {
+        background: linear-gradient(135deg, rgba(26,38,52,0.95), rgba(12,16,21,0.92));
+        border-radius: 20px;
+        padding: 1rem;
+        border: 1px solid rgba(255,255,255,0.06);
+        overflow: hidden;
+    }
+
+    .mission-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 0.6rem;
+        font-size: 0.68rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(247,250,250,0.7);
+    }
+    .mission-track {
+        position: relative;
+    }
+    .mission-task {
+        display: flex;
+        gap: 0.75rem;
+        align-items: center;
+        padding: 0.25rem 0;
+        transition: opacity 0.45s ease, transform 0.45s ease;
+    }
+    .mission-task.is-transitioning {
+        opacity: 0;
+        transform: translateX(-12px);
+    }
+    .mission-media {
+        width: 44px;
+        height: 44px;
+        border-radius: 14px;
+        overflow: hidden;
+        background: rgba(255,255,255,0.08);
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: #0f1111;
+    }
+    .mission-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .mission-info {
+        flex: 1;
+        min-width: 0;
+    }
+    .mission-info .title {
+        margin: 0;
+        font-size: 0.9rem;
+        font-weight: 600;
+    }
+    .mission-info .subtitle {
+        margin: 0.1rem 0 0.3rem;
+        font-size: 0.72rem;
+        color: rgba(247,250,250,0.75);
+    }
+    .mission-info .meta {
+        display: flex;
+        gap: 0.75rem;
+        font-size: 0.7rem;
+        color: #f2b35c;
+        flex-wrap: wrap;
+    }
+    .mission-info .meta span {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2rem;
+    }
+    .mission-cta {
+        margin-top: 0.65rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.3rem;
+        padding: 0.42rem 0.9rem;
+        border-radius: 999px;
+        background: #f2b35c;
+        color: #0f1111;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.78rem;
+        box-shadow: 0 10px 25px rgba(242,179,92,0.25);
+    }
+
+    .product-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+    .mini-product {
+        border-radius: 16px;
+        padding: 0.65rem;
+        display: flex;
+        gap: 0.55rem;
+        align-items: center;
+        background: rgba(15,17,17,0.65);
+        border: 1px solid rgba(255,255,255,0.04);
+    }
+    .mini-thumb {
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        background: rgba(255,255,255,0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        font-size: 0.78rem;
+    }
+    .mini-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .mini-info h6 {
+        margin: 0;
+        font-size: 0.82rem;
+    }
+    .mini-info p {
+        margin: 0.12rem 0 0;
+        font-size: 0.7rem;
+        color: rgba(247,250,250,0.7);
+    }
+    .mini-pill {
+        margin-left: auto;
+        font-size: 0.64rem;
+        padding: 0.15rem 0.45rem;
+        border-radius: 999px;
+        background: rgba(242,179,92,0.15);
+        color: #f2b35c;
+    }
+
+    .bottom-pad {
+        height: 30px;
+    }
+
+    @media (min-width: 992px) {
+        .page-shell {
+            padding-left: clamp(1rem, 2.5vw, 2.5rem);
+            padding-right: clamp(1rem, 2.5vw, 2.5rem);
+        }
+        .page-shell > .container {
+            max-width: none;
+            width: 100%;
+        }
+        .mobile-shell {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .mobile-shell { padding-bottom: 60px; }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="mobile-shell">
+    <section class="glass-card hero-card">
+        <div class="hero-avatar">
+            <div class="hero-avatar-inner">
+                {% if user.profile_picture %}
+                    <img src="{{ user.profile_picture.url }}" alt="{{ user.username }}">
+                {% else %}
+                    {{ user.get_full_name|default:user.username|slice:":1"|upper }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="hero-greeting">
+            <p class="hello">{% trans "Hello" %}</p>
+            <p class="username">{{ user.get_full_name|default:user.username }}</p>
+            <p class="username" style="font-size:0.6rem;">{{ user.phone|default:_("No phone") }}</p>
+        </div>
+        <div class="hero-balance">
+            <span class="label">{% trans "Invite code" %}</span>
+            <div class="invite">{{ user.referral_code|default:_("N/A") }}</div>
+            <div class="amount">${{ current_balance|floatformat:2 }}</div>
+        </div>
+    </section>
+
+    <section class="metric-strip">
+        <div class="metric-card">
+            <div class="metric-icon teal">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <path d="M4 12l4-4 4 4 4-4 4 4" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </div>
+            <strong>${{ total_balance|default:0|floatformat:2 }}</strong>
+            <p>{% trans "Cumulative balance" %}</p>
+        </div>
+        <div class="metric-card">
+            <div class="metric-icon amber">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#0f1111" stroke-width="1.6">
+                    <path d="M12 8v8m0 0l-3-3m3 3l3-3m-2 2H9a4 4 0 014 4v4" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <rect x="4" y="4" width="12" height="12" rx="4"></rect>
+                </svg>
+            </div>
+            <strong>${{ product_commission|default:0|floatformat:2 }}</strong>
+            <p>{% trans "Product commission" %}</p>
+        </div>
+        <div class="metric-card">
+            <div class="metric-icon sky">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#0f1111" stroke-width="1.6">
+                    <path d="M12 4l2.09 4.24L18.8 9.27l-3.4 3.32.8 4.67L12 15.77 7.6 18.99l.8-4.67L5 9.27l4.71-.73z" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </div>
+            <strong>${{ referral_commission|default:0|floatformat:2 }}</strong>
+            <p>{% trans "Referral commission" %}</p>
+        </div>
+    </section>
+
+    <section class="action-grid">
+        <a class="action-tile action-amazon" href="{% url 'balance:recharge_amount' %}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0f1111" stroke-width="1.8">
+                <rect x="4" y="6" width="16" height="12" rx="3"></rect>
+                <path d="M9 12l3-3 3 3" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            {% trans "Recharge" %}
+        </a>
+        <a class="action-tile action-teal" href="{% url 'wallet:withdraw' %}">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f7fafa" stroke-width="1.8">
+                <rect x="4" y="6" width="16" height="12" rx="3"></rect>
+                <path d="M15 12l-3 3-3-3" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            {% trans "Withdraw" %}
+        </a>
+        <a href="{% url 'products:regulation' %}" class="action-tile action-invite">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0f1111" stroke-width="1.8">
+                <path d="M8 12l-2-2m0 0l2-2m-2 2h9a4 4 0 014 4v4" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M16 12l2 2m0 0l-2 2m2-2H9a4 4 0 01-4-4V6" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+            {% trans "About us" %}
+        </a>
+        <a href="{% url 'products:products' %}" class="action-tile action-dark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#f7fafa" stroke-width="1.8">
+                <path d="M12 6v12m0 0l-3-3m3 3l3-3" stroke-linecap="round" stroke-linejoin="round"></path>
+                <rect x="5" y="4" width="14" height="16" rx="2"></rect>
+            </svg>
+            {{ mission_cta_label|default:_("Start task") }}
+        </a>
+    </section>
+
+    <section class="mission-card">
+        <div class="mission-head">
+            <span>{% trans "Available products" %}</span>
+            <small>{{ now|date:"M d, g:i a" }}</small>
+        </div>
+        <div class="mission-track">
+            <div class="mission-task">
+                {% if featured_products %}
+                    {% with highlight=featured_products|first %}
+                        <div class="mission-media">
+                            {% if highlight.image %}
+                                <img src="{{ highlight.image.url }}" alt="{{ highlight.name|format_product_code }}">
+                            {% elif highlight.file %}
+                                <img src="{{ highlight.file.url }}" alt="{{ highlight.name|format_product_code }}">
+                            {% else %}
+                                {{ highlight.name|format_product_code }}
+                            {% endif %}
+                        </div>
+                        <div class="mission-info">
+                            <p class="title">{{ highlight.name|format_product_code }}</p>
+                            <p class="subtitle">{{ highlight.description|default:_("Featured opportunity")|truncatechars:60 }}</p>
+                            <div class="meta">
+                                <span>{% blocktrans with amount=highlight.commission_amount|floatformat:2 %}Earn ${{ amount }}{% endblocktrans %}</span>
+                                <span>{% blocktrans with price=highlight.price|floatformat:2 %}Price ${{ price }}{% endblocktrans %}</span>
+                            </div>
+                        </div>
+                    {% endwith %}
+                {% elif feature_gallery_images %}
+                    <div class="mission-media">
+                        <img src="{{ feature_gallery_images.0 }}" alt="Prime pick gallery item">
+                    </div>
+                    <div class="mission-info">
+                        <p class="title">{% trans "Prime pick drop" %}</p>
+                        <div class="meta">
+                            <span>{% trans "Earn up to $185" %}</span>
+                            <span>{% trans "Price $129.00" %}</span>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="mission-media">N/A</div>
+                    <div class="mission-info">
+                        <p class="title">{% trans "No featured product" %}</p>
+                        <p class="subtitle">{% trans "Fresh missions arrive throughout the day." %}</p>
+                        <div class="meta">
+                            <span>{% trans "Check back soon" %}</span>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        {% url 'products:products' as mission_default_url %}
+        <a href="{{ mission_default_url }}"
+           class="mission-cta"
+           data-default-url="{{ mission_default_url }}">
+            {{ mission_cta_label|default:_("") }}
+            <svg viewBox="0 0 24 24" fill="none" stroke="#0f1111" stroke-width="1.8">
+                <path d="M5 12h14m-7-7l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </a>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function() {
+    const copyBtn = document.getElementById('copyReferralBtn');
+    if (!copyBtn) return;
+    copyBtn.addEventListener('click', function() {
+        const referralInput = document.getElementById('referralCode');
+        if (!referralInput) return;
+        referralInput.select();
+        document.execCommand('copy');
+        const prevText = this.textContent;
+        this.textContent = 'Copied!';
+        this.classList.remove('btn-outline-secondary');
+        this.classList.add('btn-success');
+        setTimeout(() => {
+            this.textContent = prevText;
+            this.classList.remove('btn-success');
+            this.classList.add('btn-outline-secondary');
+        }, 1800);
+    });
+})();
+
+(function() {
+    const taskEl = document.querySelector('.mission-task');
+    const mediaEl = document.querySelector('.mission-media');
+    const titleEl = document.querySelector('.mission-info .title');
+    const subtitleEl = document.querySelector('.mission-info .subtitle');
+    const metaEl = document.querySelector('.mission-info .meta');
+    if (!taskEl || !mediaEl || !titleEl || !subtitleEl || !metaEl) return;
+
+    const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const digits = "0123456789";
+
+    const randomLetters = (count = 1) => Array.from({ length: count }, () => alphabet[Math.floor(Math.random() * alphabet.length)]).join("");
+    const randomDigits = (count = 1) => Array.from({ length: count }, () => digits[Math.floor(Math.random() * digits.length)]).join("");
+
+    const consumeChars = (pool, count, fallback) => {
+        let result = "";
+        for (let i = 0; i < count; i += 1) {
+            if (pool.length) {
+                result += pool.shift();
+            } else {
+                result += fallback();
+            }
+        }
+        return result;
+    };
+
+    const toProductCode = (rawName = "") => {
+        const normalized = String(rawName || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+        const letterPool = [...(normalized.match(/[A-Z]/g) || [])];
+        const digitPool = [...(normalized.match(/[0-9]/g) || [])];
+
+        const segmentOne = consumeChars(letterPool, 3, () => randomLetters(1));
+        const segmentTwoDigits = consumeChars(digitPool, 2, () => randomDigits(1));
+        const segmentTwoLetter = consumeChars(letterPool, 1, () => randomLetters(1));
+        const segmentThree = consumeChars(letterPool, 3, () => randomLetters(1));
+
+        return `${segmentOne}-${segmentTwoDigits}${segmentTwoLetter}-${segmentThree}`;
+    };
+
+    const rotationData = JSON.parse(String.raw`[
+        {% for product in featured_products %}
+        {
+            "name": "{{ product.name|escapejs }}",
+            "subtitle": "{{ product.description|default:'Featured opportunity'|truncatechars:70|escapejs }}",
+            "commission": "{{ product.commission_amount|floatformat:2 }}",
+            "price": "{{ product.price|floatformat:2 }}",
+            "image": "{% if product.image %}{{ product.image.url|escapejs }}{% elif product.file %}{{ product.file.url|escapejs }}{% else %}{% endif %}",
+            "badge": "{{ product.name|format_product_code|slice:':3' }}"
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]`).filter(item => item.name);
+
+    const sampleGallery = JSON.parse(String.raw`[
+        {% for image in feature_gallery_images %}
+        "{{ image|escapejs }}"{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ]`).filter(Boolean);
+
+    const slides = rotationData.length
+        ? rotationData
+        : sampleGallery.map((image, index) => ({
+            name: `Gallery drop ${index + 1}`,
+            subtitle: 'Featured opportunity',
+            commission: '',
+            price: '',
+            image,
+            badge: randomLetters(3)
+        }));
+
+    if (!slides.length) {
+        return;
+    }
+
+    let cycleIndex = 0;
+
+    const formatMoney = (value) => {
+        if (value === null || value === undefined || value === '') {
+            return null;
+        }
+        const numberValue = Number(value);
+        if (!Number.isFinite(numberValue)) {
+            return null;
+        }
+        return `$${numberValue.toFixed(2)}`;
+    };
+
+    const renderMeta = (slide) => {
+        const entries = [];
+        const commissionLabel = formatMoney(slide.commission);
+        if (commissionLabel) {
+            entries.push(`Earn ${commissionLabel}`);
+        }
+        const priceLabel = formatMoney(slide.price);
+        if (priceLabel) {
+            entries.push(`Price ${priceLabel}`);
+        }
+
+        metaEl.innerHTML = '';
+        if (!entries.length) {
+            const span = document.createElement('span');
+            span.textContent = 'Check back soon';
+            metaEl.appendChild(span);
+            return;
+        }
+
+        entries.forEach((label) => {
+            const span = document.createElement('span');
+            span.textContent = label;
+            metaEl.appendChild(span);
+        });
+    };
+
+    const renderMission = (slide) => {
+        if (slide.image) {
+            mediaEl.innerHTML = '';
+            const imageEl = document.createElement('img');
+            imageEl.src = slide.image;
+            imageEl.alt = slide.name || 'Mission media item';
+            mediaEl.appendChild(imageEl);
+        } else {
+            mediaEl.textContent = slide.badge || toProductCode(slide.name);
+        }
+
+        titleEl.textContent = slide.name || 'Featured product';
+        subtitleEl.textContent = slide.subtitle || 'Featured opportunity';
+
+        renderMeta(slide);
+    };
+
+    renderMission(slides[cycleIndex]);
+
+    if (slides.length < 2) {
+        return;
+    }
+
+    setInterval(() => {
+        taskEl.classList.add('is-transitioning');
+        setTimeout(() => {
+            cycleIndex = (cycleIndex + 1) % slides.length;
+            renderMission(slides[cycleIndex]);
+            taskEl.classList.remove('is-transitioning');
+        }, 300);
+    }, 4500);
+})();
+</script>
+{% endblock %}

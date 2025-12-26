@@ -1,0 +1,695 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block content %}
+<style>
+body {
+    margin: 0;
+    background:
+        linear-gradient(rgba(5, 6, 8, 0.7), rgba(5, 6, 8, 0.7)),
+        url("{% static 'img/bg.jpg' %}") center/cover fixed no-repeat;
+    background-color: #050608;
+    color: #f7fafa;
+    font-family: 'Poppins', 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+}
+.mobile-shell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    padding: 0 0 60px 0;
+}
+.glass-card {
+    border-radius: 20px;
+    padding: 0.85rem 0.95rem;
+    background: rgba(19, 25, 33, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(12px);
+}
+.hero-card {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    background: linear-gradient(135deg, rgba(32, 41, 57, 0.95), rgba(12, 16, 21, 0.92));
+}
+.hero-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 999px;
+    background: linear-gradient(145deg, #f5c274, #e3942d);
+    padding: 3px;
+    box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+}
+.hero-avatar-inner {
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: rgba(15,17,17,0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-soft);
+    overflow: hidden;
+}
+.hero-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: inherit;
+}
+.hero-greeting .hello {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+}
+.hero-greeting .username {
+    font-size: 0.75rem;
+    margin: 0.1rem 0 0;
+    opacity: 0.75;
+}
+.hero-balance {
+    margin-left: auto;
+    text-align: right;
+}
+.hero-balance .label {
+    font-size: 0.55rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(247,250,250,0.55);
+}
+.hero-balance .invite {
+    font-size: 0.5rem;
+    font-weight: 600;
+    color: #f2b35c;
+}
+.hero-balance .amount {
+    margin-top: 0.2rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #f2b35c;
+}
+.metric-strip {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0,1fr));
+    gap: 0.45rem;
+}
+.metric-card {
+    padding: 0.55rem 0.45rem;
+    border-radius: 14px;
+    background: rgba(15,17,17,0.65);
+    border: 1px solid rgba(255,255,255,0.04);
+    text-align: center;
+}
+.metric-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 9px;
+    margin: 0 auto 0.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #0f1111;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+.metric-icon.teal { background: #007185; color: #f7fafa; }
+.metric-icon.amber { background: #f2b35c; color: #0f1111; }
+.metric-icon.sky { background: #00a8e1; color: #0f1111; }
+.metric-card p {
+    margin: 0;
+    font-size: 0.45rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(247,250,250,0.65);
+}
+.metric-card strong {
+    font-size: 0.82rem;
+    color: #f7fafa;
+}
+.action-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 0.55rem;
+}
+.action-tile {
+    border-radius: 16px;
+    padding: 0.6rem;
+    border: none;
+    font-weight: 600;
+    font-size: 0.78rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.28);
+}
+.action-tile svg { width: 16px; height: 16px; }
+.action-tile:hover { transform: translateY(-1px); }
+.action-amazon { background: linear-gradient(135deg, #f5c274, #e3942d); color: #0f1111; }
+.action-teal { background: linear-gradient(135deg, #00a8e1, #007185); color: #f7fafa; }
+.action-invite { background: linear-gradient(135deg, #f3c974, #e3942d); color: #0f1111; }
+.action-dark { background: linear-gradient(135deg, #1f2933, #131921); color: #f7fafa; border: 1px solid rgba(255,255,255,0.08); }
+.mission-card {
+    background: linear-gradient(135deg, rgba(26,38,52,0.95), rgba(12,16,21,0.92));
+    border-radius: 20px;
+    padding: 1rem;
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden;
+}
+.mission-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(247,250,250,0.7);
+}
+.mission-track { position: relative; }
+.mission-task {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.25rem 0;
+    transition: opacity 0.45s ease, transform 0.45s ease;
+}
+.mission-task.is-transitioning {
+    opacity: 0;
+    transform: translateX(-12px);
+}
+.mission-media {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.08);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #0f1111;
+}
+.mission-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.mission-info {
+    flex: 1;
+    min-width: 0;
+}
+.mission-info .title {
+    margin: 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+.mission-info .subtitle {
+    margin: 0.1rem 0 0.3rem;
+    font-size: 0.72rem;
+    color: rgba(247,250,250,0.75);
+}
+.mission-info .meta {
+    display: flex;
+    gap: 0.75rem;
+    font-size: 0.7rem;
+    color: #f2b35c;
+    flex-wrap: wrap;
+}
+.wallet-divider {
+    height: 1px;
+    width: 100%;
+    background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.2), rgba(255,255,255,0));
+    margin: 0.8rem 0 0.6rem;
+    border-radius: 999px;
+}
+.mission-info .meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+}
+.mission-cta {
+    margin-top: 0.65rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.42rem 0.9rem;
+    border-radius: 999px;
+    background: #f2b35c;
+    color: #0f1111;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.78rem;
+    box-shadow: 0 10px 25px rgba(242,179,92,0.25);
+}
+.product-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+.mini-product {
+    border-radius: 16px;
+    padding: 0.65rem;
+    display: flex;
+    gap: 0.55rem;
+    align-items: center;
+    background: rgba(15,17,17,0.65);
+    border: 1px solid rgba(255,255,255,0.04);
+}
+.mini-thumb {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    font-size: 0.78rem;
+}
+.mini-thumb img { width: 100%; height: 100%; object-fit: cover; }
+.mini-info h6 {
+    margin: 0;
+    font-size: 0.82rem;
+}
+.mini-info p {
+    margin: 0.12rem 0 0;
+    font-size: 0.7rem;
+    color: rgba(247,250,250,0.7);
+}
+.mini-pill {
+    margin-left: auto;
+    font-size: 0.64rem;
+    padding: 0.15rem 0.45rem;
+    border-radius: 999px;
+    background: rgba(242,179,92,0.15);
+    color: #f2b35c;
+}
+.bottom-pad { height: 30px; }
+@media (min-width: 992px) {
+    .page-shell {
+        padding-left: clamp(1rem, 2.5vw, 2.5rem);
+        padding-right: clamp(1rem, 2.5vw, 2.5rem);
+    }
+    .page-shell > .container {
+        max-width: none;
+        width: 100%;
+    }
+    .mobile-shell {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+}
+@media (max-width: 420px) {
+    .mobile-shell { padding-bottom: 60px; }
+}
+
+.wallet-shell {
+    gap: 1rem;
+}
+.wallet-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) 280px 320px;
+    gap: 1rem;
+    align-items: stretch;
+}
+.wallet-hero-card {
+    background: rgba(15,17,17,0.55);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px;
+    padding: 1rem;
+    height: 100%;
+}
+.wallet-balance-card {
+    text-align: center;
+    background: linear-gradient(135deg, rgba(32,41,57,0.95), rgba(12,16,21,0.92));
+    border: 1px solid rgba(255,255,255,0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.45rem;
+}
+.wallet-balance-card .summary-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(247,250,250,0.65);
+}
+.wallet-balance-card .summary-amount {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f2b35c;
+}
+.wallet-balance-card .summary-sub {
+    font-size: 0.9rem;
+    color: rgba(247,250,250,0.8);
+}
+.wallet-info-card-fixed {
+    background: rgba(19,25,33,0.78);
+}
+.wallet-info-card-fixed .wallet-title {
+    margin-bottom: 0.5rem;
+}
+@media (max-width: 992px) {
+    .wallet-hero-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.wallet-hero .hero-greeting .hello {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(247,250,250,0.65);
+}
+.wallet-hero .hero-balance .invite,
+.wallet-hero .hero-balance .amount {
+    font-size: 0.9rem;
+}
+.wallet-metrics .metric-card strong {
+    font-size: 1rem;
+}
+.wallet-metrics .metric-card small {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.6rem;
+    color: rgba(247,250,250,0.65);
+}
+.wallet-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+}
+.wallet-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+.wallet-title {
+    margin: 0;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(247,250,250,0.7);
+}
+.bind-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+.bind-title .title-label {
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: rgba(247,250,250,0.78);
+    margin: 0;
+}
+.bind-title .wallet-chip {
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-family: "IBM Plex Mono", monospace;
+    background: rgba(242,179,92,0.18);
+    color: #f5c274;
+    border: 1px solid rgba(242,179,92,0.4);
+    word-break: break-all;
+}
+.bind-title .wallet-chip.empty {
+    background: rgba(255,255,255,0.06);
+    border-color: rgba(255,255,255,0.12);
+    color: rgba(247,250,250,0.7);
+}
+.wallet-info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.65rem 0.85rem;
+    border-radius: 14px;
+    background: rgba(15,17,17,0.55);
+    border: 1px solid rgba(255,255,255,0.04);
+}
+.wallet-info-row strong {
+    font-size: 0.8rem;
+}
+.wallet-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(247,250,250,0.6);
+}
+.wallet-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+}
+.wallet-field label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(247,250,250,0.7);
+}
+.wallet-field input,
+.wallet-field select {
+    width: 100%;
+    padding: 0.65rem 0.85rem;
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(15,17,17,0.65);
+    color: #f7fafa;
+    font-size: 0.9rem;
+    transition: border-color 0.2s ease, background 0.2s ease;
+}
+.wallet-field input::placeholder {
+    color: rgba(247,250,250,0.55);
+}
+.wallet-field input:focus,
+.wallet-field select:focus {
+    outline: none;
+    border-color: #f5c274;
+    background: rgba(15,17,17,0.82);
+}
+.wallet-alert {
+    border-radius: 16px;
+    padding: 0.7rem 0.85rem;
+    font-size: 0.78rem;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+.wallet-alert.warn { background: rgba(242,179,92,0.15); color: #fef3c7; }
+.wallet-alert.info { background: rgba(0,168,225,0.12); color: #dbeafe; }
+.wallet-alert.success { background: rgba(34,197,94,0.16); color: #dcfce7; }
+.wallet-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+}
+.wallet-pill {
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 0.35rem 0.9rem;
+    background: rgba(242,179,92,0.15);
+    color: #f2b35c;
+    font-size: 0.72rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+.wallet-pill:hover {
+    background: rgba(242,179,92,0.25);
+}
+.wallet-pill.is-active {
+    background: linear-gradient(135deg, #00a8e1, #007185);
+    color: #f7fafa;
+}
+.wallet-balance-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.78rem;
+    color: rgba(247,250,250,0.75);
+}
+.wallet-submit {
+    width: 100%;
+    border: none;
+    border-radius: 16px;
+    padding: 0.75rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.wallet-submit.primary {
+    background: linear-gradient(135deg, #f5c274, #e3942d);
+    color: #0f1111;
+}
+.wallet-submit.secondary {
+    background: linear-gradient(135deg, #00a8e1, #007185);
+    color: #f7fafa;
+}
+.wallet-submit:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+.wallet-submit:not(:disabled):hover {
+    transform: translateY(-1px);
+}
+.wallet-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.wallet-table th,
+.wallet-table td {
+    padding: 0.65rem;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    text-align: left;
+    font-size: 0.78rem;
+}
+.wallet-table th {
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.65rem;
+    color: rgba(247,250,250,0.75);
+}
+.status-pill {
+    padding: 0.2rem 0.55rem;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    font-weight: 600;
+}
+.status-pending { background: rgba(242,179,92,0.2); color: #fef3c7; }
+.status-approved { background: rgba(34,197,94,0.2); color: #dcfce7; }
+.status-rejected { background: rgba(239,68,68,0.2); color: #fecaca; }
+.status-processing { background: rgba(59,130,246,0.2); color: #dbeafe; }
+.status-cancelled { background: rgba(148,163,184,0.25); color: #e2e8f0; }
+.wallet-note {
+    text-align: center;
+    font-size: 0.82rem;
+    color: rgba(247,250,250,0.75);
+}
+.mono {
+    font-family: "IBM Plex Mono", monospace;
+    word-break: break-all;
+    color: #fbd38d;
+}
+</style>
+
+<div class="mobile-shell wallet-shell" role="main" aria-labelledby="walletHeading">
+    
+
+
+    <section class="glass-card wallet-bind-card">
+        <div class="bind-title">
+           
+          
+                {% if wallet_address %}
+                    {{ wallet_address.address }}
+                {% else %}
+                    {% trans "" %}
+                {% endif %}
+            
+        </div>
+        <div class="wallet-divider" aria-hidden="true"></div>
+        {% if not tasks_completed %}
+           
+        {% endif %}
+        <form method="POST" class="wallet-form">
+            {% csrf_token %}
+            <input type="hidden" name="bind_wallet" value="1">
+            <div class="wallet-field">
+               
+                <input id="bindAddress" type="text" name="address" required placeholder="{% trans 'Enter your  wallet address' %}">
+               
+            </div>
+            <button type="submit" class="wallet-submit primary" {% if not tasks_completed %}disabled{% endif %}>
+                {% trans "Save wallet" %}
+            </button>
+        </form>
+    </section>
+
+    {% if wallet %}
+    <section class="mission-card wallet-withdraw-card" aria-label="{% trans 'Withdrawal form' %}">
+        
+        <form method="POST" id="withdrawalForm" class="wallet-form">
+            {% csrf_token %}
+            <input type="hidden" name="withdraw" value="1">
+
+            <div class="wallet-field">
+                <label for="networkSelect">{% trans "Select network" %}</label>
+                <select id="networkSelect" name="network" required>
+                    {% for value, display in networks %}
+                        <option value="{{ value }}" {% if wallet.network == value %}selected{% endif %}>{{ display }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="wallet-field">
+                <label for="withdrawAmount">{% trans "Withdrawal amount (USD)" %}</label>
+                <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                    <input id="withdrawAmount"
+                           type="number"
+                           name="amount"
+                           step="0.01"
+                           min="{{ config.min_withdrawal }}"
+                           max="{{ available_to_withdraw }}"
+                           required
+                           placeholder="{% trans 'Enter withdrawal amount' %}">
+                    <button type="button" class="wallet-pill" id="withdrawAllBtn">{% trans "Withdraw all" %}</button>
+                </div>
+                <input type="hidden" name="withdraw_all" id="withdrawAllField" value="">
+            </div>
+
+            
+
+            <div class="wallet-field">
+                <label for="fundPassword">{% trans "Fund password" %}</label>
+                <input id="fundPassword"
+                       type="password"
+                       name="fund_password"
+                       required
+                       placeholder="{% trans 'Enter fund password' %}">
+            </div>
+
+            <button type="submit" class="wallet-submit secondary">
+                {% trans "Submit withdrawal" %}
+            </button>
+        </form>
+    </section>
+    {% endif %}
+</div>
+
+<script>
+(function() {
+  const withdrawAllBtn = document.getElementById('withdrawAllBtn');
+  const withdrawAmountInput = document.getElementById('withdrawAmount');
+  const withdrawAllField = document.getElementById('withdrawAllField');
+  const maxAmount = parseFloat('{{ available_to_withdraw|default_if_none:"0" }}') || 0;
+
+  if (withdrawAllBtn && withdrawAmountInput && withdrawAllField) {
+    withdrawAllBtn.addEventListener('click', () => {
+      withdrawAmountInput.value = maxAmount.toFixed(2);
+      withdrawAllField.value = '1';
+      withdrawAmountInput.readOnly = true;
+      withdrawAllBtn.textContent = '{% trans "All selected" %}';
+      withdrawAllBtn.classList.add('is-active');
+    });
+
+    withdrawAmountInput.addEventListener('input', () => {
+      withdrawAllField.value = '';
+      withdrawAmountInput.readOnly = false;
+      if (withdrawAllBtn.classList.contains('is-active')) {
+        withdrawAllBtn.textContent = '{% trans "Withdraw all" %}';
+        withdrawAllBtn.classList.remove('is-active');
+      }
+    });
+  }
+})();
+</script>
+
+{% endblock content %}

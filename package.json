@@ -1,0 +1,16 @@
+{
+    "name": "amazonproject-frontend",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "build:css": "tailwindcss -i ./src/styles.css -o ./products/static/products/home_replica.css --minify"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.14",
+        "postcss": "^8.4.24",
+        "tailwindcss": "^3.4.8"
+    },
+    "dependencies": {
+        "bootstrap": "^5.3.8"
+    }
+}

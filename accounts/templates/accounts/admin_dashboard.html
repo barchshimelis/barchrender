@@ -1,0 +1,3866 @@
+{% load static %}
+<style>
+body {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+}
+/* Button Styles */
+.green {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.green:hover {
+    background-color: #218838;
+}
+
+.red {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.red:hover {
+    background-color: #c82333;
+}
+
+.info-modal-btn {
+    background: linear-gradient(135deg, #a1a4a7 50%, #e9ecef 100%);
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    position: relative;
+}
+
+.info-modal-btn:hover {
+    box-shadow: 0 4px 12px rgba(243, 156, 17, 0.35);
+}
+
+.info-modal-btn--alert::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff9900;
+    box-shadow: 0 0 6px rgba(255, 153, 0, 0.6);
+}
+
+.info-row {
+    border: 1px solid #f1f3f5;
+    border-radius: 8px;
+    padding: 12px;
+    background: #fcfcfd;
+    margin-bottom: 16px;
+}
+
+.info-row h5 {
+    margin: 0 0 6px 0;
+    font-size: 14px;
+    color: #ebeef1;
+}
+
+.info-row p {
+    margin: 0;
+    font-size: 13px;
+    color: #2daf0d;
+    word-break: break-word;
+}
+
+.btn-sm {
+    padding: 4px 8px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    color: #495057;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+/* Form Styles */
+form {
+    margin: 0;
+}
+
+input[type="number"], input[type="text"] {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 6px;
+    font-size: 12px;
+}
+
+input[type="number"]:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0,123,255,0.25);
+}
+
+/* Link Styles */
+.voucher-link {
+    color: #007bff;
+    text-decoration: none;
+    margin-right: 8px;
+}
+
+.voucher-link:hover {
+    text-decoration: underline;
+}
+
+.wallet-address-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.wallet-address-text {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    color: #212529;
+    word-break: break-all;
+}
+
+.pending-recharge-summary {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 13px;
+}
+
+.pending-recharge-summary .pending-count {
+    background: #fff8e5;
+    color: #b26a00;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 600;
+}
+
+.voucher-modal-template {
+    display: none;
+}
+
+.voucher-card {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 12px;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+
+.voucher-card__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 10px;
+}
+
+.voucher-card__label {
+    font-weight: 600;
+    color: #212529;
+}
+
+.voucher-card__date {
+    font-size: 12px;
+    color: #6c757d;
+    margin-left: 8px;
+}
+
+.voucher-card__amount {
+    font-weight: 600;
+    color: #0d6efd;
+}
+
+.voucher-preview {
+    position: relative;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    overflow: hidden;
+    max-width: 220px;
+    margin-bottom: 12px;
+}
+
+.voucher-preview img {
+    width: 100%;
+    display: block;
+    height: auto;
+}
+
+.voucher-preview__link {
+    display: block;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    padding: 6px;
+    text-decoration: none;
+}
+
+.no-voucher-file {
+    font-size: 13px;
+    color: #6c757d;
+}
+
+.voucher-amount-form {
+    margin-top: 6px;
+}
+
+.voucher-amount-form__label {
+    display: block;
+    font-size: 12px;
+    color: #6c757d;
+    margin-bottom: 4px;
+}
+
+.voucher-amount-form__controls {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+}
+
+.voucher-amount-form__controls input {
+    width: 120px;
+}
+
+.voucher-card__actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* Status Messages */
+.stoppoint-status, .commission-status, .referral-commission-status {
+    font-size: 12px;
+    margin-left: 6px;
+}
+
+/* Stop Points List */
+.existing-stoppoints-list {
+    margin-bottom: 8px;
+}
+
+.existing-stoppoint-row {
+    align-items: center;
+}
+
+.existing-stoppoint-row input[disabled] {
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+/* New Stop Point Row */
+.new-stoppoint-row {
+    background-color: #f8f9fa;
+    padding: 8px;
+    border-radius: 4px;
+    margin-bottom: 4px;
+}
+
+/* Task Progress Colors */
+span[style*="color: red"] {
+    font-weight: bold;
+}
+
+span[style*="color: green"] {
+    font-weight: bold;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    table {
+        font-size: 12px;
+    }
+    
+    th, td {
+        padding: 8px;
+    }
+    
+    input[type="number"] {
+        width: 60px !important;
+    }
+}
+
+/* Header layout and notifications */
+.dashboard-header {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border-bottom: 1px solid #dee2e6;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-radius: 0 0 8px 8px;
+}
+.dashboard-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+.greeting-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.avatar-circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.greeting-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #212529;
+}
+.notification-icons {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.notification-icon {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    color: #6c757d;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+.staff-chat-launcher {
+    width: 30px;
+    height: 30px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: linear-gradient(140deg, #6c757d 0%, #6c757d 100%);
+    color: #f8fbff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 16px 32px rgba(54, 69, 181, 0.28);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.staff-chat-launcher:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 40px rgba(54, 69, 181, 0.35);
+}
+.staff-chat-launcher-icon,
+.staff-chat-action-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.staff-chat-launcher-icon svg,
+.staff-chat-action-icon svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+}
+.staff-chat-launcher-icon svg {
+    fill: currentColor;
+}
+.staff-chat-attach-icon svg {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+.staff-chat-send-icon svg {
+    fill: currentColor;
+}
+.notification-count.d-none {
+    display: none;
+}
+.staff-chat-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ffb347 0%, #ff9035 100%);
+    color: #0e1a3d;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 18px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(255, 153, 0, 0.4);
+}
+.staff-chat-badge.d-none {
+    display: none;
+}
+.staff-chat-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    padding: clamp(18px, 4vw, 36px);
+    background: rgba(8, 12, 32, 0.88);
+    backdrop-filter: blur(16px);
+    align-items: center;
+    justify-content: center;
+    z-index: 1200;
+    transition: opacity 0.25s ease;
+}
+.staff-chat-modal.is-visible {
+    display: flex;
+}
+.staff-chat-modal__content {
+    width: min(720px, 95vw);
+    max-height: min(680px, 92vh);
+    border-radius: 22px;
+    overflow: hidden;
+    background: linear-gradient(160deg, #3045b3 0%, #141f55 100%);
+    box-shadow: 0 40px 90px rgba(9, 12, 32, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    flex-direction: column;
+}
+.staff-chat-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: clamp(16px, 5vw, 28px);
+    padding: clamp(22px, 4vw, 28px);
+    background: linear-gradient(135deg, #4a66ff 0%, #26338e 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+}
+.staff-chat-header-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    min-width: 0;
+}
+.staff-chat-header-avatar {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #ffdc82 0%, #ff9f73 45%, #ff6464 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 20px;
+    color: #1d2360;
+    box-shadow: 0 14px 26px rgba(15, 17, 49, 0.45);
+    text-transform: uppercase;
+}
+.staff-chat-header-text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+}
+.staff-chat-modal__title {
+    margin: 0;
+    font-size: clamp(18px, 2.6vw, 22px);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #f8fbff;
+}
+.staff-chat-modal__subtitle {
+    margin: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(226, 231, 255, 0.72);
+}
+.staff-chat-header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.staff-chat-action-btn {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(255, 255, 255, 0.12);
+    color: #f7f9ff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+.staff-chat-action-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 28px rgba(15, 20, 55, 0.3);
+}
+.staff-chat-action-btn[disabled] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+.staff-chat-close {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    background: rgba(15, 20, 55, 0.45);
+    color: rgba(255, 255, 255, 0.84);
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+.staff-chat-close:hover {
+    color: #ffddb3;
+    transform: translateY(-2px);
+    box-shadow: 0 18px 32px rgba(15, 20, 55, 0.4);
+}
+.staff-chat-modal__body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: clamp(22px, 4vw, 32px);
+    background: linear-gradient(180deg, rgba(20, 32, 90, 0.48) 0%, rgba(9, 15, 45, 0.85) 100%);
+}
+.staff-chat-state {
+    font-size: 13px;
+    color: rgba(226, 231, 255, 0.72);
+    text-align: center;
+    padding: 14px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: rgba(12, 20, 58, 0.65);
+}
+.staff-chat-timeline {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.staff-chat-messages {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding-right: 8px;
+    scroll-behavior: smooth;
+}
+.staff-chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+.staff-chat-messages::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, rgba(89, 113, 255, 0.6), rgba(134, 198, 255, 0.6));
+    border-radius: 999px;
+}
+.staff-chat-message {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    max-width: 78%;
+}
+.staff-chat-message.is-self {
+    margin-left: auto;
+    flex-direction: row-reverse;
+}
+.staff-chat-message.is-peer {
+    margin-right: auto;
+}
+.staff-chat-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1d2f6f;
+    box-shadow: 0 10px 20px rgba(12, 18, 56, 0.25);
+    text-transform: uppercase;
+}
+.staff-chat-bubble {
+    position: relative;
+    padding: 12px 16px;
+    border-radius: 16px 16px 16px 6px;
+    background: linear-gradient(145deg, rgba(77, 121, 255, 0.9) 0%, rgba(52, 88, 214, 0.95) 100%);
+    color: #f8fbff;
+    font-size: 13px;
+    line-height: 1.55;
+    box-shadow: 0 18px 34px rgba(17, 26, 74, 0.45);
+}
+.staff-chat-message.is-self .staff-chat-bubble {
+    border-radius: 16px 16px 6px 16px;
+    background: linear-gradient(145deg, #64e887 0%, #42cc6d 100%);
+    color: #062418;
+    box-shadow: 0 8px 16px rgba(58, 201, 118, 0.38);
+}
+.staff-chat-meta {
+    font-size: 11px;
+    margin-top: 6px;
+    color: rgba(210, 225, 255, 0.68);
+}
+.staff-chat-message.is-self .staff-chat-meta {
+    color: rgba(27, 72, 52, 0.75);
+    text-align: right;
+}
+.staff-chat-message.is-self .staff-chat-avatar {
+    background: rgba(100, 232, 135, 0.9);
+    color: #0c311f;
+}
+.staff-chat-attachment {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.staff-chat-attachment-note {
+    margin-top: 4px;
+    font-size: 11px;
+    color: rgba(226, 231, 255, 0.72);
+    background: rgba(17, 27, 76, 0.6);
+    border-radius: 10px;
+    padding: 6px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    max-width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.staff-chat-form {
+    padding: clamp(18px, 4vw, 26px);
+    background: rgba(10, 15, 40, 0.88);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+}
+.staff-chat-composer {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+}
+.staff-chat-attach-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    border: 1px solid rgba(120, 150, 255, 0.28);
+    background: linear-gradient(145deg, rgba(38, 58, 150, 0.92) 0%, rgba(22, 38, 102, 0.95) 100%);
+    color: rgba(224, 234, 255, 0.9);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 16px 34px rgba(11, 18, 66, 0.4);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.staff-chat-attach-btn:hover,
+.staff-chat-attach-btn:focus-visible {
+    transform: translateY(-2px);
+    box-shadow: 0 20px 42px rgba(11, 18, 66, 0.5);
+    outline: none;
+}
+.staff-chat-input-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 12px 10px 18px;
+    min-height: 52px;
+    border-radius: 20px;
+    background: linear-gradient(140deg, rgba(57, 83, 176, 0.84) 0%, rgba(32, 55, 136, 0.92) 100%);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 14px 30px rgba(12, 20, 65, 0.38);
+    border: 1px solid rgba(138, 176, 255, 0.24);
+}
+.staff-chat-input {
+    flex: 1;
+    border: none;
+    background: transparent;
+    resize: none;
+    color: #f3f6ff;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 0;
+}
+.staff-chat-input::placeholder {
+    color: rgba(208, 220, 255, 0.6);
+}
+.staff-chat-input:focus {
+    outline: none;
+}
+.staff-chat-send-btn {
+    width: 46px;
+    height: 46px;
+    border-radius: 16px;
+    border: none;
+    background: linear-gradient(135deg, #6ff09a 0%, #31cc5f 100%);
+    color: #06321b;
+    font-size: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 20px 36px rgba(51, 190, 96, 0.42);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.staff-chat-send-btn:hover,
+.staff-chat-send-btn:focus-visible {
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 26px 48px rgba(51, 190, 96, 0.5);
+    outline: none;
+}
+.staff-chat-send-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+.staff-chat-attachment-preview {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    padding: 6px 12px;
+    border-radius: 14px;
+    background: rgba(24, 36, 89, 0.88);
+    border: 1px solid rgba(138, 176, 255, 0.28);
+    color: rgba(215, 226, 255, 0.85);
+    font-size: 11px;
+    max-width: 280px;
+}
+.staff-chat-attachment-note {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.staff-chat-attachment-clear {
+    width: 26px;
+    height: 26px;
+    border-radius: 9px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    background: rgba(10, 17, 48, 0.76);
+    color: rgba(215, 226, 255, 0.88);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+.staff-chat-attachment-clear:hover,
+.staff-chat-attachment-clear:focus-visible {
+    transform: translateY(-1px);
+    box-shadow: 0 12px 22px rgba(10, 17, 48, 0.45);
+    outline: none;
+}
+.staff-chat-placeholder {
+    align-self: center;
+    text-align: center;
+    color: rgba(200, 213, 255, 0.58);
+    font-size: 13px;
+    padding: 18px 20px;
+    border-radius: 16px;
+    background: rgba(18, 27, 74, 0.6);
+    border: 1px dashed rgba(255, 255, 255, 0.16);
+}
+.staff-chat-composer__helper {
+    font-size: 11px;
+    color: rgba(189, 206, 255, 0.6);
+    letter-spacing: 0.03em;
+}
+.staff-chat-messages::-webkit-scrollbar {
+    width: 6px;
+}
+.staff-chat-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+.staff-chat-messages::-webkit-scrollbar-thumb {
+    background: rgba(148, 163, 184, 0.7);
+    border-radius: 999px;
+}
+.notification-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 320px;
+    background: #ffffff;
+    border: 1px solid #d5d9d9;
+    border-radius: 8px;
+    box-shadow: 0 20px 35px rgba(15, 17, 17, 0.2);
+    padding: 12px;
+    z-index: 20;
+    display: none;
+}
+.notification-dropdown.is-visible {
+    display: block;
+}
+.notification-dropdown__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #232f3e;
+}
+.notification-dropdown__close {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    color: #6b7280;
+    cursor: pointer;
+    line-height: 1;
+}
+.notification-dropdown__body {
+    max-height: 360px;
+    overflow-y: auto;
+}
+.notification-event-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.notification-event-item {
+    padding: 10px;
+    border: 1px solid #eef1f4;
+    border-radius: 6px;
+    background: #f9fafb;
+}
+.notification-event-item__type {
+    font-size: 12px;
+    color: #6b7280;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+}
+.notification-event-item__message {
+    font-size: 13px;
+    color: #111827;
+    margin-bottom: 4px;
+}
+.notification-event-item__meta {
+    font-size: 12px;
+    color: #4b5563;
+    margin-bottom: 4px;
+}
+.notification-event-item__timestamp {
+    font-size: 12px;
+    color: #9ca3af;
+}
+.notification-dropdown__state {
+    font-size: 13px;
+    color: #6b7280;
+    text-align: center;
+    padding: 16px 0;
+}
+.notification-dropdown__state.d-none {
+    display: none;
+}
+.pending-count {
+    padding: 6px 14px;
+    background: #f8fafb;
+    right: -6px;
+    min-width: 16px;
+    height: 16px;
+    background: #dc3545;
+    color: #fff;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    padding: 0 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+.search-input {
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 14px;
+    width: 240px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.search-input:focus {
+    border-color: #80bdff;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,123,255,0.1);
+}
+.search-btn {
+    background: #6c757d;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.search-btn:hover {
+    background: #6c757d;
+}
+.clear-btn {
+    color: #6c757d;
+    text-decoration: none;
+    font-size: 13px;
+    margin-left: 8px;
+}
+.clear-btn:hover {
+    color: #495057;
+    text-decoration: underline;
+}
+.amazon-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(15, 17, 17, 0.78);
+    backdrop-filter: blur(4px);
+    padding: 24px;
+    z-index: 1100;
+}
+.amazon-modal__content {
+    width: 90%;
+    max-width: 820px;
+    background: linear-gradient(180deg, #fefaf3 0%, #ffffff 65%);
+    border-radius: 16px;
+    border: 1px solid #d5d9d9;
+    box-shadow: 0 18px 48px rgba(15, 17, 17, 0.28);
+    display: flex;
+    flex-direction: column;
+    max-height: 85vh;
+}
+.amazon-modal__header {
+    padding: 20px 24px;
+    background: linear-gradient(135deg, #232f3e 0%, #1a232f 100%);
+    color: #ffffff;
+    border-radius: 16px 16px 0 0;
+    border-bottom: 4px solid #ff9900;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.amazon-modal__title {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+.amazon-modal__subtitle {
+    margin: 4px 0 0;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 14px;
+}
+.amazon-modal__close {
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: #ffffff;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    transition: background 0.2s ease, transform 0.2s ease;
+}
+.amazon-modal__close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+}
+.amazon-tab-nav {
+    display: flex;
+    background: #f3f4f6;
+    border-bottom: 1px solid #d5d9d9;
+}
+.amazon-tab-btn {
+    flex: 1;
+    padding: 16px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #565959;
+    border-bottom: 3px solid transparent;
+    transition: all 0.25s ease;
+}
+.amazon-tab-btn.active {
+    border-bottom-color: #ff9900;
+    color: #0f1111;
+    background: #ffffff;
+}
+.amazon-modal__body {
+    padding: 24px;
+    overflow-y: auto;
+    flex-grow: 1;
+    background: #ffffff;
+}
+.amazon-section-card {
+    background: #ffffff;
+    border: 1px solid #d5d9d9;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 6px 18px rgba(15,17,17,0.08);
+}
+.amazon-section-card h4 {
+    margin: 0 0 8px 0;
+    color: #0f1111;
+    font-size: 16px;
+    font-weight: 600;
+}
+.amazon-section-card p {
+    margin: 0 0 16px 0;
+    color: #565959;
+    font-size: 14px;
+}
+.amazon-input-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+.amazon-input-row input[type="number"] {
+    flex: 0 0 140px;
+    padding: 10px 12px;
+    border: 2px solid #d5d9d9;
+    border-radius: 8px;
+    font-size: 14px;
+    text-align: center;
+    transition: border-color 0.2s ease;
+}
+.amazon-input-row input[type="number"]:focus {
+    border-color: #ff9900;
+    outline: none;
+}
+.amazon-status-pill {
+    font-size: 13px;
+    font-weight: 600;
+    color: #232f3e;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: #f7fafa;
+    border: 1px solid #d5d9d9;
+}
+@media (max-width: 640px) {
+    .amazon-tab-btn {
+        font-size: 13px;
+        padding: 12px 8px;
+    }
+    .amazon-modal__body {
+        padding: 18px;
+    }
+    .amazon-input-row input[type="number"] {
+        flex: 1 1 100%;
+    }
+    .amazon-primary-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+.amazon-info-modal .amazon-modal__content {
+    max-width: 520px;
+}
+.amazon-info-modal .amazon-modal__body {
+    background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+}
+.info-row {
+    padding: 16px 0;
+    border-bottom: 1px solid #e3e6e6;
+}
+.info-row:last-child {
+    border-bottom: none;
+}
+.info-row h5 {
+    margin: 0 0 6px 0;
+    color: #0f1111;
+    font-size: 15px;
+}
+.wallet-address-text {
+    font-family: "Amazon Ember", Arial, sans-serif;
+    font-size: 14px;
+    color: #232f3e;
+    word-break: break-all;
+    background: #f3f4f6;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px dashed #d5d9d9;
+}
+.amazon-secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #ff9900;
+    color: #0f1111;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.logout-link {
+    background: #6c757d;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.2s ease;
+}
+.logout-link:hover {
+    background: #212529;
+    color: #fff;
+}
+.amazon-secondary-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 24px rgba(255, 153, 0, 0.4);
+}
+.open-setup-modal-btn {
+    background: linear-gradient(135deg, #a1a4a7 50%, #e9ecef 100%);
+    color: #fff;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.open-setup-modal-btn:hover {
+    box-shadow: 0 4px 12px rgba(243, 156, 17, 0.35);
+}
+.open-setup-modal-btn svg {
+    margin-right: 4px;
+}
+.info-highlight {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #232f3e;
+    color: #ffffff;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 13px;
+}
+.switch-section-btn {
+    background: #6c757d;
+    color: #fff;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+.switch-section-btn:hover {
+    background: #5a6268;
+    color: #fff;
+    text-decoration: none;
+}
+.page-title {
+    text-align: center;
+    margin-bottom: 32px;
+    padding-top: 8px;
+}
+.page-title h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 auto 16px auto;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #dfe6e9;
+    display: inline-block;
+    letter-spacing: 0.3px;
+    line-height: 1.3;
+}
+.page-title .switch-section-btn {
+    margin-top: 20px;
+    padding: 8px 20px;
+    font-size: 14px;
+    border-radius: 6px;
+    transition: all 0.2s ease;
+}
+
+
+</style>
+<link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
+
+<!-- Shared Header for Both Sections -->
+<div class="dashboard-header">
+    <div class="dashboard-header-top">
+        <div class="greeting-area">
+            <div class="avatar-circle">
+                {{ request.user.username|default:"U"|slice:":1"|upper }}
+            </div>
+            <div class="greeting-text">
+                {% if request.user.role == 'admin' %}
+                    Hello {{ request.user.username|default:"Admin" }}
+                {% elif request.user.role == 'customerservice' %}
+                    Hello {{ request.user.username|default:"Customer Service" }}
+                {% elif request.user.role == 'superadmin' %}
+                    Hello {{ request.user.username|default:"Super Admin" }}
+                {% else %}
+                    Hello {{ request.user.username|default:"User" }}
+                {% endif %}
+            </div>
+        </div>
+        <div class="notification-icons">
+            <form method="get" action="{% url 'accounts:admin_dashboard' %}" style="display:flex; align-items:center; gap:8px; margin-right:16px;">
+                <input type="hidden" name="section" value="{{ current_section|default:'section-b' }}">
+                <input type="text" name="q" value="{{ search_query|default:'' }}" placeholder="Search users..." class="search-input">
+                <button type="submit" class="search-btn">Search</button>
+                {% if search_query %}
+                    <a href="{% url 'accounts:admin_dashboard' %}?section={{ current_section|default:'section-b' }}" class="clear-btn">Clear</a>
+                {% endif %}
+            </form>
+            {% if request.user.role == 'admin' %}
+            <button type="button" class="notification-icon staff-chat-launcher" id="staffChatLauncher" title="Message super admin" data-open-staff-chat="true">
+                <span class="staff-chat-launcher-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                        <path d="M20 3H4a2 2 0 0 0-2 2v11.586A1.5 1.5 0 0 0 3.5 18H6v3.382a.5.5 0 0 0 .79.407L12.12 18H20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Zm0 11H11.8L8 17.2V14H4V5h16Z" />
+                    </svg>
+                </span>
+                <span class="staff-chat-badge d-none"
+                      id="staffChatBadge"
+                      role="button"
+                      tabindex="0"
+                      aria-label="Open staff chat"
+                      data-open-staff-chat="true">
+                    0
+                </span>
+            </button>
+            {% endif %}
+            <div class="notification-icon" id="notificationBell" title="Notifications">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2zm.995-14.901a1 1 0 1 0-1.99 0A5.002 5.002 0 0 0 3 6c0 1.098-.5 6-2 7h14c-1.5-1-2-5.902-2-7 0-2.42-1.72-4.44-4.005-4.901z"/>
+                </svg>
+                <span class="notification-count {% if total_notifications|default:0 <= 0 %}d-none{% endif %}" id="notification-count">{{ total_notifications|default:0 }}</span>
+            </div>
+            <div class="notification-dropdown" id="notification-dropdown">
+                <div class="notification-dropdown__header">
+                    <span>Recent activity</span>
+                    <button class="notification-dropdown__close" id="notification-dropdown-close" aria-label="Close notifications">&times;</button>
+                </div>
+               
+            </div>
+            <a href="{% url 'accounts:logout' %}" class="logout-link">
+                <i class="fas fa-power-off"></i>
+                Logout
+            </a>
+        </div>
+    </div>
+   
+</div>
+
+{% if request.user.role == 'admin' %}
+<div class="staff-chat-modal" id="staffChatModal" role="dialog" aria-modal="true" aria-labelledby="staffChatModalTitle">
+    <div class="staff-chat-modal__content">
+        <div class="staff-chat-modal__header">
+            <div>
+                <h4 class="staff-chat-modal__title" id="staffChatModalTitle">CEO chat</h4>
+                
+            </div>
+            <button class="staff-chat-close" id="staffChatModalClose" aria-label="Close staff chat">&times;</button>
+        </div>
+        <div class="staff-chat-modal__body">
+
+            <div class="staff-chat-state" id="staffChatState" hidden>Loading…</div>
+            <div class="staff-chat-timeline">
+                
+                <div class="staff-chat-messages" id="staffChatMessages" aria-live="polite"></div>
+            </div>
+        </div>
+        <form class="staff-chat-form" id="staffChatForm" autocomplete="off">
+            <div class="staff-chat-composer" data-staff-chat-composer>
+                <button type="button" class="staff-chat-attach-btn" id="staffChatAttachBtn" aria-label="Attach file">
+                    <span class="staff-chat-action-icon staff-chat-attach-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                            <path d="M19.364 4.636a4.5 4.5 0 0 0-6.364 0l-7.07 7.07a5.25 5.25 0 0 0 7.424 7.424l6.01-6.01a2.625 2.625 0 0 0-3.712-3.712l-5.657 5.657" />
+                            <path d="M14.657 7.343a1.875 1.875 0 1 1 2.652 2.652l-6.01 6.01a3.375 3.375 0 1 1-4.773-4.773l5.657-5.657" />
+                        </svg>
+                    </span>
+                </button>
+                <div class="staff-chat-input-wrap">
+                    <textarea class="staff-chat-input" id="staffChatMessageInput" name="message" placeholder="Type your message" rows="1"></textarea>
+                    <input type="file" id="staffChatAttachmentInput" class="staff-chat-attachment-input" accept="image/*,audio/*" hidden>
+                    <button type="submit" class="staff-chat-send-btn" id="staffChatSendBtn" aria-label="Send message">
+                        <span class="staff-chat-action-icon staff-chat-send-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                                <path d="M2.32 2.236a.5.5 0 0 0-.65.63l3.07 9.834a1 1 0 0 0 .66.646l5.762 1.795a.5.5 0 0 1 .129.889l-3.63 2.69a.5.5 0 0 0 .46.874l13.64-6.322a.5.5 0 0 0 0-.906Z" />
+                            </svg>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            
+        </form>
+    </div>
+</div>
+{% endif %}
+
+    <div class="table-wrapper">
+        <table class="modern-admin-table">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Username</th>
+                    <th>Phone</th>
+                    
+                    <th>Referral Code</th>
+                    <th>Invited By</th>
+                    <th>Login At</th>
+                   
+                    <th>Vouchers</th>
+                    <th>Task Progress</th>
+                    <th>Status</th>
+                    <th>Pending Withdraw</th>
+                     <th>Setup</th>
+                    
+                    <th>Information</th>
+                </tr>
+            </thead>
+            <tbody id="section-a-table-body">
+                {% for user in users %}
+                <tr data-user-id="{{ user.id }}">
+                    <td data-label="No.">{{ users.start_index|add:forloop.counter0 }}</td>
+                    <td data-label="Username">{{ user.username }}</td>
+                    <td data-label="Phone">{{ user.phone }}</td>
+                    
+                    <td data-label="Referral Code">{{ user.referral_code }}</td>
+                    <td data-label="Invited By">{{ user.referred_by.username|default:"N/A" }}</td>
+                    <td data-label="Last Login">
+                        {% if user.last_login %}
+                            {{ user.last_login|date:"Y-m-d H:i" }}
+                        {% else %}
+                            Never
+                        {% endif %}
+                    </td>
+                    
+                    <td data-label="Vouchers">
+                        {% if user.pending_recharges %}
+                            <button type="button"
+                                    class="green btn-sm open-voucher-modal"
+                                    data-user-id="{{ user.id }}"
+                                    data-username="{{ user.username }}">
+                                View {{ user.pending_recharges|length }} voucher{% if user.pending_recharges|length != 1 %}s{% endif %}
+                            </button>
+                            <div id="voucher-content-{{ user.id }}" class="voucher-modal-template" style="display:none;">
+                                {% for recharge in user.pending_recharges %}
+                                    <div class="voucher-card">
+                                        <div class="voucher-card__header">
+                                            <div>
+                                                <span class="voucher-card__label">Voucher #{{ forloop.counter }}</span>
+                                                {% if recharge.created_at %}
+                                                    <span class="voucher-card__date">{{ recharge.created_at|date:"Y-m-d H:i" }}</span>
+                                                {% endif %}
+                                            </div>
+                                            <div class="voucher-card__amount">Requested: ${{ recharge.amount }}</div>
+                                        </div>
+                                        <div class="voucher-card__body">
+                                            {% if recharge.voucher %}
+                                                <div class="voucher-preview">
+                                                    <img src="{{ recharge.voucher.file.url }}" alt="Voucher preview for {{ user.username }}" loading="lazy">
+                                                    <a href="{{ recharge.voucher.file.url }}" target="_blank" class="voucher-preview__link">Open full voucher</a>
+                                                </div>
+                                            {% else %}
+                                                <p class="no-voucher-file">No voucher uploaded for this recharge.</p>
+                                            {% endif %}
+                                            <form method="post" action="{% url 'balance:update_recharge_amount' recharge.id %}" class="voucher-amount-form">
+                                                {% csrf_token %}
+                                                <label class="voucher-amount-form__label" for="recharge-amount-{{ recharge.id }}">Adjust amount</label>
+                                                <div class="voucher-amount-form__controls">
+                                                    <input type="number" step="0.01" name="amount" id="recharge-amount-{{ recharge.id }}" value="{{ recharge.amount }}">
+                                                    <button type="submit" class="green btn-sm">Save</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="voucher-card__actions">
+                                            {% if recharge.voucher %}
+                                                <form method="post" action="{% url 'balance:approve_voucher' recharge.voucher.id %}">
+                                                    {% csrf_token %}
+                                                    <button class="green btn-sm">Approve</button>
+                                                </form>
+                                                <form method="post" action="{% url 'balance:reject_voucher' recharge.voucher.id %}">
+                                                    {% csrf_token %}
+                                                    <button class="red btn-sm">Reject</button>
+                                                </form>
+                                            {% else %}
+                                                <form method="post" action="{% url 'balance:reject_recharge_request' recharge.id %}"
+                                                      onsubmit="return confirm('Remove this pending recharge with no voucher?');">
+                                                    {% csrf_token %}
+                                                    <button class="red btn-sm">Remove</button>
+                                                </form>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <span class="no-vouchers">No Voucher</span>
+                        {% endif %}
+                    </td>
+                    <td data-label="Task Progress">
+                        {% with next_sp=user.next_stoppoint %}
+                            {% if next_sp %}
+                                {% with wallet_balance=user.wallet_address.balance|default:0 %}
+                                    {% if user.completed_tasks >= next_sp.point and wallet_balance < next_sp.required_balance %}
+                                        <span style="color: rgb(119, 5, 5)(136, 10, 10); font-weight: bold;">{{ user.completed_tasks }}/{{ user.daily_task_limit }}</span>
+                                    {% else %}
+                                        <span style="color: green;">{{ user.completed_tasks }}/{{ user.daily_task_limit }}</span>
+                                    {% endif %}
+                                {% endwith %}
+                            {% else %}
+                                <span>{{ user.completed_tasks }}/{{ user.daily_task_limit }}</span>
+                            {% endif %}
+                        {% endwith %}
+                    </td>
+                    <td data-label="Status">
+                        {% if user.is_online %}
+                            <span class="status-badge status-online">Online</span>
+                        {% else %}
+                            <span class="status-badge status-offline">Offline</span>
+                        {% endif %}
+                    </td>
+                    <td data-label="Pending Withdrawal">
+                        {% if user.withdrawal_requests %}
+                            {% for withdrawal in user.withdrawal_requests %}
+                                <div style="margin-bottom: 4px;">
+                                    <span style="display: inline-block; min-width: 80px;">${{ withdrawal.amount }}</span>
+                                    <form method="post" action="{% url 'wallet:approve_withdrawal' withdrawal.id %}" style="display: inline-block;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="green btn-sm">Pay</button>
+                                    </form>
+                                    <form method="post" action="{% url 'wallet:reject_withdrawal' withdrawal.id %}" style="display: inline-block;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="red btn-sm">Reject</button>
+                                    </form>
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            No pending
+                        {% endif %}
+                    </td>
+                    <td data-label="Setup">
+                        <button type="button"
+                                class="open-setup-modal-btn amazon-secondary-btn"
+                                data-user-id="{{ user.id }}"
+                                data-username="{{ user.username }}"
+                                data-daily-limit="{{ user.daily_task_limit }}"
+                                data-product-rate="{{ user.product_rate|default:0 }}"
+                                data-referral-rate="{{ user.referral_rate|default:0 }}"
+                                data-add-url="{% url 'stoppoints:add_stop_points' user.id %}"
+                                data-update-url="{% url 'stoppoints:update_stop_point' user.id %}"
+                                data-delete-url="{% url 'stoppoints:delete_stop_point' user.id %}"
+                                data-referred-by="{{ user.referred_by.id|default:'' }}"
+                                style="border: none;">
+                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                                <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319z"/>
+                            </svg>
+                            Setup
+                        </button>
+                        <div class="existing-stoppoints-list" style="display:none;">
+                            {% for sp in user.stop_points %}
+                                <div class="existing-stoppoint-row" data-sp-id="{{ sp.id }}" 
+                                     style="display:flex; gap:4px; margin-bottom:4px; align-items:center;">
+                                    <input type="number" name="existing_point" value="{{ sp.point }}" 
+                                           class="stoppoint-point-input" min="1" 
+                                           style="width:60px; padding:3px;" disabled>
+                                    <input type="number" name="existing_required_recharge" value="{{ sp.required_balance }}" 
+                                           min="0" step="0.01" style="width:80px; padding:3px;">
+                                    <button type="button" class="green btn-sm update-stoppoint-btn">Update</button>
+                                    <button type="button" class="red btn-sm delete-stoppoint-btn">Delete</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </td>
+                    
+                    <td data-label="Information">
+                        <button class="info-modal-btn{% if user.info_alert_wallet or user.info_alert_day %} info-modal-btn--alert{% endif %}"
+                                data-user-id="{{ user.id }}"
+                                data-username="{{ user.username }}"
+                                data-wallet="{% if user.wallet_address %}{{ user.wallet_address.address }}{% endif %}"
+                                data-day="{{ user.completed_withdrawal_days|default:'' }}"
+                                data-history-url="{% url 'accounts:user_history' user.id %}"
+                                data-has-alert="{% if user.info_alert_wallet or user.info_alert_day %}true{% else %}false{% endif %}"
+                                data-clear-url="{% url 'accounts:clear_info_alert' user.id %}">
+                            Information
+                        </button>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="9" class="no-data">No users found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+
+
+   
+    
+
+<!-- Shared Pagination Controls -->
+{% if users.paginator.num_pages > 1 %}
+<div class="pagination" style="margin: 25px 0; text-align: center; padding: 15px; background: #f8f9fa; border-radius: 5px;">
+    <div style="display: inline-flex; align-items: center; gap: 10px;">
+        {% if users.has_previous %}
+            <a href="?page=1" class="page-btn" style="padding: 8px 15px; border: 1px solid #dee2e6; background: #fff; color: #007bff; text-decoration: none; border-radius: 4px; font-weight: 500;">&laquo; First</a>
+            <a href="?page={{ users.previous_page_number }}" class="page-btn" style="padding: 8px 15px; border: 1px solid #dee2e6; background: #fff; color: #007bff; text-decoration: none; border-radius: 4px; font-weight: 500;">Previous</a>
+        {% else %}
+            <span class="page-btn disabled" style="padding: 8px 15px; border: 1px solid #dee2e6; background: #f8f9fa; color: #6c757d; border-radius: 4px; cursor: not-allowed; opacity: 0.6;">&laquo; First</span>
+            <span class="page-btn disabled" style="padding: 8px 15px; border: 1px solid #dee2e6; background: #f8f9fa; color: #6c757d; border-radius: 4px; cursor: not-allowed; opacity: 0.6;">Previous</span>
+        {% endif %}
+        
+        <span class="page-info" style="padding: 0 15px; color: #495057; font-weight: 500;">
+            Page <strong>{{ users.number }}</strong> of <strong>{{ users.paginator.num_pages }}</strong>
+            <span style="display: block; font-size: 0.9em; color: #6c757d; margin-top: 3px;">
+                Showing users {{ users.start_index }} to {{ users.end_index }} of {{ users.paginator.count }}
+            </span>
+        </span>
+        
+        {% if users.has_next %}
+            <a href="?page={{ users.next_page_number }}" class="page-btn" style="padding: 8px 15px; border: 1px solid #dee2e6; background: #fff; color: #007bff; text-decoration: none; border-radius: 4px; font-weight: 500;">Next</a>
+            <a href="?page={{ users.paginator.num_pages }}" class="page-btn" style="padding: 8px 15px; border: 1px solid #dee2e6; background: #fff; color: #007bff; text-decoration: none; border-radius: 4px; font-weight: 500;">Last &raquo;</a>
+        {% else %}
+            <span class="page-btn disabled" style="padding: 8px 15px; border: 1px solid #dee2e6; background: #f8f9fa; color: #6c757d; border-radius: 4px; cursor: not-allowed; opacity: 0.6;">Next</span>
+            <span class="page-btn disabled" style="padding: 8px 15px; border: 1px solid #dee2e6; background: #f8f9fa; color: #6c757d; border-radius: 4px; cursor: not-allowed; opacity: 0.6;">Last &raquo;</span>
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+<script>
+(function() {
+    const summaryUrl = "{% url 'accounts:admin_dashboard_summary' %}";
+    const notificationCountEl = document.getElementById('notification-count');
+    const pendingBalanceEl = document.getElementById('pending-balance-count');
+    const pendingWithdrawEl = document.getElementById('pending-withdraw-count');
+    const processingWithdrawEl = document.getElementById('processing-withdraw-count');
+
+    let lastSummary = {
+        pending_balance_requests_count: parseInt(pendingBalanceEl?.textContent || '0', 10) || 0,
+        pending_withdrawals_count: parseInt(pendingWithdrawEl?.textContent || '0', 10) || 0,
+        processing_withdrawals_count: parseInt(processingWithdrawEl?.textContent || '0', 10) || 0,
+        total_notifications: parseInt(notificationCountEl?.textContent || '0', 10) || 0,
+    };
+
+    window.__adminSummaryState = lastSummary;
+
+    function updateBadge(el, value) {
+        if (!el) return;
+        el.textContent = value;
+    }
+
+    function updateNotificationCount(value) {
+        if (!notificationCountEl) return;
+        if (value > 0) {
+            notificationCountEl.classList.remove('d-none');
+            notificationCountEl.textContent = value;
+        } else {
+            notificationCountEl.classList.add('d-none');
+            notificationCountEl.textContent = '0';
+        }
+    }
+
+    function refreshAdminDashboardSummary() {
+        fetch(summaryUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' }})
+            .then((response) => response.ok ? response.json() : null)
+            .then((data) => {
+                if (!data || !data.success) return;
+
+                updateBadge(pendingBalanceEl, data.pending_balance_requests_count);
+                updateBadge(pendingWithdrawEl, data.pending_withdrawals_count);
+                updateBadge(processingWithdrawEl, data.processing_withdrawals_count);
+                updateNotificationCount(data.total_notifications);
+
+                const countsChanged = (
+                    data.pending_balance_requests_count !== lastSummary.pending_balance_requests_count ||
+                    data.pending_withdrawals_count !== lastSummary.pending_withdrawals_count ||
+                    data.processing_withdrawals_count !== lastSummary.processing_withdrawals_count
+                );
+
+                lastSummary = data;
+                window.__adminSummaryState = data;
+
+                if (countsChanged) {
+                    window.location.reload();
+                }
+            })
+            .catch(() => {
+                // Ignore fetch errors, will retry on next interval
+            });
+
+        attemptReopenSetupModal();
+    }
+
+    setInterval(refreshAdminDashboardSummary, 15000);
+})();
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const csrftoken = getCookie('csrftoken');
+    const notificationBell = document.getElementById('notificationBell');
+    const notificationDropdown = document.getElementById('notification-dropdown');
+    const notificationDropdownClose = document.getElementById('notification-dropdown-close');
+    const dropdownListEl = document.getElementById('notification-dropdown-list');
+    const dropdownLoadingEl = document.getElementById('notification-dropdown-loading');
+    const dropdownErrorEl = document.getElementById('notification-dropdown-error');
+    const dropdownEmptyEl = document.getElementById('notification-dropdown-empty');
+    const notificationCountBadge = document.getElementById('notification-count');
+    const adminEventsUrl = "{% url 'accounts:admin_dashboard_events' %}";
+    const markReadEventsUrl = "{% url 'accounts:admin_dashboard_events_mark_read' %}";
+    const EVENT_LABELS = {
+        recharge_request: 'Recharge Request',
+        wallet_bind: 'Wallet Bound',
+        withdraw_request: 'Withdrawal Request',
+    };
+    let dropdownVisible = false;
+
+    const staffChatLauncher = document.getElementById('staffChatLauncher');
+    const staffChatModal = document.getElementById('staffChatModal');
+    const staffChatBadge = document.getElementById('staffChatBadge');
+    const staffChatMessagesEl = document.getElementById('staffChatMessages');
+    const staffChatStateEl = document.getElementById('staffChatState');
+    const staffChatForm = document.getElementById('staffChatForm');
+    const staffChatMessageInput = document.getElementById('staffChatMessageInput');
+    const staffChatAttachmentInput = document.getElementById('staffChatAttachmentInput');
+    const staffChatAttachBtn = document.getElementById('staffChatAttachBtn');
+    const staffChatAttachmentPreview = document.getElementById('staffChatAttachmentPreview');
+    const staffChatAttachmentNote = document.getElementById('staffChatAttachmentNote');
+    const staffChatAttachmentClearBtn = document.getElementById('staffChatAttachmentClearBtn');
+    const staffChatModalClose = document.getElementById('staffChatModalClose');
+    const staffChatSendBtn = document.getElementById('staffChatSendBtn');
+    const staffChatConfig = {
+        bootstrapUrl: "{% url 'chat:admin_staff_chat_bootstrap' %}",
+        unreadUrl: "{% url 'chat:staff_chat_unread_summary' %}",
+        messagesTemplate: "{% url 'chat:staff_chat_thread_messages' 0 %}",
+        markReadTemplate: "{% url 'chat:staff_chat_mark_read' 0 %}",
+        uploadTemplate: "{% url 'chat:staff_chat_upload_attachment' 0 %}",
+    };
+    const staffChatCurrentUserId = JSON.parse('{{ request.user.id|default_if_none:"null"|default:"null"|escapejs }}');
+    const staffChatState = {
+        threadId: null,
+        websocket: null,
+        messages: [],
+        isModalOpen: false,
+        bootstrapLoaded: false,
+        isLoading: false,
+        reconnectDelay: 2000,
+        markReadPending: false,
+        unreadCount: 0,
+    };
+
+    function staffChatLog(...args) {
+        if (window.__DEBUG_STAFF_CHAT__) {
+            console.debug('[staff-chat]', ...args);
+        }
+    }
+
+    function staffChatApplyBadge(value) {
+        if (!staffChatBadge) return;
+        const numericValue = Number(value);
+        const count = Number.isFinite(numericValue) ? numericValue : 0;
+        staffChatState.unreadCount = Math.max(0, count);
+        if (count > 0) {
+            staffChatBadge.textContent = String(count);
+            staffChatBadge.classList.remove('d-none');
+        } else {
+            staffChatBadge.textContent = '0';
+            staffChatBadge.classList.add('d-none');
+        }
+    }
+
+    function staffChatSetStateMessage(message, { tone = 'muted', persist = false } = {}) {
+        if (!staffChatStateEl) return;
+        if (message) {
+            staffChatStateEl.textContent = message;
+            staffChatStateEl.hidden = false;
+            staffChatStateEl.style.color = tone === 'error' ? '#b91c1c' : '#555';
+            if (!persist) {
+                clearTimeout(staffChatStateEl.__hideTimeout);
+                staffChatStateEl.__hideTimeout = window.setTimeout(() => {
+                    staffChatStateEl.hidden = true;
+                }, 4000);
+            }
+        } else {
+            staffChatStateEl.hidden = true;
+        }
+    }
+
+    function staffChatClearStateMessage() {
+        if (staffChatStateEl) {
+            staffChatStateEl.hidden = true;
+            staffChatStateEl.textContent = '';
+        }
+    }
+
+    function staffChatEscapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text ?? '';
+        return div.innerHTML;
+    }
+
+    function staffChatFormatTimestamp(value) {
+        if (!value) return '';
+        try {
+            const when = new Date(value);
+            if (Number.isNaN(when.getTime())) return '';
+            return when.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        } catch (error) {
+            return '';
+        }
+    }
+
+    function staffChatRenderMessages() {
+        if (!staffChatMessagesEl) return;
+        staffChatMessagesEl.innerHTML = '';
+        if (!staffChatState.messages.length) {
+            staffChatSetStateMessage('No messages yet. Start the conversation!', { persist: true });
+            return;
+        }
+        staffChatClearStateMessage();
+        const fragment = document.createDocumentFragment();
+        staffChatState.messages.forEach((msg) => {
+            const isSelf = msg.sender_id === staffChatCurrentUserId;
+            const item = document.createElement('div');
+            item.className = `staff-chat-message ${isSelf ? 'is-self' : 'is-peer'}`;
+
+            const bubble = document.createElement('div');
+            bubble.className = 'staff-chat-bubble';
+            if (msg.attachment) {
+                bubble.classList.add('has-attachment');
+                const contentWrapper = document.createElement('div');
+                contentWrapper.className = 'staff-chat-bubble__content';
+                if (msg.content) {
+                    const textEl = document.createElement('p');
+                    textEl.innerHTML = staffChatEscapeHtml(msg.content);
+                    contentWrapper.appendChild(textEl);
+                }
+
+                const attachmentEl = document.createElement('div');
+                attachmentEl.className = 'staff-chat-attachment';
+                const isImage = msg.attachment.is_image;
+                const isAudio = msg.attachment.is_audio;
+
+                if (isImage) {
+                    const img = document.createElement('img');
+                    img.src = msg.attachment.url;
+                    img.alt = msg.attachment.name || 'Image attachment';
+                    img.loading = 'lazy';
+                    attachmentEl.appendChild(img);
+                } else if (isAudio) {
+                    const audio = document.createElement('audio');
+                    audio.controls = true;
+                    audio.src = msg.attachment.url;
+                    attachmentEl.appendChild(audio);
+                }
+
+                const metaEl = document.createElement('div');
+                metaEl.className = 'staff-chat-attachment__meta';
+                metaEl.innerHTML = `<i class="fas ${msg.attachment.is_image ? 'fa-image' : msg.attachment.is_audio ? 'fa-microphone' : 'fa-paperclip'}"></i> ${staffChatEscapeHtml(msg.attachment.name || 'Attachment')}`;
+
+                attachmentEl.appendChild(metaEl);
+                contentWrapper.appendChild(attachmentEl);
+                bubble.appendChild(contentWrapper);
+            } else {
+                bubble.innerHTML = staffChatEscapeHtml(msg.content || '[Attachment]');
+            }
+            item.appendChild(bubble);
+
+            const meta = document.createElement('div');
+            meta.className = 'staff-chat-meta';
+            meta.textContent = staffChatFormatTimestamp(msg.created_at);
+            item.appendChild(meta);
+
+            fragment.appendChild(item);
+        });
+        staffChatMessagesEl.appendChild(fragment);
+        staffChatMessagesEl.scrollTop = staffChatMessagesEl.scrollHeight;
+    }
+
+    function staffChatUpdateThreadData(thread) {
+        if (!thread) return;
+        staffChatState.threadId = thread.id;
+        staffChatState.threadAttachmentUrl = staffChatThreadUrl(staffChatConfig.uploadTemplate);
+        staffChatApplyBadge(thread.admin_unread_count || 0);
+    }
+
+    function staffChatThreadUrl(template) {
+        if (!template || !staffChatState.threadId) return null;
+        return template.replace('/0/', `/${staffChatState.threadId}/`);
+    }
+
+    async function staffChatFetchJson(url, { method = 'GET', body, headers = {} } = {}) {
+        try {
+            const response = await fetch(url, {
+                method,
+                credentials: 'same-origin',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    ...headers,
+                },
+                body,
+            });
+            const data = await response.json().catch(() => ({}));
+            return { ok: response.ok, data };
+        } catch (error) {
+            staffChatLog('fetch error', url, error);
+            return { ok: false, data: { error: 'Network error' } };
+        }
+    }
+
+    async function staffChatRefreshUnread() {
+        if (!staffChatConfig.unreadUrl) return;
+        const { ok, data } = await staffChatFetchJson(staffChatConfig.unreadUrl);
+        if (!ok) return;
+        staffChatApplyBadge(data.total_unread || 0);
+        if (data.thread && data.thread.id) {
+            staffChatState.threadId = data.thread.id;
+            if (!staffChatState.bootstrapLoaded) {
+                staffChatState.messages = [];
+            }
+            staffChatState.threadAttachmentUrl = staffChatThreadUrl(staffChatConfig.uploadTemplate);
+        }
+    }
+
+    async function staffChatBootstrap() {
+        if (!staffChatConfig.bootstrapUrl || staffChatState.bootstrapLoaded || staffChatState.isLoading) {
+            return;
+        }
+        staffChatState.isLoading = true;
+        staffChatSetStateMessage('Loading conversation…', { persist: true });
+        const { ok, data } = await staffChatFetchJson(staffChatConfig.bootstrapUrl);
+        staffChatState.isLoading = false;
+        if (!ok || data.error) {
+            staffChatSetStateMessage(data.error || 'Unable to load chat. Please contact support.', { tone: 'error', persist: true });
+            staffChatSendBtn?.setAttribute('disabled', 'disabled');
+            return;
+        }
+        staffChatState.bootstrapLoaded = true;
+        staffChatState.messages = data.messages || [];
+        staffChatUpdateThreadData(data.thread);
+        staffChatRenderMessages();
+        staffChatConnect();
+    }
+
+    function staffChatHandleWsMessage(payload) {
+        if (!payload || !payload.event) return;
+        switch (payload.event) {
+            case 'message':
+                if (payload.message) {
+                    staffChatState.messages.push(payload.message);
+                    staffChatRenderMessages();
+                    if (!staffChatState.isModalOpen && payload.thread) {
+                        staffChatApplyBadge(payload.thread.admin_unread_count || staffChatState.unreadCount + 1);
+                    }
+                    if (staffChatState.isModalOpen && payload.message.sender_id !== staffChatCurrentUserId) {
+                        staffChatMarkRead();
+                    }
+                }
+                if (payload.thread) {
+                    staffChatUpdateThreadData(payload.thread);
+                }
+                break;
+            case 'read':
+                if (payload.thread) {
+                    staffChatUpdateThreadData(payload.thread);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    function staffChatConnect() {
+        if (!staffChatState.threadId || staffChatState.websocket?.readyState === WebSocket.OPEN || !window.WebSocket) {
+            return;
+        }
+        const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+        const wsUrl = `${protocol}://${window.location.host}/ws/staff/${staffChatState.threadId}/`;
+        const ws = new WebSocket(wsUrl);
+        staffChatState.websocket = ws;
+
+        ws.onopen = () => {
+            staffChatLog('WebSocket connected');
+            staffChatState.reconnectDelay = 2000;
+            if (staffChatState.isModalOpen) {
+                staffChatMarkRead();
+            }
+        };
+
+        ws.onmessage = (event) => {
+            try {
+                const data = JSON.parse(event.data);
+                staffChatHandleWsMessage(data);
+            } catch (error) {
+                staffChatLog('Invalid WS payload', error);
+            }
+        };
+
+        ws.onclose = () => {
+            staffChatLog('WebSocket closed');
+            staffChatState.websocket = null;
+            if (staffChatState.threadId) {
+                window.setTimeout(() => {
+                    staffChatState.reconnectDelay = Math.min(staffChatState.reconnectDelay * 1.5, 15000);
+                    staffChatConnect();
+                }, staffChatState.reconnectDelay);
+            }
+        };
+
+        ws.onerror = () => {
+            staffChatLog('WebSocket error');
+        };
+    }
+
+    async function staffChatMarkRead() {
+        if (!staffChatState.threadId || staffChatState.markReadPending) return;
+        const markUrl = staffChatThreadUrl(staffChatConfig.markReadTemplate);
+        if (!markUrl) return;
+        staffChatState.markReadPending = true;
+        const { ok, data } = await staffChatFetchJson(markUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify({}),
+        });
+        staffChatState.markReadPending = false;
+        if (ok && data.thread) {
+            staffChatUpdateThreadData(data.thread);
+        }
+    }
+
+    function staffChatOpenModal() {
+        if (!staffChatModal) return;
+        staffChatState.isModalOpen = true;
+        staffChatModal.classList.add('is-visible');
+        staffChatModal.style.display = 'flex';
+        staffChatBootstrap();
+        if (staffChatMessageInput) {
+            staffChatMessageInput.focus();
+        }
+        staffChatMarkRead();
+    }
+
+    function staffChatCloseModal() {
+        if (!staffChatModal) return;
+        staffChatState.isModalOpen = false;
+        staffChatModal.classList.remove('is-visible');
+        staffChatModal.style.display = 'none';
+    }
+
+    function staffChatHandleDocumentClick(event) {
+        const trigger = event.target.closest?.('[data-open-staff-chat="true"]');
+        if (trigger) {
+            event.preventDefault();
+            staffChatOpenModal();
+            return;
+        }
+
+        if (event.target === staffChatModal) {
+            staffChatCloseModal();
+        }
+    }
+
+    function staffChatResetAttachmentPreview() {
+        if (staffChatAttachmentInput) {
+            staffChatAttachmentInput.value = '';
+        }
+        if (staffChatAttachmentNote) {
+            staffChatAttachmentNote.textContent = '';
+        }
+        staffChatAttachmentPreview?.setAttribute('hidden', 'hidden');
+        staffChatAttachmentClearBtn?.setAttribute('aria-hidden', 'true');
+        staffChatState.pendingAttachment = null;
+    }
+
+    function staffChatHandleAttachmentSelection(file) {
+        if (!file) {
+            staffChatResetAttachmentPreview();
+            return;
+        }
+        const maxBytes = 5 * 1024 * 1024;
+        if (file.size > maxBytes) {
+            staffChatSetStateMessage('Attachment exceeds the 5 MB limit.', { tone: 'error' });
+            staffChatResetAttachmentPreview();
+            return;
+        }
+        const type = (file.type || '').toLowerCase();
+        if (!type.startsWith('image/') && !type.startsWith('audio/')) {
+            staffChatSetStateMessage('Only image or audio files are allowed.', { tone: 'error' });
+            staffChatResetAttachmentPreview();
+            return;
+        }
+        staffChatState.pendingAttachment = file;
+        if (staffChatAttachmentNote) {
+            const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
+            staffChatAttachmentNote.textContent = `${file.name} • ${sizeMb} MB`;
+        }
+        staffChatAttachmentPreview?.removeAttribute('hidden');
+        staffChatAttachmentClearBtn?.setAttribute('aria-hidden', 'false');
+    }
+
+    async function staffChatSendMessage(event) {
+        event.preventDefault();
+        const text = staffChatMessageInput?.value.trim() || '';
+        const attachment = staffChatState.pendingAttachment;
+        if (!text && !attachment) {
+            staffChatSetStateMessage('Type a message or attach a file (max 5 MB).', { tone: 'error' });
+            return;
+        }
+
+        if (attachment && staffChatState.threadAttachmentUrl) {
+            staffChatSendBtn?.setAttribute('disabled', 'disabled');
+            staffChatSetStateMessage('Uploading attachment…', { persist: true });
+            const formData = new FormData();
+            formData.append('attachment', attachment);
+            if (text) {
+                formData.append('message', text);
+            }
+
+            try {
+                const response = await fetch(staffChatState.threadAttachmentUrl, {
+                    method: 'POST',
+                    credentials: 'same-origin',
+                    headers: {
+                        'X-CSRFToken': csrftoken,
+                    },
+                    body: formData,
+                });
+                const data = await response.json().catch(() => ({}));
+                staffChatSendBtn?.removeAttribute('disabled');
+                staffChatSetStateMessage('', {});
+                if (!response.ok || data.error) {
+                    staffChatSetStateMessage(data.error || 'Upload failed, please retry.', { tone: 'error' });
+                    return;
+                }
+                staffChatMessageInput.value = '';
+                staffChatResetAttachmentPreview();
+                if (data.message) {
+                    staffChatState.messages.push(data.message);
+                    staffChatRenderMessages();
+                }
+            } catch (error) {
+                staffChatSendBtn?.removeAttribute('disabled');
+                staffChatSetStateMessage('Upload failed, please retry.', { tone: 'error' });
+            }
+            return;
+        }
+
+        if (staffChatMessageInput) {
+            staffChatMessageInput.value = '';
+        }
+        if (attachment) {
+            staffChatResetAttachmentPreview();
+        }
+
+        if (staffChatState.websocket && staffChatState.websocket.readyState === WebSocket.OPEN) {
+            staffChatState.websocket.send(JSON.stringify({ action: 'message', message: text }));
+        } else {
+            staffChatSetStateMessage('Reconnecting… message queued.', { tone: 'muted' });
+            staffChatBootstrap().then(() => {
+                if (staffChatState.websocket && staffChatState.websocket.readyState === WebSocket.OPEN) {
+                    staffChatState.websocket.send(JSON.stringify({ action: 'message', message: text }));
+                } else {
+                    staffChatSetStateMessage('Message could not be sent. Please retry.', { tone: 'error' });
+                    if (staffChatMessageInput) {
+                        staffChatMessageInput.value = text;
+                    }
+                }
+            });
+        }
+    }
+
+    function staffChatInit() {
+        if (!staffChatLauncher || !staffChatModal || !staffChatForm) {
+            return;
+        }
+        staffChatLauncher.addEventListener('click', (event) => {
+            event.preventDefault();
+            staffChatOpenModal();
+        });
+        staffChatBadge?.addEventListener('click', (event) => {
+            event.preventDefault();
+            staffChatOpenModal();
+        });
+        staffChatBadge?.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                staffChatOpenModal();
+            }
+        });
+        staffChatAttachBtn?.addEventListener('click', (event) => {
+            event.preventDefault();
+            staffChatAttachmentInput?.click();
+        });
+        staffChatAttachmentInput?.addEventListener('change', (event) => {
+            const file = event.target.files?.[0];
+            staffChatHandleAttachmentSelection(file);
+        });
+        staffChatAttachmentClearBtn?.addEventListener('click', (event) => {
+            event.preventDefault();
+            staffChatResetAttachmentPreview();
+        });
+        staffChatModalClose?.addEventListener('click', (event) => {
+            event.preventDefault();
+            staffChatCloseModal();
+        });
+        staffChatForm.addEventListener('submit', staffChatSendMessage);
+        document.addEventListener('click', staffChatHandleDocumentClick);
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && staffChatState.isModalOpen) {
+                staffChatCloseModal();
+            }
+        });
+        staffChatRefreshUnread();
+        window.setInterval(staffChatRefreshUnread, 20000);
+    }
+
+    function updateLocalBadge(value) {
+        if (notificationCountBadge) {
+            if (value > 0) {
+                notificationCountBadge.textContent = value;
+                notificationCountBadge.classList.remove('d-none');
+            } else {
+                notificationCountBadge.textContent = '0';
+                notificationCountBadge.classList.add('d-none');
+            }
+        }
+        if (window.__adminSummaryState) {
+            window.__adminSummaryState.total_notifications = value;
+        }
+    }
+
+    function handleDocumentClick(event) {
+        if (!notificationDropdown?.contains(event.target) && !notificationBell?.contains(event.target)) {
+            hideDropdown();
+        }
+    }
+
+    function handleEscapeKey(event) {
+        if (event.key === 'Escape') {
+            hideDropdown();
+        }
+    }
+
+    function showDropdown() {
+        if (!notificationDropdown || dropdownVisible) return;
+        notificationDropdown.classList.add('is-visible');
+        dropdownVisible = true;
+        document.addEventListener('click', handleDocumentClick);
+        document.addEventListener('keydown', handleEscapeKey);
+    }
+
+    function hideDropdown() {
+        if (!notificationDropdown || !dropdownVisible) return;
+        notificationDropdown.classList.remove('is-visible');
+        dropdownVisible = false;
+        document.removeEventListener('click', handleDocumentClick);
+        document.removeEventListener('keydown', handleEscapeKey);
+    }
+
+    function setDropdownState(state) {
+        const stateMap = {
+            loading: dropdownLoadingEl,
+            error: dropdownErrorEl,
+            empty: dropdownEmptyEl,
+        };
+
+        Object.keys(stateMap).forEach((key) => {
+            const el = stateMap[key];
+            if (el) {
+                if (key === state) {
+                    el.classList.remove('d-none');
+                } else {
+                    el.classList.add('d-none');
+                }
+            }
+        });
+
+        if (dropdownListEl) {
+            dropdownListEl.style.display = state === 'list' ? 'flex' : 'none';
+        }
+    }
+
+    function formatTimestamp(value) {
+        if (!value) return '';
+        try {
+            const date = new Date(value);
+            if (Number.isNaN(date.getTime())) {
+                return value;
+            }
+            return date.toLocaleString();
+        } catch (error) {
+            return value;
+        }
+    }
+
+    function renderEvents(events) {
+        if (!dropdownListEl) return;
+        dropdownListEl.innerHTML = '';
+
+        events.forEach((event) => {
+            const item = document.createElement('li');
+            item.className = 'notification-event-item';
+
+            const typeEl = document.createElement('div');
+            typeEl.className = 'notification-event-item__type';
+            typeEl.textContent = EVENT_LABELS[event.event_type] || event.event_type;
+
+            const messageEl = document.createElement('div');
+            messageEl.className = 'notification-event-item__message';
+            messageEl.textContent = event.message;
+
+            if (event.metadata) {
+                const metaBits = [];
+                if (event.metadata.amount) {
+                    metaBits.push(`Amount: $${event.metadata.amount}`);
+                }
+                if (event.metadata.network) {
+                    metaBits.push(`Network: ${event.metadata.network}`);
+                }
+                if (event.metadata.address) {
+                    metaBits.push(`Address: ${event.metadata.address}`);
+                }
+                if (metaBits.length) {
+                    const metaEl = document.createElement('div');
+                    metaEl.className = 'notification-event-item__meta';
+                    metaEl.textContent = metaBits.join(' â€¢ ');
+                    item.appendChild(metaEl);
+                }
+            }
+
+            const timestampEl = document.createElement('div');
+            timestampEl.className = 'notification-event-item__timestamp';
+            timestampEl.textContent = formatTimestamp(event.created_at);
+
+            item.prepend(typeEl);
+            item.appendChild(messageEl);
+            item.appendChild(timestampEl);
+
+            dropdownListEl.appendChild(item);
+        });
+    }
+
+    function markEventsAsRead() {
+        if (!markReadEventsUrl || !csrftoken) return;
+        fetch(markReadEventsUrl, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: JSON.stringify({}),
+        })
+            .then((response) => (response.ok ? response.json() : null))
+            .then((data) => {
+                if (data && data.success) {
+                    updateLocalBadge(0);
+                }
+            })
+            .catch(() => {
+                // Ignore errors; polling will sync later
+            });
+    }
+
+    function fetchAndRenderEvents() {
+        if (!adminEventsUrl) return;
+        setDropdownState('loading');
+        if (dropdownListEl) {
+            dropdownListEl.innerHTML = '';
+        }
+
+        fetch(adminEventsUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+            .then((response) => (response.ok ? response.json() : null))
+            .then((data) => {
+                if (!data || !data.success) {
+                    setDropdownState('error');
+                    return;
+                }
+
+                const events = data.events || [];
+                if (events.length) {
+                    renderEvents(events);
+                    setDropdownState('list');
+                } else {
+                    setDropdownState('empty');
+                }
+
+                markEventsAsRead();
+            })
+            .catch(() => {
+                setDropdownState('error');
+            });
+    }
+
+    if (notificationBell && notificationDropdown) {
+        notificationBell.addEventListener('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
+            if (dropdownVisible) {
+                hideDropdown();
+            } else {
+                showDropdown();
+                fetchAndRenderEvents();
+            }
+        });
+    }
+
+    if (notificationDropdownClose) {
+        notificationDropdownClose.addEventListener('click', (event) => {
+            event.preventDefault();
+            hideDropdown();
+        });
+    }
+
+    
+    // --- Voucher Modal ---
+    const voucherModal = document.getElementById('voucherModal');
+    const voucherModalBody = document.getElementById('voucherModalBody');
+    const voucherModalTitle = document.getElementById('voucherModalTitle');
+    const voucherModalCount = document.getElementById('voucherModalCount');
+    const voucherModalClose = document.querySelector('.close-voucher-modal');
+
+    function openVoucherModal(userId, username) {
+        if (!voucherModal || !voucherModalBody) return;
+        const template = document.getElementById(`voucher-content-${userId}`);
+        if (template) {
+            voucherModalBody.innerHTML = template.innerHTML;
+            const count = template.querySelectorAll('.voucher-card').length;
+            voucherModalCount.textContent = count ? `${count} voucher${count === 1 ? '' : 's'} pending` : '';
+        } else {
+            voucherModalBody.innerHTML = '<p style="color:#6c757d;">No voucher details found.</p>';
+            voucherModalCount.textContent = '';
+        }
+        voucherModalTitle.textContent = `Vouchers for ${username}`;
+        voucherModal.style.display = 'flex';
+    }
+
+    function closeVoucherModal() {
+        if (!voucherModal) return;
+        voucherModal.style.display = 'none';
+        if (voucherModalBody) {
+            voucherModalBody.innerHTML = '';
+        }
+        if (voucherModalCount) {
+            voucherModalCount.textContent = '';
+        }
+    }
+
+    voucherModalClose?.addEventListener('click', closeVoucherModal);
+    window.addEventListener('click', (evt) => {
+        if (evt.target === voucherModal) {
+            closeVoucherModal();
+        }
+    });
+
+    document.addEventListener('keydown', (evt) => {
+        if (evt.key === 'Escape' && voucherModal && voucherModal.style.display === 'flex') {
+            closeVoucherModal();
+        }
+    });
+    document.addEventListener('click', (evt) => {
+        const button = evt.target.closest?.('.open-voucher-modal');
+        if (button) {
+            openVoucherModal(button.dataset.userId, button.dataset.username || 'User');
+        }
+    });
+
+    
+    // --- Helper Functions ---
+    function getCookie(name) {
+        const value = `; ${document.cookie}`;
+        const parts = value.split(`; ${name}=`);
+        if (parts.length === 2) return parts.pop().split(';').shift();
+    }
+    
+    function showStatus(span, message, color) {
+        if (span) {
+            span.textContent = message;
+            span.style.color = color;
+            setTimeout(() => { span.textContent = ''; }, 3000);
+        }
+    }
+    
+    async function sendJsonRequest(url, body) {
+        try {
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'X-CSRFToken': csrftoken,
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify(body)
+            });
+            return { success: response.ok, data: await response.json() };
+        } catch (err) {
+            return { success: false, data: { error: 'Network error' } };
+        }
+    }
+    
+    // --- Daily Limit ---
+    document.querySelectorAll('.update-daily-limit-btn').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const userId = btn.dataset.userId;
+            const input = document.querySelector(`.daily-limit-input[data-user-id="${userId}"]`);
+            const statusSpan = document.getElementById(`daily-limit-status-${userId}`);
+            const dailyLimit = input.value;
+            if (!dailyLimit || dailyLimit < 1 || dailyLimit > 60) {
+                return showStatus(statusSpan, 'Daily limit must be between 1 and 60.', 'red');
+            }
+            
+            const response = await sendJsonRequest(
+                '{% url "accounts:admin_dashboard" %}',
+                { action: 'set_daily_limit', user_id: userId, daily_limit: dailyLimit }
+            );
+            
+            if (response.success) {
+                showStatus(statusSpan, '✔” Saved', 'green');
+            } else {
+                showStatus(statusSpan, ` Error: ${response.data.error || 'Failed'}`, 'red');
+            }
+        });
+    });
+    
+    // --- Commission Logic ---
+    function updateCommission(selectorBtn, selectorInput, url, statusPrefix) {
+        document.querySelectorAll(selectorBtn).forEach(button => {
+            button.addEventListener('click', async (event) => {
+                const userId = button.dataset.userId;
+                const input = document.querySelector(`${selectorInput}[data-user-id="${userId}"]`);
+                const rate = input.value;
+                const statusSpan = document.getElementById(`${statusPrefix}-${userId}`);
+                const response = await sendJsonRequest(url, { user_id: userId, rate: rate });
+                if (response.success) {
+                    showStatus(statusSpan, '✔” Saved', 'green');
+                } else {
+                    showStatus(statusSpan, ` Error: ${response.data.error || 'Failed'}`, 'red');
+                }
+            });
+        });
+    }
+    
+    updateCommission('.update-commission-btn', '.commission-input', 
+        "{% url 'commission:update_user_commission' %}", 
+        'commission-status');
+    updateCommission('.update-referral-commission-btn', '.referral-commission-input',
+        "{% url 'commission:update_user_referral_commission' %}",
+        'referral-commission-status');
+    
+    // --- Professional Setup Modal ---
+    const setupModal = document.getElementById('setup-modal');
+    const setupModalTitle = document.getElementById('setup-modal-title');
+    const setupModalSubtitle = document.getElementById('setup-modal-subtitle');
+    const setupModalCloseBtn = document.querySelector('.close-setup-modal');
+    const Table = document.querySelector('table.modern-admin-table tbody');
+
+    let currentSetupUser = null;
+    let currentSetupTab = 'limits';
+    const SETUP_MODAL_REOPEN_KEY = 'adminSetupReopen';
+
+    function scheduleSetupModalReopen(tabName) {
+        if (!currentSetupUser) {
+            return;
+        }
+        const payload = {
+            userId: currentSetupUser.id,
+            tab: tabName || currentSetupTab || 'limits'
+        };
+        sessionStorage.setItem(SETUP_MODAL_REOPEN_KEY, JSON.stringify(payload));
+    }
+
+    function attemptReopenSetupModal() {
+        const stored = sessionStorage.getItem(SETUP_MODAL_REOPEN_KEY);
+        if (!stored) {
+            return;
+        }
+        sessionStorage.removeItem(SETUP_MODAL_REOPEN_KEY);
+        try {
+            const { userId, tab } = JSON.parse(stored);
+            if (!userId) {
+                return;
+            }
+            const triggerButton = document.querySelector(`.open-setup-modal-btn[data-user-id="${userId}"]`);
+            if (!triggerButton) {
+                return;
+            }
+            openSetupModal({
+                id: triggerButton.dataset.userId,
+                username: triggerButton.dataset.username,
+                dailyLimit: parseInt(triggerButton.dataset.dailyLimit, 10),
+                productRate: parseFloat(triggerButton.dataset.productRate) || 0,
+                referralRate: parseFloat(triggerButton.dataset.referralRate) || 0,
+                referredBy: triggerButton.dataset.referredBy,
+                addUrl: triggerButton.dataset.addUrl,
+                updateUrl: triggerButton.dataset.updateUrl,
+                deleteUrl: triggerButton.dataset.deleteUrl
+            });
+            if (tab && tab !== 'limits') {
+                switchTab(tab);
+            }
+        } catch (error) {
+            console.error('Failed to reopen setup modal:', error);
+        }
+    }
+
+    // Setup Modal Functions
+    function openSetupModal(userData) {
+        currentSetupUser = userData;
+        
+        // Update modal title
+        if (setupModalTitle) {
+            setupModalTitle.textContent = `Setup Configuration - ${userData.username}`;
+        }
+        if (setupModalSubtitle) {
+            setupModalSubtitle.textContent = ` ${userData.username}`;
+        }
+        
+        // Populate form fields
+        const dailyLimitInput = document.getElementById('setup-daily-limit');
+        const productRateInput = document.getElementById('setup-product-rate');
+        const referralRateInput = document.getElementById('setup-referral-rate');
+        
+        if (dailyLimitInput) dailyLimitInput.value = userData.dailyLimit || '';
+        if (productRateInput) productRateInput.value = userData.productRate || '';
+        if (referralRateInput) referralRateInput.value = userData.referralRate || '';
+        
+        // Populate existing stop points
+        populateSetupStopPoints(userData);
+        
+        // Show modal
+        if (setupModal) {
+            setupModal.style.display = 'flex';
+        }
+        
+        // Switch to limits tab by default
+        switchTab('limits');
+    }
+    
+    function closeSetupModal() {
+        if (setupModal) {
+            setupModal.style.display = 'none';
+        }
+        currentSetupUser = null;
+    }
+    
+    function switchTab(tabName) {
+        currentSetupTab = tabName;
+        
+        // Update tab buttons
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        tabButtons.forEach(btn => {
+            if (btn.dataset.tab === tabName) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        
+        // Update tab content
+        const tabContents = document.querySelectorAll('.tab-content');
+        tabContents.forEach(content => {
+            if (content.id === `${tabName}-tab`) {
+                content.style.display = 'block';
+            } else {
+                content.style.display = 'none';
+            }
+        });
+    }
+    
+    function populateSetupStopPoints(userData) {
+        const container = document.getElementById('setup-existing-stoppoints');
+        if (!container) return;
+        
+        container.innerHTML = '';
+        
+        // Get existing stop points from the user row
+        const userRow = document.querySelector(`tr[data-user-id="${userData.id}"]`);
+        if (!userRow) return;
+        
+        const existingList = userRow.querySelector('.existing-stoppoints-list');
+        if (existingList) {
+            const stopPoints = existingList.querySelectorAll('.existing-stoppoint-row');
+            stopPoints.forEach(sp => {
+                const spId = sp.dataset.spId;
+                const point = sp.querySelector('input[name="existing_point"]').value;
+                const recharge = sp.querySelector('input[name="existing_required_recharge"]').value;
+                
+                const spDiv = document.createElement('div');
+                spDiv.className = 'existing-stoppoint-row';
+                spDiv.dataset.spId = spId;
+                spDiv.style.cssText = 'display:flex; gap:8px; margin-bottom:8px; align-items:center; padding:8px; background:#f8f9fa; border-radius:6px;';
+                spDiv.innerHTML = `
+                    <input type="number" value="${point}" class="stoppoint-point-input" min="1" style="width:80px; padding:6px; border:1px solid #ddd; border-radius:4px;" disabled>
+                    <input type="number" value="${recharge}" min="0" step="0.01" style="width:120px; padding:6px; border:1px solid #ddd; border-radius:4px;">
+                    <button type="button" class="update-setup-stoppoint-btn" style="background: #007bff; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Update</button>
+                    <button type="button" class="delete-setup-stoppoint-btn" style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Delete</button>
+                `;
+                container.appendChild(spDiv);
+            });
+        }
+    }
+
+    // Open setup modal on button click
+    Table?.addEventListener('click', (event) => {
+        const setupBtn = event.target.closest('.open-setup-modal-btn');
+        if (setupBtn) {
+            openSetupModal({
+                id: setupBtn.dataset.userId,
+                username: setupBtn.dataset.username,
+                dailyLimit: parseInt(setupBtn.dataset.dailyLimit, 10),
+                productRate: parseFloat(setupBtn.dataset.productRate) || 0,
+                referralRate: parseFloat(setupBtn.dataset.referralRate) || 0,
+                referredBy: setupBtn.dataset.referredBy,
+                addUrl: setupBtn.dataset.addUrl,
+                updateUrl: setupBtn.dataset.updateUrl,
+                deleteUrl: setupBtn.dataset.deleteUrl
+            });
+            return;
+        }
+        const historyBtn = event.target.closest('.view-history-btn');
+        if (historyBtn) {
+            const userId = historyBtn.getAttribute('data-user-id');
+            const historyUrl = historyBtn.getAttribute('data-history-url') || `/en/accounts/user/${userId}/history/`;
+            loadUserHistory(historyUrl);
+            historyModal.style.display = 'flex';
+        }
+    });
+
+    // Setup Modal Event Listeners - Optimized for performance
+    if (setupModal) {
+        // Cache DOM elements to avoid repeated queries
+        const setupElements = {
+            dailyLimitInput: null,
+            dailyLimitStatus: null,
+            productRateInput: null,
+            productRateStatus: null,
+            referralRateInput: null,
+            referralRateStatus: null,
+            stoppointContainer: null,
+            stoppointStatus: null,
+            existingStoppoints: null
+        };
+        
+        // Cache elements when modal opens
+        function cacheSetupElements() {
+            setupElements.dailyLimitInput = document.getElementById('setup-daily-limit');
+            setupElements.dailyLimitStatus = document.getElementById('setup-daily-limit-status');
+            setupElements.productRateInput = document.getElementById('setup-product-rate');
+            setupElements.productRateStatus = document.getElementById('setup-product-rate-status');
+            setupElements.referralRateInput = document.getElementById('setup-referral-rate');
+            setupElements.referralRateStatus = document.getElementById('setup-referral-rate-status');
+            setupElements.stoppointContainer = document.getElementById('setup-new-stoppoint-container');
+            setupElements.stoppointStatus = document.getElementById('setup-stoppoint-status');
+            setupElements.existingStoppoints = document.getElementById('setup-existing-stoppoints');
+        }
+        
+        // Close modal
+        setupModalCloseBtn?.addEventListener('click', closeSetupModal);
+        
+        // Click outside to close
+        setupModal.addEventListener('click', (event) => {
+            if (event.target === setupModal) {
+                closeSetupModal();
+            }
+        });
+        
+        // Single event listener for all clicks with delegation
+        setupModal.addEventListener('click', async (event) => {
+            const target = event.target;
+            
+            // Tab navigation
+            if (target.classList.contains('tab-btn')) {
+                const tabName = target.dataset.tab;
+                switchTab(tabName);
+                return;
+            }
+            
+            // Save daily limit
+            if (target.id === 'setup-save-daily-limit') {
+                if (!setupElements.dailyLimitInput || !setupElements.dailyLimitStatus) return;
+                const value = parseInt(setupElements.dailyLimitInput.value, 10);
+                
+                if (!value || value < 1 || value > 60) {
+                    setupElements.dailyLimitStatus.textContent = 'Daily limit must be between 1 and 60.';
+                    setupElements.dailyLimitStatus.style.color = 'red';
+                    setTimeout(() => { setupElements.dailyLimitStatus.textContent = ''; }, 3000);
+                    return;
+                }
+                
+                try {
+                    target.disabled = true;
+                    target.textContent = 'Saving...';
+                    
+                    const response = await sendJsonRequest(
+                        '{% url "accounts:admin_dashboard" %}',
+                        { action: 'set_daily_limit', user_id: currentSetupUser.id, daily_limit: value }
+                    );
+                    
+                    if (response.success) {
+                        scheduleSetupModalReopen(currentSetupTab);
+                        setupElements.dailyLimitStatus.textContent = '✔” Saved';
+                        setupElements.dailyLimitStatus.style.color = 'green';
+                        window.location.reload();
+                        return;
+                    } else {
+                        setupElements.dailyLimitStatus.textContent = ` Error: ${response.data.error || 'Failed'}`;
+                        setupElements.dailyLimitStatus.style.color = 'red';
+                    }
+                } catch (error) {
+                    setupElements.dailyLimitStatus.textContent = ' Network error';
+                    setupElements.dailyLimitStatus.style.color = 'red';
+                } finally {
+                    target.disabled = false;
+                    target.textContent = 'Save Limit';
+                    setTimeout(() => { setupElements.dailyLimitStatus.textContent = ''; }, 3000);
+                }
+                return;
+            }
+            
+            // Save product commission
+            if (target.id === 'setup-save-product-rate') {
+                if (!setupElements.productRateInput || !setupElements.productRateStatus) return;
+                const value = parseFloat(setupElements.productRateInput.value);
+                
+                if (value < 0 || value > 100) {
+                    setupElements.productRateStatus.textContent = 'Please enter a value between 0 and 100';
+                    setupElements.productRateStatus.style.color = 'red';
+                    setTimeout(() => { setupElements.productRateStatus.textContent = ''; }, 3000);
+                    return;
+                }
+                
+                try {
+                    target.disabled = true;
+                    target.textContent = 'Saving...';
+                    
+                    const response = await sendJsonRequest(
+                        '{% url "commission:update_user_commission" %}',
+                        { user_id: currentSetupUser.id, rate: value }
+                    );
+                    
+                    if (response.success) {
+                        setupElements.productRateStatus.textContent = '✔” Saved';
+                        setupElements.productRateStatus.style.color = 'green';
+                    } else {
+                        setupElements.productRateStatus.textContent = ` Error: ${response.data.error || 'Failed'}`;
+                        setupElements.productRateStatus.style.color = 'red';
+                    }
+                } catch (error) {
+                    setupElements.productRateStatus.textContent = ' Network error';
+                    setupElements.productRateStatus.style.color = 'red';
+                } finally {
+                    target.disabled = false;
+                    target.textContent = 'Save Rate';
+                    setTimeout(() => { setupElements.productRateStatus.textContent = ''; }, 3000);
+                }
+                return;
+            }
+            
+            // Save referral commission
+            if (target.id === 'setup-save-referral-rate') {
+                if (!setupElements.referralRateInput || !setupElements.referralRateStatus) return;
+                const value = parseFloat(setupElements.referralRateInput.value);
+                
+                if (value < 0 || value > 100) {
+                    setupElements.referralRateStatus.textContent = 'Please enter a value between 0 and 100';
+                    setupElements.referralRateStatus.style.color = 'red';
+                    setTimeout(() => { setupElements.referralRateStatus.textContent = ''; }, 3000);
+                    return;
+                }
+                
+                try {
+                    target.disabled = true;
+                    target.textContent = 'Saving...';
+                    
+                    const response = await sendJsonRequest(
+                        '{% url "commission:update_user_referral_commission" %}',
+                        { user_id: currentSetupUser.id, rate: value }
+                    );
+                    
+                    if (response.success) {
+                        setupElements.referralRateStatus.textContent = '✔” Saved';
+                        setupElements.referralRateStatus.style.color = 'green';
+                    } else {
+                        setupElements.referralRateStatus.textContent = ` Error: ${response.data.error || 'Failed'}`;
+                        setupElements.referralRateStatus.style.color = 'red';
+                    }
+                } catch (error) {
+                    setupElements.referralRateStatus.textContent = ' Network error';
+                    setupElements.referralRateStatus.style.color = 'red';
+                } finally {
+                    target.disabled = false;
+                    target.textContent = 'Save Rate';
+                    setTimeout(() => { setupElements.referralRateStatus.textContent = ''; }, 3000);
+                }
+                return;
+            }
+            
+            // Add stop point
+            if (target.id === 'setup-add-stoppoint-btn') {
+                if (!setupElements.stoppointContainer) return;
+                if (setupElements.stoppointContainer.querySelector('.new-stoppoint-row')) return;
+                
+                const newRow = document.createElement('div');
+                newRow.className = 'new-stoppoint-row';
+                newRow.style.cssText = 'display:flex; gap:8px; margin-bottom:8px; align-items:center; padding:8px; background:#f8f9fa; border-radius:6px;';
+                newRow.innerHTML = `
+                    <input type="number" name="new_point" placeholder="Point" style="width:80px; padding:6px; border:1px solid #ddd; border-radius:4px;">
+                    <input type="number" name="new_required_recharge" placeholder="Balance" min="0" step="0.01" style="width:120px; padding:6px; border:1px solid #ddd; border-radius:4px;">
+                    <button type="button" class="save-new-stoppoint-btn" style="background: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Save</button>
+                    <button type="button" class="remove-new-stoppoint-btn" style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Cancel</button>
+                `;
+                setupElements.stoppointContainer.appendChild(newRow);
+                return;
+            }
+            
+            // Stop Points actions
+            if (target.classList.contains('remove-new-stoppoint-btn')) {
+                target.closest('.new-stoppoint-row')?.remove();
+                return;
+            }
+            
+            if (target.classList.contains('save-new-stoppoint-btn')) {
+                const row = target.closest('.new-stoppoint-row');
+                if (!row || !setupElements.stoppointStatus) return;
+                
+                const pointInput = row.querySelector('input[name="new_point"]');
+                const rechargeInput = row.querySelector('input[name="new_required_recharge"]');
+                const point = parseInt(pointInput?.value, 10);
+                const recharge = rechargeInput?.value;
+                
+                if (!point || !recharge) { 
+                    setupElements.stoppointStatus.textContent = 'Point and Balance are required.';
+                    setupElements.stoppointStatus.style.color = 'red';
+                    setTimeout(() => { setupElements.stoppointStatus.textContent = ''; }, 3000);
+                    return;
+                }
+                if (point <= 0) { 
+                    setupElements.stoppointStatus.textContent = 'Dear Admin, Point must be positive.';
+                    setupElements.stoppointStatus.style.color = 'red';
+                    setTimeout(() => { setupElements.stoppointStatus.textContent = ''; }, 3000);
+                    return;
+                }
+                if (point > currentSetupUser.dailyLimit) { 
+                    setupElements.stoppointStatus.textContent = `Dear Admin, StopPoint cannot exceed daily limit (${currentSetupUser.dailyLimit}).`;
+                    setupElements.stoppointStatus.style.color = 'red';
+                    setTimeout(() => { setupElements.stoppointStatus.textContent = ''; }, 3000);
+                    return;
+                }
+                
+                try {
+                    target.disabled = true;
+                    target.textContent = 'Saving...';
+                    
+                    const response = await sendJsonRequest(currentSetupUser.addUrl, { stop_order: [point], required_recharge: [recharge] });
+                    if (response.success && response.data.added && response.data.added.length > 0) {
+                        appendNewStopPointModal(response.data.added[0]);
+                        row.remove();
+                        setupElements.stoppointStatus.textContent = 'Saved!';
+                        setupElements.stoppointStatus.style.color = 'green';
+                    } else {
+                        setupElements.stoppointStatus.textContent = `Error: ${response.data.error || 'Unknown error'}`;
+                        setupElements.stoppointStatus.style.color = 'red';
+                    }
+                } catch (error) {
+                    setupElements.stoppointStatus.textContent = ' Network error';
+                    setupElements.stoppointStatus.style.color = 'red';
+                } finally {
+                    target.disabled = false;
+                    target.textContent = 'Save';
+                    setTimeout(() => { setupElements.stoppointStatus.textContent = ''; }, 3000);
+                }
+                return;
+            }
+            
+            if (target.classList.contains('update-setup-stoppoint-btn')) {
+                const row = target.closest('.existing-stoppoint-row');
+                if (!row || !setupElements.stoppointStatus) return;
+                
+                const spId = row.dataset.spId;
+                const recharge = row.querySelector('input[name="existing_required_recharge"]')?.value;
+                const point = row.querySelector('.stoppoint-point-input')?.value;
+                
+                try {
+                    target.disabled = true;
+                    target.textContent = 'Updating...';
+                    
+                    const response = await sendJsonRequest(currentSetupUser.updateUrl, { stop_point_id: spId, new_required_recharge: recharge, new_point: point });
+                    if (response.success) {
+                        setupElements.stoppointStatus.textContent = 'Updated!';
+                        setupElements.stoppointStatus.style.color = 'green';
+                    } else {
+                        setupElements.stoppointStatus.textContent = `Error: ${response.data.error || 'Update failed'}`;
+                        setupElements.stoppointStatus.style.color = 'red';
+                    }
+                } catch (error) {
+                    setupElements.stoppointStatus.textContent = ' Network error';
+                    setupElements.stoppointStatus.style.color = 'red';
+                } finally {
+                    target.disabled = false;
+                    target.textContent = 'Update';
+                    setTimeout(() => { setupElements.stoppointStatus.textContent = ''; }, 3000);
+                }
+                return;
+            }
+            
+            if (target.classList.contains('delete-setup-stoppoint-btn')) {
+                if (!confirm('Are you sure you want to delete this stop point?')) return;
+                const row = target.closest('.existing-stoppoint-row');
+                if (!row || !setupElements.stoppointStatus) return;
+                
+                const spId = row.dataset.spId;
+                
+                try {
+                    target.disabled = true;
+                    target.textContent = 'Deleting...';
+                    
+                    const response = await sendJsonRequest(currentSetupUser.deleteUrl, { stop_point_id: spId });
+                    if (response.success) {
+                        row.remove();
+                        setupElements.stoppointStatus.textContent = 'Deleted!';
+                        setupElements.stoppointStatus.style.color = 'green';
+                    } else {
+                        setupElements.stoppointStatus.textContent = `Error: ${response.data.error || 'Delete failed'}`;
+                        setupElements.stoppointStatus.style.color = 'red';
+                    }
+                } catch (error) {
+                    setupElements.stoppointStatus.textContent = ' Network error';
+                    setupElements.stoppointStatus.style.color = 'red';
+                } finally {
+                    target.disabled = false;
+                    target.textContent = 'Delete';
+                    setTimeout(() => { setupElements.stoppointStatus.textContent = ''; }, 3000);
+                }
+                return;
+            }
+        });
+        
+        // Update openSetupModal to cache elements
+        const originalOpenSetupModal = openSetupModal;
+        openSetupModal = function(userData) {
+            cacheSetupElements();
+            return originalOpenSetupModal(userData);
+        };
+        
+        function appendNewStopPointModal(sp) {
+            const container = setupElements.existingStoppoints;
+            if (!container) return;
+            
+            const spDiv = document.createElement('div');
+            spDiv.className = 'existing-stoppoint-row';
+            spDiv.dataset.spId = sp.id;
+            spDiv.style.cssText = 'display:flex; gap:8px; margin-bottom:8px; align-items:center; padding:8px; background:#f8f9fa; border-radius:6px;';
+            spDiv.innerHTML = `
+                <input type="number" value="${sp.point}" class="stoppoint-point-input" min="1" style="width:80px; padding:6px; border:1px solid #ddd; border-radius:4px;" disabled>
+                <input type="number" value="${sp.required_balance || sp.required_recharge}" min="0" step="0.01" style="width:120px; padding:6px; border:1px solid #ddd; border-radius:4px;">
+                <button type="button" class="update-setup-stoppoint-btn" style="background: #007bff; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Update</button>
+                <button type="button" class="delete-setup-stoppoint-btn" style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Delete</button>
+            `;
+            container.appendChild(spDiv);
+        }
+    }
+
+    // History Modal Functionality
+    const historyModal = document.getElementById('historyModal');
+    const historyCloseBtn = historyModal ? historyModal.querySelector('.close-history-modal') : null;
+    const historyTableBody = document.getElementById('historyTableBody');
+    const paginationContainer = document.getElementById('pagination');
+    let currentPage = 1;
+    const itemsPerPage = 10;
+    let currentHistoryData = [];
+
+    if (historyModal && historyTableBody && paginationContainer) {
+        // Open modal when clicking "View History"
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('view-history-btn')) {
+                const userId = e.target.getAttribute('data-user-id');
+                const historyUrl = e.target.getAttribute('data-history-url') || `/en/accounts/user/${userId}/history/`;
+                loadUserHistory(historyUrl);
+                historyModal.style.display = 'flex';
+            }
+        });
+
+        // Close modal
+        historyCloseBtn?.addEventListener('click', function() {
+            historyModal.style.display = 'none';
+            currentHistoryData = [];
+        });
+
+        // Close when clicking outside modal
+        window.addEventListener('click', function(e) {
+            if (e.target === historyModal) {
+                historyModal.style.display = 'none';
+                currentHistoryData = [];
+            }
+        });
+    }
+
+    function loadUserHistory(historyUrl) {
+        if (!historyTableBody) return;
+        historyTableBody.innerHTML = '<tr><td colspan="5" style="text-align: center; padding: 15px;">Loading...</td></tr>';
+        fetch(historyUrl)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    currentHistoryData = data.history || [];
+                    currentPage = 1;
+                    renderHistoryTable();
+                } else {
+                    throw new Error(data.error || 'Failed to load history');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                historyTableBody.innerHTML = 
+                    `<tr><td colspan="4" style="text-align: center; padding: 15px; color: red;">Error loading history: ${error.message}</td></tr>`;
+            });
+    }
+
+    function renderHistoryTable() {
+        if (!historyTableBody || !paginationContainer) return;
+        historyTableBody.innerHTML = '';
+        paginationContainer.innerHTML = '';
+
+        if (currentHistoryData.length === 0) {
+            historyTableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 15px;">No voucher history yet</td></tr>';
+            return;
+        }
+
+        const totalPages = Math.ceil(currentHistoryData.length / itemsPerPage);
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const paginatedData = currentHistoryData.slice(startIndex, startIndex + itemsPerPage);
+
+        paginatedData.forEach(entry => {
+            const row = document.createElement('tr');
+            row.style.borderBottom = '1px solid #eee';
+            
+            // Handle date - use action_date field
+            let formattedDate = 'N/A';
+            if (entry.action_date) {
+                try {
+                    const date = new Date(entry.action_date);
+                    if (!isNaN(date.getTime())) {
+                        formattedDate = date.toLocaleString();
+                    }
+                } catch (e) {
+                    console.error('Date parsing error:', e);
+                }
+            }
+            
+            // Handle amount
+            const amount = entry.amount ? parseFloat(entry.amount).toFixed(2) : '0.00';
+            
+            // Handle status with proper styling
+            const status = entry.status || 'unknown';
+            let statusClass = 'status-pending';
+            let statusDisplay = status.charAt(0).toUpperCase() + status.slice(1);
+            
+            if (status === 'approved') {
+                statusClass = 'status-approved';
+                statusDisplay = '✔“ Approved';
+            } else if (status === 'rejected') {
+                statusClass = 'status-rejected';
+                statusDisplay = ' Rejected';
+            } else if (status === 'pending') {
+                statusClass = 'status-pending';
+                statusDisplay = 'â³ Pending';
+            }
+            
+            // Handle voucher file - check if voucher_file exists and has a URL
+            let voucherAction = 'No file';
+            if (entry.voucher_file) {
+                const voucherUrl = typeof entry.voucher_file === 'string'
+                    ? entry.voucher_file
+                    : entry.voucher_file.url;
+
+                if (voucherUrl) {
+                    voucherAction = `<button class="view-voucher-btn" 
+                            data-url="${voucherUrl}"
+                            style="background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%); color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 500; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);"
+                            onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(33, 150, 243, 0.4)';"
+                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(33, 150, 243, 0.3)';">
+                         View Voucher
+                    </button>`;
+                }
+            }
+            
+            row.innerHTML = `
+                <td style="padding: 12px; font-family: 'Amazon Ember', Arial, sans-serif; font-size: 13px; color: #0f1111;">${formattedDate}</td>
+                <td style="padding: 12px; text-align: right; font-family: 'Amazon Ember', Arial, sans-serif; font-size: 14px; font-weight: 600; color: #0f1111;">$${amount}</td>
+                <td style="padding: 12px; text-align: center;">
+                    <span class="status-badge ${statusClass}" style="padding: 4px 8px; border-radius: 12px; font-size: 12px; font-weight: 600; font-family: 'Amazon Ember', Arial, sans-serif;">
+                        ${statusDisplay}
+                    </span>
+                </td>
+                <td style="padding: 12px; text-align: center;">${voucherAction}</td>
+            `;
+            historyTableBody.appendChild(row);
+        });
+
+        if (totalPages > 1) {
+            const prevBtn = document.createElement('button');
+            prevBtn.textContent = 'Previous';
+            prevBtn.disabled = currentPage === 1;
+            prevBtn.addEventListener('click', () => {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderHistoryTable();
+                }
+            });
+            paginationContainer.appendChild(prevBtn);
+
+            for (let i = 1; i <= totalPages; i++) {
+                const pageBtn = document.createElement('button');
+                pageBtn.textContent = i;
+                pageBtn.style.fontWeight = i === currentPage ? 'bold' : 'normal';
+                pageBtn.addEventListener('click', () => {
+                    currentPage = i;
+                    renderHistoryTable();
+                });
+                paginationContainer.appendChild(pageBtn);
+            }
+
+            const nextBtn = document.createElement('button');
+            nextBtn.textContent = 'Next';
+            nextBtn.disabled = currentPage === totalPages;
+            nextBtn.addEventListener('click', () => {
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    renderHistoryTable();
+                }
+            });
+            paginationContainer.appendChild(nextBtn);
+        }
+
+    // Add click listener for voucher view buttons
+    historyTableBody.addEventListener('click', (e) => {
+        if (e.target.classList.contains('view-voucher-btn')) {
+            const url = e.target.getAttribute('data-url');
+            if (url) {
+                // Open in new tab with proper error handling
+                try {
+                    window.open(url, '_blank', 'noopener,noreferrer');
+                } catch (error) {
+                    console.error('Error opening voucher:', error);
+                    alert('Unable to open voucher file. Please try again.');
+                }
+            }
+        }
+    });
+}
+
+document.addEventListener('click', function(e) {
+    if (e.target.classList.contains('view-voucher-btn')) {
+        const url = e.target.getAttribute('data-url');
+        window.open(url, '_blank');
+    }
+});
+
+    // Information Modal Logic
+    const infoModal = document.getElementById('informationModal');
+    const infoTitle = document.getElementById('informationModalTitle');
+    const infoWallet = document.getElementById('infoWallet');
+    const infoCopyBtn = document.getElementById('infoCopyWallet');
+    const infoDay = document.getElementById('infoDayCompletion');
+    const infoHistoryBtn = document.getElementById('infoViewHistory');
+    const infoCloseBtn = infoModal ? infoModal.querySelector('.close-information-modal') : null;
+    let infoHistoryUrl = '';
+
+    document.addEventListener('click', (evt) => {
+        const infoBtn = evt.target.closest?.('.info-modal-btn');
+        if (!infoBtn || !infoModal) return;
+
+        const walletValue = infoBtn.dataset.wallet?.trim();
+        const dayValue = infoBtn.dataset.day?.trim();
+
+        if (infoBtn.classList.contains('info-modal-btn--alert')) {
+            infoBtn.classList.remove('info-modal-btn--alert');
+            infoBtn.dataset.hasAlert = 'false';
+            const clearUrl = infoBtn.dataset.clearUrl;
+            if (clearUrl) {
+                fetch(clearUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrftoken,
+                    },
+                    body: JSON.stringify({ user_id: infoBtn.dataset.userId })
+                }).catch(() => {});
+            }
+        }
+
+        infoTitle.textContent = `Information - ${infoBtn.dataset.username}`;
+        const walletText = walletValue ? walletValue : 'No wallet yet';
+        infoWallet.textContent = walletText;
+        infoWallet.dataset.address = walletValue || '';
+        infoDay.textContent = dayValue ? `Day ${dayValue} completed` : '-';
+        infoHistoryUrl = infoBtn.dataset.historyUrl || '';
+
+        infoModal.style.display = 'flex';
+    });
+
+    infoCopyBtn?.addEventListener('click', async () => {
+        const address = infoWallet.dataset.address;
+        if (!address) return;
+        const originalText = infoCopyBtn.textContent;
+        try {
+            await navigator.clipboard.writeText(address);
+            infoCopyBtn.textContent = 'Copied!';
+        } catch (err) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = address;
+            tempInput.style.position = 'fixed';
+            tempInput.style.left = '-9999px';
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                document.execCommand('copy');
+                infoCopyBtn.textContent = 'Copied!';
+            } catch (fallbackErr) {
+                console.error('Copy failed', fallbackErr);
+                infoCopyBtn.textContent = 'Failed';
+            }
+            document.body.removeChild(tempInput);
+        }
+        setTimeout(() => {
+            infoCopyBtn.textContent = originalText;
+        }, 1500);
+    });
+
+    infoHistoryBtn?.addEventListener('click', () => {
+        if (!infoHistoryUrl) return;
+        loadUserHistory(infoHistoryUrl);
+        historyModal.style.display = 'flex';
+        infoModal.style.display = 'none';
+    });
+
+    infoCloseBtn?.addEventListener('click', () => {
+        if (infoModal) infoModal.style.display = 'none';
+    });
+
+    window.addEventListener('click', (evt) => {
+        if (evt.target === infoModal) {
+            infoModal.style.display = 'none';
+        }
+    });
+
+    staffChatInit();
+});
+
+</script>
+
+<style>
+    /* Status badge styles */
+    .status-badge {
+        padding: 3px 8px;
+        border-radius: 12px;
+        font-size: 12px;
+        font-weight: 500;
+        display: inline-block;
+        min-width: 70px;
+        text-align: center;
+        border: 1px solid transparent;
+    }
+    .status-online {
+        background-color: #e6f4ea;
+        color: #11a33b;
+        font-weight: 700;
+        border-color: #c7e8d1;
+    }
+    .status-offline {
+        background-color: #f8f9fa;
+        color: #6c757d;
+        font-weight: 600;
+        border-color: #e2e6ea;
+    }
+    .status-approved {
+        background-color: #d4edda;
+        color: #155724;
+    }
+    .status-pending {
+        background-color: #fff3cd;
+        color: #856404;
+    }
+    .status-rejected {
+        background-color: #f8d7da;
+        color: #721c24;
+    }
+    /* Pagination styles */
+    #pagination {
+        margin-top: 15px;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+    #pagination button {
+        padding: 5px 10px;
+        border: 1px solid #ddd;
+        background: white;
+        cursor: pointer;
+        border-radius: 3px;
+        min-width: 30px;
+    }
+    #pagination button:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+    #pagination button:hover:not(:disabled) {
+        background: #f0f0f0;
+    }
+    /* Modal scrollbar */
+    .modal-body::-webkit-scrollbar {
+        width: 8px;
+    }
+    .modal-body::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    .modal-body::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+    }
+    .modal-body::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    
+    /* Amazon-style Setup Modal Buttons */
+    #setup-modal .tab-btn {
+        font-family: 'Amazon Ember', Arial, sans-serif;
+        font-weight: 500;
+        font-size: 14px;
+        color: #565959;
+        background: #f7f8fa;
+        border: 1px solid #d5d9d9;
+        border-bottom: 2px solid transparent;
+        border-radius: 8px 8px 0 0;
+        padding: 12px 16px;
+        margin: 0 2px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 0 rgba(0,0,0,0.04);
+    }
+    
+    #setup-modal .tab-btn:hover {
+        background: #eef1f3;
+        border-color: #c7c7c7;
+        color: #0f1111;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+        transform: translateY(-1px);
+    }
+    
+    #setup-modal .tab-btn.active {
+        background: linear-gradient(180deg, #ffffff 0%, #f7f8fa 100%);
+        border-color: #c7c7c7;
+        border-bottom-color: #ffffff;
+        color: #0f1111;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        position: relative;
+        z-index: 1;
+    }
+    
+    #setup-modal .tab-btn.active::after {
+        content: '';
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #ffffff;
+    }
+    
+    #setup-modal input[type="number"] {
+        font-family: 'Amazon Ember', Arial, sans-serif;
+        font-size: 14px;
+        padding: 10px 12px;
+        border: 1px solid #d5d9d9;
+        border-radius: 8px;
+        background: #ffffff;
+        color: #0f1111;
+        transition: all 0.2s ease;
+        box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
+    }
+    
+    #setup-modal input[type="number"]:focus {
+        outline: none;
+        border-color: #c7c7c7;
+        border-width: 2px;
+        box-shadow: 0 0 0 3px rgba(0,123,255,0.1), inset 0 1px 2px rgba(0,0,0,0.08);
+        background: #ffffff;
+    }
+    
+    #setup-modal input[type="number"]:hover {
+        border-color: #a2a6a8;
+    }
+    
+    #setup-modal button[id*="setup-save"] {
+        font-family: 'Amazon Ember', Arial, sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+        text-transform: none;
+        letter-spacing: 0.3px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    #setup-modal button[id*="setup-save"]:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.16);
+    }
+    
+    #setup-modal button[id*="setup-save"]:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+    }
+    
+    #setup-modal button[id="setup-save-daily-limit"] {
+        background: linear-gradient(135deg, #ff9900 0%, #ff6200 100%);
+        color: #ffffff;
+        border: 1px solid #ff8f00;
+    }
+    
+    #setup-modal button[id="setup-save-daily-limit"]:hover {
+        background: linear-gradient(135deg, #ff8f00 0%, #ff5500 100%);
+        border-color: #ff7700;
+    }
+    
+    #setup-modal button[id="setup-save-product-rate"],
+    #setup-modal button[id="setup-save-referral-rate"] {
+        background: linear-gradient(135deg, #ff8f00 0%, #ff8f00 100%);
+        color: #ffffff;
+        border: 1px solid #ff8f00;
+    }
+    
+    #setup-modal button[id="setup-save-product-rate"]:hover,
+    #setup-modal button[id="setup-save-referral-rate"]:hover {
+        background: linear-gradient(135deg, #ff8f00 0%, #ff8f00 100%);
+        border-color: #ff8f00;
+    }
+    
+    #setup-modal button[id="setup-add-stoppoint-btn"] {
+        background: linear-gradient(135deg, #ff8f00 0%, #ff8f00 100%);
+        color: #ffffff;
+        border: 1px solid #ff8f00;
+        font-family: 'Amazon Ember', Arial, sans-serif;
+        font-weight: 600;
+        font-size: 14px;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+    }
+    
+    #setup-modal button[id="setup-add-stoppoint-btn"]:hover {
+        background: linear-gradient(135deg, #ff8f00 0%, #ff8f00 100%);
+        border-color: #3d8b31;
+        transform: translateY(-1px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.16);
+    }
+    
+    #setup-modal .save-new-stoppoint-btn {
+        background: linear-gradient(135deg, #56b249 0%, #3d8b31 100%);
+        color: #ffffff;
+        border: 1px solid #4a9e3e;
+        font-family: 'Amazon Ember', Arial, sans-serif;
+        font-weight: 600;
+        font-size: 12px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+    }
+    
+    #setup-modal .save-new-stoppoint-btn:hover {
+        background: linear-gradient(135deg, #4a9e3e 0%, #357a2a 100%);
+        border-color: #3d8b31;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.16);
+    }
+    
+    #setup-modal .remove-new-stoppoint-btn {
+        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        color: #ffffff;
+        border: 1px solid #d62c1a;
+        font-family: 'Amazon Ember', Arial, sans-serif;
+        font-weight: 600;
+        font-size: 12px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+    }
+    
+    #setup-modal .remove-new-stoppoint-btn:hover {
+        background: linear-gradient(135deg, #d62c1a 0%, #a93226 100%);
+        border-color: #c0392b;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.16);
+    }
+    
+    #setup-modal .update-setup-stoppoint-btn {
+        background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+        color: #ffffff;
+        border: 1px solid #2e7cd6;
+        font-family: 'Amazon Ember', Arial, sans-serif;
+        font-weight: 600;
+        font-size: 12px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+    }
+    
+    #setup-modal .update-setup-stoppoint-btn:hover {
+        background: linear-gradient(135deg, #2e7cd6 0%, #2573a7 100%);
+        border-color: #2980b9;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.16);
+    }
+    
+    #setup-modal .delete-setup-stoppoint-btn {
+        background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+        color: #ffffff;
+        border: 1px solid #d62c1a;
+        font-family: 'Amazon Ember', Arial, sans-serif;
+        font-weight: 600;
+        font-size: 12px;
+        padding: 6px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+    }
+    
+    #setup-modal .delete-setup-stoppoint-btn:hover {
+        background: linear-gradient(135deg, #d62c1a 0%, #a93226 100%);
+        border-color: #c0392b;
+        transform: translateY(-1px);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.16);
+    }
+    
+    #setup-modal button:disabled {
+        background: #d5d9d9 !important;
+        color: #a2a6a8 !important;
+        border-color: #d5d9d9 !important;
+        cursor: not-allowed !important;
+        transform: none !important;
+        box-shadow: none !important;
+    }
+    
+    #setup-modal span[id*="-status"] {
+        font-family: 'Amazon Ember', Arial, sans-serif;
+        font-weight: 500;
+        font-size: 13px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        background: rgba(255,255,255,0.9);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+    
+    #setup-modal .new-stoppoint-row,
+    #setup-modal .existing-stoppoint-row {
+        background: linear-gradient(135deg, #f7f8fa 0%, #ffffff 100%);
+        border: 1px solid #d5d9d9;
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 8px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    }
+    
+    #setup-modal .new-stoppoint-row:hover,
+    #setup-modal .existing-stoppoint-row:hover {
+        border-color: #c7c7c7;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+    }
+    
+    #setup-modal .new-stoppoint-row input,
+    #setup-modal .existing-stoppoint-row input {
+        background: #ffffff;
+        border: 1px solid #d5d9d9;
+        border-radius: 6px;
+        padding: 8px 10px;
+        font-size: 13px;
+        transition: all 0.2s ease;
+    }
+    
+    #setup-modal .new-stoppoint-row input:focus,
+    #setup-modal .existing-stoppoint-row input:focus {
+        border-color: #c7c7c7;
+        border-width: 2px;
+        box-shadow: 0 0 0 2px rgba(0,123,255,0.1);
+    }
+    
+    #setup-modal .new-stoppoint-row input[disabled] {
+        background: #f7f8fa;
+        color: #565959;
+        cursor: not-allowed;
+    }
+</style>
+
+<!-- Stop Points Modal -->
+<div id="stoppoints-modal" class="modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); z-index:1000;">
+    <div class="modal-content" style="position:relative; background:#fff; margin:10% auto; padding:20px; width:90%; max-width:500px; border-radius:8px;">
+        <h3>Stop Points for User <span id="modal-user-id"></span></h3>
+        <div id="modal-existing-stoppoints-list" class="existing-stoppoints-list"></div>
+        <div id="modal-stoppoint-container"></div>
+        <div style="margin-top:12px;">
+            <button type="button" class="green btn-sm" id="modal-add-stoppoint-btn">+ Add stop point</button>
+        </div>
+        <div style="margin-top:12px;">
+            <span id="modal-stoppoint-status" style="font-size:0.9em;"></span>
+        </div>
+        <button type="button" class="red btn-sm" id="modal-close-btn" style="position:absolute; top:12px; right:12px;">Close</button>
+    </div>
+</div>
+
+<!-- History Modal -->
+<div id="historyModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div class="modal-content" style="background: white; width: 80%; max-width: 800px; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); max-height: 80vh; display: flex; flex-direction: column;">
+        <div class="modal-header" style="padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+            <h4 style="margin: 0;">Recharge History</h4>
+            <span class="close-history-modal" style="cursor: pointer; font-size: 24px; font-weight: bold;">&times;</span>
+        </div>
+        <div class="modal-body" style="padding: 15px; overflow-y: auto; flex-grow: 1;">
+            <table class="history-table" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background-color: #f8f9fa;">
+                        <th style="padding: 10px; text-align: left; border-bottom: 1px solid #dee2e6;">Date</th>
+                        <th style="padding: 10px; text-align: right; border-bottom: 1px solid #dee2e6;">Amount</th>
+                        <th style="padding: 10px; text-align: center; border-bottom: 1px solid #dee2e6;">Status</th>
+                        <th style="padding: 10px; text-align: center; border-bottom: 1px solid #dee2e6;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="historyTableBody">
+                    <!-- History rows will be inserted here by JavaScript -->
+                </tbody>
+            </table>
+            
+            <div id="pagination" style="margin-top: 15px; display: flex; justify-content: center; gap: 10px;"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Information Modal -->
+<div id="informationModal" class="amazon-modal amazon-info-modal" style="display:none;">
+    <div class="amazon-modal__content">
+        <div class="amazon-modal__header">
+            <div>
+                <h4 id="informationModalTitle" class="amazon-modal__title">User Information</h4>
+                
+            </div>
+            <button type="button" class="amazon-modal__close close-information-modal">&times;</button>
+        </div>
+        <div class="amazon-modal__body">
+            <div class="info-row">
+                <h5>Wallet Address</h5>
+                <p id="infoWallet" class="wallet-address-text" data-address="">No wallet yet</p>
+                <button id="infoCopyWallet" class="amazon-secondary-btn" style="margin-top:8px;">Copy Address</button>
+            </div>
+            <div class="info-row">
+                <h5>Day Completion</h5>
+                <p id="infoDayCompletion" class="info-highlight">-</p>
+            </div>
+            <div class="info-row" style="margin-bottom:0;">
+                <h5>History</h5>
+                <button id="infoViewHistory" class="amazon-secondary-btn" style="background:#ff9900; color:#fff;">Open Recharge History</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Professional Setup Modal -->
+<div id="setup-modal" class="amazon-modal amazon-setup-modal" style="display:none;">
+    <div class="amazon-modal__content">
+        <div class="amazon-modal__header">
+            <div>
+                <h3 id="setup-modal-title" class="amazon-modal__title">Setup Configuration</h3>
+                <p id="setup-modal-subtitle" class="amazon-modal__subtitle">Manage user settings and commissions</p>
+            </div>
+            <button type="button" class="amazon-modal__close close-setup-modal">&times;</button>
+        </div>
+        
+        <!-- Tab Navigation -->
+        <div class="amazon-tab-nav">
+            <button type="button" class="tab-btn amazon-tab-btn active" data-tab="limits">
+                <span style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/><path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1-.52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319z"/></svg>
+                    Daily Limit
+                </span>
+            </button>
+            <button type="button" class="tab-btn amazon-tab-btn" data-tab="stoppoints">
+                <span style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/><path d="M4.285 9.567a.5.5 0 0 1 .683.183A3.498 3.498 0 0 0 8 11.5a3.498 3.498 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.498 4.498 0 0 1 8 12.5a4.498 4.498 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683zM7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5zm4 0c0 .828-.448 1.5-1 1.5s-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5z"/></svg>
+                    Stop Points
+                </span>
+            </button>
+            <button type="button" class="tab-btn amazon-tab-btn" data-tab="commissions">
+                <span style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-3.4 6-8V2l-6-2-6 2v6c0 4.6 6 8 6 8z"/><path d="M8 4.5a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3.5a.5.5 0 0 1-.5-.5v-3.5a.5.5 0 0 1 .5-.5z"/></svg>
+                    Commissions
+                </span>
+            </button>
+        </div>
+        
+        <div class="amazon-modal__body">
+            <!-- Daily Limit Tab -->
+            <div id="limits-tab" class="tab-content active" style="display: block;">
+                <div class="amazon-section-card">
+                    <h4>Daily Task Limit</h4>
+                    <p>Set the maximum number of tasks this user can complete per day (1-60).</p>
+                    <div class="amazon-input-row">
+                        <input type="number" id="setup-daily-limit" min="1" max="60">
+                        <button type="button" id="setup-save-daily-limit" class="amazon-secondary-btn">Save Limit</button>
+                        <span id="setup-daily-limit-status" class="amazon-status-pill"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stop Points Tab -->
+            <div id="stoppoints-tab" class="tab-content" style="display: none;">
+                <div class="amazon-section-card">
+                    <h4>Stop Points Management</h4>
+                    <p>Configure task thresholds and required balance amounts for each stop point.</p>
+                    
+                    <div id="setup-existing-stoppoints" style="margin-bottom: 16px;"></div>
+                    
+                    <div id="setup-new-stoppoint-container" style="margin-bottom: 16px;"></div>
+                    
+                    <div class="amazon-input-row" style="flex-wrap: nowrap;">
+                        <button type="button" id="setup-add-stoppoint-btn" class="amazon-secondary-btn">+ Add Stop Point</button>
+                        <span id="setup-stoppoint-status" class="amazon-status-pill"></span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Commissions Tab -->
+            <div id="commissions-tab" class="tab-content" style="display: none;">
+                <div class="amazon-section-card">
+                    <h4>Product Commission Rate</h4>
+                    <p>Set commission percentage for product.</p>
+                    <div class="amazon-input-row">
+                        <input type="number" id="setup-product-rate" step="0.01" min="0" max="100">
+                        <button type="button" id="setup-save-product-rate" class="amazon-secondary-btn">Save Rate</button>
+                        <span id="setup-product-rate-status" class="amazon-status-pill"></span>
+                    </div>
+                </div>
+                
+                <div class="amazon-section-card">
+                    <h4>Referral Commission Rate</h4>
+                    <p>Set commission percentage for referral. Only applies to invited users.</p>
+                    <div class="amazon-input-row">
+                        <input type="number" id="setup-referral-rate" step="0.01" min="0" max="100">
+                        <button type="button" id="setup-save-referral-rate" class="amazon-secondary-btn">Save Rate</button>
+                        <span id="setup-referral-rate-status" class="amazon-status-pill"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Voucher Modal -->
+<div id="voucherModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
+    <div class="modal-content" style="background: white; width: 80%; max-width: 700px; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); max-height: 85vh; display: flex; flex-direction: column;">
+        <div class="modal-header" style="padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h4 id="voucherModalTitle" style="margin: 0;">Vouchers</h4>
+                <span id="voucherModalCount" style="font-size: 0.9em; color: #6c757d;"></span>
+            </div>
+            <span class="close-voucher-modal" style="cursor: pointer; font-size: 24px; font-weight: bold;">&times;</span>
+        </div>
+        <div id="voucherModalBody" class="modal-body" style="padding: 16px; overflow-y: auto; flex-grow: 1;">
+            <!-- Voucher details injected dynamically -->
+        </div>
+    </div>
+</div>

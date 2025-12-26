@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Overview</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <p class="text-sm text-gray-500">Customer Service &rsaquo; Admin Overview</p>
+                <h1 class="text-2xl font-semibold text-gray-900">{{ admin_user.username }}'s Network</h1>
+            </div>
+            <div class="flex space-x-3">
+                <a href="{% url 'accounts:customerservice_dashboard' %}"
+                   class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    &larr; Back to CS Dashboard
+                </a>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <div class="bg-white rounded-lg shadow p-4">
+                <p class="text-sm text-gray-500">Admin Username</p>
+                <p class="text-xl font-semibold text-gray-900">{{ admin_user.username }}</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-4">
+                <p class="text-sm text-gray-500">Referral Code</p>
+                <p class="text-xl font-semibold text-gray-900">{{ admin_user.referral_code|default:"—" }}</p>
+            </div>
+            <div class="bg-white rounded-lg shadow p-4">
+                <p class="text-sm text-gray-500">Total Downline Users</p>
+                <p class="text-xl font-semibold text-gray-900">{{ users|length }}</p>
+            </div>
+        </div>
+
+        <div class="bg-white rounded-lg shadow overflow-hidden">
+            {% if users %}
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Username</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date Joined</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Wallet</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            {% for user in users %}
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                        {{ user.username }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ user.phone|default:"—" }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ user.date_joined|date:"M d, Y"|default:"—" }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {% if user.userwalletaddress %}
+                                            <div class="text-gray-900">{{ user.userwalletaddress.address|truncatechars:22 }}</div>
+                                            <div class="text-xs text-gray-500">{{ user.userwalletaddress.get_network_display }}</div>
+                                        {% else %}
+                                            <span class="text-gray-400">Unlinked</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm">
+                                        {% if user.is_frozen %}
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-red-100 text-red-800">Frozen</span>
+                                        {% else %}
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">Active</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="p-6 text-center text-gray-500">
+                    This admin does not have any registered users yet.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

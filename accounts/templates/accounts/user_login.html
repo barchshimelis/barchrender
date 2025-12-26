@@ -1,0 +1,31 @@
+{% extends "accounts/base_auth.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Amazon Sign-In" %}{% endblock %}
+
+{% block content %}
+<section class="auth-card" aria-labelledby="auth-title">
+    <h1 id="auth-title">{% trans "Sign in" %}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="identifier">{% trans "Username or phone number" %}</label>
+        <input id="identifier" type="text" name="identifier" required>
+
+        <label for="password">{% trans "Password" %}</label>
+        <input id="password" type="password" name="password" required>
+
+        <button class="primary-btn" type="submit">{% trans "Sign in" %}</button>
+    </form>
+
+    <div class="help-links">
+        <a href="#">{% trans "Forgot your password?" %}</a>
+        
+        <a href="{% url 'accounts:user_register' %}" class="link-promo">{% trans "Create your account" %}</a>
+    </div>
+
+    <div class="divider"><span>{% trans "New to Amazon?" %}</span></div>
+
+    <a class="secondary-btn" href="{% url 'accounts:user_register' %}">{% trans "Create your Amazon account" %}</a>
+</section>
+{% endblock %}

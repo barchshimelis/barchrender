@@ -1,0 +1,57 @@
+{% extends "accounts/admin_base_auth.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Customer Service Login" %}{% endblock %}
+{% block admin_context %}{% trans "Customer Service" %}{% endblock %}
+
+{% block content %}
+<section class="admin-card" aria-labelledby="cs-login-title">
+        <div class="admin-card__hero">
+            <div class="admin-card__badge">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M6 8c0-2.21 1.79-4 4-4h4c2.21 0 4 1.79 4 4v2h1a1 1 0 0 1 1 1v4a4 4 0 0 1-4 4h-2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7 10H4a1 1 0 0 0-1 1v2a4 4 0 0 0 4 4h2" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <span>{% trans "Customer Service" %}</span>
+            </div>
+            
+        </div>
+
+        <div class="admin-card__form">
+            {% if messages %}
+                <div class="admin-alert-stack" role="alert" aria-live="polite">
+                    {% for message in messages %}
+                        {% if "captcha-warning" in message.tags %}
+                            <div class="captcha-toast" data-captcha-toast>
+                                <svg viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <path d="M8 5v3.5" stroke-width="1.4" stroke-linecap="round"/>
+                                    <path d="M7.999 11h.01" stroke-width="1.6" stroke-linecap="round"/>
+                                    <path d="M6.227 2.5 1.5 10.69a1.5 1.5 0 0 0 1.286 2.26h10.428a1.5 1.5 0 0 0 1.286-2.26L9.773 2.5a1.5 1.5 0 0 0-2.546 0Z" stroke-width="1.2"/>
+                                </svg>
+                                {{ message }}
+                            </div>
+                        {% else %}
+                            <div class="admin-messages__item {{ message.tags }}">{{ message }}</div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <form id="cs-login-form" method="post">
+                {% csrf_token %}
+                <label for="id_username">{% trans "Username" %}</label>
+                <input id="id_username" type="text" name="username" required>
+
+                <label for="id_password">{% trans "Password" %}</label>
+                <input id="id_password" type="password" name="password" required>
+
+                <button class="admin-primary-btn" type="submit">{% trans "Sign In" %}</button>
+            </form>
+            <div class="admin-captcha-panel">
+                
+                <strong>{{ captcha_prompt }} = ?</strong>
+                <input form="cs-login-form" id="id_captcha" type="number" name="captcha_answer" inputmode="numeric" placeholder="{% trans 'Enter result' %}" required>
+            </div>
+        </div>
+    </section>
+{% endblock %}

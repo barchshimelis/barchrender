@@ -1,0 +1,1264 @@
+<!-- stylelint-disable no-empty-source -->
+{% extends "base.html" %}
+{% load i18n static product_formatting %}
+
+{% block title %}{% trans "Products" %}{% endblock %}
+
+{% block extra_head %}
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+<meta http-equiv="Pragma" content="no-cache" />
+<meta http-equiv="Expires" content="0" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    body {
+        background:
+            linear-gradient(rgba(5, 6, 8, 0.7), rgba(5, 6, 8, 0.7)),
+            url("{% static 'img/bg.jpg' %}") center/cover fixed no-repeat;
+        background-color: #050608;
+    }
+
+    .mobile-shell {
+        display: flex;
+        flex-direction: column;
+        gap: 0.8rem;
+        padding: 0 0 60px 0;
+    }
+
+    .glass-card {
+        border-radius: 20px;
+        padding: 0.85rem 0.95rem;
+        background: rgba(19, 25, 33, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(12px);
+    }
+
+    .amazon-modal-dialog {
+        background: rgba(15, 19, 27, 0.78);
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55);
+        padding: clamp(1.15rem, 2.5vw, 1.6rem);
+        width: min(400px, 92vw);
+        display: flex;
+        flex-direction: column;
+        gap: 0.85rem;
+        color: rgba(247, 250, 250, 0.9);
+        backdrop-filter: blur(18px);
+    }
+
+    .amazon-modal-masthead {
+        display: flex;
+        align-items: center;
+        gap: 0.85rem;
+    }
+
+    .amazon-modal-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 16px;
+        background: linear-gradient(135deg, rgba(242, 179, 92, 0.22), rgba(0, 168, 225, 0.18));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #f7fafa;
+        font-size: 1.35rem;
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.28);
+    }
+
+    .amazon-modal-title {
+        margin: 0;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: #f7fafa;
+        white-space: nowrap;
+    }
+
+    .amazon-modal-subtitle {
+        margin: 0;
+        font-size: 0.86rem;
+        color: rgba(247, 250, 250, 0.72);
+        line-height: 1.5;
+    }
+
+    .amazon-modal-actions {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .amazon-btn,
+    .amazon-btn-ghost {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.4rem 0.85rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.76rem;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .amazon-btn {
+        background: linear-gradient(135deg, #f5c274, #e3942d);
+        color: #0f1111;
+        box-shadow: 0 12px 26px rgba(242, 179, 92, 0.25);
+    }
+
+    .amazon-btn-ghost {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #f7fafa;
+    }
+
+    .amazon-btn:hover,
+    .amazon-btn-ghost:hover {
+        transform: translateY(-1px);
+    }
+
+    .hero-card {
+        display: flex;
+        align-items: center;
+        gap: 0.65rem;
+        background: linear-gradient(135deg, rgba(32, 41, 57, 0.95), rgba(12, 16, 21, 0.92));
+    }
+
+    .product-hero {
+        align-items: flex-start;
+    }
+
+    .balance-banner {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+        padding: 0.85rem 0.95rem;
+        background: linear-gradient(135deg, rgba(32, 41, 57, 0.92), rgba(12, 16, 21, 0.9));
+    }
+
+    .balance-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+    }
+
+    .balance-amount {
+        display: flex;
+        flex-direction: column;
+        gap: 0.22rem;
+    }
+
+    .balance-amount .label {
+        font-size: 0.6rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(247, 250, 250, 0.6);
+    }
+
+    .balance-amount .value {
+        display: flex;
+        align-items: baseline;
+        gap: 0.18rem;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #f2b35c;
+    }
+
+    .balance-amount .value .currency {
+        font-size: 0.8rem;
+    }
+
+    .recharge-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.35rem;
+        padding: 0.55rem 1.25rem;
+        border-radius: 999px;
+        background: linear-gradient(135deg, #f5c274, #e3942d);
+        color: #0f1111;
+        font-size: 0.82rem;
+        font-weight: 600;
+        text-decoration: none;
+        box-shadow: 0 12px 26px rgba(242, 179, 92, 0.25);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        white-space: nowrap;
+    }
+
+    .recharge-button:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 16px 32px rgba(242, 179, 92, 0.32);
+    }
+
+    .section-divider {
+        height: 1px;
+        width: 100%;
+        background: linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.18) 50%, rgba(255, 255, 255, 0.04) 100%);
+        border-radius: 999px;
+        margin: 0.2rem 0 0.6rem;
+    }
+
+    .back-control {
+        align-self: flex-start;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 0 0.3rem;
+        text-decoration: none;
+        cursor: pointer;
+        color: #3d9bff;
+        font-size: 1.4rem;
+    }
+
+    .back-control:hover {
+        color: #5cb3ff;
+    }
+
+    .hero-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 999px;
+        background: linear-gradient(145deg, #f5c274, #e3942d);
+        padding: 3px;
+        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
+    }
+
+    .hero-avatar-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        background: rgba(15, 17, 17, 0.85);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: rgba(247, 250, 250, 0.75);
+        overflow: hidden;
+    }
+
+    .hero-avatar-inner img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: inherit;
+    }
+
+    .hero-main {
+        display: flex;
+        flex-direction: column;
+        gap: 0.55rem;
+        flex: 1;
+    }
+
+    .hero-greeting {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+    }
+
+    .hero-greeting .hello {
+        margin: 0;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: #f7fafa;
+    }
+
+    .hero-greeting .username {
+        margin: 0;
+        font-size: 0.75rem;
+        opacity: 0.75;
+    }
+
+    .hero-greeting .subtitle {
+        margin: 0;
+        font-size: 0.72rem;
+        color: rgba(247, 250, 250, 0.75);
+    }
+
+    .hero-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+    }
+
+    .hero-balance {
+        margin-left: auto;
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .hero-balance .label {
+        font-size: 0.55rem;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: rgba(247, 250, 250, 0.55);
+    }
+
+    .hero-balance .amount {
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: #f2b35c;
+    }
+
+    .hero-balance .mode {
+        font-size: 0.52rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: #6ed5ff;
+    }
+
+    .currency-symbol {
+        font-size: 0.72rem;
+        margin-right: 0.12rem;
+    }
+
+    .tag-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.3rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        color: rgba(247, 250, 250, 0.85);
+        background: rgba(255, 255, 255, 0.08);
+    }
+
+    .tag-chip i {
+        font-size: 0.75rem;
+    }
+
+    .tag-chip.is-mode {
+        background: rgba(242, 179, 92, 0.12);
+        color: #f2b35c;
+        border-color: rgba(242, 179, 92, 0.25);
+    }
+
+    .tag-chip.is-mode.is-main {
+        background: rgba(0, 168, 225, 0.15);
+        color: #6ed5ff;
+        border-color: rgba(110, 213, 255, 0.28);
+    }
+
+    .tag-chip.is-source {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .metric-strip {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.45rem;
+    }
+
+    .metric-card {
+        border-radius: 14px;
+        padding: 0.45rem 0.4rem;
+        background: rgba(15, 17, 17, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+    }
+
+    .metric-icon {
+        width: 24px;
+        height: 24px;
+        border-radius: 8px;
+        margin: 0 auto 0.15rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: #0f1111;
+    }
+
+    .metric-icon i {
+        font-size: 0.82rem;
+        line-height: 1;
+    }
+
+    .metric-icon.teal { background: #007185; color: #f7fafa; }
+    .metric-icon.amber { background: #f2b35c; }
+    .metric-icon.sky { background: #00a8e1; color: #0f1111; }
+
+    .metric-card strong {
+        font-size: 0.78rem;
+        color: #f7fafa;
+    }
+
+    .metric-card p {
+        margin: 0;
+        font-size: 0.42rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(247, 250, 250, 0.65);
+    }
+
+    .message-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .alert-banner {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        padding: 0.7rem 0.9rem;
+        border-radius: 16px;
+        background: rgba(0, 168, 225, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        color: #f7fafa;
+        font-size: 0.85rem;
+        transition: opacity 0.4s ease;
+    }
+
+    .alert-banner.is-warning {
+        background: rgba(217, 83, 79, 0.15);
+        border-color: rgba(217, 83, 79, 0.35);
+        color: #f9d2d1;
+    }
+
+    .alert-banner.is-fading {
+        opacity: 0;
+        animation: bannerDismiss 0.4s ease forwards;
+    }
+
+    @keyframes bannerDismiss {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(-6px); }
+    }
+
+    .alert-icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.12);
+        color: #0f1111;
+        font-size: 0.9rem;
+    }
+
+    .product-card {
+        display: flex;
+        gap: 0.85rem;
+        align-items: stretch;
+        background: linear-gradient(135deg, rgba(26, 38, 52, 0.95), rgba(12, 16, 21, 0.92));
+    }
+
+    .product-media {
+        width: 130px;
+        min-width: 130px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .product-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .product-fallback {
+        font-size: 0.9rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        color: #0f1111;
+    }
+
+    .product-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.7rem;
+    }
+
+    .product-title {
+        margin: 0;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #f7fafa;
+    }
+
+    .commission-note {
+        margin: 0.2rem 0 0;
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: #4fd1c5;
+    }
+
+    .meta-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 0.45rem;
+    }
+
+    .meta-line {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1.2rem;
+        padding: 0.55rem 0.7rem;
+        border-radius: 12px;
+        background: rgba(15, 17, 17, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .meta-label {
+        font-size: 0.55rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: rgba(247, 250, 250, 0.7);
+    }
+
+    .meta-value {
+        font-size: 0.50rem;
+        font-weight: 600;
+        color: #f7fafa;
+        text-align: right;
+        word-break: break-word;
+    }
+
+    .meta-value.is-accent {
+        color: #f2b35c;
+    }
+
+    .info-note {
+        margin-top: 0.2rem;
+        padding: 0.55rem 0.75rem;
+        border-radius: 12px;
+        background: rgba(15, 17, 17, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        font-size: 0.76rem;
+        color: rgba(247, 250, 250, 0.78);
+    }
+
+    .info-note strong {
+        color: #f2b35c;
+    }
+
+    .warning-text {
+        margin: 0;
+        font-weight: 600;
+        color: #f9d2d1;
+        text-align: center;
+    }
+
+    .actions-row {
+        display: flex;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .primary-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        padding: 0.65rem 1.8rem;
+        border: none;
+        border-radius: 999px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #0f1111;
+        background: linear-gradient(135deg, #f5c274, #e3942d);
+        box-shadow: 0 12px 24px rgba(242, 179, 92, 0.25);
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .primary-button:disabled {
+        cursor: not-allowed;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+        color: rgba(247, 250, 250, 0.45);
+        box-shadow: none;
+    }
+
+    .primary-button:not(:disabled):hover {
+        transform: translateY(-1px);
+        box-shadow: 0 14px 28px rgba(242, 179, 92, 0.3);
+    }
+
+    .task-loader {
+        position: fixed;
+        inset: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        backdrop-filter: blur(8px) saturate(120%);
+        background: rgba(12, 16, 21, 0.55);
+        z-index: 1200;
+    }
+
+    .task-loader.is-visible {
+        display: flex;
+    }
+
+    .task-loader .loader-dialog {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.55rem;
+        padding: 0.9rem 1.1rem;
+        border-radius: 15px;
+        background: linear-gradient(140deg, rgba(25, 33, 45, 0.92), rgba(14, 18, 25, 0.94));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 10px 26px rgba(4, 8, 12, 0.6);
+        min-width: 180px;
+    }
+
+    .task-loader .spinner-ring {
+        width: 16px;
+        height: 16px;
+        border-radius: 999px;
+        border: 3px solid rgba(116, 198, 255, 0.18);
+        border-top-color: rgba(116, 198, 255, 0.9);
+        border-right-color: rgba(92, 212, 255, 0.75);
+        animation: loader-spin 0.95s linear infinite;
+        box-shadow: 0 0 8px rgba(92, 212, 255, 0.3);
+    }
+
+    .task-loader .loader-label {
+        color: rgba(242, 248, 255, 0.86);
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        font-size: 0.82rem;
+    }
+
+    @keyframes loader-spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    .stop-point-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+        background: rgba(0, 0, 0, 0.7);
+        overflow-y: auto;
+    }
+
+    #dailyCompleteModal,
+    #dailyLimitUnsetModal {
+        align-items: flex-start;
+        justify-content: center;
+        padding-top: clamp(2.5rem, 8vh, 5rem);
+    }
+
+    #dailyCompleteModal .amazon-modal-actions,
+    #dailyLimitUnsetModal .amazon-modal-actions {
+        width: 100%;
+        justify-content: center;
+        text-align: center;
+    }
+
+    .stop-point-dialog {
+        width: min(360px, calc(100% - 1rem));
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(32, 41, 57, 0.95), rgba(12, 16, 21, 0.92));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 1.2rem;
+        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.45);
+        text-align: center;
+    }
+
+    .stop-point-dialog h2 {
+        margin: 0 0 0.75rem;
+        color: #f9d2d1;
+        font-size: 1.1rem;
+        letter-spacing: 0.04em;
+    }
+
+    .stop-point-body {
+        text-align: left;
+        margin: 0.9rem 0 1rem;
+        padding: 0.75rem 0.9rem;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.05);
+        border-left: 4px solid rgba(217, 83, 79, 0.8);
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .stop-point-body p {
+        margin: 0;
+        font-size: 0.78rem;
+        color: rgba(247, 250, 250, 0.8);
+        display: flex;
+        justify-content: space-between;
+        gap: 0.6rem;
+    }
+
+    .stop-point-body strong {
+        color: #f2b35c;
+    }
+
+    .bonus-highlight {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 0.75rem;
+        padding: 0.55rem 0.75rem;
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(92, 212, 255, 0.2), rgba(0, 168, 225, 0.18));
+        color: #7ce8ff;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        border: 1px solid rgba(0, 168, 225, 0.25);
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+    }
+
+    .bonus-highlight i {
+        color: #00a8e1;
+        font-size: 1rem;
+        filter: drop-shadow(0 2px 6px rgba(0, 168, 225, 0.45));
+    }
+
+    .bonus-highlight .bonus-rate {
+        color: inherit;
+        transition: color 0.25s ease;
+    }
+
+    .bonus-highlight .bonus-rate.is-positive {
+        color: #4ade80;
+    }
+
+    .stop-point-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    .stop-point-actions.is-inline {
+        flex-wrap: nowrap;
+        gap: 0.5rem;
+    }
+
+    .stop-point-actions a,
+    .stop-point-actions button {
+        padding: 0.55rem 1.4rem;
+        border-radius: 999px;
+        border: none;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        text-align: center;
+        transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .stop-point-actions .ghost-button {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #f7fafa;
+        box-shadow: none;
+    }
+
+    .stop-point-actions .ghost-button:hover,
+    .stop-point-actions .ghost-button:focus {
+        background: rgba(255, 255, 255, 0.08);
+        color: #f7fafa;
+    }
+
+        
+
+        .primary-button:disabled {
+            cursor: not-allowed;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+            color: rgba(247, 250, 250, 0.45);
+            box-shadow: none;
+        }
+
+        .primary-button:not(:disabled):hover {
+            transform: translateY(-1px);
+            box-shadow: 0 14px 28px rgba(242, 179, 92, 0.3);
+        }
+
+        .task-loader {
+            position: fixed;
+            inset: 0;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(8px) saturate(120%);
+            background: rgba(12, 16, 21, 0.55);
+            z-index: 1200;
+        }
+
+        .task-loader.is-visible {
+            display: flex;
+        }
+
+        .task-loader .loader-dialog {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.9rem 1.1rem;
+            border-radius: 15px;
+            background: linear-gradient(140deg, rgba(25, 33, 45, 0.92), rgba(14, 18, 25, 0.94));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 10px 26px rgba(4, 8, 12, 0.6);
+            min-width: 180px;
+        }
+
+        .task-loader .spinner-ring {
+            width: 16px;
+            height: 16px;
+            border-radius: 999px;
+            border: 3px solid rgba(116, 198, 255, 0.18);
+            border-top-color: rgba(116, 198, 255, 0.9);
+            border-right-color: rgba(92, 212, 255, 0.75);
+            animation: loader-spin 0.95s linear infinite;
+            box-shadow: 0 0 8px rgba(92, 212, 255, 0.3);
+        }
+
+        .task-loader .loader-label {
+            color: rgba(242, 248, 255, 0.86);
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            font-size: 0.82rem;
+        }
+
+        @keyframes loader-spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .stop-point-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            overflow-y: auto;
+        }
+
+        .stop-point-dialog {
+            width: min(360px, calc(100% - 1rem));
+            border-radius: 16px;
+            background: linear-gradient(135deg, rgba(32, 41, 57, 0.95), rgba(12, 16, 21, 0.92));
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.25rem;
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.45);
+            text-align: center;
+        }
+
+        .stop-point-dialog h2 {
+            margin: 0 0 0.75rem;
+            color: #f9d2d1;
+            font-size: 1.1rem;
+            letter-spacing: 0.04em;
+        }
+
+        .stop-point-body {
+            margin-left: 0;
+            text-align: left;
+        }
+    
+
+    @media (max-width: 600px) {
+        .metric-strip {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .product-media {
+            width: 110px;
+            min-width: 110px;
+        }
+
+        .meta-line {
+            padding: 0.5rem 0.6rem;
+        }
+    }
+
+    @media (max-width: 420px) {
+        .mobile-shell {
+            padding-bottom: 60px;
+        }
+    }
+
+    @media (min-width: 992px) {
+        .mobile-shell {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="mobile-shell">
+    
+    {% if messages %}
+    <section class="message-stack">
+        {% for message in messages %}
+            <div class="alert-banner {% if message.tags == 'warning' %}is-warning{% endif %}">
+                <span class="alert-icon">
+                    {% if message.tags == 'warning' %}
+                        <i class="fas fa-exclamation-triangle"></i>
+                    {% else %}
+                        <i class="fas fa-info"></i>
+                    {% endif %}
+                </span>
+                <span class="alert-text">{{ message }}</span>
+            </div>
+        {% endfor %}
+    </section>
+    {% endif %}
+
+    {% if task %}
+        <section class="glass-card balance-banner">
+            <div class="balance-top">
+                <div class="balance-amount">
+                    <span class="label">{% trans "Current balance" %}</span>
+                    <div class="value">
+                        <span class="currency">$</span>
+                        <span id="current_balance">{{ current_balance|default_if_none:0|floatformat:2 }}</span>
+                    </div>
+                </div>
+                <a class="recharge-button" href="{% url 'balance:recharge_amount' %}">
+                    <i class="fas fa-bolt"></i>
+                    {% trans "Recharge" %}
+                </a>
+            </div>
+        </section>
+
+        <div class="section-divider" role="presentation"></div>
+
+        <section class="metric-strip task-metrics" data-daily-limit="{{ daily_limit|default_if_none:0 }}" data-task-index="{{ display_task_number|default_if_none:0 }}" data-all-complete="{{ all_products_completed|yesno:"true,false" }}">
+            <div class="metric-card">
+                <div class="metric-icon teal">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <strong id="metric-limit">{{ daily_limit|default_if_none:0 }}</strong>
+                <p>{% trans "Daily limit" %}</p>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon amber">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <strong id="metric-completed">0</strong>
+                <p>{% trans "Completed" %}</p>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon sky">
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <strong id="metric-remaining">0</strong>
+                <p>{% trans "Remaining" %}</p>
+            </div>
+        </section>
+
+        <section class="glass-card product-card">
+            <div class="product-media">
+                {% if task.product.file %}
+                    <img src="{{ task.product.file.url }}" alt="{{ task.product.name }}">
+                {% elif task.product.image %}
+                    <img src="{{ task.product.image.url }}" alt="{{ task.product.name }}">
+                {% else %}
+                    <span class="product-fallback">{{ task.product.name|default:_("N/A")|slice:":3"|upper }}</span>
+                {% endif %}
+            </div>
+            <div class="product-content">
+              
+                <div class="meta-stack">
+                    <div class="meta-line">
+                        <span class="meta-label">{% trans "Date" %}</span>
+                        <span class="meta-value">{{ task.product.created_at|date:"M d, Y g:i a" }}</span>
+                    </div>
+                    <div class="meta-line">
+                        <span class="meta-label">{% trans "Code" %}</span>
+                        <span class="meta-value">
+                            {% if task.product.product_code %}
+                                {{ task.product.product_code }}
+                            {% elif task.product.code %}
+                                {{ task.product.code }}
+                            {% else %}
+                                {{ task.product.name|default:_("N/A")|slice:":3"|upper }}-{{ task.product.name|default:_("N/A")|slice:"3:6"|upper }}
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="meta-line">
+                        <span class="meta-label">{% trans "Price" %}</span>
+                        <span class="meta-value is-accent">
+                            {% if is_fake_mode and fake_display_price is not None %}
+                                ${{ fake_display_price|floatformat:2 }}
+                            {% else %}
+                                ${{ task.price|floatformat:2 }}
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+                {% if is_fake_mode or real_price and real_price != task.price %}
+                    
+                {% endif %}
+            </div>
+        </section>
+
+        {% if not can_proceed %}
+            <p class="warning-text">
+                {% if block_reason %}{{ block_reason }}{% else %}{% trans "Cannot proceed with this task." %}{% endif %}
+            </p>
+        {% endif %}
+
+        <form method="post" id="next_product_form" class="actions-row">
+            {% csrf_token %}
+            <button type="submit" name="next_product" class="primary-button" {% if not can_proceed %}disabled{% endif %}>
+                {% if all_products_completed %}{% trans "All tasks completed" %}{% else %}{% trans "Next product" %}{% endif %}
+            </button>
+        </form>
+
+    {% else %}
+            
+          
+    {% endif %}
+
+</div>
+
+<div id="taskLoader" class="task-loader" role="status" aria-live="polite" aria-hidden="true">
+    <div class="loader-dialog">
+        <span class="spinner-ring" aria-hidden="true"></span>
+        <span class="loader-label">loading...</span>
+    </div>
+</div>
+
+{% if stop_point_info %}
+<!-- StopPoint Popup Modal -->
+<div id="stopPointModal" class="stop-point-modal" role="dialog" aria-modal="true">
+    <div class="stop-point-dialog">
+        <h2>Insufficient Balance</h2>
+        <div class="stop-point-body">
+            <p><strong>Product code:</strong> {{ stop_point_info.product_code }}</p>
+            <p><strong>Date:</strong> {{ stop_point_info.current_date|date:"M d, Y g:i A" }}</p>
+            <p><strong>Current balance:</strong> ${{ stop_point_info.current_balance|floatformat:2 }}</p>
+            <p><strong>Next product price:</strong> ${{ stop_point_info.next_product_price|floatformat:2 }}</p>
+            <p><strong>Recharge required:</strong> ${{ stop_point_info.required_balance|floatformat:2 }}</p>
+            {% if stop_point_info.bonus_percent and stop_point_info.bonus_percent > 0 %}
+            <div class="bonus-highlight">
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                <span>
+                    <strong>Lucky Order:</strong>
+                    <span class="bonus-rate is-positive">+{{ stop_point_info.bonus_percent }}%</span>
+                    on next product
+                </span>
+            </div>
+            {% endif %}
+        </div>
+        <p class="product-subtitle" style="text-align:center;"></p>
+        <div class="stop-point-actions">
+            <a href="{% url 'balance:wallet_dashboard' %}">Recharge Now</a>
+            <button type="button" onclick="document.getElementById('stopPointModal').style.display='none'">Close</button>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if all_products_completed %}
+<!-- Daily Tasks Completed Modal -->
+<div id="dailyCompleteModal" class="stop-point-modal" role="dialog" aria-modal="true">
+    <div class="amazon-modal-dialog">
+        <div class="amazon-modal-masthead">
+            <span class="amazon-modal-icon"><i class="fab fa-amazon"></i></span>
+            <h2 class="amazon-modal-title">Daily missions completed!</h2>
+        </div>
+        
+        <div class="amazon-modal-actions">
+            <a class="amazon-btn-ghost" href="{% url 'accounts:home_dashboard' %}">
+                <i class="fas fa-home"></i>
+                {% trans "Home" %}
+            </a>
+            <a class="amazon-btn" href="{% url 'wallet:withdraw' %}">
+                <i class="fas fa-coins"></i>
+                {% trans "Withdraw" %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if daily_limit_unset %}
+<!-- Daily Limit Unset Modal -->
+<div id="dailyLimitUnsetModal" class="stop-point-modal" role="dialog" aria-modal="true">
+    <div class="amazon-modal-dialog">
+        <div class="amazon-modal-masthead">
+            <span class="amazon-modal-icon"><i class="fab fa-amazon"></i></span>
+            <h2 class="amazon-modal-title">{% trans "You Are Not Eligable" %}</h2>
+        </div>
+        
+        <div class="amazon-modal-actions">
+            <a class="amazon-btn-ghost" href="{% url 'accounts:home_dashboard' %}">
+                <i class="fas fa-home"></i>
+                {% trans "Home" %}
+            </a>
+            <a class="amazon-btn" href="{% url 'balance:recharge_amount' %}">
+                <i class="fas fa-bolt"></i>
+                {% trans "Recharge" %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<script>
+function refreshWallet() {
+    fetch("{% url 'products:get_balance' %}")
+        .then(response => response.json())
+        .then(data => {
+            const currentBalanceEl = document.getElementById('current_balance');
+            if (currentBalanceEl && data.current_balance !== undefined) {
+                currentBalanceEl.textContent = parseFloat(data.current_balance).toFixed(2);
+            }
+
+            const productCommissionEl = document.getElementById('product_commission');
+            if (productCommissionEl && data.product_commission !== undefined) {
+                productCommissionEl.textContent = parseFloat(data.product_commission).toFixed(2);
+            }
+
+            const referralCommissionEl = document.getElementById('referral_commission');
+            if (referralCommissionEl && data.referral_commission !== undefined) {
+                referralCommissionEl.textContent = parseFloat(data.referral_commission).toFixed(2);
+            }
+
+            const totalBalanceEl = document.getElementById('total_balance');
+            if (totalBalanceEl && data.total_balance !== undefined) {
+                totalBalanceEl.textContent = parseFloat(data.total_balance).toFixed(2);
+            }
+
+            const todayProductEl = document.getElementById('today_product_commission');
+            if (todayProductEl && data.today_product_commission !== undefined) {
+                todayProductEl.textContent = parseFloat(data.today_product_commission).toFixed(2);
+            }
+
+            const todayReferralEl = document.getElementById('today_referral_commission');
+            if (todayReferralEl && data.today_referral_commission !== undefined) {
+                todayReferralEl.textContent = parseFloat(data.today_referral_commission).toFixed(2);
+            }
+
+            const todayTotalEl = document.getElementById('today_commission');
+            if (todayTotalEl && data.today_commission !== undefined) {
+                todayTotalEl.textContent = parseFloat(data.today_commission).toFixed(2);
+            }
+
+            if (data.referral_earned_balance !== undefined) {
+                const referralEarnedEl = document.getElementById('referral_earned_balance');
+                if (referralEarnedEl) {
+                    referralEarnedEl.textContent = parseFloat(data.referral_earned_balance).toFixed(2);
+                }
+            }
+        })
+        .catch(() => {
+            // Swallow errors silently to avoid interrupting user flow
+        });
+}
+
+// Refresh wallet and commission every 5 seconds
+setInterval(refreshWallet, 5000);
+
+(function() {
+    const metrics = document.querySelector('.task-metrics');
+    if (!metrics) return;
+
+    const total = parseInt(metrics.dataset.dailyLimit, 10) || 0;
+    const taskIndex = parseInt(metrics.dataset.taskIndex, 10) || 0;
+    const completedEl = document.getElementById('metric-completed');
+    const remainingEl = document.getElementById('metric-remaining');
+    const totalEl = document.getElementById('metric-limit');
+
+    if (totalEl) {
+        totalEl.textContent = total;
+    }
+
+    let completed = Math.max(taskIndex - 1, 0);
+    if (metrics.dataset.allComplete === 'true' && total) {
+        completed = total;
+    }
+    if (completedEl) {
+        completedEl.textContent = completed;
+    }
+
+    const remaining = Math.max(total - completed, 0);
+    if (remainingEl) {
+        remainingEl.textContent = remaining;
+    }
+})();
+
+(function() {
+    const nextProductForm = document.getElementById('next_product_form');
+    const loaderOverlay = document.getElementById('taskLoader');
+
+    if (nextProductForm && loaderOverlay) {
+        const hideLoader = () => {
+            loaderOverlay.classList.remove('is-visible');
+            loaderOverlay.setAttribute('aria-hidden', 'true');
+        };
+
+        nextProductForm.addEventListener('submit', function () {
+            loaderOverlay.classList.add('is-visible');
+            loaderOverlay.setAttribute('aria-hidden', 'false');
+        });
+
+        window.addEventListener('pageshow', hideLoader);
+    }
+
+    const alertBanners = document.querySelectorAll('.alert-banner');
+    if (alertBanners.length) {
+        setTimeout(() => {
+            alertBanners.forEach((banner) => {
+                banner.classList.add('is-fading');
+                banner.addEventListener('animationend', () => {
+                    banner.remove();
+                }, { once: true });
+            });
+        }, 4000);
+    }
+})();
+
+window.addEventListener('load', () => {
+    const dailyCompleteModal = document.getElementById('dailyCompleteModal');
+    if (dailyCompleteModal) {
+        dailyCompleteModal.style.display = 'flex';
+    }
+
+    const dailyLimitUnsetModal = document.getElementById('dailyLimitUnsetModal');
+    if (dailyLimitUnsetModal) {
+        dailyLimitUnsetModal.style.display = 'flex';
+    }
+});
+
+</script>
+
+{% endblock %}

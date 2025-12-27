@@ -17,13 +17,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ---------------------------------------------------------------------
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = ['myprojectt-kxdt.onrender.com', '127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['myproject-jmby.onrender.com', '127.0.0.1', 'localhost']
 
 
 CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000',
     'http://localhost:8000',
-    'https://myprojectt-kxdt.onrender.com',
+    'https://myproject-jmby.onrender.com',
 ]
 
 # ---------------------------------------------------------------------

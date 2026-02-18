@@ -29,6 +29,14 @@ def extract_sequence(filename: str) -> int:
     return int(match.group(1)) if match else 0
 
 
+def extract_product_name(filename: str) -> str:
+    """Return a cleaned product name from the image filename."""
+    base_name, _ext = os.path.splitext(filename)
+    base_name = base_name.replace("_", " ").replace("-", " ").strip()
+    base_name = re.sub(r"\s+", " ", base_name)
+    return base_name.title() if base_name else "Product"
+
+
 def get_media_root() -> str:
     base_dir = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(base_dir, "media")
@@ -41,6 +49,7 @@ def product_exists(filename: str) -> bool:
 def create_product(source_path: str, filename: str, role: str, sequence: int):
     with open(source_path, "rb") as file_handle:
         product = Product(
+            name=extract_product_name(filename),
             price=round(random.uniform(10, 100), 2),
             is_active=True,
             cycle_number=1,

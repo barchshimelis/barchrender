@@ -1,0 +1,174 @@
+{% extends "accounts/analytics/analytics_base.html" %}
+{% load static %}
+
+{% block title %}Analytics Dashboard - Overview{% endblock %}
+
+{% block analytics_content %}
+<style>
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.overview-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 30px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.overview-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.overview-card:hover::before {
+    opacity: 1;
+}
+
+.overview-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.overview-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.overview-card .metric {
+    font-size: 42px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.overview-card .metric-label {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.overview-card .view-details {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--accent-blue);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: rgba(59, 130, 246, 0.1);
+}
+
+.overview-card .view-details:hover {
+    background: rgba(59, 130, 246, 0.2);
+    transform: translateX(4px);
+}
+
+/* Card-specific colors */
+.financial-card { color: var(--accent-green); }
+.tasks-card { color: var(--accent-amber); }
+.performance-card { color: var(--accent-purple); }
+.geography-card { color: var(--accent-teal); }
+.referrals-card { color: var(--accent-red); }
+.withdrawals-card { color: var(--accent-orange); }
+
+@media (max-width: 768px) {
+    .overview-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .overview-card {
+        padding: 24px;
+    }
+    
+    .overview-card .metric {
+        font-size: 36px;
+    }
+}
+</style>
+
+<!-- Analytics Overview Grid -->
+<div class="overview-grid">
+    <!-- Financial Overview -->
+    <div class="overview-card financial-card">
+        <h3>💰 Financial Overview</h3>
+        <div class="metric">${{ financial_data.total_withdrawn|floatformat:2|default:"0.00" }}</div>
+        <div class="metric-label">Total Withdrawn</div>
+        <a href="{% url 'accounts:financial_analytics' %}" class="view-details">
+            View Details →
+        </a>
+    </div>
+
+    <!-- Tasks Overview -->
+    <div class="overview-card tasks-card">
+        <h3>📋 Tasks Overview</h3>
+        <div class="metric">{{ task_completion.tasks_completed_today|default:0 }}</div>
+        <div class="metric-label">Tasks Completed Today</div>
+        <a href="{% url 'accounts:task_analytics' %}" class="view-details">
+            View Details →
+        </a>
+    </div>
+
+    <!-- Performance Overview -->
+    <div class="overview-card performance-card">
+        <h3>⚡ Performance Overview</h3>
+        <div class="metric">{{ system_performance.active_sessions|default:0 }}</div>
+        <div class="metric-label">Active Sessions</div>
+        <a href="{% url 'accounts:performance_analytics' %}" class="view-details">
+            View Details →
+        </a>
+    </div>
+
+    <!-- Geography Overview -->
+    <div class="overview-card geography-card">
+        <h3>🌍 Geography Overview</h3>
+        <div class="metric">{{ geography.total_countries|default:0 }}</div>
+        <div class="metric-label">Countries Detected</div>
+        <a href="{% url 'accounts:geography_analytics' %}" class="view-details">
+            View Details →
+        </a>
+    </div>
+
+    <!-- Referrals Overview -->
+    <div class="overview-card referrals-card">
+        <h3>🔗 Referrals Overview</h3>
+        <div class="metric">{{ referral_analytics.total_referrals|default:0 }}</div>
+        <div class="metric-label">Total Referrals</div>
+        <a href="{% url 'accounts:referral_analytics' %}" class="view-details">
+            View Details →
+        </a>
+    </div>
+
+    <!-- Withdrawals Overview -->
+    <div class="overview-card withdrawals-card">
+        <h3>💸 Withdrawals Overview</h3>
+        <div class="metric">{{ withdrawal_analytics.withdrawals_today|default:0 }}</div>
+        <div class="metric-label">Today's Withdrawals</div>
+        <a href="{% url 'accounts:withdrawal_analytics' %}" class="view-details">
+            View Details →
+        </a>
+    </div>
+</div>
+{% endblock %}

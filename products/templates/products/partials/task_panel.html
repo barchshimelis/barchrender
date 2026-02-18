@@ -1,0 +1,238 @@
+{% load i18n product_formatting static %}
+
+<div class="mobile-shell">
+    {% if messages or block_reason and "Insufficient balance" in block_reason %}
+    <section class="message-stack">
+        {% for message in messages %}
+            <div class="alert-banner {% if message.tags == 'warning' %}is-warning{% endif %}">
+                <span class="alert-icon">
+                    {% if message.tags == 'warning' %}
+                        <i class="fas fa-exclamation-triangle"></i>
+                    {% else %}
+                        <i class="fas fa-info"></i>
+                    {% endif %}
+                </span>
+                <span class="alert-text">{{ message }}</span>
+            </div>
+        {% endfor %}
+        {% if block_reason and "Insufficient balance" in block_reason %}
+            <div class="alert-banner is-warning" data-dismiss="2000">
+                <span class="alert-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </span>
+                <span class="alert-text">{% trans "Insufficient balance" %}</span>
+            </div>
+        {% endif %}
+    </section>
+    {% endif %}
+
+    {% if task %}
+        <section class="glass-card balance-banner">
+            <div class="balance-top">
+                <div class="balance-amount">
+                    <span class="label">{% trans "Current balance" %}</span>
+                    <div class="value">
+                        <span class="currency">$</span>
+                        <span id="current_balance">{{ current_balance|default_if_none:0|floatformat:2 }}</span>
+                    </div>
+                </div>
+                <a class="recharge-button" href="{% url 'balance:recharge_amount' %}">
+                    <i class="fas fa-bolt"></i>
+                    {% trans "Recharge" %}
+                </a>
+            </div>
+        </section>
+
+        <div class="section-divider" role="presentation"></div>
+
+        <section class="metric-strip task-metrics" data-daily-limit="{{ daily_limit|default_if_none:0 }}" data-task-index="{{ display_task_number|default_if_none:0 }}" data-all-complete="{{ all_products_completed|yesno:"true,false" }}">
+            <div class="metric-card">
+                <div class="metric-icon teal">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <strong id="metric-limit">{{ daily_limit|default_if_none:0 }}</strong>
+                <p>{% trans "Avliable Products" %}</p>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon amber">
+                    <i class="fas*a fa-check-circle"></i>
+                </div>
+                <strong id="metric-completed">0</strong>
+                <p>{% trans "Completed" %}</p>
+            </div>
+            <div class="metric-card">
+                <div class="metric-icon sky">
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <strong id="metric-remaining">0</strong>
+                <p>{% trans "Remaining" %}</p>
+            </div>
+        </section>
+
+        <section class="glass-card product-card">
+            <div class="product-media">
+                {% if task.product.file %}
+                    <img src="{{ task.product.file.url }}" alt="{{ task.product.name }}">
+                {% elif task.product.image %}
+                    <img src="{{ task.product.image.url }}" alt="{{ task.product.name }}">
+                {% else %}
+                    <span class="product-fallback">{{ task.product.name|default:_("N/A")|slice:":3"|upper }}</span>
+                {% endif %}
+            </div>
+            <div class="product-content">
+                <div class="meta-stack">
+                    <div class="meta-line">
+                        <span class="meta-label">{% trans "Date" %}</span>
+                        <span class="meta-value">{{ task.product.created_at|date:"M d, Y g:i a" }}</span>
+                    </div>
+                    <div class="meta-line">
+                        <span class="meta-label">{% trans "Name" %}</span>
+                        <span class="meta-value">
+                            {% if task.product.name %}
+                                {{ task.product.name }}
+                            {% elif task.product.product_code %}
+                                {{ task.product.product_code }}
+                            {% elif task.product.code %}
+                                {{ task.product.code }}
+                            {% else %}
+                                {{ "Product" }}
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="meta-line">
+                        <span class="meta-label">{% trans "Price" %}</span>
+                        <span class="meta-value is-accent">
+                            {% if display_product_price is not None %}
+                                ${{ display_product_price|floatformat:2 }}
+                            {% else %}
+                                $0.00
+                            {% endif %}
+                        </span>
+                    </div>
+                    <div class="meta-line">
+                        <span class="meta-label" style="font-size: 0.40em;">{% trans "Commission" %}</span>
+                        <span class="meta-value is-positive">
+                            +${{ real_price|default_if_none:task.price|floatformat:2 }}
+                        </span>
+                    </div>
+                </div>
+                {% if is_fake_mode or real_price and real_price != task.price %}
+                {% endif %}
+            </div>
+        </section>
+
+        {% if not can_proceed %}
+            <p class="warning-text">
+                {% if block_reason %}{{ block_reason }}{% else %}{% trans "Cannot proceed with this task." %}{% endif %}
+            </p>
+        {% endif %}
+
+        <form method="post" id="next_product_form" class="actions-row">
+            {% csrf_token %}
+            <button type="submit" name="next_product" class="primary-button" {% if not can_proceed %}disabled{% endif %}>
+                {% if all_products_completed %}{% trans "All tasks completed" %}{% else %}{% trans "Next product" %}{% endif %}
+            </button>
+        </form>
+    {% else %}
+        
+    {% endif %}
+</div>
+
+{% if stop_point_info %}
+<div id="stopPointModal" class="stop-point-modal" role="dialog" aria-modal="true">
+    <div class="stop-point-dialog">
+        <div class="stop-point-header">
+            <span class="stop-point-icon" aria-hidden="true">
+                <img src="{% static 'img/amazonlogo.png' %}" alt="Amazon" class="stop-point-logo">
+            </span>
+            <div>
+                <h2>{% trans "Insufficient balance" %}</h2>
+                
+            </div>
+        </div>
+        <div class="stop-point-body">
+            <p><strong>{% trans "Name" %}:</strong> {{ stop_point_info.product_name }}</p>
+            <p><strong>{% trans "Date" %}:</strong> {{ stop_point_info.current_date|date:"M d, Y g:i A" }}</p>
+            <p><strong>{% trans "Current balance" %}:</strong> ${{ stop_point_info.current_balance|floatformat:2 }}</p>
+            <p><strong>{% trans "Next product price" %}:</strong> ${{ stop_point_info.next_product_price|floatformat:2 }}</p>
+            <p><strong>{% trans "Balance gap" %}:</strong> <span class="stop-point-amount-danger">${{ stop_point_info.required_balance|floatformat:2 }}</span></p>
+            {% if stop_point_info.estimated_total_balance %}
+            <p><strong>{% trans "Estimated total balance" %}:</strong> ${{ stop_point_info.estimated_total_balance|floatformat:2 }}</p>
+            {% endif %}
+            {% if stop_point_info.lucky_order_enabled %}
+            <div class="bonus-highlight">
+                <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                <span>
+                    {% if stop_point_info.lucky_order_bonus %}
+                        <span class="bonus-rate is-positive">
+                            {% blocktrans with amount=stop_point_info.lucky_order_bonus|floatformat:2 %}Lucky order: Additional bonus unlocked ${{ amount }}{% endblocktrans %}
+                        </span>
+                    {% else %}
+                        <span class="bonus-rate is-positive">
+                            {% trans "Lucky order: Additional bonus unlocked extra after recharge" %}
+                        </span>
+                    {% endif %}
+                </span>
+            </div>
+            {% endif %}
+        </div>
+        <p class="product-subtitle" style="text-align:center;"></p>
+        <div class="stop-point-actions">
+            <a href="{% url 'balance:wallet_dashboard' %}">{% trans "Recharge now" %}</a>
+            <button type="button" onclick="document.getElementById('stopPointModal').style.display='none'">{% trans "Close" %}</button>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if all_products_completed %}
+<div id="dailyCompleteModal" class="stop-point-modal daily-complete-modal" role="dialog" aria-modal="true">
+    <div class="daily-complete-dialog">
+        <div class="stop-point-header daily-complete-header">
+            <h2 class="daily-complete-title">{% trans "All tasks completed" %}</h2>
+            <p class="stop-point-subtitle">{% trans "Funds and information security guaranteed" %}</p>
+        </div>
+        <div class="stop-point-body daily-complete-body">
+            <p class="daily-complete-label">{% trans "Available Withdraw" %}</p>
+            <div class="daily-complete-amount">
+                ${{ current_balance|default_if_none:0|floatformat:2 }}
+            </div>
+        </div>
+        <div class="daily-complete-actions">
+            <a class="daily-btn-outline" href="{% url 'wallet:withdraw' %}">
+                <i class="fas fa-arrow-down"></i>
+                {% trans "Withdraw" %}
+            </a>
+            <a class="daily-btn-primary" href="{% url 'accounts:home_dashboard' %}">
+                <i class="fas fa-home"></i>
+                {% trans "Home" %}
+            </a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if daily_limit_unset %}
+<div id="dailyLimitUnsetModal" class="stop-point-modal" role="dialog" aria-modal="true">
+    <div class="stop-point-dialog daily-limit-dialog">
+        <div class="stop-point-header daily-limit-header">
+            <span class="stop-point-icon" aria-hidden="true">
+                <img src="{% static 'img/amazonlogo.png' %}" alt="Amazon" class="stop-point-logo">
+            </span>
+            <div>
+                <h2>{% trans "You Are Not Eligable" %}</h2>
+                <p class="stop-point-subtitle">{% trans "Please contact support to enable tasks" %}</p>
+            </div>
+        </div>
+        <div class="stop-point-actions">
+            <a href="{% url 'accounts:home_dashboard' %}">
+                <i class="fas fa-home"></i>
+                {% trans "Home" %}
+            </a>
+            <button type="button" onclick="document.getElementById('dailyLimitUnsetModal').style.display='none'">
+                {% trans "Close" %}
+            </button>
+        </div>
+    </div>
+</div>
+{% endif %}

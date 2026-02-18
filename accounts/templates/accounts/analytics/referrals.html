@@ -1,0 +1,126 @@
+{% extends "accounts/analytics/analytics_base.html" %}
+{% load i18n static %}
+
+{% block analytics_content %}
+<style>
+.analytics-header h1 {
+    background: linear-gradient(135deg, #f43f5e, #fb7185);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.metric-value {
+    color: #f43f5e;
+}
+</style>
+
+<div class="analytics-grid">
+    <!-- Total Referrals -->
+    <div class="analytics-card">
+        <h3>🔗 Total Referrals</h3>
+        <div class="metric-value">{{ referral_analytics.total_referrals }}</div>
+        <div class="metric-label">All Time</div>
+    </div>
+
+    <!-- Active Referrers -->
+    <div class="analytics-card">
+        <h3>👥 Active Referrers</h3>
+        <div class="metric-value">{{ referral_analytics.total_referrers }}</div>
+        <div class="metric-label">Users with Referrals</div>
+    </div>
+
+    <!-- Average Per User -->
+    <div class="analytics-card">
+        <h3>📊 Avg Per User</h3>
+        <div class="metric-value">{{ referral_analytics.avg_referrals_per_user }}</div>
+        <div class="metric-label">Referrals per Referrer</div>
+    </div>
+
+    <!-- Top Referrers -->
+    <div class="analytics-card" style="grid-column: span 2;">
+        <h3>🏆 Top Referrers</h3>
+        <div style="margin-top: 20px;">
+            {% for referrer in referral_analytics.top_referrers %}
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; margin-bottom: 8px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #f43f5e, #fb7185); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: white;">
+                        {{ forloop.counter }}
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; color: #f1f5f9;">{{ referrer.username }}</div>
+                        <div style="font-size: 12px; color: #94a3b8;">{{ referrer.role|title }}</div>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 18px; font-weight: 700; color: #f43f5e;">{{ referrer.referral_count }}</div>
+                    <div style="font-size: 12px; color: #94a3b8;">referrals</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Referral Chart -->
+    <div class="analytics-card">
+        <h3>📈 Referral Trends</h3>
+        <div class="chart-container">
+            <canvas id="referralChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+// Referral Chart
+new Chart(document.getElementById('referralChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+            label: 'New Referrals',
+            data: [5, 8, 6, 12, 9, 15, 7],
+            backgroundColor: '#f43f5e',
+            borderColor: '#fb7185',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { 
+                display: true,
+                labels: {
+                    color: '#e2e8f0',
+                    font: { size: 12 }
+                }
+            },
+            tooltip: {
+                backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                titleColor: '#f1f5f9',
+                bodyColor: '#cbd5e1',
+                borderColor: 'rgba(255, 255, 255, 0.1)',
+                borderWidth: 1
+            }
+        },
+        scales: {
+            x: {
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.1)',
+                    borderColor: 'rgba(255, 255, 255, 0.2)'
+                },
+                ticks: { color: '#cbd5e1' }
+            },
+            y: { 
+                beginAtZero: true,
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.1)',
+                    borderColor: 'rgba(255, 255, 255, 0.2)'
+                },
+                ticks: { color: '#cbd5e1' }
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

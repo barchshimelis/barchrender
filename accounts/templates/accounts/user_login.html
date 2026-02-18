@@ -1,7 +1,7 @@
 {% extends "accounts/base_auth.html" %}
 {% load i18n %}
 
-{% block title %}{% trans "Amazon Sign-In" %}{% endblock %}
+{% block title %}amazon{% endblock %}
 
 {% block content %}
 <section class="auth-card" aria-labelledby="auth-title">
@@ -28,4 +28,31 @@
 
     <a class="secondary-btn" href="{% url 'accounts:user_register' %}">{% trans "Create your Amazon account" %}</a>
 </section>
+{% endblock %}
+
+{% block extra_js %}
+{{ block.super }}
+<script>
+    (function() {
+        // Username/identifier validation: max 20 characters
+        const identifierInput = document.querySelector('input[name="identifier"]');
+        if (identifierInput) {
+            identifierInput.addEventListener('input', function() {
+                if (this.value.length > 20) {
+                    this.value = this.value.slice(0, 20);
+                }
+            });
+        }
+
+        // Password validation: max 15 characters
+        const passwordInput = document.querySelector('input[name="password"]');
+        if (passwordInput) {
+            passwordInput.addEventListener('input', function() {
+                if (this.value.length > 15) {
+                    this.value = this.value.slice(0, 15);
+                }
+            });
+        }
+    })();
+</script>
 {% endblock %}

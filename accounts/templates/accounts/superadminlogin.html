@@ -30,7 +30,7 @@
                                 </svg>
                                 {{ message }}
                             </div>
-                        {% else %}
+                        {% elif message.level_tag == 'error' or message.level_tag == 'warning' %}
                             <div class="admin-messages__item {{ message.tags }}">{{ message }}</div>
                         {% endif %}
                     {% endfor %}

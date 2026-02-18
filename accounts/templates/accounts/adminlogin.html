@@ -30,7 +30,7 @@
                                 </svg>
                                 {{ message }}
                             </div>
-                        {% else %}
+                        {% elif message.level_tag == 'error' or message.level_tag == 'warning' %}
                             <div class="admin-messages__item {{ message.tags }}">{{ message }}</div>
                         {% endif %}
                     {% endfor %}
@@ -40,7 +40,7 @@
             <form id="admin-login-form" method="post">
                 {% csrf_token %}
                 <label for="id_username">{% trans "Username" %}</label>
-                <input id="id_username" type="text" name="username" required>
+                <input id="id_username" type="text" name="username" value="{{ prefill_username }}" required>
 
                 <label for="id_password">{% trans "Password" %}</label>
                 <input id="id_password" type="password" name="password" required>

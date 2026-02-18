@@ -69,10 +69,11 @@ class Product(models.Model):
             if not self.product_code:
                 self.product_code = self._generate_unique_code()
 
-            # Set name from product_code and build description
+            # Set name from product_code only if name is missing
             normalized_code = _normalize_product_code(self.product_code)
             self.product_code = normalized_code
-            self.name = normalized_code
+            if not (self.name or "").strip():
+                self.name = normalized_code
             created = timezone.now()
             self.description = (
                 f"Product {normalized_code} created on "
@@ -86,7 +87,8 @@ class Product(models.Model):
         # for updates on existing products, just behave normally
         if self.product_code:
             self.product_code = _normalize_product_code(self.product_code)
-            self.name = self.product_code
+            if not (self.name or "").strip():
+                self.name = self.product_code
             kwargs.setdefault('update_fields', None)
             if kwargs['update_fields'] is None or 'name' not in kwargs['update_fields']:
                 kwargs['update_fields'] = None

@@ -1,4 +1,7 @@
 ﻿import uuid
+import phonenumbers
+from django.db.models import Sum
+from django.utils import timezone
 
 from accounts.models import CustomUser, SuperAdminWallet
 
@@ -18,7 +21,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
 from commission.utils import get_total_commission
-from balance.models import RechargeHistory, Wallet
+from balance.models import RechargeHistory, Wallet, CustomerServiceBalanceAdjustment
 from commission.models import Commission, CommissionSetting
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from products.models import Product
@@ -32,6 +35,7 @@ import json
 
 from notification.utils import notify_superadmins, notify_roles
 from notification.models import Notification, AdminDashboardEvent
+from chat.models import UserSupportThread
 from chat.session_store import list_sessions
 from django.urls import reverse
 
@@ -51,7 +55,7 @@ from django.contrib.auth import logout
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.sessions.models import Session
 from django.db import models
-from django.db.models import Count, Q
+from django.db.models import Count, Q, Sum
 from django.db.models.functions import TruncDate
 from django.utils import timezone as tz
 from django.http import JsonResponse
@@ -60,7 +64,7 @@ from django.urls import reverse
 
 from accounts.models import CustomUser, SuperAdminWallet
 from products.models import Product, UserProductTask, FeaturedImage
-from balance.models import RechargeHistory, Wallet
+from balance.models import RechargeHistory, Wallet, CustomerServiceBalanceAdjustment
 from commission.models import Commission, CommissionSetting
 from commission.utils import get_total_commission
 from notification.utils import notify_superadmins, notify_roles
@@ -151,6 +155,7 @@ DAY_LABELS = [
     (3, "Thu"),
     (4, "Fri"),
     (5, "Sat"),
+    (6, "Sun"),
 ]
 
 def get_admin_referral_user_ids(admin_user, *, include_direct=True):
@@ -232,17 +237,21 @@ def build_weekly_activity_for_admin(admin_user):
     registration_map = {entry['day']: entry['count'] for entry in registrations if entry['day']}
 
     withdrawals = (
-        UserWithdrawal.objects.filter(user_id__in=user_ids)
-        .values('user_id', 'created_at')
-        .order_by('user_id', 'created_at', 'id')
+        UserWithdrawal.objects.filter(
+            user_id__in=user_ids,
+            status='APPROVED',
+            processed_at__isnull=False,
+        )
+        .values('user_id', 'processed_at')
+        .order_by('user_id', 'processed_at', 'id')
     )
     withdrawal_map = {}
     last_user = None
     rank = 0
     for entry in withdrawals:
         user_id = entry['user_id']
-        created_at = entry['created_at']
-        if not created_at:
+        processed_at = entry['processed_at']
+        if not processed_at:
             continue
         if user_id != last_user:
             rank = 1
@@ -251,7 +260,7 @@ def build_weekly_activity_for_admin(admin_user):
             rank += 1
         if rank > 3:
             continue
-        day = created_at.date()
+        day = processed_at.date()
         withdrawal_map[(day, rank)] = withdrawal_map.get((day, rank), 0) + 1
 
     if not registration_map and not withdrawal_map:
@@ -282,7 +291,7 @@ def build_weekly_activity_for_admin(admin_user):
                 'metrics': metrics,
             })
 
-        week_end = current + timedelta(days=5)
+        week_end = current + timedelta(days=6)
         weeks.append({
             'label': f"{current.strftime('%b %d')} - {week_end.strftime('%b %d, %Y')}",
             'start': current,
@@ -312,8 +321,8 @@ def is_superadmin(user):
     return user.is_authenticated and user.role == 'superadmin'
 
 def generate_admin_referral_code():
-    """Generate a unique 6-character uppercase referral code for Admins."""
-    return ''.join(random.choices(string.ascii_uppercase, k=6))
+    """Generate a unique 6-character alphanumeric referral code for Admins."""
+    return ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
 
 
 @login_required
@@ -456,6 +465,7 @@ def superadmin_dashboard(request):
     # Separate into online and offline for better sorting
     online_threshold = tz.now() - timedelta(minutes=5)
     admins = list(admins)
+    base_admin_login_url = request.build_absolute_uri(reverse('accounts:adminlogin'))
     admins.sort(key=lambda x: (not (x.last_activity and x.last_activity >= online_threshold), 
                                -(x.last_activity.timestamp() if x.last_activity else 0)))
     for admin in admins:
@@ -467,6 +477,7 @@ def superadmin_dashboard(request):
             }
             for idx, page in enumerate(chunk_weeks(weekly_weeks, 4))
         ]
+        admin.login_url = f"{base_admin_login_url}?username={admin.username}"
 
     customer_service = list(customer_service)
     customer_service.sort(key=lambda x: (not (x.last_activity and x.last_activity >= online_threshold), 
@@ -509,6 +520,11 @@ def adminlogin(request):
 
         user = authenticate(request, username=username, password=password)
         if user and user.role == 'admin':
+            # Check if admin is frozen
+            if user.is_frozen:
+                messages.error(request, "Your account has been frozen. Please contact customer service.")
+                return redirect('accounts:adminlogin')
+            
             login(request, user)
             _clear_login_captcha(request)
             return redirect('accounts:admin_dashboard')
@@ -517,8 +533,10 @@ def adminlogin(request):
             messages.error(request, "Invalid credentials or not an Admin.")
             return redirect('accounts:adminlogin')
 
+    prefill_username = request.GET.get("username", "")
     return render(request, "accounts/adminlogin.html", {
         "captcha_prompt": captcha_prompt,
+        "prefill_username": prefill_username,
     })
 
 def is_admin(user):
@@ -540,6 +558,11 @@ def customerservicelogin(request):
 
         user = authenticate(request, username=username, password=password)
         if user and user.role == 'customerservice':
+            # Check if customer service is frozen
+            if user.is_frozen:
+                messages.error(request, "Your account has been frozen. Please contact customer service.")
+                return redirect('accounts:customerservicelogin')
+            
             login(request, user)
             _clear_login_captcha(request)
             return redirect('accounts:customerservice_dashboard')
@@ -694,7 +717,6 @@ def customerservice_dashboard(request):
 
             field_map = {
                 "current_balance": "current_balance",
-                "cumulative_total": "cumulative_total",
                 "product_commission": "product_commission",
                 "referral_commission": "referral_commission",
             }
@@ -732,17 +754,23 @@ def customerservice_dashboard(request):
                     if not wallet:
                         wallet = Wallet.objects.create(user=target_user)
 
-                    current_value = getattr(wallet, field_name, Decimal("0.00")) or Decimal("0.00")
-                    new_value = current_value + delta
-                    if new_value < 0:
-                        messages.error(
-                            request,
-                            f"Cannot debit {field_name.replace('_', ' ')} below $0.00."
-                        )
-                        raise ValueError("Negative balance not allowed")
+                    def apply_delta(field):
+                        current_val = getattr(wallet, field, Decimal("0.00")) or Decimal("0.00")
+                        updated_val = current_val + delta
+                        if updated_val < 0:
+                            messages.error(
+                                request,
+                                f"Cannot debit {field.replace('_', ' ')} below $0.00."
+                            )
+                            raise ValueError("Negative balance not allowed")
+                        setattr(wallet, field, updated_val)
+                        return updated_val
 
-                    setattr(wallet, field_name, new_value)
-                    wallet.save(update_fields=[field_name])
+                    saved_fields = set()
+                    apply_delta(field_name)
+                    saved_fields.add(field_name)
+
+                    wallet.save(update_fields=list(saved_fields))
 
                     CustomerServiceBalanceAdjustment.objects.create(
                         target_user=target_user,
@@ -768,12 +796,14 @@ def customerservice_dashboard(request):
 
     guest_threads = list_sessions()
     guest_unread_count = sum(thread.get('unread_for_cs', 0) for thread in guest_threads)
+    support_unread_total = UserSupportThread.objects.aggregate(total=Sum("agent_unread_count"))["total"] or 0
     
     context = {
         "users": regular_users,
         "network_choices": CRYPTO_NETWORK_CHOICES,
         "unread_notifications_count": unread_notifications_count,
         "guest_unread_count": guest_unread_count,
+        "user_support_unread_count": support_unread_total,
     }
     return render(request, "accounts/customerservice_dashboard.html", context)
 
@@ -788,6 +818,14 @@ def customerservice_guest_unread(request):
         "guest_unread_count": guest_unread_count,
         "active_guest_threads": active_guest_threads,
     })
+
+
+@login_required
+@user_passes_test(lambda u: u.role == 'customerservice')
+@require_GET
+def customerservice_support_unread(request):
+    support_unread_total = UserSupportThread.objects.aggregate(total=Sum("agent_unread_count"))["total"] or 0
+    return JsonResponse({"user_support_unread_count": support_unread_total})
 
 @user_passes_test(lambda u: u.is_authenticated and u.role == 'customerservice')
 def admin_overview_for_cs(request, admin_id):
@@ -817,7 +855,8 @@ def user_register(request):
 
         # Validate all fields not empty
         if not all([phone, username, password, fund_password, referral_code_input]):
-            messages.error(request, "All fields are required.")
+            messages.error(request, _("All fields are required."))
+            request.session.modified = True
             return redirect('accounts:user_register')
 
         # -------------------------
@@ -826,54 +865,71 @@ def user_register(request):
         import re
         # 1. phone number must be + and numbers only, max 15
         if not re.fullmatch(r'^\+?\d{1,15}$', phone):
-            messages.error(request, "Phone number must be numeric and may start with + (max 15 digits).")
+            messages.error(request, _("wrong phone number"))
+            request.session.modified = True
             return redirect('accounts:user_register')
 
         # 2. username length 6–15
         if not (6 <= len(username) <= 15):
-            messages.error(request, "Username must be between 6 and 15 characters.")
+            messages.error(request, _("wrong user name"))
+            request.session.modified = True
             return redirect('accounts:user_register')
 
         # 3. password length 6–15
         if not (6 <= len(password) <= 15):
-            messages.error(request, "Password must be between 6 and 15 characters.")
+            messages.error(request, _("enter correct password"))
+            request.session.modified = True
             return redirect('accounts:user_register')
 
         # 4. fund password length 6–15
         if not (6 <= len(fund_password) <= 15):
-            messages.error(request, "Fund password must be between 6 and 15 characters.")
+            messages.error(request, _("enter correct fund password"))
+            request.session.modified = True
             return redirect('accounts:user_register')
 
         # 5. referral code exactly 6
         if len(referral_code_input) != 6:
-            messages.error(request, "Referral code must be exactly 6 characters.")
+            messages.error(request, _("enter correct refral code"))
+            request.session.modified = True
             return redirect('accounts:user_register')
         # -------------------------
 
         # Find owner of referral code
         referrer = User.objects.filter(referral_code=referral_code_input).first()
         if not referrer or referrer.role not in ['admin', 'user']:
-            messages.error(request, "Invalid referral code.")
+            messages.error(request, _("Invalid referral code."))
+            request.session.modified = True
             return redirect('accounts:user_register')
 
-        # Enforce Regular User referral limit (only one user)
+        # Enforce User invitation rules
         if referrer.role == 'user':
-            already_referred = User.objects.filter(referred_by=referrer).exists()
-            if already_referred:
-                messages.error(request, "This user's referral code has already been used.")
+            # Check if referrer was invited by admin (only they can invite)
+            if not referrer.referred_by or referrer.referred_by.role != 'admin':
+                messages.error(request, _("This user cannot invite others."))
+                request.session.modified = True
+                return redirect('accounts:user_register')
+            
+            # Check maximum 3 invitations limit
+            referral_count = User.objects.filter(referred_by=referrer).count()
+            if referral_count >= 3:
+                messages.error(request, _("maximum invition reaached"))
+                request.session.modified = True
                 return redirect('accounts:user_register')
 
         # Check unique username and phone
         if User.objects.filter(username=username).exists():
-            messages.error(request, "Username already exists. Please choose a different username.")
+            messages.error(request, _("Username already exists"))
             return redirect('accounts:user_register')
 
         if User.objects.filter(phone=phone).exists():
-            messages.error(request, "Phone number already exists. Please use a different phone number.")
+            messages.error(request, _("Phone number already exists"))
             return redirect('accounts:user_register')
 
-        # Generate own 6-character uppercase referral code
-        user_referral_code = ''.join(random.choices(string.ascii_uppercase, k=6))
+        # Only generate referral code if user was invited by admin
+        if referrer.role == 'admin':
+            user_referral_code = ''.join(random.choices(string.ascii_uppercase + string.digits, k=6))
+        else:
+            user_referral_code = None  # Users B, C, D get no code
 
         # Create Regular User with try-catch for integrity errors
         try:
@@ -889,11 +945,11 @@ def user_register(request):
         except Exception as e:
             # Handle any database integrity errors
             if "UNIQUE constraint failed" in str(e) and "phone" in str(e):
-                messages.error(request, "Phone number already exists. Please use a different phone number.")
+                messages.error(request, _("Phone number already exists. Please use a different phone number."))
             elif "UNIQUE constraint failed" in str(e) and "username" in str(e):
-                messages.error(request, "Username already exists. Please choose a different username.")
+                messages.error(request, _("Username already exists. Please choose a different username."))
             else:
-                messages.error(request, "Registration failed. Please try again.")
+                messages.error(request, _("Registration failed. Please try again."))
             return redirect('accounts:user_register')
 
         notify_roles(
@@ -913,7 +969,7 @@ def user_register(request):
             }
         )
 
-        messages.success(request, "Registration successful! Please login.")
+        messages.success(request, _("Registration successful! Please login."))
         return redirect('accounts:user_login')  # <-- redirect to user login page
 
     return render(request, "accounts/user_register.html")
@@ -944,26 +1000,26 @@ def user_login(request):
             try:
                 user = User.objects.get(role='user', phone=identifier)
             except User.DoesNotExist:
-                messages.error(request, "Invalid credentials.")
+                messages.error(request, _("company rules viloated,Please contact customer service."))
                 return redirect('accounts:user_login')
 
         if user and user.check_password(password):
             # Check if user is frozen
             if user.is_frozen:
-                messages.error(request, "organization rules violated, please contact customserservice .")
+                messages.error(request, _("company rules viloated,Please contact customer service."))
                 return redirect('accounts:user_login')
 
             # ensure we authenticate via the default ModelBackend so Django knows the backend
             authenticated = authenticate(request, username=user.username, password=password)
             if authenticated is None:
-                messages.error(request, "Unable to authenticate. Please try again.")
+                messages.error(request, _("company rules viloated,Please contact customer service."))
                 return redirect('accounts:user_login')
 
             login(request, authenticated)
             return redirect('accounts:index')  # or whatever URL name points to your index view  # Redirect to home dashboard
 
         else:
-            messages.error(request, "Invalid credentials.")
+            messages.error(request, _("company rules viloated,Please contact customer service."))
             return redirect('accounts:user_login')
 
     
@@ -1151,13 +1207,19 @@ def activities_view(request):
     )[:40]
 
     recharge_history_qs = RechargeHistory.objects.filter(user=user).order_by('-action_date')[:10]
+    recharge_history_status_map = {
+        "approved": ("status-success", _("Approved")),
+        "rejected": ("status-failed", _("Rejected")),
+    }
     recharge_history = []
     for record in recharge_history_qs:
-        status_class = 'status-success' if record.status == 'approved' else 'status-failed'
+        status_class, status_label = recharge_history_status_map.get(
+            record.status, ('status-pending', record.get_status_display())
+        )
         recharge_history.append({
             "id": f"RH-{record.id}",
             "amount": record.amount,
-            "status_label": record.get_status_display(),
+            "status_label": status_label,
             "status_class": status_class,
             "timestamp": record.action_date,
             "voucher_url": record.voucher_file.url if record.voucher_file else None,
@@ -1229,7 +1291,7 @@ from balance.models import (
 from stoppoints.models import StopPoint
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
 from django.db.models import Sum, Q
 from django.shortcuts import render, get_object_or_404, redirect
 from accounts.models import CustomUser
@@ -1254,16 +1316,18 @@ import json
 
 
 def home_dashboard(request):
+    if not request.user.is_authenticated:
+        return redirect('accounts:user_login')
+    
     user = request.user
     today = tz.now().date()
 
-    wallet, _ = Wallet.objects.get_or_create(
+    wallet, wallet_created = Wallet.objects.get_or_create(
         user=user,
         defaults={
             'current_balance': Decimal('0.00'),
             'product_commission': Decimal('0.00'),
             'referral_commission': Decimal('0.00'),
-            'cumulative_total': Decimal('0.00')
         }
     )
 
@@ -1287,6 +1351,37 @@ def home_dashboard(request):
         created_at__date=today
     ).aggregate(total=Sum('amount'))['total'] or Decimal('0.00')
 
+    last_withdrawal = (
+        UserWithdrawal.objects.filter(
+            user=user,
+            status="APPROVED",
+            processed_at__isnull=False,
+        )
+        .order_by("-processed_at")
+        .first()
+    )
+    recharge_qs = RechargeHistory.objects.filter(user=user, status="approved")
+    if last_withdrawal:
+        recharge_qs = recharge_qs.filter(action_date__gt=last_withdrawal.processed_at)
+    lifetime_recharge_total = (
+        recharge_qs.aggregate(total=Sum("amount")).get("total") or Decimal("0.00")
+    )
+
+    lucky_bonus_qs = StopPoint.objects.filter(
+        user=user,
+        bonus_disbursed=True,
+        lucky_order_enabled=True,
+    )
+    if last_withdrawal:
+        lucky_bonus_qs = lucky_bonus_qs.filter(
+            Q(bonus_disbursed_at__gt=last_withdrawal.processed_at)
+            | Q(bonus_disbursed_at__isnull=True, created_at__gt=last_withdrawal.processed_at)
+        )
+    lucky_order_bonus_total = (
+        lucky_bonus_qs.aggregate(total=Sum("special_bonus_amount")).get("total")
+        or Decimal("0.00")
+    )
+
     featured_products = Product.objects.filter(is_active=True).order_by('?')[:6]
     feature_gallery_images = _load_feature_gallery_images()
     if not feature_gallery_images:
@@ -1307,7 +1402,11 @@ def home_dashboard(request):
     recent_recharges = RechargeRequest.objects.filter(user=user).order_by('-created_at')[:5]
     wallet_address = UserWalletAddress.objects.filter(user=user).first()
 
-    mission_cta_label = 'Continue task' if (is_stop_point_blocked or active_task_exists) else 'Start task'
+    mission_cta_label = (
+        _("Continue task")
+        if (is_stop_point_blocked or active_task_exists)
+        else _("Start task")
+    )
 
     context = {
         'user': user,
@@ -1315,9 +1414,10 @@ def home_dashboard(request):
         'wallet_address': wallet_address,
 
         'current_balance': wallet.current_balance,
-        'total_balance': wallet.cumulative_total,
         'product_commission': wallet.product_commission,
         'referral_commission': wallet.referral_commission,
+        'lifetime_recharge_total': lifetime_recharge_total,
+        'lucky_order_bonus_total': lucky_order_bonus_total,
         'today_commissions': today_commissions,
         'featured_products': featured_products,
         'recent_withdrawals': recent_withdrawals,
@@ -1475,7 +1575,7 @@ def admin_dashboard(request):
                         return JsonResponse({'success': False, 'error': 'Daily limit must be at least 1.'})
                     if daily_limit_int > 60:
                         return JsonResponse({'success': False, 'error': 'Daily limit cannot exceed 60.'})
-                    cs, _ = CommissionSetting.objects.get_or_create(user_id=user_id)
+                    cs, created = CommissionSetting.objects.get_or_create(user_id=user_id)
                     cs.daily_task_limit = daily_limit_int
                     cs.save(update_fields=['daily_task_limit'])
                     return JsonResponse({'success': True})
@@ -1489,12 +1589,32 @@ def admin_dashboard(request):
                     elif daily_limit_int > 60:
                         messages.error(request, 'Daily limit cannot exceed 60.')
                     else:
-                        cs, _ = CommissionSetting.objects.get_or_create(user_id=user_id)
+                        cs, created = CommissionSetting.objects.get_or_create(user_id=user_id)
                         cs.daily_task_limit = daily_limit_int
                         cs.save(update_fields=['daily_task_limit'])
                         messages.success(request, f"Daily task limit updated for user {user_id} to {daily_limit_int}.")
                 except (TypeError, ValueError):
                     messages.error(request, 'Invalid daily limit value.')
+                return redirect('accounts:admin_dashboard')
+
+        if action == 'reset_daily_limit':
+            user_id = data.get('user_id')
+            if is_json:
+                try:
+                    cs, created = CommissionSetting.objects.get_or_create(user_id=user_id)
+                    cs.daily_task_limit = 0
+                    cs.save(update_fields=['daily_task_limit'])
+                    return JsonResponse({'success': True})
+                except (TypeError, ValueError):
+                    return JsonResponse({'success': False, 'error': 'Failed to reset daily limit.'})
+            else:
+                try:
+                    cs, created = CommissionSetting.objects.get_or_create(user_id=user_id)
+                    cs.daily_task_limit = 0
+                    cs.save(update_fields=['daily_task_limit'])
+                    messages.success(request, f"Daily task limit reset for user {user_id}.")
+                except (TypeError, ValueError):
+                    messages.error(request, 'Failed to reset daily limit.')
                 return redirect('accounts:admin_dashboard')
 
     # Get search query and section
@@ -1600,6 +1720,12 @@ def admin_dashboard(request):
             .annotate(count=models.Count('id'))
     }
 
+    referrer_ids = set(
+        CustomUser.objects
+        .filter(referred_by_id__in=user_ids)
+        .values_list('referred_by_id', flat=True)
+    )
+
     # Get all withdrawal requests
     withdrawal_requests = {         
         wr.user_id: wr 
@@ -1626,6 +1752,8 @@ def admin_dashboard(request):
         user.info_alert_day = getattr(wallet_obj, 'info_alert_day', False) if wallet_obj else False
         
         user.withdrawal_requests = [withdrawal_requests[user.id]] if user.id in withdrawal_requests else []
+
+        user.is_referrer = user.id in referrer_ids
         
         # Online status is automatically computed by the is_online property
         # No need to set it manually
@@ -1703,30 +1831,45 @@ def user_history(request, user_id):
         target_user = get_object_or_404(CustomUser, id=user_id)
         
         # Get recharge history for this user
-        recharge_history = RechargeHistory.objects.filter(
+        recharge_history_qs = RechargeHistory.objects.filter(
             user=target_user
         ).order_by('-action_date')
         
-        history_data = []
-        for recharge in recharge_history:
-            history_entry = {
+        recharge_history = []
+        for recharge in recharge_history_qs:
+            entry = {
                 'action_date': recharge.action_date.isoformat() if recharge.action_date else None,
                 'amount': float(recharge.amount),
-                'status': recharge.status.lower() if recharge.status else 'pending',
+                'status': (recharge.status or '').lower(),
                 'voucher_file': None,
             }
-
-            # Add voucher URL if available
             if recharge.voucher_file:
-                history_entry['voucher_file'] = {
+                entry['voucher_file'] = {
                     'url': recharge.voucher_file.url
                 }
+            recharge_history.append(entry)
 
-            history_data.append(history_entry)
+        withdraw_history_qs = UserWithdrawal.objects.filter(
+            user=target_user
+        ).order_by('-created_at')
+
+        withdraw_history = []
+        for withdraw in withdraw_history_qs:
+            withdraw_history.append({
+                'action_date': withdraw.created_at.isoformat() if withdraw.created_at else None,
+                'amount': float(withdraw.amount),
+                'status': (withdraw.status or '').lower(),
+                'network': withdraw.network,
+                'network_label': withdraw.get_network_display(),
+                'transaction_hash': withdraw.transaction_hash,
+                'fee_amount': float(withdraw.fee_amount or 0),
+                'net_amount': float(withdraw.net_amount or 0),
+            })
         
         return JsonResponse({
             'success': True,
-            'history': history_data
+            'recharge_history': recharge_history,
+            'withdraw_history': withdraw_history,
         })
         
     except Exception as e:
@@ -1734,6 +1877,59 @@ def user_history(request, user_id):
             'success': False,
             'error': str(e)
         })
+
+
+@login_required
+@user_passes_test(is_admin)
+@require_POST
+def admin_adjust_balance(request, user_id):
+    try:
+        target_user = get_object_or_404(CustomUser, id=user_id, role='user')
+        payload = json.loads(request.body.decode() or "{}")
+    except json.JSONDecodeError:
+        return JsonResponse({'success': False, 'error': 'Invalid payload.'}, status=400)
+
+    if not payload:
+        return JsonResponse({'success': False, 'error': 'Invalid payload.'}, status=400)
+
+    amount_raw = payload.get('amount')
+    operation = payload.get('operation')
+    note = (payload.get('note') or '').strip()[:255]
+
+    if operation not in {'add', 'subtract'}:
+        return JsonResponse({'success': False, 'error': 'Invalid operation.'}, status=400)
+
+    try:
+        amount = Decimal(str(amount_raw))
+    except (InvalidOperation, TypeError):
+        return JsonResponse({'success': False, 'error': 'Amount must be a valid number.'}, status=400)
+
+    if amount <= 0:
+        return JsonResponse({'success': False, 'error': 'Amount must be greater than zero.'}, status=400)
+
+    delta = amount if operation == 'add' else -amount
+
+    with transaction.atomic():
+        wallet, _ = Wallet.objects.select_for_update().get_or_create(user=target_user)
+        new_balance = (wallet.current_balance or Decimal('0')) + delta
+        if new_balance < 0:
+            return JsonResponse({'success': False, 'error': 'Cannot subtract beyond $0.00.'}, status=400)
+
+        wallet.current_balance = new_balance
+        wallet.save(update_fields=['current_balance'])
+
+        CustomerServiceBalanceAdjustment.objects.create(
+            target_user=target_user,
+            acted_by=request.user,
+            field='current_balance',
+            delta=delta,
+            note=note or f"{operation.title()} ${amount}",
+        )
+
+    return JsonResponse({
+        'success': True,
+        'current_balance': f"{new_balance:.2f}",
+    })
 
 @login_required
 @user_passes_test(is_admin)
@@ -1756,3 +1952,530 @@ def admin_dashboard_events_mark_read(request):
         read_at=tz.now(),
     )
     return JsonResponse({"success": True})
+
+
+def get_geography_data():
+    """Enhanced geographic analytics from phone numbers"""
+    from collections import defaultdict
+    from django.db.models import Count
+    
+    countries = defaultdict(int)
+    country_names = {}
+    total_users_with_phone = 0
+    
+    for user in CustomUser.objects.filter(phone__isnull=False).exclude(phone=''):
+        total_users_with_phone += 1
+        try:
+            # Parse phone number and get country code
+            parsed = phonenumbers.parse(user.phone, None)
+            country_code = phonenumbers.region_code_for_number(parsed)
+            
+            # Count users by country
+            countries[country_code] += 1
+            
+            # Get country name (only once per country)
+            if country_code not in country_names:
+                country_names[country_code] = phonenumbers.geocoder.country_name_for_number(parsed, 'en')
+                
+        except:
+            # Count invalid phone numbers
+            countries['Unknown'] += 1
+    
+    # Convert to list and sort by count
+    top_countries = [
+        {
+            'country_code': country_code,
+            'country_name': country_names.get(country_code, 'Unknown'),
+            'count': count,
+            'percentage': round((count / total_users_with_phone) * 100, 1)
+        }
+        for country_code, count in sorted(countries.items(), key=lambda x: x[1], reverse=True)[:10]
+    ]
+    
+    # Prepare data for charts (top 8 countries for better visualization)
+    chart_data = [
+        {
+            'country': country_names.get(country_code, 'Unknown'),
+            'users': count
+        }
+        for country_code, count in sorted(countries.items(), key=lambda x: x[1], reverse=True)[:8]
+    ]
+    
+    # Get additional statistics
+    unknown_count = countries.get('Unknown', 0)
+    valid_countries = len([k for k in countries.keys() if k != 'Unknown'])
+    
+    return {
+        'top_countries': top_countries,
+        'total_countries': len(countries),
+        'valid_countries': valid_countries,
+        'total_users_with_phone': total_users_with_phone,
+        'chart_data': chart_data,
+        'unknown_count': unknown_count,
+        'data_quality': round(((total_users_with_phone - unknown_count) / total_users_with_phone) * 100, 1) if total_users_with_phone > 0 else 0
+    }
+
+
+def get_user_metrics(period='daily'):
+    """Real user metrics with time period filtering"""
+    from django.utils import timezone as tz
+    from django.db.models import Count
+    
+    today = tz.now().date()
+    
+    if period == 'daily':
+        start_date = today
+        comparison_date = today - timezone.timedelta(days=1)
+    elif period == 'weekly':
+        start_date = today - timezone.timedelta(days=7)
+        comparison_date = today - timezone.timedelta(days=14)
+    else:  # monthly
+        start_date = today - timezone.timedelta(days=30)
+        comparison_date = today - timezone.timedelta(days=60)
+    
+    # Real user counts
+    total_users = CustomUser.objects.count()
+    active_today = CustomUser.objects.filter(last_activity__date=today).count()
+    new_this_period = CustomUser.objects.filter(date_joined__gte=start_date).count()
+    new_comparison_period = CustomUser.objects.filter(
+        date_joined__gte=comparison_date, 
+        date_joined__lt=start_date
+    ).count()
+    
+    # Growth calculation
+    growth_rate = ((new_this_period - new_comparison_period) / max(new_comparison_period, 1)) * 100
+    
+    # User role breakdown
+    total_admins = CustomUser.objects.filter(role='admin').count()
+    total_cs = CustomUser.objects.filter(role='customerservice').count()
+    total_regular_users = CustomUser.objects.filter(role='user').count()
+    
+    # User registration trend for the period
+    registration_trend = []
+    if period == 'daily':
+        # Last 7 days
+        for i in range(7):
+            day = today - timezone.timedelta(days=6-i)
+            count = CustomUser.objects.filter(date_joined__date=day).count()
+            registration_trend.append({
+                'date': day.strftime('%a'),
+                'count': count
+            })
+    elif period == 'weekly':
+        # Last 4 weeks
+        for i in range(4):
+            week_start = today - timezone.timedelta(weeks=3-i)
+            week_end = week_start + timezone.timedelta(days=6)
+            count = CustomUser.objects.filter(
+                date_joined__date__gte=week_start,
+                date_joined__date__lte=week_end
+            ).count()
+            registration_trend.append({
+                'date': f"Week {4-i}",
+                'count': count
+            })
+    else:  # monthly
+        # Last 6 months
+        for i in range(6):
+            month_start = today.replace(day=1) - timezone.timedelta(days=30*i)
+            count = CustomUser.objects.filter(
+                date_joined__year=month_start.year,
+                date_joined__month=month_start.month
+            ).count()
+            registration_trend.append({
+                'date': month_start.strftime('%b'),
+                'count': count
+            })
+    
+    return {
+        'total_users': total_users,
+        'active_today': active_today,
+        'new_this_period': new_this_period,
+        'new_this_week': CustomUser.objects.filter(date_joined__gte=today-timezone.timedelta(days=7)).count(),
+        'new_this_month': CustomUser.objects.filter(date_joined__gte=today-timezone.timedelta(days=30)).count(),
+        'growth_rate': round(growth_rate, 2),
+        'total_admins': total_admins,
+        'total_cs': total_cs,
+        'total_regular_users': total_regular_users,
+        'registration_trend': list(reversed(registration_trend)),
+        'period': period
+    }
+
+
+def get_financial_data(period='daily'):
+    """Real financial metrics with time period filtering"""
+    from balance.models import Wallet
+    from wallet.models import UserWithdrawal
+    from decimal import Decimal
+    from django.db.models import Sum, Avg, Count
+    from commission.models import Commission
+    
+    today = timezone.now().date()
+    
+    if period == 'daily':
+        start_date = today
+        comparison_date = today - timezone.timedelta(days=1)
+    elif period == 'weekly':
+        start_date = today - timezone.timedelta(days=7)
+        comparison_date = today - timezone.timedelta(days=14)
+    else:  # monthly
+        start_date = today - timezone.timedelta(days=30)
+        comparison_date = today - timezone.timedelta(days=60)
+    
+    # Real wallet balances
+    wallet_stats = Wallet.objects.aggregate(
+        total_balance=Sum('current_balance'),
+        total_product_commission=Sum('product_commission'),
+        total_referral_commission=Sum('referral_commission'),
+        avg_balance=Avg('current_balance'),
+        total_wallets=Count('id')
+    )
+    
+    total_balance = wallet_stats['total_balance'] or Decimal('0')
+    total_product_commission = wallet_stats['total_product_commission'] or Decimal('0')
+    total_referral_commission = wallet_stats['total_referral_commission'] or Decimal('0')
+    total_commission = total_product_commission + total_referral_commission
+    
+    # Real withdrawal analytics
+    withdrawal_stats = UserWithdrawal.objects.filter(
+        created_at__gte=start_date
+    ).aggregate(
+        total_withdrawn=Sum('amount'),
+        avg_withdrawal=Avg('amount'),
+        total_withdrawals=Count('id')
+    )
+    
+    comparison_withdrawals = UserWithdrawal.objects.filter(
+        created_at__gte=comparison_date,
+        created_at__lt=start_date
+    ).aggregate(total=Sum('amount'))['total'] or Decimal('0')
+    
+    # Withdrawal growth
+    current_withdrawn = withdrawal_stats['total_withdrawn'] or Decimal('0')
+    withdrawal_growth = ((current_withdrawn - comparison_withdrawals) / max(comparison_withdrawals, 1)) * 100
+    
+    # Status breakdown
+    pending_count = UserWithdrawal.objects.filter(status='pending').count()
+    approved_count = UserWithdrawal.objects.filter(status='approved').count()
+    rejected_count = UserWithdrawal.objects.filter(status='rejected').count()
+    
+    # Financial trend data
+    financial_trend = []
+    if period == 'daily':
+        # Last 7 days
+        for i in range(7):
+            day = today - timezone.timedelta(days=6-i)
+            withdrawals = UserWithdrawal.objects.filter(created_at__date=day).aggregate(
+                total=Sum('amount')
+            )['total'] or Decimal('0')
+            financial_trend.append({
+                'date': day.strftime('%a'),
+                'withdrawals': float(withdrawals)
+            })
+    elif period == 'weekly':
+        # Last 4 weeks
+        for i in range(4):
+            week_start = today - timezone.timedelta(weeks=3-i)
+            week_end = week_start + timezone.timedelta(days=6)
+            withdrawals = UserWithdrawal.objects.filter(
+                created_at__date__gte=week_start,
+                created_at__date__lte=week_end
+            ).aggregate(total=Sum('amount'))['total'] or Decimal('0')
+            financial_trend.append({
+                'date': f"Week {4-i}",
+                'withdrawals': float(withdrawals)
+            })
+    else:  # monthly
+        # Last 6 months
+        for i in range(6):
+            month_start = today.replace(day=1) - timezone.timedelta(days=30*i)
+            withdrawals = UserWithdrawal.objects.filter(
+                created_at__year=month_start.year,
+                created_at__month=month_start.month
+            ).aggregate(total=Sum('amount'))['total'] or Decimal('0')
+            financial_trend.append({
+                'date': month_start.strftime('%b'),
+                'withdrawals': float(withdrawals)
+            })
+    
+    return {
+        'total_balance': float(total_balance),
+        'total_product_commission': float(total_product_commission),
+        'total_referral_commission': float(total_referral_commission),
+        'total_commission': float(total_commission),
+        'avg_balance': float(wallet_stats['avg_balance'] or 0),
+        'total_wallets': wallet_stats['total_wallets'] or 0,
+        'pending_withdrawals': pending_count,
+        'withdrawals_today': UserWithdrawal.objects.filter(created_at__date=today).count(),
+        'total_withdrawn': float(current_withdrawn),
+        'avg_withdrawal': float(withdrawal_stats['avg_withdrawal'] or 0),
+        'withdrawal_growth': round(withdrawal_growth, 2),
+        'approved_count': approved_count,
+        'rejected_count': rejected_count,
+        'success_rate': round(approved_count / max(approved_count + rejected_count, 1) * 100, 2),
+        'financial_trend': list(reversed(financial_trend)),
+        'period': period
+    }
+
+
+def get_task_completion_data():
+    """Task completion metrics"""
+    from products.models import UserProductTask
+    from django.utils import timezone as tz
+    
+    today = tz.now().date()
+    week_ago = today - timezone.timedelta(days=7)
+    month_ago = today - timezone.timedelta(days=30)
+    
+    return {
+        'tasks_completed_today': UserProductTask.objects.filter(
+            completed_at__date=today, is_completed=True
+        ).count(),
+        'tasks_this_week': UserProductTask.objects.filter(
+            completed_at__gte=week_ago, is_completed=True
+        ).count(),
+        'tasks_this_month': UserProductTask.objects.filter(
+            completed_at__gte=month_ago, is_completed=True
+        ).count(),
+        'total_tasks_completed': UserProductTask.objects.filter(
+            is_completed=True
+        ).count(),
+    }
+
+
+def get_system_performance():
+    """Basic system performance metrics"""
+    from django.contrib.sessions.models import Session
+    
+    return {
+        'active_sessions': Session.objects.count(),
+        'server_uptime': '99.9%',  # Static for now
+        'avg_response_time': '120ms',  # Static for now
+    }
+
+
+def get_referral_analytics():
+    """Referral system analytics"""
+    from django.db.models import Count
+    
+    # Top referrers
+    top_referrers = CustomUser.objects.annotate(
+        referral_count=Count('referrals')
+    ).filter(referral_count__gt=0).order_by('-referral_count')[:10]
+    
+    # Referral stats
+    total_users_with_referrals = CustomUser.objects.filter(referrals__isnull=False).distinct().count()
+    total_referrals = CustomUser.objects.filter(referred_by__isnull=False).count()
+    
+    return {
+        'top_referrers': [
+            {
+                'username': user.username,
+                'referral_count': user.referral_count,
+                'role': user.role
+            }
+            for user in top_referrers
+        ],
+        'total_referrers': total_users_with_referrals,
+        'total_referrals': total_referrals,
+        'avg_referrals_per_user': round(total_referrals / max(total_users_with_referrals, 1), 2)
+    }
+
+
+def get_withdrawal_analytics():
+    """Withdrawal analytics"""
+    from wallet.models import UserWithdrawal
+    from django.db.models import Avg, Sum
+    from decimal import Decimal
+    
+    today = timezone.now().date()
+    week_ago = today - timezone.timedelta(days=7)
+    month_ago = today - timezone.timedelta(days=30)
+    
+    # Withdrawal stats
+    total_withdrawn = UserWithdrawal.objects.filter(
+        status='approved'
+    ).aggregate(total=Sum('amount'))['total'] or Decimal('0')
+    
+    avg_withdrawal = UserWithdrawal.objects.filter(
+        status='approved'
+    ).aggregate(avg=Avg('amount'))['avg'] or Decimal('0')
+    
+    # Recent withdrawal trends
+    withdrawals_today = UserWithdrawal.objects.filter(
+        created_at__date=today
+    ).count()
+    
+    withdrawals_this_week = UserWithdrawal.objects.filter(
+        created_at__gte=week_ago
+    ).count()
+    
+    withdrawals_this_month = UserWithdrawal.objects.filter(
+        created_at__gte=month_ago
+    ).count()
+    
+    # Status breakdown
+    pending_count = UserWithdrawal.objects.filter(status='pending').count()
+    approved_count = UserWithdrawal.objects.filter(status='approved').count()
+    rejected_count = UserWithdrawal.objects.filter(status='rejected').count()
+    
+    return {
+        'total_withdrawn': float(total_withdrawn),
+        'avg_withdrawal': float(avg_withdrawal),
+        'withdrawals_today': withdrawals_today,
+        'withdrawals_this_week': withdrawals_this_week,
+        'withdrawals_this_month': withdrawals_this_month,
+        'pending_count': pending_count,
+        'approved_count': approved_count,
+        'rejected_count': rejected_count,
+        'success_rate': round(approved_count / max(approved_count + rejected_count, 1) * 100, 2)
+    }
+
+
+def get_activity_analytics():
+    """User activity analytics"""
+    from django.contrib.sessions.models import Session
+    from django.db.models import Count
+    
+    today = timezone.now().date()
+    yesterday = today - timezone.timedelta(days=1)
+    week_ago = today - timezone.timedelta(days=7)
+    
+    # Login activity
+    logins_today = CustomUser.objects.filter(last_activity__date=today).count()
+    logins_yesterday = CustomUser.objects.filter(last_activity__date=yesterday).count()
+    logins_this_week = CustomUser.objects.filter(last_activity__gte=week_ago).count()
+    
+    # User activity levels
+    active_users_today = CustomUser.objects.filter(last_activity__date=today).count()
+    inactive_users = CustomUser.objects.filter(
+        last_activity__lt=week_ago
+    ).count() if CustomUser.objects.filter(last_activity__isnull=False).exists() else 0
+    
+    # Peak activity simulation (by hour)
+    peak_hours = [
+        {'hour': '00:00', 'users': 45},
+        {'hour': '04:00', 'users': 23},
+        {'hour': '08:00', 'users': 89},
+        {'hour': '12:00', 'users': 156},
+        {'hour': '16:00', 'users': 134},
+        {'hour': '20:00', 'users': 98},
+    ]
+    
+    return {
+        'logins_today': logins_today,
+        'logins_yesterday': logins_yesterday,
+        'logins_this_week': logins_this_week,
+        'active_users_today': active_users_today,
+        'inactive_users': inactive_users,
+        'activity_growth': round(((logins_today - logins_yesterday) / max(logins_yesterday, 1)) * 100, 2),
+        'peak_hours': peak_hours,
+    }
+
+
+@login_required
+@user_passes_test(is_superadmin)
+def analytics_page(request):
+    """Analytics overview dashboard - show summaries of all sections"""
+    context = {
+        'page_identifier': 'overview',
+        'page_title': 'Analytics Dashboard',
+        'financial_data': get_financial_data(),
+        'task_completion': get_task_completion_data(),
+        'system_performance': get_system_performance(),
+        'geography': get_geography_data(),
+        'referral_analytics': get_referral_analytics(),
+        'withdrawal_analytics': get_withdrawal_analytics(),
+    }
+    return render(request, 'accounts/analytics/analytics_overview.html', context)
+
+@login_required
+@user_passes_test(is_superadmin)
+def financial_analytics_page(request):
+    """Financial analytics page with time period support"""
+    period = request.GET.get('period', 'daily')
+    
+    context = {
+        'financial_data': get_financial_data(period),
+        'page_title': 'Financial Analytics',
+        'page_icon': '💰',
+        'page_color': 'nav-financial-data',
+        'page_identifier': 'financial',
+        'current_period': period,
+    }
+    return render(request, 'accounts/analytics/financial.html', context)
+
+@login_required
+@user_passes_test(is_superadmin)
+def task_analytics_page(request):
+    """Task completion analytics page"""
+    context = {
+        'task_completion': get_task_completion_data(),
+        'page_title': 'Task Completion Analytics',
+        'page_icon': '📋',
+        'page_color': 'nav-task-completion',
+        'page_identifier': 'tasks'
+    }
+    return render(request, 'accounts/analytics/tasks.html', context)
+
+@login_required
+@user_passes_test(is_superadmin)
+def performance_analytics_page(request):
+    """System performance analytics page"""
+    context = {
+        'system_performance': get_system_performance(),
+        'page_title': 'System Performance Analytics',
+        'page_icon': '⚡',
+        'page_color': 'nav-system-performance',
+        'page_identifier': 'performance'
+    }
+    return render(request, 'accounts/analytics/performance.html', context)
+
+@login_required
+@user_passes_test(is_superadmin)
+def geography_analytics_page(request):
+    """Geography analytics page with real data"""
+    period = request.GET.get('period', 'daily')
+    
+    context = {
+        'geography': get_geography_data(),
+        'page_title': 'Geography Analytics',
+        'page_icon': '🌍',
+        'page_color': 'nav-geography',
+        'page_identifier': 'geography',
+        'current_period': period,
+    }
+    return render(request, 'accounts/analytics/geography.html', context)
+
+@login_required
+@user_passes_test(is_superadmin)
+def referral_analytics_page(request):
+    """Referral analytics page"""
+    context = {
+        'referral_analytics': get_referral_analytics(),
+        'page_title': 'Referral Analytics',
+        'page_icon': '🔗',
+        'page_color': 'nav-referral-analytics',
+        'page_identifier': 'referrals'
+    }
+    return render(request, 'accounts/analytics/referrals.html', context)
+
+@login_required
+@user_passes_test(is_superadmin)
+def withdrawal_analytics_page(request):
+    """Withdrawal analytics page"""
+    context = {
+        'withdrawal_analytics': get_withdrawal_analytics(),
+        'page_title': 'Withdrawal Analytics',
+        'page_icon': '💸',
+        'page_color': 'nav-withdrawal-analytics',
+        'page_identifier': 'withdrawals'
+    }
+    return render(request, 'accounts/analytics/withdrawals.html', context)
+
+@login_required
+@user_passes_test(is_superadmin)
+def activity_analytics_page(request):
+    """Activity analytics page - redirect to task analytics (related functionality)"""
+    from django.shortcuts import redirect
+    return redirect('accounts:task_analytics')

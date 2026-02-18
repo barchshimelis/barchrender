@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.db.models import Sum
 from django.utils import timezone
+from django.utils.translation import gettext as _
 from django.http import JsonResponse
 
 from balance.models import Wallet, RechargeRequest, RechargeHistory, Voucher, BalanceRequest
@@ -100,16 +101,16 @@ def recharge_amount(request):
     if request.method == "POST":
         amount = request.POST.get("amount")
         if not amount:
-            messages.error(request, "No amount specified.")
+            messages.error(request, _("No amount specified."))
             return redirect("balance:wallet_dashboard")
         try:
             amount = Decimal(amount)
         except (InvalidOperation, ValueError, TypeError):
-            messages.error(request, "Invalid amount.")
+            messages.error(request, _("Invalid amount."))
             return redirect("balance:wallet_dashboard")
 
         recharge = create_recharge_request(request.user, amount)
-        messages.info(request, "Amount received. Please upload your voucher to complete the request.")
+        messages.info(request, _("Amount received. Please upload your voucher to complete the request."))
         return redirect("balance:upload_voucher", recharge_id=recharge.id)
     return redirect("balance:wallet_dashboard")
 
@@ -125,7 +126,7 @@ def upload_voucher_view(request, recharge_id):
     if request.method == "POST" and request.FILES.get("voucher_file"):
         file = request.FILES["voucher_file"]
         upload_voucher(recharge_request, file)
-        messages.success(request, "Voucher uploaded successfully. Await admin approval.")
+        messages.success(request, _("Voucher uploaded successfully. Await admin approval."))
         return redirect("balance:upload_voucher", recharge_id=recharge_request.id)
 
     superadmin_wallet = SuperAdminWallet.objects.first()
@@ -157,7 +158,10 @@ def approve_voucher(request, voucher_id):
         voucher.delete()
 
         wallet = Wallet.objects.get(user=user)
-        messages.success(request, f"Voucher for {user.username} approved. Total balance: {wallet.total_balance}")
+        messages.success(request, _("Voucher for %(user)s approved. Current balance: %(amount)s") % {
+            "user": user.username,
+            "amount": wallet.current_balance,
+        })
 
     return redirect("accounts:admin_dashboard")
 
@@ -180,7 +184,7 @@ def reject_voucher(request, voucher_id):
             os.remove(voucher.file.path)
         voucher.delete()
 
-        messages.info(request, f"Voucher for {user.username} has been rejected.")
+        messages.info(request, _("Voucher for %(user)s has been rejected.") % {"user": user.username})
 
     return redirect("accounts:admin_dashboard")
 
@@ -203,7 +207,9 @@ def reject_recharge_request(request, recharge_id):
                 os.remove(voucher_file.path)
             voucher.delete()
 
-        messages.info(request, f"Recharge request for {recharge_request.user.username} has been removed.")
+        messages.info(request, _("Recharge request for %(user)s has been removed.") % {
+            "user": recharge_request.user.username
+        })
 
         if request.headers.get("x-requested-with") == "XMLHttpRequest":
             return JsonResponse({"status": "ok"})
@@ -224,9 +230,11 @@ def update_recharge_amount(request, recharge_id):
             try:
                 recharge.amount = Decimal(amount)
                 recharge.save()
-                messages.success(request, f"Recharge amount updated to {recharge.amount}")
+                messages.success(request, _("Recharge amount updated to %(amount)s") % {
+                    "amount": recharge.amount
+                })
             except:
-                messages.error(request, "Invalid amount")
+                messages.error(request, _("Invalid amount"))
     return redirect("accounts:admin_dashboard")
 
 
@@ -238,20 +246,20 @@ def request_balance_view(request):
     if request.method == "POST":
         amount = request.POST.get("amount")
         if not amount:
-            messages.error(request, "No amount specified.")
+            messages.error(request, _("No amount specified."))
             return redirect("balance:wallet_dashboard")
         try:
             amount = Decimal(amount)
             if amount <= 0:
-                messages.error(request, "Amount must be positive.")
+                messages.error(request, _("Amount must be positive."))
                 return redirect("balance:wallet_dashboard")
         except:
-            messages.error(request, "Invalid amount.")
+            messages.error(request, _("Invalid amount."))
             return redirect("balance:wallet_dashboard")
 
         # Create a balance request
         BalanceRequest.objects.create(user=request.user, amount=amount)
-        messages.success(request, "Your balance request has been submitted.")
+        messages.success(request, _("Your balance request has been submitted."))
         return redirect("balance:wallet_dashboard")
     return redirect("balance:wallet_dashboard")
 
@@ -269,7 +277,9 @@ def approve_balance_request(request, request_id):
         balance_request.status = "approved"
         balance_request.processed_at = timezone.now()
         balance_request.save()
-        messages.success(request, f"Balance request for {balance_request.user.username} approved.")
+        messages.success(request, _("Balance request for %(user)s approved.") % {
+            "user": balance_request.user.username
+        })
     return redirect("accounts:admin_dashboard")
 
 
@@ -299,7 +309,6 @@ def get_wallet_balance_api(request):
     
     data = {
         'current_balance': float(wallet.current_balance),
-        'cumulative_total': float(wallet.cumulative_total),
         'product_commission': float(wallet.product_commission),
         'referral_commission': float(wallet.referral_commission),
         'today_product_commission': float(today_product_commission),

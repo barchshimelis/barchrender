@@ -7,30 +7,183 @@ from django.utils import timezone
 from django.db.models import Q
 
 from accounts.models import CustomUser
-from balance.models import Wallet
+from balance.models import Wallet, RechargeHistory
 from commission.utils import process_product_completion
+from commission.models import CommissionSetting
 from stoppoints.models import StopPoint
-from stoppoints.utils import get_next_pending_stoppoint, get_user_stoppoint_progress
+from stoppoints.utils import (
+    get_next_pending_stoppoint,
+    get_user_stoppoint_progress,
+    ensure_stop_point_snapshot,
+)
 
 from .models import Product, UserProductTask
 
-
-SMALL_LEFTOVER_MIN = Decimal("0.02")
-SMALL_LEFTOVER_MAX = Decimal("0.05")
-STOPPOINT_LEFTOVER_MIN = Decimal("7.00")
-STOPPOINT_LEFTOVER_MAX = Decimal("15.00")
+STOP_POINT_BLOCK_PREFIX = "STOP_POINT"
 
 
-def get_stoppoint_leftover_buffer() -> Decimal:
-    """Return a dynamic leftover buffer between $7 and $15 for stop points."""
-    value = random.uniform(float(STOPPOINT_LEFTOVER_MIN), float(STOPPOINT_LEFTOVER_MAX))
-    return Decimal(value).quantize(Decimal("0.01"))
+def _get_product_rate_multiplier(user):
+    setting = getattr(user, "commission_setting", None)
+    if setting is None:
+        setting = CommissionSetting.objects.filter(user=user).only("product_rate").first()
+        if setting:
+            user.commission_setting = setting
+
+    rate_percent = Decimal(str(getattr(setting, "product_rate", Decimal("0.00")))) if setting else Decimal("0.00")
+    multiplier = (rate_percent / Decimal("100.00")) if rate_percent else Decimal("0.00")
+    return multiplier
 
 
-def get_small_leftover_amount() -> Decimal:
-    """Return a random leftover buffer between $0.02 and $0.05."""
-    value = random.uniform(float(SMALL_LEFTOVER_MIN), float(SMALL_LEFTOVER_MAX))
-    return Decimal(value).quantize(Decimal("0.01"))
+def _convert_base_to_task_price(base_amount, multiplier):
+    base_decimal = Decimal(base_amount or Decimal("0.00"))
+    price = (base_decimal * multiplier).quantize(Decimal("0.01")) if multiplier else Decimal("0.00")
+    if price <= Decimal("0.00"):
+        price = Decimal("0.01")
+    return price
+
+
+def _derive_base_from_price(price_amount, multiplier):
+    price_decimal = Decimal(price_amount or Decimal("0.00"))
+    if multiplier and multiplier > Decimal("0.00"):
+        return (price_decimal / multiplier).quantize(Decimal("0.01"))
+    return price_decimal
+
+
+def _get_initial_pool_amount(user, wallet):
+    first_recharge = (
+        RechargeHistory.objects.filter(user=user, status="approved")
+        .order_by("-action_date")
+        .first()
+    )
+    if first_recharge:
+        return Decimal(first_recharge.amount).quantize(Decimal("0.01"))
+    return Decimal(wallet.current_balance or Decimal("0.00")).quantize(Decimal("0.01"))
+
+
+def _serialize_decimal_list(values):
+    return [format(Decimal(value).quantize(Decimal("0.01")), "f") for value in values]
+
+
+def _deserialize_decimal_list(values):
+    if not values:
+        return []
+    return [Decimal(str(value)).quantize(Decimal("0.01")) for value in values]
+
+
+def _clear_active_slice(progress):
+    if not progress:
+        return
+    updates = []
+    fields = [
+        "active_slice_pool_base",
+        "active_slice_start_task",
+        "active_slice_end_task",
+        "active_slice_stop_point",
+        "active_slice_shares",
+    ]
+    for field in fields:
+        current_value = getattr(progress, field, None)
+        if current_value not in (None, []):
+            setattr(progress, field, None)
+            updates.append(field)
+    if updates:
+        progress.save(update_fields=updates)
+
+
+def _reset_active_slice_if_stale(progress, next_task_number):
+    if not progress:
+        return
+    start = progress.active_slice_start_task
+    end = progress.active_slice_end_task
+    if start and next_task_number < start:
+        _clear_active_slice(progress)
+        return
+    if end and next_task_number > end:
+        _clear_active_slice(progress)
+
+
+def _active_slice_matches(progress, next_task_number, stop_point_id):
+    if not progress or not progress.active_slice_shares:
+        return False
+
+    start_task = progress.active_slice_start_task
+    end_task = progress.active_slice_end_task
+
+    if start_task and next_task_number < start_task:
+        return False
+    if end_task and next_task_number > end_task:
+        return False
+
+    current_stop_id = progress.active_slice_stop_point_id or None
+    expected_stop_id = stop_point_id if stop_point_id else None
+    return current_stop_id == expected_stop_id
+
+
+def _store_active_slice(progress, start_task, end_task, stop_point, slice_budget, shares):
+    if not progress:
+        return
+    updates = []
+    serialized = _serialize_decimal_list(shares)
+
+    if progress.active_slice_start_task != start_task:
+        progress.active_slice_start_task = start_task
+        updates.append("active_slice_start_task")
+
+    if progress.active_slice_end_task != end_task:
+        progress.active_slice_end_task = end_task
+        updates.append("active_slice_end_task")
+
+    quantized_budget = Decimal(slice_budget).quantize(Decimal("0.01"))
+    if progress.active_slice_pool_base != quantized_budget:
+        progress.active_slice_pool_base = quantized_budget
+        updates.append("active_slice_pool_base")
+
+    if (progress.active_slice_stop_point_id or None) != (stop_point.id if stop_point else None):
+        progress.active_slice_stop_point = stop_point
+        updates.append("active_slice_stop_point")
+
+    progress.active_slice_shares = serialized
+    updates.append("active_slice_shares")
+
+    if updates:
+        progress.save(update_fields=updates)
+
+
+def _get_slice_share(progress, next_task_number):
+    if not progress or not progress.active_slice_shares:
+        return None
+    start_task = progress.active_slice_start_task
+    end_task = progress.active_slice_end_task
+    if not start_task:
+        return None
+    if end_task and next_task_number > end_task:
+        _clear_active_slice(progress)
+        return None
+    index = next_task_number - start_task
+    if index < 0:
+        return None
+    shares = _deserialize_decimal_list(progress.active_slice_shares)
+    if index >= len(shares):
+        _clear_active_slice(progress)
+        return None
+    return shares[index]
+
+
+def _consume_stop_point_slice(progress, stop_point, slice_budget, slice_start_task, slice_end_task, next_task_number):
+    stop_point_id = stop_point.id if stop_point else None
+
+    if _active_slice_matches(progress, next_task_number, stop_point_id):
+        base_value = _get_slice_share(progress, next_task_number)
+        if base_value is not None:
+            return base_value
+
+    tasks_in_slice = max(slice_end_task - slice_start_task + 1, 1)
+    prices = distribute_value_unevenly(slice_budget, tasks_in_slice, leftover_buffer=Decimal("0.00"))
+    if not prices:
+        prices = [Decimal(slice_budget or Decimal("0.00"))]
+
+    _store_active_slice(progress, slice_start_task, slice_end_task, stop_point, slice_budget, prices)
+    return _get_slice_share(progress, next_task_number)
 
 
 def format_product_code(raw_code: str) -> str:
@@ -74,15 +227,10 @@ def format_product_code(raw_code: str) -> str:
 
 
 def get_daily_completed_tasks(user):
-    today = timezone.now().date()
-    return (
-        UserProductTask.objects.filter(user=user, is_completed=True)
-        .filter(
-            Q(completed_at__date=today)
-            | (Q(completed_at__isnull=True) & Q(created_at__date=today))
-        )
-        .count()
-    )
+    return UserProductTask.objects.filter(
+        user=user, 
+        is_completed=True
+    ).count()
 
 
 def get_all_products_queryset():
@@ -117,6 +265,7 @@ def find_next_product_for_user(user):
 
 
 def calculate_task_pricing(user, wallet, next_product, next_task_number, daily_limit):
+    price_multiplier = _get_product_rate_multiplier(user)
     stop_points = list(StopPoint.objects.filter(user=user).order_by('point'))
     if daily_limit and daily_limit > 0:
         pricing_ceiling = daily_limit
@@ -125,56 +274,90 @@ def calculate_task_pricing(user, wallet, next_product, next_task_number, daily_l
         pricing_ceiling = max(next_task_number, highest_stop_point)
 
     stop_points = [sp for sp in stop_points if sp.point <= pricing_ceiling]
-    stop_points_lookup = {sp.point: sp for sp in stop_points}
     upcoming_stop_points = [sp for sp in stop_points if sp.point >= next_task_number]
 
     current_stop_point = upcoming_stop_points[0] if upcoming_stop_points else None
+    next_stop_point = upcoming_stop_points[1] if len(upcoming_stop_points) > 1 else None
+    previous_cleared_stop_point = (
+        StopPoint.objects
+        .filter(user=user, point__lt=next_task_number, status='approved')
+        .order_by('-point')
+        .first()
+    )
+    progress = get_user_stoppoint_progress(user)
+    tasks_done = next_task_number - 1
 
-    # --- Stop Point Trigger ---
-    slicing_stop_point = current_stop_point
-    if current_stop_point and current_stop_point.point == next_task_number:
-        required_balance = Decimal(current_stop_point.required_balance or 0)
-        task_price_snapshot = getattr(next_product, "price", None)
-        if task_price_snapshot is None:
-            task_price_snapshot = required_balance
-        else:
-            task_price_snapshot = Decimal(task_price_snapshot)
+    if progress and tasks_done == 0:
+        _clear_active_slice(progress)
+    tasks_done = next_task_number - 1
 
-        minimum_required_balance = max(required_balance, task_price_snapshot).quantize(Decimal("0.01"))
+    # Fresh day: discard any lingering slice data so pricing restarts from the
+    # new recharge pool instead of an old cached budget.
+    if progress and tasks_done == 0:
+        _clear_active_slice(progress)
 
-        if wallet.current_balance < minimum_required_balance:
-            remaining_gap = (minimum_required_balance - wallet.current_balance).quantize(Decimal("0.01"))
-            if remaining_gap < Decimal("0.00"):
-                remaining_gap = Decimal("0.00")
-            return next_product, f"Recharge required {remaining_gap}", minimum_required_balance, minimum_required_balance, False
-        # Stop point satisfied (user recharged enough); look ahead to the next stop for pricing slice
-        slicing_stop_point = upcoming_stop_points[1] if len(upcoming_stop_points) > 1 else None
-
-    # --- Fake Mode Pricing (referral-only balance users) ---
-    if wallet.balance_source == 'referral' and not wallet.has_recharged and wallet.referral_earned_balance > 0:
-        available_balance = wallet.current_balance
-        leftover_buffer = get_small_leftover_amount()
-        if available_balance <= leftover_buffer:
-            spendable_balance = Decimal("0.00")
-        else:
-            spendable_balance = (available_balance - leftover_buffer).quantize(Decimal("0.01"))
+    force_fake_display = wallet.referral_earned_balance > 0 and not wallet.has_recharged
+    if force_fake_display:
+        spendable_balance = Decimal(wallet.current_balance).quantize(Decimal("0.01"))
         if spendable_balance <= Decimal("0.00"):
             return None, "Insufficient referral balance to continue tasks. Please recharge.", None, None, False
+        update_fields = []
         if not wallet.is_fake_display_mode:
             wallet.is_fake_display_mode = True
-            wallet.save(update_fields=['is_fake_display_mode'])
+            update_fields.append('is_fake_display_mode')
+        if wallet.balance_source != 'referral':
+            wallet.balance_source = 'referral'
+            update_fields.append('balance_source')
+        if update_fields:
+            wallet.save(update_fields=update_fields)
 
-        remaining_tasks = pricing_ceiling - (next_task_number - 1)
-        real_price = calculate_real_task_price(spendable_balance, remaining_tasks)
-        real_price = min(real_price, spendable_balance)
-        if real_price <= Decimal("0.00"):
-            return None, "Insufficient referral balance to continue tasks. Please recharge.", None, None, False
-        fake_price = generate_fake_display_price()
-        return next_product, None, fake_price, real_price, True
+    def finalize_task_price(task_price):
+        if force_fake_display:
+            return next_product, None, generate_fake_display_price(), task_price, True
+        return next_product, None, task_price, task_price, False
 
+    # --- Stop Point Trigger ---
+    if current_stop_point and current_stop_point.point == next_task_number:
+        snapshot = ensure_stop_point_snapshot(current_stop_point, wallet.current_balance)
+        outstanding = snapshot.required_balance_remaining
+        if outstanding is None:
+            outstanding = Decimal(snapshot.required_balance or Decimal("0.00"))
+        outstanding = Decimal(outstanding).quantize(Decimal("0.01"))
+
+        locked_price_base = snapshot.locked_task_price or (wallet.current_balance + outstanding).quantize(Decimal("0.01"))
+        locked_price = Decimal(locked_price_base).quantize(Decimal("0.01"))
+        estimated_balance = snapshot.estimated_balance_snapshot
+        if estimated_balance is None:
+            bonus = snapshot.special_bonus_amount or Decimal("0.00")
+            estimated_balance = (locked_price + bonus).quantize(Decimal("0.01"))
+
+        if outstanding > Decimal("0.00"):
+            block_reason = (
+                f"{STOP_POINT_BLOCK_PREFIX}:{current_stop_point.id}:{outstanding}:"
+                f"{locked_price}:{estimated_balance}"
+            )
+            return next_product, block_reason, locked_price, locked_price, False
+
+        slice_budget = Decimal(current_stop_point.required_balance or Decimal("0.00"))
+        slice_budget += Decimal(current_stop_point.special_bonus_amount or Decimal("0.00"))
+        slice_end_task  = next_stop_point.point - 1 if next_stop_point else pricing_ceiling
+        if slice_end_task < current_stop_point.point:
+            slice_end_task = current_stop_point.point
+
+        base_task_price = _consume_stop_point_slice(progress, current_stop_point, slice_budget, current_stop_point.point, slice_end_task, next_task_number)
+        # Apply product rate to the base share to get final task price
+        task_price = (base_task_price * price_multiplier).quantize(Decimal("0.01"))
+        if task_price <= Decimal("0.00"):
+            task_price = Decimal("0.01")
+
+        return finalize_task_price(task_price)
+
+    slicing_stop_point = current_stop_point
+                                    
     # --- Normal Mode Pricing ---
+    _reset_active_slice_if_stale(progress, next_task_number)
+
     # Determine slice bounds using the next pending stop point (if any)
-    tasks_done = next_task_number - 1
     if slicing_stop_point:
         allowed_task_end = max(slicing_stop_point.point - 1, tasks_done)
     else:
@@ -185,48 +368,109 @@ def calculate_task_pricing(user, wallet, next_product, next_task_number, daily_l
     if tasks_in_slice < 1:
         tasks_in_slice = 1
 
-    slice_budget = wallet.current_balance
-    if slicing_stop_point and slicing_stop_point.point > tasks_done:
-        # Keep a buffer so the user still has funds when they hit the stop point
-        stoppoint_buffer = get_stoppoint_leftover_buffer()
-        if slice_budget <= stoppoint_buffer:
-            slice_budget = Decimal("0.00")
-        else:
-            slice_budget = (slice_budget - stoppoint_buffer).quantize(Decimal("0.01"))
+    # Initialize slice pool base
+    slice_pool_base = Decimal("0.00")
+    active_slice_stop_point = None
 
-    # Auto-enable fake mode if necessary
-    if wallet.referral_earned_balance > 0 and not wallet.has_recharged:
-        available_balance = wallet.current_balance
-        leftover_buffer = get_small_leftover_amount()
-        if available_balance <= leftover_buffer:
-            spendable_balance = Decimal("0.00")
-        else:
-            spendable_balance = (available_balance - leftover_buffer).quantize(Decimal("0.01"))
-        if spendable_balance <= Decimal("0.00"):
-            return None, "Insufficient referral balance to continue tasks. Please recharge.", None, None, False
-        wallet.is_fake_display_mode = True
-        wallet.balance_source = 'referral'
-        wallet.save(update_fields=['is_fake_display_mode', 'balance_source'])
-        remaining_tasks = pricing_ceiling - tasks_done
-        real_price = calculate_real_task_price(spendable_balance, remaining_tasks)
-        real_price = min(real_price, spendable_balance)
-        if real_price <= Decimal("0.00"):
-            return None, "Insufficient referral balance to continue tasks. Please recharge.", None, None, False
-        fake_price = generate_fake_display_price()
-        return next_product, None, fake_price, real_price, True
+    # Use slice_pool_base as the budget for uneven division
+    slice_budget = slice_pool_base
+
+    if (
+        price_multiplier > Decimal("0.00")
+        and previous_cleared_stop_point
+        and next_task_number > previous_cleared_stop_point.point
+    ):
+        slice_start_task = previous_cleared_stop_point.point + 1
+        slice_end_task = slicing_stop_point.point - 1 if slicing_stop_point else pricing_ceiling
+
+        if slice_start_task <= slice_end_task and next_task_number <= slice_end_task:
+            slice_pool_total = Decimal(previous_cleared_stop_point.required_balance or Decimal("0.00"))
+            slice_pool_total += Decimal(previous_cleared_stop_point.special_bonus_amount or Decimal("0.00"))
+            slice_pool_total = slice_pool_total.quantize(Decimal("0.01"))
+
+            if slice_pool_total > Decimal("0.00"):
+                consumed_tasks = (
+                    UserProductTask.objects
+                    .filter(
+                        user=user,
+                        task_number__gte=slice_start_task,
+                        task_number__lt=next_task_number,
+                        price__isnull=False,
+                    )
+                    .values_list('price', flat=True)
+                )
+
+                base_consumed = Decimal("0.00")
+                for price_amount in consumed_tasks:
+                    base_consumed += _derive_base_from_price(price_amount, price_multiplier)
+
+                remaining_base = (slice_pool_total - base_consumed).quantize(Decimal("0.01"))
+                if remaining_base <= Decimal("0.00"):
+                    remaining_base = Decimal("0.01")
+
+                slice_budget = remaining_base
+                tasks_in_slice = slice_end_task - (next_task_number - 1)
+                if tasks_in_slice < 1:
+                    tasks_in_slice = 1
+                active_slice_stop_point = previous_cleared_stop_point
+
+    if (
+        slice_budget <= Decimal("0.00")
+        and price_multiplier > Decimal("0.00")
+        and not previous_cleared_stop_point
+    ):
+        initial_pool = _get_initial_pool_amount(user, wallet)
+        initial_pool = Decimal(initial_pool or Decimal("0.00")).quantize(Decimal("0.01"))
+        if initial_pool > Decimal("0.00"):
+            slice_end_task = slicing_stop_point.point - 1 if slicing_stop_point else pricing_ceiling
+            if next_task_number <= slice_end_task:
+                consumed_tasks = (
+                    UserProductTask.objects
+                    .filter(
+                        user=user,
+                        task_number__lt=next_task_number,
+                        price__isnull=False,
+                    )
+                    .values_list('price', flat=True)
+                )
+
+                base_consumed = Decimal("0.00")
+                for price_amount in consumed_tasks:
+                    base_consumed += _derive_base_from_price(price_amount, price_multiplier)
+
+                remaining_base = (initial_pool - base_consumed).quantize(Decimal("0.01"))
+                if remaining_base <= Decimal("0.00"):
+                    remaining_base = Decimal("0.01")
+
+                slice_budget = remaining_base
+                tasks_in_slice = slice_end_task - (next_task_number - 1)
+                if tasks_in_slice < 1:
+                    tasks_in_slice = 1
 
     if slice_budget <= Decimal("0.00"):
-        return None, "Insufficient balance to continue tasks. Please recharge.", None, None, False
+        # Fallback: allow tasks if user has any balance but no slice budget
+        if wallet.current_balance > Decimal("0.00"):
+            slice_budget = Decimal("0.01")
+        else:
+            return None, "Insufficient balance to continue tasks. Please recharge.", None, None, False
 
-    spendable_balance = slice_budget
-    if spendable_balance <= Decimal("0.00"):
-        spendable_balance = Decimal("0.01")
+    slice_start_task = tasks_done + 1
+    slice_end_task = allowed_task_end
+    base_task_price = None
+    stop_point_id = active_slice_stop_point.id if active_slice_stop_point else None
 
-    if tasks_in_slice == 1:
-        task_price = spendable_balance.quantize(Decimal("0.01"))
-    else:
-        prices = distribute_value_unevenly(spendable_balance, tasks_in_slice, leftover_buffer=Decimal("0.00"))
-        task_price = prices[0] if prices else spendable_balance.quantize(Decimal("0.01"))
+    if _active_slice_matches(progress, next_task_number, stop_point_id):
+        base_task_price = _get_slice_share(progress, next_task_number)
+
+    if base_task_price is None:
+        prices = distribute_value_unevenly(slice_budget, tasks_in_slice, leftover_buffer=Decimal("0.00"))
+        if not prices:
+            prices = [slice_budget.quantize(Decimal("0.01"))]
+        _store_active_slice(progress, slice_start_task, slice_end_task, active_slice_stop_point, slice_budget, prices)
+        base_task_price = _get_slice_share(progress, next_task_number)
+
+    # Apply product rate to the base share to get final task price
+    task_price = (base_task_price * price_multiplier).quantize(Decimal("0.01"))
 
     if task_price <= Decimal("0.00"):
         task_price = Decimal("0.01")
@@ -324,6 +568,12 @@ def get_next_product_for_user(user):
     if has_daily_limit and next_task_number > daily_limit:
         return None, f"You have reached your daily task limit of {daily_limit}.", None, None, False
 
+    active_task = UserProductTask.objects.filter(user=user, is_completed=False).first()
+    if not active_task:
+        minimum_balance = Decimal("1.00")
+        if wallet.current_balance < minimum_balance:
+            return None, "Insufficient balance.", None, None, False
+
     # Get the next available product for this user
     next_product = find_next_product_for_user(user)
     if not next_product:
@@ -336,8 +586,13 @@ def get_next_product_for_user(user):
         next_task_number,
         daily_limit,
     )
-    
-    if next_product and not block_reason:
+
+    stop_point_blocked = (
+        isinstance(block_reason, str)
+        and block_reason.startswith(f"{STOP_POINT_BLOCK_PREFIX}:")
+    )
+
+    if next_product and (not block_reason or stop_point_blocked):
         task_defaults = {
             'task_number': next_task_number,
             'round_number': round_number,

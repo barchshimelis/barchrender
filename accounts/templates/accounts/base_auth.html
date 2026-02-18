@@ -6,6 +6,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% trans "Amazon Market" %}{% endblock %}</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'sitelogo/Favicon.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'sitelogo/Favicon.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'sitelogo/Favicon.png' %}">
     <style>
         :root {
             --amazon-font: 'Amazon Ember', 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
@@ -640,28 +643,24 @@
                     </div>
                 </div>
             </header>
-
-            {% if messages %}
-                <div class="message-overlay" role="status" aria-live="assertive">
-                    {% for message in messages %}
-                        <div class="message-toast {{ message.tags }}">
-                            <span class="message-toast__label">
-                                {% if message.level_tag == 'error' %}
-                                    {% trans "Error" %}
-                                {% elif message.level_tag == 'warning' %}
-                                    {% trans "Warning" %}
-                                {% elif message.level_tag == 'success' %}
-                                    {% trans "Success" %}
-                                {% else %}
-                                    {% trans "Notice" %}
-                                {% endif %}
-                            </span>
-                            <p class="message-toast__text">{{ message }}</p>
-                        </div>
-                    {% endfor %}
-                </div>
+{% if messages %}
+    <div class="message-overlay" role="status" aria-live="assertive">
+        {% for message in messages %}
+            {% if forloop.first %}
+                {% if message.level_tag == 'error' or message.level_tag == 'warning' or message.level_tag == 'alert-danger' or 'captcha-warning' in message.tags %}
+                    <div class="message-toast {{ message.tags }}">
+                        {% if message.level_tag == 'error' %}
+                            <span class="message-toast__label">{% trans "Error" %}</span>
+                        {% elif message.level_tag == 'warning' %}
+                            <span class="message-toast__label">{% trans "Warning" %}</span>
+                        {% endif %}
+                        <p class="message-toast__text">{{ message }}</p>
+                    </div>
+                {% endif %}
             {% endif %}
-
+        {% endfor %}
+    </div>
+{% endif %}
         <main class="auth-content">
             {% block content %}{% endblock %}
         </main>
@@ -681,10 +680,15 @@
         document.addEventListener("DOMContentLoaded", function () {
             const overlay = document.querySelector(".message-overlay");
             if (overlay) {
-                window.setTimeout(() => {
-                    overlay.classList.add("is-hiding");
-                    window.setTimeout(() => overlay.remove(), 400);
-                }, 3000);
+                const hasToast = overlay.querySelector(".message-toast");
+                if (!hasToast) {
+                    overlay.remove();
+                } else {
+                    window.setTimeout(() => {
+                        overlay.classList.add("is-hiding");
+                        window.setTimeout(() => overlay.remove(), 400);
+                    }, 3000);
+                }
             }
 
             const languageControl = document.querySelector("[data-language-control]");
@@ -707,6 +711,11 @@
                 "es": "{% static 'flags/es.png' %}",
                 "pt": "{% static 'flags/pt.png' %}",
                 "vi": "{% static 'flags/vi.png' %}",
+                "sq": "{% static 'flags/sq.png' %}",
+                "es-cl": "{% static 'flags/es-cl.png' %}",
+                "es-mx": "{% static 'flags/es-mx.png' %}",
+                "en-ng": "{% static 'flags/en-ng.png' %}",
+                "et": "{% static 'flags/et.png' %}",
             };
             const fallbackFlag = "{% static 'img/language.png' %}";
 

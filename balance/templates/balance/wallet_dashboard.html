@@ -290,16 +290,27 @@
     <section class="metric-strip">
         <div class="metric-card">
             <div class="metric-icon teal">₿</div>
-            <strong id="totalBalanceValue">${{ wallet.cumulative_total|floatformat:2 }}</strong>
-            <p>{% trans "Total earned" %}</p>
+            <strong id="currentBalanceValue">${{ wallet.current_balance|floatformat:2 }}</strong>
+            <p>{% trans "Balance" %}</p>
         </div>
         <div class="metric-card">
-            <div class="metric-icon amber">★</div>
+            <div class="metric-icon amber">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#0f1111" stroke-width="1.6">
+                    <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </div>
             <strong id="productCommissionValue">${{ wallet.product_commission|floatformat:2 }}</strong>
             <p>{% trans "Product commission" %}</p>
         </div>
         <div class="metric-card">
-            <div class="metric-icon sky">⚡</div>
+            <div class="metric-icon sky">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#0f1111" stroke-width="1.6">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 00-3-3.87" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M16 3.13a4 4 0 010 7.75" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </div>
             <strong id="referralCommissionValue">${{ wallet.referral_commission|floatformat:2 }}</strong>
             <p>{% trans "Referral commission" %}</p>
         </div>
@@ -377,7 +388,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     if (el) el.textContent = '$' + parseFloat(value).toFixed(2);
                 };
                 setText('#currentBalanceValue', data.current_balance);
-                setText('#totalBalanceValue', data.cumulative_total);
                 setText('#productCommissionValue', data.product_commission);
                 setText('#referralCommissionValue', data.referral_commission);
                 setText('#todayProductValue', data.today_product_commission);

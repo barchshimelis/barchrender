@@ -1,8 +1,10 @@
 from decimal import Decimal
+import re
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
+from django.utils.translation import gettext as _
 from django.db.models import Sum, Q
 from django.http import JsonResponse
 from django.db import transaction
@@ -11,12 +13,33 @@ from accounts.models import CustomUser
 from balance.utils import get_wallet_balance, update_wallet_balance
 from balance.models import Wallet
 from commission.models import CommissionSetting
-from products.models import UserProductTask
-from products.utils import get_daily_task_limit
+from products.models import Product, UserProductTask
+from products.utils import get_daily_task_limit, get_daily_completed_tasks
 from stoppoints.models import StopPoint, StopPointProgress
 from .models import CRYPTO_NETWORK_CHOICES, UserWalletAddress, UserWithdrawal, WithdrawalConfig
 from .utils import reset_user_cycle_state
 from notification.utils import notify_roles, create_admin_dashboard_event
+
+
+def get_first_registered_referral(user):
+    """Get the first person who registered using user's referral code"""
+    return CustomUser.objects.filter(
+        referred_by=user,
+        role='user'
+    ).order_by('date_joined').first()
+
+
+def has_approved_withdrawal(user):
+    """Check if user has at least one approved withdrawal"""
+    return UserWithdrawal.objects.filter(
+        user=user,
+        status='APPROVED'
+    ).exists()
+
+
+MIN_WITHDRAW_RESIDUAL = Decimal("0.03")  # Leave a few cents after every withdrawal
+MIN_WALLET_ADDRESS_LENGTH = 20
+WALLET_ADDRESS_PATTERN = re.compile(r"^[A-Za-z0-9]+$")
 
 @login_required
 def wallet_management_view(request):
@@ -28,15 +51,12 @@ def wallet_management_view(request):
     wallet = Wallet.objects.get_or_create(user=user)[0]
     
     # Calculate total withdrawable balance (after completing all tasks)
-    completed_tasks_count = UserProductTask.objects.filter(
-        user=user, is_completed=True
-    ).count()
+    completed_tasks_count = get_daily_completed_tasks(user)
     daily_limit = get_daily_task_limit(user)
     tasks_completed = completed_tasks_count >= daily_limit
     
-    # Available to withdraw is based on cumulative_total (recharge + commissions - approved withdrawals)
-    # This is the user's withdrawable asset ledger, separate from the spendable task balance
-    total_asset = wallet.cumulative_total
+    # Available to withdraw is simply the wallet's spendable balance
+    total_asset = wallet.current_balance
     
     config = WithdrawalConfig.get_config()
 
@@ -59,25 +79,35 @@ def wallet_management_view(request):
             if wallet_address:
                 messages.error(
                     request,
-                    "❌ You cannot change your wallet address once bound. "
-                    "Please contact customer service if you need to update it."
+                    _("❌ You cannot change your wallet address once bound. Please contact customer service if you need to update it.")
                 )
                 return redirect("wallet:manage")
             
             if not tasks_completed:
                 messages.error(
                     request,
-                    f"You must complete all {daily_limit} tasks before binding your wallet. "
-                    f"Completed: {completed_tasks_count}"
+                    _("You must complete all %(total)d tasks before binding your wallet. Completed: %(completed)d") % {
+                        "total": daily_limit,
+                        "completed": completed_tasks_count,
+                    }
                 )
             else:
                 address = request.POST.get("address", "").strip()
                 default_network = CRYPTO_NETWORK_CHOICES[0][0] if CRYPTO_NETWORK_CHOICES else "TRX-20"
 
                 if not address:
-                    messages.error(request, "Wallet address is required.")
+                    messages.error(request, _("Wallet address is required."))
+                elif len(address) < MIN_WALLET_ADDRESS_LENGTH:
+                    messages.error(
+                        request,
+                        _("Wallet address must be at least %(length)d characters.") % {
+                            "length": MIN_WALLET_ADDRESS_LENGTH,
+                        },
+                    )
+                elif not WALLET_ADDRESS_PATTERN.fullmatch(address):
+                    messages.error(request, _("Wallet address should only contain letters and numbers."))
                 elif UserWalletAddress.objects.filter(address=address).exclude(user=user).exists():
-                    messages.error(request, "This wallet address is already linked to another account.")
+                    messages.error(request, _("This wallet address is already linked to another account."))
                 else:
                     chosen_network = default_network
                     # Create wallet (only once)
@@ -99,21 +129,32 @@ def wallet_management_view(request):
                             "event": "wallet_bind",
                         },
                     )
-                    messages.success(request, "✅ Wallet bound successfully! This address is now permanent.")
+                    messages.success(request, _("✅ Wallet bound successfully!"))
                     return redirect("wallet:manage")
 
         # Handle Withdrawal with Enhanced Validation
         elif 'withdraw' in request.POST:
             if not wallet_address:
-                messages.error(request, "You must bind your wallet before making a withdrawal.")
+                messages.error(request, _("You must bind your wallet before making a withdrawal."))
                 return redirect("wallet:manage")
             
             # Check if all tasks are completed
             if not tasks_completed:
                 messages.error(
                     request,
-                    f"You must complete all {daily_limit} tasks before withdrawing. "
-                    f"Completed: {completed_tasks_count}/{daily_limit}"
+                    _("You must complete all %(total)d tasks before withdrawing. Completed: %(completed)d/%(total)d") % {
+                        "total": daily_limit,
+                        "completed": completed_tasks_count,
+                    }
+                )
+                return redirect("wallet:manage")
+
+            # Check referral dependency - wait for first registered to complete withdrawal
+            first_referral = get_first_registered_referral(user)
+            if first_referral and not has_approved_withdrawal(first_referral):
+                messages.error(
+                    request, 
+                    "tasks are not completed"
                 )
                 return redirect("wallet:manage")
 
@@ -131,11 +172,11 @@ def wallet_management_view(request):
                     print(f"Fixed plain text fund password for user {user.username}")
                 
                 if not user.check_fund_password(fund_password):
-                    messages.error(request, "Invalid fund password.")
+                    messages.error(request, _("Invalid fund password."))
                     return redirect("wallet:manage")
             
             if not network:
-                messages.error(request, "Please select a network protocol.")
+                messages.error(request, _("Please select a network protocol."))
                 return redirect("wallet:manage")
             
             # Handle withdraw all option
@@ -145,7 +186,7 @@ def wallet_management_view(request):
                 if withdraw_amount <= 0:
                     messages.error(
                         request,
-                        "Insufficient balance for withdrawal."
+                        _("Insufficient balance for withdrawal.")
                     )
                     return redirect("wallet:manage")
                 # NOTE: Do not change wallet balances here. Deduction happens only on admin approval.
@@ -154,18 +195,20 @@ def wallet_management_view(request):
                 try:
                     withdraw_amount = Decimal(withdraw_amount_str)
                 except (ValueError, TypeError):
-                    messages.error(request, "Please enter a valid withdrawal amount.")
+                    messages.error(request, _("Please enter a valid withdrawal amount."))
                     return redirect("wallet:manage")
                 
                 # Validate amount is positive
                 if withdraw_amount <= 0:
-                    messages.error(request, "Withdrawal amount must be greater than zero.")
+                    messages.error(request, _("Withdrawal amount must be greater than zero."))
                     return redirect("wallet:manage")
                 
                 if withdraw_amount > total_asset:
                     messages.error(
                         request,
-                        f"You cannot withdraw more than your available balance of ${total_asset}."
+                        _("You cannot withdraw more than your available balance of %(amount)s.") % {
+                            "amount": total_asset
+                        }
                     )
                     return redirect("wallet:manage")
             
@@ -173,7 +216,9 @@ def wallet_management_view(request):
             if withdraw_amount < config.min_withdrawal:
                 messages.error(
                     request,
-                    f"Minimum withdrawal amount is ${config.min_withdrawal}."
+                    _("Minimum withdrawal amount is %(amount)s.") % {
+                        "amount": config.min_withdrawal
+                    }
                 )
                 return redirect("wallet:manage")
             
@@ -181,7 +226,9 @@ def wallet_management_view(request):
             if withdraw_amount > config.max_withdrawal:
                 messages.error(
                     request,
-                    f"Maximum withdrawal amount per transaction is ${config.max_withdrawal}."
+                    _("Maximum withdrawal amount per transaction is %(amount)s.") % {
+                        "amount": config.max_withdrawal
+                    }
                 )
                 return redirect("wallet:manage")
             
@@ -194,7 +241,9 @@ def wallet_management_view(request):
                 remaining = config.daily_withdrawal_limit - today_withdrawals
                 messages.error(
                     request,
-                    f"Daily withdrawal limit exceeded. You can withdraw up to ${remaining} more today."
+                    _("Daily withdrawal limit exceeded. You can withdraw up to %(amount)s more today.") % {
+                        "amount": remaining
+                    }
                 )
                 return redirect("wallet:manage")
             
@@ -207,8 +256,7 @@ def wallet_management_view(request):
             if pending_count >= 3:  # Max 3 pending withdrawals at a time
                 messages.error(
                     request,
-                    "You have too many pending withdrawal requests. "
-                    "Please wait for admin approval before submitting more."
+                    _("You have too many pending withdrawal requests. ")
                 )
                 return redirect("wallet:manage")
             
@@ -255,13 +303,18 @@ def wallet_management_view(request):
                 
                 messages.success(
                     request,
-                    f"Withdrawal request submitted successfully! " 
-                    f"Amount: ${withdraw_amount}"
+                    _("Withdrawal request submitted successfully!") 
+                    
                 )
                 return redirect("wallet:manage")
             
             except Exception as e:
-                messages.error(request, f"An error occurred while processing your withdrawal: {str(e)}")
+                messages.error(
+                    request,
+                    _("An error occurred while processing your withdrawal: %(error)s") % {
+                        "error": str(e)
+                    }
+                )
                 return redirect("wallet:manage")
 
     # Prepare context for template
@@ -306,8 +359,8 @@ def approve_withdrawal(request, withdrawal_id):
         wallet = Wallet.objects.select_for_update().get(user=withdrawal.user)
         config = WithdrawalConfig.get_config()
 
-        # Ensure there is enough withdrawable balance (cumulative ledger)
-        available_balance = wallet.cumulative_total
+        # Ensure there is enough withdrawable balance
+        available_balance = wallet.current_balance
         if available_balance < withdrawal.amount:
             messages.error(
                 request,
@@ -316,19 +369,22 @@ def approve_withdrawal(request, withdrawal_id):
             )
             return redirect("accounts:admin_dashboard")
 
-        # Deduct only from the withdrawable ledger (keep current_balance for task operations)
-        wallet.cumulative_total = available_balance - withdrawal.amount
+        # Deduct from spendable balance while keeping a tiny residual for next cycle
+        max_deduction = (available_balance - MIN_WITHDRAW_RESIDUAL).quantize(Decimal("0.01"))
+        if max_deduction <= Decimal("0.00"):
+            max_deduction = available_balance
+
+        deduction = min(withdrawal.amount, max_deduction)
+        wallet.current_balance = (available_balance - deduction).quantize(Decimal("0.01"))
         wallet.product_commission = Decimal("0.00")
         wallet.referral_commission = Decimal("0.00")
         wallet.referral_earned_balance = Decimal("0.00")
-        # Preserve current_balance and set cumulative_total to match it
-        wallet.cumulative_total = wallet.current_balance
         wallet.balance_source = 'recharge'
         wallet.is_fake_display_mode = False
         wallet.completed_withdrawals = (wallet.completed_withdrawals or 0) + 1
         wallet.info_alert_day = True
         wallet.save(update_fields=[
-            "cumulative_total",
+            "current_balance",
             "product_commission",
             "referral_commission",
             "referral_earned_balance",
@@ -360,6 +416,10 @@ def approve_withdrawal(request, withdrawal_id):
             admin_notes = request.POST.get("admin_notes", admin_notes).strip()
 
         # Update withdrawal record
+        if deduction != withdrawal.amount:
+            withdrawal.amount = deduction
+            withdrawal.net_amount = deduction
+
         withdrawal.status = "APPROVED"
         if transaction_hash:
             withdrawal.transaction_hash = transaction_hash

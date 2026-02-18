@@ -359,6 +359,14 @@
         display: flex;
         flex-direction: column;
         gap: 0.2rem;
+        max-height: 240px;
+        overflow-y: auto;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+    .language-list::-webkit-scrollbar {
+        width: 0;
+        height: 0;
     }
     .language-option {
         width: 100%;
@@ -495,6 +503,36 @@
     }
     @media (max-width: 420px) {
         .mobile-shell { padding-bottom: 60px; }
+    }
+    .chat-launcher-floating {
+        position: fixed;
+        right: clamp(1rem, 3vw, 1.5rem);
+        bottom: clamp(4.5rem, 12vw, 5.5rem);
+        z-index: 1200;
+        display: inline-flex;
+        align-items: center;
+        border: none;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        justify-content: center;
+        padding: 0;
+        background: linear-gradient(130deg, #38bdf8, #0ea5e9);
+        color: #0f1111;
+        font-weight: 600;
+        font-size: 0.8rem;
+        text-decoration: none;
+        box-shadow: 0 18px 38px rgba(14, 165, 233, 0.35);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .chat-launcher-floating svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor;
+    }
+    .chat-launcher-floating:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 22px 44px rgba(14, 165, 233, 0.45);
     }
 </style>
 {% endblock %}
@@ -642,6 +680,12 @@
         <div class="bottom-pad"></div>
     </div>
 </div>
+<a class="chat-launcher-floating" href="{% url 'chat:user_support_portal' %}" aria-label="{% trans 'Chat with Customer Service' %}">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M21 11.5a8.5 8.5 0 00-17 0 8.37 8.37 0 001.41 4.63L3 21l4.87-1.43A8.5 8.5 0 0021 11.5z"></path>
+        <path d="M9 10h6M9 13h3" stroke="#0f1111" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+    </svg>
+</a>
 {% endblock %}
 
 {% block extra_js %}
@@ -670,6 +714,11 @@
             "es": "{% static 'flags/es.png' %}",
             "pt": "{% static 'flags/pt.png' %}",
             "vi": "{% static 'flags/vi.png' %}",
+            "sq": "{% static 'flags/sq.png' %}",
+            "es-cl": "{% static 'flags/es-cl.png' %}",
+            "es-mx": "{% static 'flags/es-mx.png' %}",
+            "en-ng": "{% static 'flags/en-ng.png' %}",
+            "et": "{% static 'flags/et.png' %}",
         };
         const fallbackFlag = "{% static 'img/language.png' %}";
 

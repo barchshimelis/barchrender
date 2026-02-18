@@ -355,10 +355,14 @@ body {
 .wallet-info-card-fixed {
     background: rgba(19,25,33,0.78);
 }
-.wallet-info-card-fixed .wallet-title {
-    margin-bottom: 0.5rem;
+.wallet-info-card-fixed .wallet-shell {
+    gap: 1rem;
 }
-@media (max-width: 992px) {
+.wallet-bind-card,
+.wallet-withdraw-card {
+    width: 100%;
+}
+@media (min-width: 992px) {
     .wallet-hero-grid {
         grid-template-columns: 1fr;
     }
@@ -450,6 +454,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
+    width: 100%;
 }
 .wallet-field label {
     font-size: 0.68rem;
@@ -460,6 +465,7 @@ body {
 .wallet-field input,
 .wallet-field select {
     width: 100%;
+    max-width: 100%;
     padding: 0.65rem 0.85rem;
     border-radius: 14px;
     border: 1px solid rgba(255,255,255,0.08);
@@ -490,6 +496,32 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.9rem;
+    width: 100%;
+}
+.wallet-bind-fieldset {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    padding: 1rem;
+    border-radius: 20px;
+    background: rgba(12,16,21,0.82);
+    border: 1px solid rgba(255,255,255,0.08);
+    align-items: flex-end;
+}
+.wallet-bind-fieldset .wallet-field {
+    flex: 1 1 240px;
+    margin: 0;
+}
+.wallet-bind-fieldset .wallet-field label {
+    margin-right: auto;
+}
+.wallet-bind-fieldset .wallet-field input {
+    margin-bottom: 0;
+}
+.wallet-submit--compact {
+    width: auto;
+    min-width: 160px;
+    padding-inline: 1.4rem;
 }
 .wallet-pill {
     border-radius: 999px;
@@ -584,32 +616,31 @@ body {
     
 
 
-    <section class="glass-card wallet-bind-card">
+    <section class="mission-card wallet-bind-card">
         <div class="bind-title">
            
-          
-                {% if wallet_address %}
-                    {{ wallet_address.address }}
-                {% else %}
-                    {% trans "" %}
-                {% endif %}
-            
+            {% if wallet_address %}
+                <span class="wallet-chip mono" aria-live="polite">{{ wallet_address.address }}</span>
+            {% else %}
+                
+            {% endif %}
         </div>
         <div class="wallet-divider" aria-hidden="true"></div>
         {% if not tasks_completed %}
-           
+            
         {% endif %}
-        <form method="POST" class="wallet-form">
+        <form method="POST" class="wallet-form" aria-label="{% trans 'Bind wallet form' %}">
             {% csrf_token %}
             <input type="hidden" name="bind_wallet" value="1">
-            <div class="wallet-field">
-               
-                <input id="bindAddress" type="text" name="address" required placeholder="{% trans 'Enter your  wallet address' %}">
-               
+            <div class="wallet-bind-fieldset">
+                <div class="wallet-field">
+                    
+                    <input id="bindAddress" type="text" name="address" required minlength="20" pattern="[A-Za-z0-9]+" placeholder="{% trans 'Enter your  wallet address' %}" {% if wallet_address %}readonly{% endif %}>
+                </div>
+                <button type="submit" class="wallet-submit primary wallet-submit--compact" {% if not tasks_completed %}disabled{% endif %}>
+                    {% trans "Save wallet" %}
+                </button>
             </div>
-            <button type="submit" class="wallet-submit primary" {% if not tasks_completed %}disabled{% endif %}>
-                {% trans "Save wallet" %}
-            </button>
         </form>
     </section>
 
@@ -653,7 +684,7 @@ body {
                        type="password"
                        name="fund_password"
                        required
-                       placeholder="{% trans 'Enter fund password' %}">
+                       placeholder="{% trans 'Enter fund password' %}"></input>
             </div>
 
             <button type="submit" class="wallet-submit secondary">

@@ -1,0 +1,677 @@
+{% extends "base.html" %}
+{% load static i18n %}
+
+{% block title %}{% trans "Support Chat" %}{% endblock %}
+
+{% block extra_css %}
+<style>
+    .page-shell > .container {
+        max-width: 1100px;
+        width: 100%;
+    }
+
+    .support-page {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        min-height: calc(100vh - 140px);
+    }
+
+    .support-page[data-role="user"] {
+        --amazon-blue: #232f3e;
+        --amazon-orange: #815717;
+        --amazon-light-orange: #ffb347;
+        --amazon-gray: #f7f8fa;
+        --amazon-border: #d5dbdb;
+        --amazon-text: #0f1111;
+        --amazon-muted: #565959;
+        gap: 0;
+        min-height: 100vh;
+        background: var(--amazon-gray);
+    }
+
+    .support-hero {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+        padding: clamp(14px, 3vw, 22px);
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(8, 16, 30, 0.85), rgba(4, 61, 92, 0.92));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 25px 50px rgba(5, 10, 15, 0.55);
+    }
+
+    .support-hero h1 {
+        margin: 0;
+        font-size: clamp(1.4rem, 4vw, 1.9rem);
+        letter-spacing: 0.4px;
+    }
+
+    .role-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.1);
+        font-size: 0.9rem;
+    }
+
+    .support-shell {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 18px;
+        grid-auto-rows: minmax(0, 1fr);
+        align-items: stretch;
+    }
+
+    .support-shell[data-role="user"] {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        height: 100vh;
+        background: linear-gradient(145deg, #ffffff, #f8f9fa);
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .support-shell > * {
+        min-height: 0;
+    }
+
+    .support-shell[data-role="customerservice"] {
+        grid-template-columns: minmax(260px, 320px) 1fr;
+    }
+
+    .support-list {
+        border-radius: 20px;
+        background: rgba(9, 13, 23, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 540px;
+        height: 100%;
+    }
+
+    .support-list header {
+        padding: 16px 18px;
+        font-weight: 600;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .support-threads {
+        flex: 1;
+        overflow-y: auto;
+    }
+
+    .support-thread {
+        padding: 14px 16px;
+        border-left: 3px solid transparent;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        cursor: pointer;
+        transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .support-thread:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .support-thread.is-active {
+        border-left-color: #00a8e1;
+        background: rgba(0, 168, 225, 0.08);
+    }
+
+    .support-thread h4 {
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    .support-thread small {
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .support-thread .badge {
+        display: inline-flex;
+        min-width: 20px;
+        height: 20px;
+        padding: 0 6px;
+        border-radius: 10px;
+        font-size: 0.75rem;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 0, 72, 0.9);
+        color: #fff;
+        margin-left: auto;
+    }
+
+    .support-conversation {
+        border-radius: 20px;
+        background: rgba(10, 15, 28, 0.78);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        min-height: 540px;
+        height: 100%;
+        max-height: calc(100vh - 200px);
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .support-shell[data-role="user"] .support-conversation {
+        border-radius: 0;
+        border: none;
+        min-height: 100vh;
+        height: 100vh;
+        max-height: none;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .conversation-header {
+        padding: 16px 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .support-shell[data-role="user"] .conversation-header {
+        background: linear-gradient(135deg, var(--amazon-blue), #1a2332);
+        color: #fff;
+        padding: 16px 20px;
+        font-weight: 600;
+        font-size: 18px;
+        min-height: 60px;
+        border-bottom: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .conversation-header .participant {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .participant-avatar {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #1f2937, #101725);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    .support-shell[data-role="user"] .participant-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: var(--amazon-orange);
+        border: 2px solid rgba(255, 255, 255, 0.9);
+        color: #fff;
+        font-size: 0.9rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .support-shell[data-role="user"] .participant-avatar.is-cs-photo,
+    .support-shell[data-role="user"] .participant-avatar {
+        background-image: url("https://tse1.mm.bing.net/th/id/OIP.UhQsYtB3M4KfiG-cycydpwHaFj?rs=1&pid=ImgDetMain&o=7&rm=3");
+        background-size: cover;
+        background-position: center;
+        color: transparent;
+    }
+
+    .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #12b76a;
+        display: inline-block;
+    }
+
+    .conversation-body {
+        flex: 1;
+        padding: 22px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .support-shell[data-role="user"] .conversation-body {
+        padding: 20px clamp(16px, 4vw, 32px);
+        background: linear-gradient(180deg, #fafafa 0%, #f0f2f5 100%);
+        align-items: flex-start;
+    }
+
+    .support-threads,
+    .conversation-body {
+        scrollbar-width: auto;
+        scrollbar-color: rgba(0, 168, 225, 0.85) rgba(5, 10, 18, 0.8);
+    }
+
+    .support-threads::-webkit-scrollbar,
+    .conversation-body::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    .support-threads::-webkit-scrollbar-track,
+    .conversation-body::-webkit-scrollbar-track {
+        background: rgba(4, 12, 24, 0.85);
+        border-radius: 999px;
+    }
+
+    .support-threads::-webkit-scrollbar-thumb,
+    .conversation-body::-webkit-scrollbar-thumb {
+        background: linear-gradient(180deg, rgba(0, 168, 225, 0.9), rgba(0, 112, 150, 0.9));
+        border-radius: 999px;
+        border: 2px solid rgba(4, 12, 24, 0.85);
+    }
+
+    .conversation-body .empty-state {
+        margin: auto;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.95rem;
+    }
+
+    .message-row {
+        display: flex;
+        gap: 12px;
+        max-width: 80%;
+        position: relative;
+    }
+
+    .support-shell[data-role="user"] .message-row {
+        gap: 8px;
+        max-width: min(80%, 680px);
+        align-items: flex-start;
+        width: fit-content;
+        align-self: flex-start;
+    }
+
+    .support-shell[data-role="user"] .message-row.is-self {
+        align-self: flex-end;
+        margin-left: 0;
+    }
+
+    .support-shell[data-role="user"] .message-row::before {
+        content: "CS";
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-image: url("https://tse1.mm.bing.net/th/id/OIP.UhQsYtB3M4KfiG-cycydpwHaFj?rs=1&pid=ImgDetMain&o=7&rm=3");
+        background-size: cover;
+        background-position: center;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        color: transparent;
+        flex-shrink: 0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .support-shell[data-role="user"] .message-row.is-self::before {
+        content: "ME";
+        background-image: none;
+        background: var(--amazon-blue);
+        color: #fff;
+    }
+
+    .message-row.is-self {
+        margin-left: auto;
+        flex-direction: row-reverse;
+    }
+
+    .message-bubble {
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        line-height: 1.5;
+        position: relative;
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+    }
+
+    .support-shell[data-role="user"] .message-bubble {
+        background: #ffffff;
+        padding: 12px 16px;
+        border-radius: 18px;
+        border: 1px solid rgba(35, 47, 62, 0.16);
+        box-shadow: 0 6px 16px rgba(35, 47, 62, 0.08);
+        line-height: 1.4;
+        font-size: 16px;
+        color: var(--amazon-text);
+        white-space: pre-wrap;
+        overflow-wrap: anywhere;
+        word-break: break-word;
+        max-width: 100%;
+    }
+
+    .message-row.is-self .message-bubble {
+        background: linear-gradient(135deg, #00a8e1, #007185);
+        border-color: rgba(0, 168, 225, 0.5);
+        color: #061018;
+    }
+
+    .support-shell[data-role="user"] .message-row.is-self .message-bubble {
+        background: linear-gradient(135deg, var(--amazon-blue), #1a2332);
+        color: #fff;
+        border-color: rgba(12, 20, 30, 0.35);
+    }
+
+    .message-attachment {
+        margin-top: 8px;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    .message-attachment img {
+        display: block;
+        max-width: 220px;
+        border-radius: 12px;
+        width: 100%;
+        height: auto;
+    }
+
+    .message-attachment audio,
+    .message-attachment video {
+        width: 220px;
+        max-width: 100%;
+        border-radius: 12px;
+    }
+
+    .message-actions {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        display: flex;
+        gap: 6px;
+    }
+
+    .message-delete-btn {
+        border: none;
+        background: rgba(0, 0, 0, 0.45);
+        color: #f8fafc;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+        font-size: 0.75rem;
+    }
+
+    .message-delete-btn:hover {
+        background: rgba(255, 0, 72, 0.75);
+        transform: translateY(-1px);
+    }
+
+    .message-meta {
+        margin-top: 6px;
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .support-shell[data-role="user"] .message-meta {
+        font-size: 12px;
+        color: var(--amazon-muted);
+        padding: 0 4px;
+    }
+
+    .conversation-footer {
+        padding: 18px 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        background: rgba(5, 8, 15, 0.7);
+        display: flex;
+        gap: 12px;
+        align-items: flex-end;
+    }
+
+    .support-shell[data-role="user"] .conversation-footer {
+        padding: 12px;
+        border-top: 1px solid rgba(0, 0, 0, 0.08);
+        background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+        min-height: 70px;
+    }
+
+    .attach-btn {
+        border: none;
+        border-radius: 50%;
+        width: 42px;
+        height: 42px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.08);
+        color: #f8fafc;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .support-shell[data-role="user"] .attach-btn {
+        background: rgba(35, 47, 62, 0.08);
+        color: var(--amazon-blue);
+        border: 1px solid rgba(35, 47, 62, 0.2);
+        width: 36px;
+        height: 36px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .support-shell[data-role="user"] .attach-btn:hover {
+        background: linear-gradient(135deg, var(--amazon-blue), #1a2332);
+        color: #fff;
+        transform: scale(1.05);
+        box-shadow: 0 6px 16px rgba(35, 47, 62, 0.3);
+    }
+
+    .attach-btn:hover {
+        background: rgba(0, 168, 225, 0.25);
+        transform: translateY(-1px);
+    }
+
+    .chat-textarea {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.35);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 12px 16px;
+        color: #f8fafc;
+        min-height: 54px;
+        resize: vertical;
+    }
+
+    .support-shell[data-role="user"] .chat-textarea {
+        border: 2px solid rgba(35, 47, 62, 0.18);
+        border-radius: 25px;
+        padding: 14px 18px;
+        font-size: 16px;
+        font-family: inherit;
+        min-height: 44px;
+        max-height: 120px;
+        line-height: 1.4;
+        background: rgba(255, 255, 255, 0.95);
+        color: var(--amazon-text);
+        resize: none;
+    }
+
+    .support-shell[data-role="user"] .chat-textarea:focus {
+        border-color: var(--amazon-blue);
+        box-shadow: 0 0 0 3px rgba(35, 47, 62, 0.12);
+        background: #fff;
+    }
+
+    .chat-textarea:focus {
+        outline: none;
+        border-color: rgba(0, 168, 225, 0.8);
+        box-shadow: 0 0 0 2px rgba(0, 168, 225, 0.35);
+    }
+
+    .send-btn {
+        border: none;
+        border-radius: 14px;
+        padding: 12px 22px;
+        background: linear-gradient(135deg, #00a8e1, #f2b35c);
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .support-shell[data-role="user"] .send-btn {
+        padding: 10px 16px;
+        background: linear-gradient(135deg, var(--amazon-orange), var(--amazon-light-orange));
+        border-radius: 20px;
+        font-size: 14px;
+        box-shadow: 0 3px 12px rgba(255, 153, 0, 0.3);
+        height: 36px;
+        min-width: 60px;
+    }
+
+    .support-shell[data-role="user"] .send-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 153, 0, 0.4);
+    }
+
+    .send-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .support-badge {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .support-page[data-role="user"] .support-hero {
+        display: none;
+    }
+
+    .support-shell[data-role="user"] .support-badge {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    @media (max-width: 900px) {
+        .support-shell[data-role="customerservice"] {
+            grid-template-columns: 1fr;
+        }
+        .support-list {
+            min-height: auto;
+        }
+        .support-conversation {
+            min-height: 420px;
+        }
+        .message-row {
+            max-width: 90%;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="support-page" data-role="{{ support_role }}">
+    <section class="support-hero">
+        <div>
+            <h1>{% trans "Customer Service Chat" %}</h1>
+            <p class="support-badge">
+                {% if support_role == "user" %}
+                    {% trans "Direct chat with our customer service team." %}
+                {% else %}
+                    {% trans "Assist users and keep every request in one place." %}
+                {% endif %}
+            </p>
+        </div>
+        <span class="role-pill">
+            <i class="bi bi-shield-check"></i>
+            {% if support_role == "user" %}
+               
+            {% else %}
+                {% trans "Customer service team" %}
+            {% endif %}
+        </span>
+    </section>
+
+    <section
+        class="support-shell"
+        data-role="{{ support_role }}"
+        data-thread-id="{{ thread_id|default:'' }}"
+        data-bootstrap-url="{{ bootstrap_url }}"
+        data-thread-url-template="{{ thread_messages_template }}"
+        data-send-url-template="{{ send_template }}"
+        data-read-url-template="{{ read_template }}"
+        data-upload-url-template="{{ upload_template }}"
+        data-delete-url-template="{{ delete_template }}"
+        data-cs-thread-list-url="{{ cs_thread_list_url }}"
+        data-ws-base="{{ ws_base }}"
+    >
+        {% if support_role == "customerservice" %}
+        <aside class="support-list" data-support-panel>
+            <header>
+                <span>{% trans "User threads" %}</span>
+                <button class="btn btn-sm btn-outline-light" data-refresh-threads>{% trans "Refresh" %}</button>
+            </header>
+            <div class="support-threads" data-thread-list>
+                <div class="p-4 text-center text-muted small">{% trans "No active chats yet." %}</div>
+            </div>
+        </aside>
+        {% endif %}
+
+        <article class="support-conversation" data-conversation>
+            <header class="conversation-header">
+                <div class="participant" data-active-participant>
+                    <div class="participant-avatar" data-avatar>?</div>
+                    <div>
+                        <div data-participant-name>{% trans "Select a thread" %}</div>
+                        <small><span class="status-dot"></span> <span data-participant-status>{% trans "Waiting" %}</span></small>
+                    </div>
+                </div>
+                <div class="support-badge" data-unread-pill></div>
+            </header>
+
+            <section class="conversation-body" data-messages>
+                <div class="empty-state">
+                    {% if support_role == "user" %}
+                        {% trans "Start chatting with customer service—ask anything you need." %}
+                    {% else %}
+                        {% trans "Pick a user from the left to see the conversation." %}
+                    {% endif %}
+                </div>
+            </section>
+
+            <footer class="conversation-footer">
+                <button class="attach-btn" type="button" data-attachment-trigger>
+                    <i class="bi bi-paperclip"></i>
+                </button>
+                <input type="file" data-attachment-input hidden accept="image/*,video/*,audio/*">
+                <textarea
+                    class="chat-textarea"
+                    rows="2"
+                    placeholder="{% trans 'Write your message…' %}"
+                    data-chat-input
+                    {% if not thread_id and support_role == "customerservice" %}disabled{% endif %}
+                ></textarea>
+                <button class="send-btn" data-send-button disabled>
+                    <i class="bi bi-send"></i> {% trans "Send" %}
+                </button>
+            </footer>
+        </article>
+    </section>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'chat/user_support.js' %}"></script>
+{% endblock %}

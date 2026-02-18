@@ -174,3 +174,33 @@ def get_thread_messages(thread: StaffChatThread, *, limit: int = 50) -> list[dic
     qs = thread.messages.order_by("-created_at")[:limit]
     ordered = list(reversed(list(qs)))
     return serialize_messages(ordered)
+
+
+def rebuild_thread_snapshot(thread: StaffChatThread) -> StaffChatThread:
+    """
+    Refresh cached preview/last_activity data after destructive actions
+    such as message deletion.
+    """
+    last_message = thread.messages.order_by("-created_at").first()
+    preview = ""
+    last_activity = timezone.now()
+
+    if last_message:
+        if last_message.attachment:
+            attachment_name = (last_message.attachment.name or "").split("/")[-1]
+            preview_source = attachment_name or "Attachment"
+        elif last_message.content:
+            preview_source = last_message.content
+        else:
+            preview_source = "Attachment"
+
+        preview = (preview_source or "").strip()[:255]
+        if last_message.created_at:
+            last_activity = last_message.created_at
+
+    StaffChatThread.objects.filter(pk=thread.pk).update(
+        last_message_preview=preview,
+        last_activity=last_activity,
+    )
+    thread.refresh_from_db(fields=["last_message_preview", "last_activity"])
+    return thread

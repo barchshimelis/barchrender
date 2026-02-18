@@ -2,9 +2,12 @@ import os
 from decimal import Decimal
 from django.core.files.base import File
 from django.db import transaction
+from django.utils import timezone
 from balance.models import Wallet, RechargeRequest, Voucher, RechargeHistory
 from stoppoints.models import StopPoint, StopPointProgress
+from stoppoints.utils import get_active_stop_point, apply_recharge_to_stop_point
 from products.models import UserProductTask
+ 
 from notification.utils import notify_roles, create_admin_dashboard_event
 
 
@@ -24,6 +27,58 @@ def get_wallet_balance(user):
     wallet = get_wallet(user)
     return wallet.current_balance
 
+
+def handle_stop_point_recharge(user, wallet, recharge_amount):
+    """Apply a recharge toward the active stop point requirement and credit bonus when cleared."""
+    stop_point = get_active_stop_point(user)
+    if not stop_point:
+        return None
+
+    if recharge_amount is None:
+        return stop_point.required_balance_remaining or Decimal("0.00")
+
+    new_remaining = apply_recharge_to_stop_point(stop_point, recharge_amount)
+    if new_remaining is None:
+        return None
+
+    if new_remaining <= Decimal("0.00"):
+        finalize_stop_point_clearance(user, wallet, stop_point)
+
+    return new_remaining
+
+
+def finalize_stop_point_clearance(user, wallet, stop_point):
+    """Mark stop point as cleared and disburse any pending bonus."""
+    # Credit only the bonus to wallet balance (required balance stays as pricing pool)
+    bonus_amount = Decimal(stop_point.special_bonus_amount or Decimal("0.00"))
+    if bonus_amount > Decimal("0.00"):
+        wallet.current_balance += bonus_amount
+        wallet.save(update_fields=["current_balance"])
+
+    # Bonus is reflected in current balance only; product commission tracks task prices.
+    if bonus_amount > Decimal("0.00"):
+        stop_point.bonus_disbursed = True
+        stop_point.bonus_disbursed_at = timezone.now()
+
+    updates = []
+    if bonus_amount > Decimal("0.00"):
+        updates.extend(["bonus_disbursed", "bonus_disbursed_at"])
+    if stop_point.required_balance_remaining not in (None, Decimal("0.00")):
+        stop_point.required_balance_remaining = Decimal("0.00")
+        updates.append("required_balance_remaining")
+
+    if stop_point.status != "approved":
+        stop_point.status = "approved"
+        updates.append("status")
+
+    if updates:
+        stop_point.save(update_fields=updates)
+
+    progress, _ = StopPointProgress.objects.get_or_create(user=user)
+    progress.last_cleared = stop_point
+    progress.is_stopped = False
+    progress.save(update_fields=["last_cleared", "is_stopped"])
+
 @transaction.atomic
 def update_wallet_balance(user, amount, action="add", balance_type="current"):
     """
@@ -34,65 +89,42 @@ def update_wallet_balance(user, amount, action="add", balance_type="current"):
     wallet = get_wallet(user)
     amount = Decimal(amount)
 
+    updated_fields = set()
+
     if balance_type == "current":
         if action == "add":
             wallet.current_balance += amount
-            wallet.cumulative_total += amount
+            updated_fields.add("current_balance")
         elif action == "subtract":
             if wallet.current_balance >= amount:
                 wallet.current_balance -= amount
+                updated_fields.add("current_balance")
             else:
                 return False
     elif balance_type == "product_commission":
         if action == "add":
             wallet.product_commission += amount
-            wallet.cumulative_total += amount
+            updated_fields.add("product_commission")
         elif action == "subtract":
             if wallet.product_commission >= amount:
                 wallet.product_commission -= amount
+                updated_fields.add("product_commission")
             else:
                 return False
     elif balance_type == "referral_commission":
         if action == "add":
             wallet.referral_commission += amount
-            wallet.cumulative_total += amount
+            updated_fields.add("referral_commission")
         elif action == "subtract":
             if wallet.referral_commission >= amount:
                 wallet.referral_commission -= amount
+                updated_fields.add("referral_commission")
             else:
                 return False
     else:
         return False
 
-    wallet.save(update_fields=["current_balance", "product_commission", "referral_commission", "cumulative_total"])
-    return wallet
-
-@transaction.atomic
-def consolidate_commissions_to_balance(user):
-    """
-    Consolidate all commissions into current_balance.
-    Called when user completes all daily tasks.
-    This makes withdrawal simple - only deduct from current_balance.
-    
-    Safety: Only consolidates if there are commissions to consolidate.
-    Prevents double consolidation by checking if commissions > 0.
-    """
-    wallet = Wallet.objects.select_for_update().get(user=user)
-    
-    # Safety check: Only consolidate if there are commissions
-    total_commissions = wallet.product_commission + wallet.referral_commission
-    if total_commissions <= 0:
-        # Nothing to consolidate, return wallet as-is
-        return wallet
-    
-    # Move all commissions to current_balance
-    wallet.current_balance += total_commissions
-    
-    # Clear commission fields
-    wallet.product_commission = Decimal('0.00')
-    wallet.referral_commission = Decimal('0.00')
-    
-    wallet.save(update_fields=["current_balance", "product_commission", "referral_commission"])
+    wallet.save(update_fields=list(updated_fields))
     return wallet
 
 # -----------------------------
@@ -154,17 +186,17 @@ def approve_recharge(recharge_request, voucher_file=None):
 
     # 1. Update wallet with new balance source tracking
     wallet.current_balance += recharge_request.amount
-    wallet.cumulative_total += recharge_request.amount
     wallet.balance_source = 'recharge'
     wallet.has_recharged = True
     wallet.is_fake_display_mode = False  # Exit fake mode
     wallet.save(update_fields=[
         'current_balance',
-        'cumulative_total',
         'balance_source',
         'has_recharged',
         'is_fake_display_mode'
     ])
+
+    handle_stop_point_recharge(user, wallet, recharge_request.amount)
 
     notify_roles(
         roles=("customerservice",),
@@ -200,25 +232,6 @@ def approve_recharge(recharge_request, voucher_file=None):
             save=True
         )
         voucher_file.close()
-
-    # 4. Clear current stop point if balance now sufficient
-    tasks_done = UserProductTask.objects.filter(user=user, is_completed=True).count()
-    next_task_number = tasks_done + 1
-
-    current_stoppoint = StopPoint.objects.filter(
-        user=user, 
-        point=next_task_number, 
-        status='pending'
-    ).first()
-    
-    if current_stoppoint and wallet.current_balance >= current_stoppoint.required_balance:
-        current_stoppoint.status = 'approved'
-        current_stoppoint.save(update_fields=['status'])
-
-        progress, _ = StopPointProgress.objects.get_or_create(user=user)
-        progress.last_cleared = current_stoppoint
-        progress.is_stopped = False
-        progress.save(update_fields=['last_cleared', 'is_stopped'])
 
     return recharge_request
 

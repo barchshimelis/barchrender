@@ -1,0 +1,128 @@
+{% extends "accounts/analytics/analytics_base.html" %}
+{% load i18n static %}
+
+{% block analytics_content %}
+<style>
+.analytics-header h1 {
+    background: linear-gradient(135deg, #ea580c, #f97316);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.metric-value {
+    color: #ea580c;
+}
+</style>
+
+<div class="analytics-grid">
+    <!-- Total Withdrawn -->
+    <div class="analytics-card">
+        <h3>💸 Total Withdrawn</h3>
+        <div class="metric-value">${{ withdrawal_analytics.total_withdrawn|floatformat:2 }}</div>
+        <div class="metric-label">All Time</div>
+    </div>
+
+    <!-- Withdrawals Today -->
+    <div class="analytics-card">
+        <h3>📅 Today's Withdrawals</h3>
+        <div class="metric-value">{{ withdrawal_analytics.withdrawals_today }}</div>
+        <div class="metric-label">Processed Today</div>
+    </div>
+
+    <!-- Average Withdrawal -->
+    <div class="analytics-card">
+        <h3>📊 Average Withdrawal</h3>
+        <div class="metric-value">${{ withdrawal_analytics.avg_withdrawal|floatformat:2 }}</div>
+        <div class="metric-label">Per Transaction</div>
+    </div>
+
+    <!-- Success Rate -->
+    <div class="analytics-card">
+        <h3>✅ Success Rate</h3>
+        <div class="metric-value">{{ withdrawal_analytics.success_rate }}%</div>
+        <div class="metric-label">Approved vs Rejected</div>
+    </div>
+
+    <!-- Withdrawal Chart -->
+    <div class="analytics-card" style="grid-column: span 2;">
+        <h3>📈 Withdrawal Trends</h3>
+        <div class="chart-container">
+            <canvas id="withdrawalChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Status Breakdown -->
+    <div class="analytics-card">
+        <h3>📋 Status Breakdown</h3>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #fbbf24;">⏳ Pending</span>
+                <span style="font-weight: 600; color: #fbbf24;">{{ withdrawal_analytics.pending_count }}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #10b981;">✅ Approved</span>
+                <span style="font-weight: 600; color: #10b981;">{{ withdrawal_analytics.approved_count }}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #ef4444;">❌ Rejected</span>
+                <span style="font-weight: 600; color: #ef4444;">{{ withdrawal_analytics.rejected_count }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Withdrawal Chart
+new Chart(document.getElementById('withdrawalChart'), {
+    type: 'line',
+    data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+            label: 'Withdrawals',
+            data: [8, 12, 6, 15, 10, 18, Number('{{ withdrawal_analytics.withdrawals_today|default:0 }}')],
+            borderColor: '#ea580c',
+            backgroundColor: 'rgba(234, 88, 12, 0.1)',
+            tension: 0.4,
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { 
+                display: true,
+                labels: {
+                    color: '#e2e8f0',
+                    font: { size: 12 }
+                }
+            },
+            tooltip: {
+                backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                titleColor: '#f1f5f9',
+                bodyColor: '#cbd5e1',
+                borderColor: 'rgba(255, 255, 255, 0.1)',
+                borderWidth: 1
+            }
+        },
+        scales: {
+            x: {
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.1)',
+                    borderColor: 'rgba(255, 255, 255, 0.2)'
+                },
+                ticks: { color: '#cbd5e1' }
+            },
+            y: { 
+                beginAtZero: true,
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.1)',
+                    borderColor: 'rgba(255, 255, 255, 0.2)'
+                },
+                ticks: { color: '#cbd5e1' }
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

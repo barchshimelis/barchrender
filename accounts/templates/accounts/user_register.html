@@ -1,7 +1,7 @@
 {% extends "accounts/base_auth.html" %}
 {% load i18n static %}
 
-{% block title %}{% trans "Create account" %}{% endblock %}
+{% block title %}amazon{% endblock %}
 
 {% block extra_css %}
 {{ block.super }}
@@ -151,15 +151,136 @@
 <script src="{% static 'chat/chat.js' %}" defer></script>
 <script>
     (function() {
+        // Phone validation: max 15 numbers, allow +
         const phoneInput = document.querySelector('input[name="phone"]');
         if (phoneInput) {
             phoneInput.addEventListener('input', function() {
-                const value = this.value;
-
+                let value = this.value;
+                
                 if (value.startsWith('+')) {
-                    this.value = '+' + value.slice(1).replace(/\D/g, '');
+                    value = '+' + value.slice(1).replace(/\D/g, '');
+                    // Limit to + plus 15 digits
+                    if (value.length > 16) {
+                        value = '+' + value.slice(1, 16);
+                    }
                 } else {
-                    this.value = value.replace(/\D/g, '');
+                    value = value.replace(/\D/g, '');
+                    // Limit to 15 digits
+                    if (value.length > 15) {
+                        value = value.slice(0, 15);
+                    }
+                }
+                this.value = value;
+            });
+        }
+
+        // Password validation: max 15 characters
+        const passwordInput = document.querySelector('input[name="password"]');
+        if (passwordInput) {
+            passwordInput.addEventListener('input', function() {
+                if (this.value.length > 15) {
+                    this.value = this.value.slice(0, 15);
+                }
+            });
+        }
+
+        // Fund password validation: max 15 characters
+        const fundPasswordInput = document.querySelector('input[name="fund_password"]');
+        if (fundPasswordInput) {
+            fundPasswordInput.addEventListener('input', function() {
+                if (this.value.length > 15) {
+                    this.value = this.value.slice(0, 15);
+                }
+            });
+        }
+
+        // Username validation: max 20 characters, only letters and numbers, not numbers only
+        const usernameInput = document.querySelector('input[name="username"]');
+        if (usernameInput) {
+            usernameInput.addEventListener('input', function() {
+                let value = this.value;
+                
+                // Check if contains any symbols
+                if (/[^a-zA-Z0-9]/.test(value)) {
+                    this.value = '';
+                    return;
+                }
+                
+                // Check if it's numbers only
+                if (/^\d+$/.test(value)) {
+                    this.value = '';
+                } else {
+                    // Limit to 20 characters
+                    if (value.length > 20) {
+                        this.value = value.slice(0, 20);
+                    }
+                }
+            });
+        }
+
+        // Form validation on submit
+        const registerForm = document.querySelector('form[action*="register"]');
+        if (registerForm) {
+            registerForm.addEventListener('submit', function(e) {
+                let isValid = true;
+                let errorMessage = '';
+
+                // Get form values
+                const phone = phoneInput ? phoneInput.value : '';
+                const username = document.querySelector('input[name="username"]').value;
+                const password = passwordInput ? passwordInput.value : '';
+                const fundPassword = fundPasswordInput ? fundPasswordInput.value : '';
+
+                // Validate phone
+                if (!phone) {
+                    errorMessage = 'Phone number is required.';
+                    isValid = false;
+                }
+
+                // Validate username (cannot be only numbers)
+                if (username && /^\d+$/.test(username)) {
+                    errorMessage = 'Username cannot be only numbers.';
+                    isValid = false;
+                }
+
+                // Show error if validation fails
+                if (!isValid) {
+                    e.preventDefault();
+                    
+                    // Remove any existing error messages
+                    const existingError = document.querySelector('.js-validation-error');
+                    if (existingError) {
+                        existingError.remove();
+                    }
+
+                    // Create and show error message
+                    const errorDiv = document.createElement('div');
+                    errorDiv.className = 'js-validation-error';
+                    errorDiv.style.cssText = `
+                        background: #f44336;
+                        color: white;
+                        padding: 16px;
+                        margin: 0 0 20px 0;
+                        border-radius: 8px;
+                        text-align: center;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 1.4;
+                        box-sizing: border-box;
+                        width: 100%;
+                        max-width: 100%;
+                    `;
+                    errorDiv.textContent = errorMessage;
+                    
+                    // Insert at the top of the form
+                    registerForm.insertBefore(errorDiv, registerForm.firstChild);
+                    
+                    // Remove error after 5 seconds
+                    setTimeout(() => {
+                        if (errorDiv.parentNode) {
+                            errorDiv.remove();
+                        }
+                    }, 5000);
                 }
             });
         }

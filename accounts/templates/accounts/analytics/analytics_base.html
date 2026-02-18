@@ -1,0 +1,204 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Analytics Dashboard{% endblock %}</title>
+    <style>
+        :root {
+            --primary-bg: #000000;
+            --secondary-bg: #1a1a1a;
+            --card-bg: linear-gradient(135deg, #1a1a1a 0%, #000000 100%);
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-purple: #8b5cf6;
+            --accent-teal: #14b8a6;
+            --accent-red: #ef4444;
+            --accent-orange: #f97316;
+            --border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .analytics-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Professional Header */
+        .analytics-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px 0;
+        }
+
+        .analytics-header h1 {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .analytics-header p {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+
+        /* Professional Horizontal Menu */
+        .analytics-menu {
+            display: flex;
+            justify-content: center;
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 8px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            flex-wrap: wrap;
+            gap: 4px;
+        }
+
+        .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-secondary);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .menu-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .menu-item:hover::before {
+            opacity: 1;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-2px);
+            color: var(--text-primary);
+        }
+
+        .menu-item.active {
+            background: linear-gradient(135deg, var(--accent-blue), #1d4ed8);
+            color: var(--text-primary);
+            box-shadow: 0 4px 20px rgba(59, 130, 246, 0.3);
+            transform: scale(1.02);
+        }
+
+        /* Content Area */
+        .analytics-content {
+            min-height: 60vh;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .analytics-container {
+                padding: 15px;
+            }
+            
+            .analytics-header h1 {
+                font-size: 28px;
+            }
+            
+            .analytics-menu {
+                padding: 6px;
+                gap: 2px;
+            }
+            
+            .menu-item {
+                padding: 10px 16px;
+                font-size: 13px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .menu-item {
+                padding: 8px 12px;
+                font-size: 12px;
+                gap: 6px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="analytics-container">
+        <!-- Professional Header -->
+        <header class="analytics-header">
+            <h1>📊 Analytics Dashboard</h1>
+            <p>Comprehensive insights and performance metrics</p>
+        </header>
+
+        <!-- Professional Horizontal Menu -->
+        <nav class="analytics-menu">
+            <a href="{% url 'accounts:analytics' %}" class="menu-item {% if page_identifier == 'overview' %}active{% endif %}">
+                📊 Dashboard
+            </a>
+            <a href="{% url 'accounts:financial_analytics' %}" class="menu-item {% if page_identifier == 'financial' %}active{% endif %}">
+                💰 Financial
+            </a>
+            <a href="{% url 'accounts:task_analytics' %}" class="menu-item {% if page_identifier == 'tasks' %}active{% endif %}">
+                📋 Tasks
+            </a>
+            <a href="{% url 'accounts:performance_analytics' %}" class="menu-item {% if page_identifier == 'performance' %}active{% endif %}">
+                ⚡ Performance
+            </a>
+            <a href="{% url 'accounts:geography_analytics' %}" class="menu-item {% if page_identifier == 'geography' %}active{% endif %}">
+                🌍 Geography
+            </a>
+            <a href="{% url 'accounts:referral_analytics' %}" class="menu-item {% if page_identifier == 'referrals' %}active{% endif %}">
+                🔗 Referrals
+            </a>
+            <a href="{% url 'accounts:withdrawal_analytics' %}" class="menu-item {% if page_identifier == 'withdrawals' %}active{% endif %}">
+                💸 Withdrawals
+            </a>
+        </nav>
+
+        <!-- Content Area -->
+        <main class="analytics-content">
+            {% block analytics_content %}
+            <!-- Content will be overridden by child templates -->
+            {% endblock %}
+        </main>
+    </div>
+
+    <!-- Chart.js for all pages -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

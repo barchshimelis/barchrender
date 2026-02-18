@@ -1,0 +1,252 @@
+{% extends "accounts/analytics/analytics_base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ page_title }}{% endblock %}
+
+{% block extra_css %}
+<style>
+/* Financial-specific progress bar colors */
+.pending-progress {
+    background: linear-gradient(90deg, #f59e0b, #d97706) !important;
+}
+
+.approved-progress {
+    background: linear-gradient(90deg, #10b981, #059669) !important;
+}
+
+.rejected-progress {
+    background: linear-gradient(90deg, #ef4444, #dc2626) !important;
+}
+
+/* Analytics Grid */
+.analytics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+
+.analytics-card {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.analytics-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+}
+
+.analytics-card h3 {
+    margin: 0 0 20px 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.metric-value {
+    font-size: 36px;
+    font-weight: 700;
+    color: #10b981;
+    margin-bottom: 8px;
+}
+
+.metric-label {
+    font-size: 14px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+    margin-top: 20px;
+}
+</style>
+{% endblock %}
+
+{% block analytics_content %}
+<!-- Financial Analytics Content -->
+
+<div class="analytics-grid">
+    <div class="analytics-card">
+        <h3>⏸️ Pending</h3>
+        <div class="metric-value">{{ financial_data.pending_count }}</div>
+        <div class="metric-label">Pending Withdrawals</div>
+        <div class="progress-bar">
+            <div class="progress-fill pending-progress" style="width: 0%"></div>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">Total Pending</span>
+                <span class="stat-value">${{ financial_data.total_pending_amount|floatformat:2 }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <h3>✅ Approved</h3>
+        <div class="metric-value">{{ financial_data.approved_count }}</div>
+        <div class="metric-label">Approved Withdrawals</div>
+        <div class="progress-bar">
+            <div class="progress-fill approved-progress" style="width: 0%"></div>
+        </div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">Total Commission</span>
+                <span class="stat-value">${{ financial_data.total_referral_commission|floatformat:2 }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <h3>📊 Average</h3>
+        <div class="metric-value">${{ financial_data.avg_balance|floatformat:2 }}</div>
+        <div class="metric-label">Average Wallet Balance</div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">Total Wallets</span>
+                <span class="stat-value">{{ financial_data.total_wallets }}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Avg Withdrawal</span>
+                <span class="stat-value">${{ financial_data.avg_withdrawal|floatformat:2 }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <h3>📈 Growth</h3>
+        <div class="metric-value">{{ financial_data.withdrawal_growth|floatformat:1 }}%</div>
+        <div class="metric-label">Withdrawal Growth</div>
+        <div class="stats-grid">
+            <div class="stat-item">
+                <span class="stat-label">This Period</span>
+                <span class="stat-value">${{ financial_data.this_period_withdrawals|floatformat:2 }}</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-label">Last Period</span>
+                <span class="stat-value">${{ financial_data.comparison_withdrawals|floatformat:2 }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <h3>🔄 Rejected</h3>
+        <div class="metric-value">{{ financial_data.rejected_count }}</div>
+        <div class="metric-label">Rejected Withdrawals</div>
+        <div class="progress-bar">
+            <div class="progress-fill rejected-progress" style="width: 0%"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Financial Chart -->
+<div class="financial-grid">
+    <div class="analytics-card chart-card">
+        <h3>💰 Financial Trends</h3>
+        <div class="chart-container">
+            <canvas id="financialChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Chart Data Storage -->
+<div id="chartData" 
+     data-labels="{% for item in financial_data.financial_trend %}{{ item.date }}{% if not forloop.last %},{% endif %}{% endfor %}"
+     data-values="{% for item in financial_data.financial_trend %}{{ item.withdrawals|floatformat:2 }}{% if not forloop.last %},{% endif %}{% endfor %}"
+     data-pending="{{ financial_data.pending_count|default:0 }}"
+     data-approved="{{ financial_data.approved_count|default:0 }}"
+     data-rejected="{{ financial_data.rejected_count|default:0 }}">
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get data from data attributes to avoid JavaScript linting errors
+    const chartDataElement = document.getElementById('chartData');
+    const pendingCount = parseInt(chartDataElement.dataset.pending) || 0;
+    const approvedCount = parseInt(chartDataElement.dataset.approved) || 0;
+    const rejectedCount = parseInt(chartDataElement.dataset.rejected) || 0;
+    
+    // Set progress bar widths (max 100%)
+    document.querySelector('.pending-progress').style.width = Math.min(pendingCount * 10, 100) + '%';
+    document.querySelector('.approved-progress').style.width = Math.min(approvedCount * 10, 100) + '%';
+    document.querySelector('.rejected-progress').style.width = Math.min(rejectedCount * 10, 100) + '%';
+    
+    // Financial Chart
+    const labels = chartDataElement.dataset.labels.split(',');
+    const data = chartDataElement.dataset.values.split(',').map(Number);
+    
+    new Chart(document.getElementById('financialChart'), {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Withdrawals ($)',
+                data: data,
+                borderColor: '#10b981',
+                backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                tension: 0.4,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { 
+                    display: true,
+                    labels: {
+                        color: '#e2e8f0',
+                        font: { size: 12 }
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                    titleColor: '#f1f5f9',
+                    bodyColor: '#cbd5e1',
+                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    borderWidth: 1,
+                    callbacks: {
+                        label: function(context) {
+                            return 'Withdrawals: $' + context.parsed.y.toFixed(2);
+                        }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)',
+                        borderColor: 'rgba(255, 255, 255, 0.2)'
+                    },
+                    ticks: { 
+                        color: '#cbd5e1'
+                    }
+                },
+                y: { 
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)',
+                        borderColor: 'rgba(255, 255, 255, 0.2)'
+                    },
+                    ticks: { 
+                        color: '#cbd5e1',
+                        callback: function(value) {
+                            return '$' + value;
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

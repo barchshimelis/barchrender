@@ -1,3 +1,11 @@
+def _parse_bool(value):
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        return value.strip().lower() in ("1", "true", "yes", "on")
+    if value is None:
+        return False
+    return bool(value)
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib import messages
@@ -36,10 +44,16 @@ def add_stop_points_view(request, user_id):
             data = json.loads(request.body)
             points = data.get("stop_order", [])
             required_recharges = data.get("required_recharge", [])
+            special_bonuses = data.get("special_bonus_amount", [])
+            lucky_flags = data.get("lucky_order_enabled", [])
             if not isinstance(points, list):
                 points = [points]
             if not isinstance(required_recharges, list):
                 required_recharges = [required_recharges] if required_recharges not in (None, "") else []
+            if not isinstance(special_bonuses, list):
+                special_bonuses = [special_bonuses] if special_bonuses not in (None, "") else []
+            if not isinstance(lucky_flags, list):
+                lucky_flags = [lucky_flags] if lucky_flags not in (None, "") else []
         except json.JSONDecodeError:
             return JsonResponse({"success": False, "error": "Invalid JSON"}, status=400)
 
@@ -49,7 +63,9 @@ def add_stop_points_view(request, user_id):
         stop_data = []
         for idx, point_value in enumerate(points):
             required_value = required_recharges[idx] if idx < len(required_recharges) else None
-            stop_data.append((point_value, required_value))
+            special_value = special_bonuses[idx] if idx < len(special_bonuses) else None
+            lucky_value = lucky_flags[idx] if idx < len(lucky_flags) else False
+            stop_data.append((point_value, required_value, special_value, _parse_bool(lucky_value)))
 
         added_points, skipped_entries = [], []
         if stop_data:
@@ -59,7 +75,9 @@ def add_stop_points_view(request, user_id):
                     added_points.append({
                         "id": sp.id,
                         "point": sp.point,
-                        "required_balance": str(sp.required_balance) # Use required_balance from the created StopPoint
+                        "required_balance": str(sp.required_balance), # Use required_balance from the created StopPoint
+                        "special_bonus_amount": str(sp.special_bonus_amount) if sp.special_bonus_amount is not None else "",
+                        "lucky_order_enabled": sp.lucky_order_enabled,
                     })
                 skipped_entries.extend(skipped_list or [])
             except Exception as e:
@@ -86,14 +104,28 @@ def update_stop_point_view(request, user_id):
         sp_id = data.get("stop_point_id")
         new_point = data.get("new_point", "").strip()
         new_required_balance = data.get("new_required_recharge", "").strip()
+        new_special_bonus_amount = data.get("new_special_bonus_amount", "").strip()
+        new_lucky_order_enabled = _parse_bool(data.get("new_lucky_order_enabled", None)) if "new_lucky_order_enabled" in data else None
 
         sp = update_stop_point(
             user,
             sp_id,
             new_point=int(new_point) if new_point else None,
-            new_required_balance=new_required_balance if new_required_balance else None
+            new_required_balance=new_required_balance if new_required_balance else None,
+            new_special_bonus_amount=new_special_bonus_amount if new_special_bonus_amount != "" else "",
+            new_lucky_order_enabled=new_lucky_order_enabled
         )
-        return JsonResponse({"success": True, "message": "Stop point updated.", "point": {"id": sp.id, "point": sp.point, "required_balance": str(sp.required_balance)}})
+        return JsonResponse({
+            "success": True,
+            "message": "Stop point updated.",
+            "point": {
+                "id": sp.id,
+                "point": sp.point,
+                "required_balance": str(sp.required_balance),
+                "special_bonus_amount": str(sp.special_bonus_amount) if sp.special_bonus_amount is not None else "",
+                "lucky_order_enabled": sp.lucky_order_enabled,
+            }
+        })
     except StopPoint.DoesNotExist:
         return JsonResponse({"success": False, "error": "StopPoint not found."}, status=404)
     except (ValueError, InvalidOperation) as e:

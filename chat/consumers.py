@@ -29,6 +29,14 @@ from .services import (
     serialize_staff_message,
     serialize_staff_thread,
 )
+from .services_support import (
+    add_support_message,
+    get_support_thread_for_participant,
+    get_support_thread_messages,
+    mark_support_thread_read,
+    serialize_support_message,
+    serialize_support_thread,
+)
 
 MAX_FILE_SIZE = 2 * 1024 * 1024  # 2 MB
 ALLOWED_MIME_TYPES = {
@@ -287,6 +295,92 @@ class StaffChatConsumer(AsyncJsonWebsocketConsumer):
         )
 
     async def staff_event(self, event):
+        await self.send_json({
+            "event": event.get("event"),
+            **{k: v for k, v in event.items() if k not in {"type", "event"}},
+        })
+
+class UserSupportConsumer(AsyncJsonWebsocketConsumer):
+    """WebSocket consumer for persistent user ↔ customer service threads."""
+
+    async def connect(self):
+        user = self.scope.get("user")
+        if not user or not user.is_authenticated:
+            await self.close()
+            return
+
+        try:
+            self.thread_id = int(self.scope["url_route"]["kwargs"]["thread_id"])
+        except (KeyError, ValueError, TypeError):
+            await self.close()
+            return
+
+        thread = await database_sync_to_async(get_support_thread_for_participant)(self.thread_id, user)
+        if not thread:
+            await self.close()
+            return
+
+        self.user = user
+        self.thread = thread
+        self.role = "user" if user.id == thread.user_id else "agent"
+        self.group_name = f"user_support_{self.thread_id}"
+
+        await self.channel_layer.group_add(self.group_name, self.channel_name)
+        await self.accept()
+
+        messages = await database_sync_to_async(get_support_thread_messages)(self.thread)
+        await self.send_json({
+            "event": "bootstrap",
+            "thread": serialize_support_thread(self.thread),
+            "messages": messages,
+        })
+
+    async def disconnect(self, close_code):
+        await self.channel_layer.group_discard(getattr(self, "group_name", ""), self.channel_name)
+
+    async def receive_json(self, content, **kwargs):
+        action = content.get("action")
+        if action == "message":
+            await self._handle_message(content.get("message", ""))
+        elif action == "read":
+            await self._handle_read()
+        else:
+            await self.send_json({"event": "error", "detail": "Unknown action."})
+
+    async def _handle_message(self, text: str):
+        body = (text or "").strip()
+        if not body:
+            await self.send_json({"event": "error", "detail": "Message cannot be empty."})
+            return
+
+        message, thread = await database_sync_to_async(add_support_message)(self.thread, self.user, body)
+        self.thread = thread
+
+        await self.channel_layer.group_send(
+            self.group_name,
+            {
+                "type": "support.event",
+                "event": "message",
+                "message": serialize_support_message(message),
+                "thread": serialize_support_thread(thread, include_participants=False),
+            },
+        )
+
+    async def _handle_read(self):
+        thread = await database_sync_to_async(mark_support_thread_read)(self.thread, self.role)
+        self.thread = thread
+
+        await self.channel_layer.group_send(
+            self.group_name,
+            {
+                "type": "support.event",
+                "event": "read",
+                "role": self.role,
+                "thread": serialize_support_thread(thread, include_participants=False),
+            },
+        )
+
+    async def support_event(self, event):
         await self.send_json({
             "event": event.get("event"),
             **{k: v for k, v in event.items() if k not in {"type", "event"}},

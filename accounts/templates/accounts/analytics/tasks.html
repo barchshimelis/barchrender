@@ -1,0 +1,102 @@
+{% extends "accounts/analytics/analytics_base.html" %}
+{% load i18n static %}
+
+{% block analytics_content %}
+<style>
+.analytics-header h1 {
+    background: linear-gradient(135deg, #f59e0b, #fbbf24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.metric-value {
+    color: #f59e0b;
+}
+</style>
+
+<div class="analytics-grid">
+    <!-- Total Tasks -->
+    <div class="analytics-card">
+        <h3>📋 Total Tasks</h3>
+        <div class="metric-value">{{ task_completion.total_tasks }}</div>
+        <div class="metric-label">All Tasks Created</div>
+    </div>
+
+    <!-- Completed Tasks -->
+    <div class="analytics-card">
+        <h3>✅ Completed Tasks</h3>
+        <div class="metric-value">{{ task_completion.completed_tasks }}</div>
+        <div class="metric-label">Successfully Finished</div>
+    </div>
+
+    <!-- Completion Rate -->
+    <div class="analytics-card">
+        <h3>📊 Completion Rate</h3>
+        <div class="metric-value">{{ task_completion.completion_rate }}%</div>
+        <div class="metric-label">Success Percentage</div>
+    </div>
+
+    <!-- Task Chart -->
+    <div class="analytics-card" style="grid-column: span 2;">
+        <h3>📈 Task Completion Trends</h3>
+        <div class="chart-container">
+            <canvas id="taskChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+// Task Chart
+new Chart(document.getElementById('taskChart'), {
+    type: 'bar',
+    data: {
+        labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+        datasets: [{
+            label: 'Completed Tasks',
+            data: [12, 19, 15, 25, 22, 30, 18],
+            backgroundColor: '#f59e0b',
+            borderColor: '#fbbf24',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: { 
+                display: true,
+                labels: {
+                    color: '#e2e8f0',
+                    font: { size: 12 }
+                }
+            },
+            tooltip: {
+                backgroundColor: 'rgba(15, 23, 42, 0.9)',
+                titleColor: '#f1f5f9',
+                bodyColor: '#cbd5e1',
+                borderColor: 'rgba(255, 255, 255, 0.1)',
+                borderWidth: 1
+            }
+        },
+        scales: {
+            x: {
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.1)',
+                    borderColor: 'rgba(255, 255, 255, 0.2)'
+                },
+                ticks: { color: '#cbd5e1' }
+            },
+            y: { 
+                beginAtZero: true,
+                grid: {
+                    color: 'rgba(255, 255, 255, 0.1)',
+                    borderColor: 'rgba(255, 255, 255, 0.2)'
+                },
+                ticks: { color: '#cbd5e1' }
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

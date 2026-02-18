@@ -18,7 +18,6 @@ class Wallet(models.Model):
     current_balance = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
     product_commission = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
     referral_commission = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
-    cumulative_total = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
     
     # Fake Display Mode fields
     referral_earned_balance = models.DecimalField(max_digits=12, decimal_places=2, default=Decimal('0.00'))
@@ -39,21 +38,15 @@ class Wallet(models.Model):
     info_alert_wallet = models.BooleanField(default=False)
     info_alert_day = models.BooleanField(default=False)
 
-    @property
-    def total_balance(self):
-        return self.cumulative_total
-
     def add_recharge(self, amount):
         """Adds recharge to current_balance and updates balance source"""
         amount = Decimal(amount)
         self.current_balance += amount
-        self.cumulative_total += amount
         self.balance_source = 'recharge'
         self.has_recharged = True
         self.is_fake_display_mode = False  # Exit fake mode on recharge
         self.save(update_fields=[
-            'current_balance', 
-            'cumulative_total',
+            'current_balance',
             'balance_source',
             'has_recharged',
             'is_fake_display_mode'
@@ -64,7 +57,6 @@ class Wallet(models.Model):
         amount = Decimal(amount)
         self.referral_earned_balance += amount
         self.referral_commission += amount
-        self.cumulative_total += amount
         
         # If no recharge done yet and no current balance, set to referral mode
         if not self.has_recharged and self.current_balance == 0:
@@ -75,7 +67,6 @@ class Wallet(models.Model):
         self.save(update_fields=[
             'referral_earned_balance',
             'referral_commission',
-            'cumulative_total',
             'balance_source',
             'is_fake_display_mode',
             'fake_mode_started_at'
@@ -113,13 +104,11 @@ class Wallet(models.Model):
         """Adds product commission to the wallet"""
         amount = Decimal(amount)
         self.product_commission += amount
-        self.cumulative_total += amount
-        self.save(update_fields=['product_commission', 'cumulative_total'])
+        self.save(update_fields=['product_commission'])
 
 class CustomerServiceBalanceAdjustment(models.Model):
     FIELD_CHOICES = [
         ("current_balance", "Spendable Balance"),
-        ("cumulative_total", "Cumulative Ledger"),
         ("product_commission", "Product Commission"),
         ("referral_commission", "Referral Commission"),
     ]

@@ -40,9 +40,21 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('balance/', views.balance_view, name='balance'),
     path('activities/', views.activities_view, name='activities'),
+    path('analytics/', views.analytics_page, name='analytics'),
+    
+    # Individual Analytics Pages
+    path('analytics/financial/', views.financial_analytics_page, name='financial_analytics'),
+    path('analytics/tasks/', views.task_analytics_page, name='task_analytics'),
+    path('analytics/performance/', views.performance_analytics_page, name='performance_analytics'),
+    path('analytics/geography/', views.geography_analytics_page, name='geography_analytics'),
+    path('analytics/referrals/', views.referral_analytics_page, name='referral_analytics'),
+    path('analytics/withdrawals/', views.withdrawal_analytics_page, name='withdrawal_analytics'),
+    path('analytics/activity/', views.activity_analytics_page, name='activity_analytics'),
     
     # API URLs for admin functionality
     path('user/<int:user_id>/history/', views.user_history, name='user_history'),
+    path('user/<int:user_id>/adjust-balance/', views.admin_adjust_balance, name='admin_adjust_balance'),
     path('user/<int:user_id>/info-alert/clear/', views.clear_info_alert, name='clear_info_alert'),
     path('cs/guest-unread/', views.customerservice_guest_unread, name='customerservice_guest_unread'),
+    path('cs/user-support-unread/', views.customerservice_support_unread, name='customerservice_support_unread'),
 ]

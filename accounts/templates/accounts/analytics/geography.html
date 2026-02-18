@@ -1,0 +1,224 @@
+{% extends "accounts/analytics/analytics_base.html" %}
+{% load i18n static %}
+
+{% block analytics_content %}
+<style>
+/* Geography Analytics Specific Styles */
+.geography-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.chart-card {
+    grid-column: span 2;
+}
+
+/* Progress bar specific classes */
+.countries-progress {
+    background: linear-gradient(90deg, #14b8a6, #2dd4bf) !important;
+}
+
+.top-country-progress {
+    background: linear-gradient(90deg, #f59e0b, #d97706) !important;
+}
+
+.quality-progress {
+    background: linear-gradient(90deg, #10b981, #059669) !important;
+}
+
+.phone-progress {
+    background: linear-gradient(90deg, #6366f1, #4f46e5) !important;
+}
+
+@media (max-width: 768px) {
+    .chart-card {
+        grid-column: span 1;
+    }
+    
+    .geography-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<!-- Main Geography Metrics -->
+<div class="geography-grid">
+    <div class="analytics-card">
+        <h3>🌍 Countries Detected</h3>
+        <div class="metric-value">{{ geography.total_countries }}</div>
+        <div class="metric-label">Unique Countries</div>
+        <div class="progress-bar">
+            <div class="progress-fill countries-progress" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <h3>🏆 Top Country</h3>
+        <div class="metric-value">{{ geography.top_countries.0.country_name|default:"N/A" }}</div>
+        <div class="metric-label">{{ geography.top_countries.0.count|default:0 }} Users</div>
+        <div class="progress-bar">
+            <div class="progress-fill top-country-progress" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <h3>📊 Data Quality</h3>
+        <div class="metric-value">{{ geography.data_quality }}%</div>
+        <div class="metric-label">Valid Phone Numbers</div>
+        <div class="progress-bar">
+            <div class="progress-fill quality-progress" style="width: 0%"></div>
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <h3>📱 Users with Phone</h3>
+        <div class="metric-value">{{ geography.total_users_with_phone }}</div>
+        <div class="metric-label">Phone Numbers on File</div>
+        <div class="progress-bar">
+            <div class="progress-fill phone-progress" style="width: 0%"></div>
+        </div>
+    </div>
+</div>
+
+<!-- Geographic Distribution Chart -->
+<div class="geography-grid">
+    <div class="analytics-card chart-card">
+        <h3>🗺️ Geographic Distribution</h3>
+        <div class="chart-container">
+            <canvas id="geographyChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Top Countries List & Statistics -->
+<div class="geography-grid">
+    <div class="analytics-card">
+        <h3>🌟 Top Countries by Users</h3>
+        <div style="margin-top: 20px;">
+            {% for country in geography.top_countries %}
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; margin-bottom: 8px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 12px;">
+                    <div style="width: 40px; height: 40px; background: linear-gradient(135deg, #14b8a6, #2dd4bf); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: white; font-size: 12px;">
+                        {{ forloop.counter }}
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; color: #f1f5f9;">{{ country.country_name }}</div>
+                        <div style="font-size: 12px; color: #94a3b8;">{{ country.country_code }}</div>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 18px; font-weight: 700; color: #14b8a6;">{{ country.count }}</div>
+                    <div style="font-size: 12px; color: #94a3b8;">{{ country.percentage }}%</div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="analytics-card">
+        <h3>📈 Geographic Statistics</h3>
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #10b981;">✅ Valid Countries</span>
+                <span style="font-weight: 600; color: #10b981;">{{ geography.valid_countries }}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #ef4444;">❓ Unknown Numbers</span>
+                <span style="font-weight: 600; color: #ef4444;">{{ geography.unknown_count }}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #60a5fa;">📊 Total Analyzed</span>
+                <span style="font-weight: 600; color: #60a5fa;">{{ geography.total_users_with_phone }}</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="color: #f59e0b;">🌍 Coverage Rate</span>
+                <span style="font-weight: 600; color: #f59e0b;">{{ geography.data_quality }}%</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Chart Data Storage -->
+<div id="geographyChartData" 
+     data-labels="{% for item in geography.chart_data %}{{ item.country }}{% if not forloop.last %},{% endif %}{% endfor %}"
+     data-values="{% for item in geography.chart_data %}{{ item.users }}{% if not forloop.last %},{% endif %}{% endfor %}"
+     data-total-countries="{{ geography.total_countries|default:0 }}"
+     data-top-country-count="{{ geography.top_countries.0.count|default:0 }}"
+     data-total-users-with-phone="{{ geography.total_users_with_phone|default:1 }}"
+     data-data-quality="{{ geography.data_quality|default:0 }}">
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get data from data attributes to avoid JavaScript linting errors
+    const chartDataElement = document.getElementById('geographyChartData');
+    const totalCountries = parseInt(chartDataElement.dataset.totalCountries) || 0;
+    const topCountryCount = parseInt(chartDataElement.dataset.topCountryCount) || 0;
+    const totalUsersWithPhone = parseInt(chartDataElement.dataset.totalUsersWithPhone) || 1;
+    const dataQuality = parseInt(chartDataElement.dataset.dataQuality) || 0;
+    
+    // Set progress bar widths
+    document.querySelector('.countries-progress').style.width = Math.min(totalCountries * 2, 100) + '%';
+    document.querySelector('.top-country-progress').style.width = Math.min((topCountryCount / totalUsersWithPhone) * 100, 100) + '%';
+    document.querySelector('.quality-progress').style.width = dataQuality + '%';
+    document.querySelector('.phone-progress').style.width = Math.min(totalUsersWithPhone, 100) + '%';
+    
+    // Geography Chart
+    const labels = chartDataElement.dataset.labels.split(',');
+    const data = chartDataElement.dataset.values.split(',').map(Number);
+    
+    new Chart(document.getElementById('geographyChart'), {
+        type: 'doughnut',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: data,
+                backgroundColor: [
+                    '#14b8a6',
+                    '#2dd4bf',
+                    '#5eead4',
+                    '#99f6e4',
+                    '#ccfbf1',
+                    '#f0fdfa',
+                    '#06b6d4',
+                    '#0891b2'
+                ],
+                borderColor: '#000000',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: { 
+                    display: true,
+                    position: 'right',
+                    labels: {
+                        color: '#e2e8f0',
+                        font: { size: 12 },
+                        padding: 15
+                    }
+                },
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                    titleColor: '#f1f5f9',
+                    bodyColor: '#cbd5e1',
+                    borderColor: 'rgba(255, 255, 255, 0.1)',
+                    borderWidth: 1,
+                    callbacks: {
+                        label: function(context) {
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((context.parsed / total) * 100).toFixed(1);
+                            return context.label + ': ' + context.parsed + ' users (' + percentage + '%)';
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

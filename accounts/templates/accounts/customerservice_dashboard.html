@@ -225,19 +225,34 @@
                     </div>
 
                     <!-- CS Chat Desk -->
-                    <a href="{% url 'chat:cs_panel' %}"
-                       id="csChatButton"
-                       class="relative bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-400 transition text-sm flex items-center gap-2"
-                       title="Open customer chats"
-                       aria-label="Open customer chats{% if guest_unread_count > 0 %}, {{ guest_unread_count }} new{% endif %}">
-                        <i class="fas fa-headset"></i>
-                        <span>Chat</span>
-                        {% if guest_unread_count > 0 %}
-                        <span id="csChatBadge" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-semibold rounded-full h-5 min-w-[1.25rem] px-1 flex items-center justify-center">
-                            {{ guest_unread_count }}
-                        </span>
-                        {% endif %}
-                    </a>
+                    <div class="flex items-center gap-3">
+                        <a href="{% url 'chat:cs_panel' %}"
+                           id="csChatButton"
+                           class="relative bg-yellow-500 text-gray-900 px-4 py-2 rounded-lg hover:bg-yellow-400 transition text-sm flex items-center gap-2"
+                           title="Open guest chat"
+                           aria-label="Open guest chat{% if guest_unread_count > 0 %}, {{ guest_unread_count }} new{% endif %}">
+                            <i class="fas fa-headset"></i>
+                            <span>Guest Chat</span>
+                            {% if guest_unread_count > 0 %}
+                            <span id="csChatBadge" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-semibold rounded-full h-5 min-w-[1.25rem] px-1 flex items-center justify-center">
+                                {{ guest_unread_count }}
+                            </span>
+                            {% endif %}
+                        </a>
+                        <a href="{% url 'chat:user_support_portal' %}"
+                           id="supportChatButton"
+                           class="relative bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-500 transition text-sm flex items-center gap-2"
+                           title="Open user support chat"
+                           aria-label="Open user support chat{% if user_support_unread_count > 0 %}, {{ user_support_unread_count }} unread{% endif %}">
+                            <i class="fas fa-comments"></i>
+                            <span>User Support</span>
+                            {% if user_support_unread_count > 0 %}
+                            <span id="supportChatBadge" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-semibold rounded-full h-5 min-w-[1.25rem] px-1 flex items-center justify-center">
+                                {{ user_support_unread_count }}
+                            </span>
+                            {% endif %}
+                        </a>
+                    </div>
 
                     <!-- Logout -->
                     <a href="{% url 'accounts:logout' %}" 
@@ -332,7 +347,6 @@
                                     data-user-id="{{ user.id }}"
                                     data-username="{{ user.username }}"
                                     data-current-balance="{% if wallet %}{{ wallet.current_balance|default:'0.00' }}{% else %}0.00{% endif %}"
-                                    data-cumulative-total="{% if wallet %}{{ wallet.cumulative_total|default:'0.00' }}{% else %}0.00{% endif %}"
                                     data-product-commission="{% if wallet %}{{ wallet.product_commission|default:'0.00' }}{% else %}0.00{% endif %}"
                                     data-referral-commission="{% if wallet %}{{ wallet.referral_commission|default:'0.00' }}{% else %}0.00{% endif %}"
                                 >
@@ -627,24 +641,37 @@
 
         const BALANCE_CARD_CONFIG = [
             { key: 'current', field: 'current_balance', label: 'Currnet Balance', hint: 'Active wallet funds' },
-            { key: 'cumulative', field: 'cumulative_total', label: 'Total Balance', hint: 'Total earned overall' },
             { key: 'product', field: 'product_commission', label: 'Product Comm.', hint: 'Product task earnings' },
             { key: 'referral', field: 'referral_commission', label: 'Referral Comm.', hint: 'Referral earnings' },
         ];
+
+        const adjustBalanceState = {
+            base: null,
+        };
+
+        function clampCurrency(value) {
+            return value < 0 ? 0 : value;
+        }
+
+        function parseNumber(value) {
+            const normalized = typeof value === 'string' ? value.replace(/,/g, '') : value;
+            const amount = Number(normalized);
+            return Number.isFinite(amount) ? amount : 0;
+        }
 
         function formatCurrency(value) {
             const amount = Number(value || 0);
             return amount.toLocaleString(undefined, { style: 'currency', currency: 'USD' });
         }
 
-        function renderAdjustCards(data) {
+        function renderAdjustCards() {
             const container = document.getElementById('adjustBalanceCards');
-            if (!container) return;
+            if (!container || !adjustBalanceState.base) return;
             container.innerHTML = BALANCE_CARD_CONFIG.map((config, index) => `
                 <label class="adjust-card">
                     <input type="radio" name="balance_field" value="${config.field}" ${index === 0 ? 'checked' : ''}>
                     <div class="adjust-card__label">${config.label}</div>
-                    <div class="adjust-card__value">${formatCurrency(data[config.key])}</div>
+                    <div class="adjust-card__value">${formatCurrency(adjustBalanceState.base[config.field])}</div>
                     <div class="adjust-card__hint">${config.hint}</div>
                 </label>
             `).join('');
@@ -656,22 +683,73 @@
                     cards.forEach((node) => node.classList.remove('adjust-card--active'));
                     card.classList.add('adjust-card--active');
                     input.checked = true;
+                    updateAdjustCardValues();
                 };
                 card.addEventListener('click', activate);
                 if (input.checked) {
                     card.classList.add('adjust-card--active');
                 }
             });
+
+            updateAdjustCardValues();
         }
+
+        function getSelectedBalanceField() {
+            const checked = document.querySelector('input[name="balance_field"]:checked');
+            return checked ? checked.value : BALANCE_CARD_CONFIG[0].field;
+        }
+
+        function getAdjustmentDelta() {
+            const amountInput = document.getElementById('adjustAmountInput');
+            const typeSelect = document.getElementById('adjustmentTypeSelect');
+            if (!amountInput || !typeSelect) return 0;
+            const amount = parseNumber(amountInput.value);
+            if (!amount) return 0;
+            return typeSelect.value === 'debit' ? -amount : amount;
+        }
+
+        function getBalancePreview() {
+            if (!adjustBalanceState.base) return null;
+            const preview = { ...adjustBalanceState.base };
+            const delta = getAdjustmentDelta();
+            if (!delta) {
+                return preview;
+            }
+            const targetField = getSelectedBalanceField();
+            preview[targetField] = clampCurrency(preview[targetField] + delta);
+            return preview;
+        }
+
+        function updateAdjustCardValues() {
+            const preview = getBalancePreview();
+            if (!preview) return;
+            const cards = document.querySelectorAll('#adjustBalanceCards .adjust-card');
+            cards.forEach((card) => {
+                const input = card.querySelector('input[name="balance_field"]');
+                const valueEl = card.querySelector('.adjust-card__value');
+                if (!input || !valueEl) return;
+                const field = input.value;
+                if (field in preview) {
+                    valueEl.textContent = formatCurrency(preview[field]);
+                }
+            });
+        }
+
+        function setAdjustBalanceState(rawBalances) {
+            adjustBalanceState.base = {
+                current_balance: parseNumber(rawBalances.current_balance),
+                product_commission: parseNumber(rawBalances.product_commission),
+                referral_commission: parseNumber(rawBalances.referral_commission),
+            };
+        };
 
         function showAdjustBalanceModal(buttonEl) {
             const userId = buttonEl.getAttribute('data-user-id');
             const username = buttonEl.getAttribute('data-username');
             const balances = {
-                current: buttonEl.getAttribute('data-current-balance') || '0.00',
-                cumulative: buttonEl.getAttribute('data-cumulative-total') || '0.00',
-                product: buttonEl.getAttribute('data-product-commission') || '0.00',
-                referral: buttonEl.getAttribute('data-referral-commission') || '0.00',
+                current_balance: buttonEl.getAttribute('data-current-balance') || '0.00',
+                product_commission: buttonEl.getAttribute('data-product-commission') || '0.00',
+                referral_commission: buttonEl.getAttribute('data-referral-commission') || '0.00',
             };
 
             document.getElementById('adjustBalanceUsername').textContent = username;
@@ -679,7 +757,8 @@
             document.getElementById('adjustAmountInput').value = '';
             document.getElementById('adjustNoteInput').value = '';
             document.getElementById('adjustmentTypeSelect').selectedIndex = 0;
-            renderAdjustCards(balances);
+            setAdjustBalanceState(balances);
+            renderAdjustCards();
             document.getElementById('adjustBalanceModal').style.display = 'block';
         }
 
@@ -722,6 +801,15 @@
             attachHandler('.adjust-balance-trigger', (btn) => {
                 showAdjustBalanceModal(btn);
             });
+
+            const amountInput = document.getElementById('adjustAmountInput');
+            if (amountInput) {
+                amountInput.addEventListener('input', updateAdjustCardValues);
+            }
+            const adjustmentTypeSelect = document.getElementById('adjustmentTypeSelect');
+            if (adjustmentTypeSelect) {
+                adjustmentTypeSelect.addEventListener('change', updateAdjustCardValues);
+            }
         });
 
         function closeModal(modalId) {
@@ -997,6 +1085,8 @@
         // --- Guest chat unread auto-refresh ---
         const chatButton = document.getElementById('csChatButton');
         let chatBadge = document.getElementById('csChatBadge');
+        const supportButton = document.getElementById('supportChatButton');
+        let supportBadge = document.getElementById('supportChatBadge');
 
         function updateChatBadge(count) {
             if (!chatButton) return;
@@ -1032,8 +1122,47 @@
             }
         }
 
-        refreshGuestUnread();
-        setInterval(refreshGuestUnread, 5000);
+        function updateSupportBadge(count) {
+            if (!supportButton) return;
+            if (count > 0) {
+                if (!supportBadge) {
+                    supportBadge = document.createElement('span');
+                    supportBadge.id = 'supportChatBadge';
+                    supportBadge.className = 'absolute -top-2 -right-2 bg-red-600 text-white text-xs font-semibold rounded-full h-5 min-w-[1.25rem] px-1 flex items-center justify-center';
+                    supportButton.appendChild(supportBadge);
+                }
+                supportBadge.textContent = count;
+                supportButton.setAttribute('aria-label', `Open user support chat, ${count} unread`);
+            } else if (supportBadge) {
+                supportBadge.remove();
+                supportBadge = null;
+                supportButton.setAttribute('aria-label', 'Open user support chat');
+            }
+        }
+
+        async function refreshSupportUnread() {
+            try {
+                const response = await fetch('{% url "accounts:customerservice_support_unread" %}', {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' },
+                });
+                if (!response.ok) {
+                    throw new Error('Failed to fetch support chat stats');
+                }
+                const data = await response.json();
+                const count = parseInt(data.user_support_unread_count, 10) || 0;
+                updateSupportBadge(count);
+            } catch (error) {
+                console.error('Error refreshing user support chat count:', error);
+            }
+        }
+
+        function refreshSupportAndGuest() {
+            refreshGuestUnread();
+            refreshSupportUnread();
+        }
+
+        refreshSupportAndGuest();
+        setInterval(refreshSupportAndGuest, 5000);
     </script>
 </body>
 </html>

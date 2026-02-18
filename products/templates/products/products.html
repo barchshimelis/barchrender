@@ -429,9 +429,11 @@
     }
 
     .alert-banner.is-warning {
-        background: rgba(217, 83, 79, 0.15);
-        border-color: rgba(217, 83, 79, 0.35);
+        background: transparent;
+        border-color: transparent;
         color: #f9d2d1;
+        justify-content: center;
+        text-align: center;
     }
 
     .alert-banner.is-fading {
@@ -479,6 +481,19 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
+        opacity: 0;
+        animation: productFadeIn 0.35s ease forwards;
+    }
+
+    @keyframes productFadeIn {
+        from {
+            opacity: 0;
+            transform: scale(1.01);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
     }
 
     .product-fallback {
@@ -543,6 +558,10 @@
 
     .meta-value.is-accent {
         color: #f2b35c;
+    }
+
+    .meta-value.is-positive {
+        color: #38d46a;
     }
 
     .info-note {
@@ -620,36 +639,96 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 0.55rem;
-        padding: 0.9rem 1.1rem;
-        border-radius: 15px;
+        gap: 0.2rem;
+        padding: 0.3rem 0.4rem;
+        border-radius: 8px;
         background: linear-gradient(140deg, rgba(25, 33, 45, 0.92), rgba(14, 18, 25, 0.94));
         border: 1px solid rgba(255, 255, 255, 0.08);
         box-shadow: 0 10px 26px rgba(4, 8, 12, 0.6);
-        min-width: 180px;
+        min-width: 70px;
     }
 
-    .task-loader .spinner-ring {
-        width: 16px;
-        height: 16px;
-        border-radius: 999px;
-        border: 3px solid rgba(116, 198, 255, 0.18);
-        border-top-color: rgba(116, 198, 255, 0.9);
-        border-right-color: rgba(92, 212, 255, 0.75);
-        animation: loader-spin 0.95s linear infinite;
-        box-shadow: 0 0 8px rgba(92, 212, 255, 0.3);
+    .dots-container {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        justify-content: center;
+        height: 12px;
+    }
+
+    .dot {
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f2b35c, #e3942d);
+        opacity: 0.3;
+        transform: scale(0.8);
+        transition: all 0.3s ease;
+    }
+
+    .dot.active {
+        opacity: 1;
+        transform: scale(1.2);
+        box-shadow: 0 0 12px rgba(242, 179, 92, 0.6);
+    }
+
+    @keyframes dotPulse {
+        0%, 80%, 100% {
+            opacity: 0.3;
+            transform: scale(0.8);
+        }
+        40% {
+            opacity: 1;
+            transform: scale(1.2);
+        }
+    }
+
+    .dot:nth-child(1) {
+        animation: dotPulse 1.5s ease-in-out infinite;
+    }
+
+    .dot:nth-child(2) {
+        animation: dotPulse 1.5s ease-in-out infinite 0.2s;
+    }
+
+    .dot:nth-child(3) {
+        animation: dotPulse 1.5s ease-in-out infinite 0.4s;
+    }
+
+    .checkmark {
+        width: 12px;
+        height: 12px;
+        opacity: 0;
+        transform: scale(0) rotate(-45deg);
+        transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    }
+
+    .checkmark.visible {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+
+    .checkmark::before {
+        content: '';
+        position: absolute;
+        width: 3px;
+        height: 6px;
+        border: solid #f2b35c;
+        border-width: 0 1.5px 1.5px 0;
+        transform: rotate(45deg);
+        box-shadow: 0 0 4px rgba(242, 179, 92, 0.6);
     }
 
     .task-loader .loader-label {
         color: rgba(242, 248, 255, 0.86);
         font-weight: 600;
         letter-spacing: 0.04em;
-        font-size: 0.82rem;
+        font-size: 0.65rem;
+        transition: all 0.3s ease;
     }
 
-    @keyframes loader-spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+    .task-loader .loader-label.done {
+        color: #f2b35c;
     }
 
     .stop-point-modal {
@@ -678,68 +757,282 @@
         text-align: center;
     }
 
-    .stop-point-dialog {
-        width: min(360px, calc(100% - 1rem));
+    .daily-complete-dialog {
+        width: min(480px, calc(100% - 1rem));
         border-radius: 20px;
-        background: linear-gradient(135deg, rgba(32, 41, 57, 0.95), rgba(12, 16, 21, 0.92));
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        padding: 1.2rem;
-        box-shadow: 0 16px 34px rgba(0, 0, 0, 0.45);
-        text-align: center;
+        background: #f3f4f6;
+        border: 1px solid #e3e6e6;
+        padding: 1.4rem 1.5rem 1.6rem;
+        box-shadow: 0 18px 38px rgba(15, 23, 42, 0.18);
+        text-align: left;
     }
 
-    .stop-point-dialog h2 {
-        margin: 0 0 0.75rem;
-        color: #f9d2d1;
-        font-size: 1.1rem;
+    .daily-complete-banner {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 0.55rem 0.9rem;
+        border-radius: 999px;
+        background: #f8f9fa;
+        color: #565959;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        border: 1px solid #e3e6e6;
+        margin: 0 auto 0.9rem;
+    }
+
+    .daily-complete-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 0.35rem;
+        margin-bottom: 0.9rem;
+        width: 100%;
+    }
+
+    .daily-complete-title {
+        margin: 0;
+        color: #0f1111;
+        font-size: 2.4rem;
+        letter-spacing: 0.02em;
+        text-align: center;
+        width: 100%;
+    }
+
+    .daily-complete-header .stop-point-subtitle {
+        text-align: center;
+        width: 100%;
+    }
+
+    .daily-complete-icon {
+        width: 50px;
+        height: 50px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: rgba(255, 153, 0, 0.12);
+        box-shadow: inset 0 0 0 1px rgba(255, 153, 0, 0.2);
+        flex-shrink: 0;
+    }
+
+    .daily-complete-logo {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+        display: block;
+    }
+
+    .daily-complete-badge {
+        margin: 0;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 12px;
+        border-radius: 999px;
+        background: #e6f4ea;
+        color: #1b8a3a;
+        font-size: 0.78rem;
+        font-weight: 600;
         letter-spacing: 0.04em;
+        text-transform: uppercase;
+        border: 1px solid rgba(27, 138, 58, 0.2);
+    }
+
+    .daily-complete-body {
+        margin: 0.6rem 0 1.2rem;
+        text-align: center;
+        align-items: center;
+    }
+
+    .daily-complete-amount {
+        font-size: clamp(2.2rem, 4vw, 2.8rem);
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: #0f1111;
+    }
+
+    .daily-complete-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        justify-content: center;
+    }
+
+    .daily-btn-outline,
+    .daily-btn-primary {
+        padding: 0.6rem 1.6rem;
+        border-radius: 999px;
+        border: none;
+        font-size: 0.88rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .daily-btn-outline {
+        background: #ffffff;
+        border: 1px solid #d5d9d9;
+        color: #232f3e;
+    }
+
+    .daily-btn-primary {
+        background: #ff9900;
+        color: #0f1111;
+        box-shadow: 0 10px 24px rgba(255, 153, 0, 0.35);
+    }
+
+    .daily-btn-outline:hover,
+    .daily-btn-outline:focus,
+    .daily-btn-primary:hover,
+    .daily-btn-primary:focus {
+        transform: translateY(-1px);
+    }
+
+    .daily-complete-label {
+        margin: 0;
+        color: #565959;
+        font-size: 0.88rem;
+        letter-spacing: 0.02em;
+    }
+
+    .stop-point-dialog {
+        width: min(480px, calc(100% - 1rem));
+        border-radius: 20px;
+        background: #ffffff;
+        border: 1px solid #e3e6e6;
+        padding: 1.4rem 1.5rem 1.6rem;
+        box-shadow: 0 18px 38px rgba(15, 23, 42, 0.18);
+        text-align: left;
+    }
+
+    .stop-point-header {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 0.75rem;
+    }
+
+    .daily-limit-header .stop-point-icon {
+        background: none;
+        box-shadow: none;
+        display: block;
+        width: 56px;
+        height: 56px;
+        flex-shrink: 0;
+        align-self: flex-start;
+    }
+
+    .stop-point-logo {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+        display: block;
+    }
+
+    .daily-limit-header .stop-point-logo {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+
+    .stop-point-header h2 {
+        margin: 0 0 0.25rem;
+        color: #0f1111;
+        font-size: 1.15rem;
+        letter-spacing: 0.02em;
+    }
+
+    .stop-point-subtitle {
+        margin: 0;
+        color: #565959;
+        font-size: 0.88rem;
+    }
+
+    #stopPointModal .stop-point-header h2 {
+        font-size: 1.45rem;
+    }
+
+    #stopPointModal .stop-point-subtitle {
+        font-size: 1rem;
+    }
+
+    #dailyLimitUnsetModal .stop-point-dialog {
+        width: min(360px, calc(100% - 1rem));
+        padding: 1.1rem 1.2rem 1.3rem;
+        border-radius: 16px;
+        text-align: left;
+    }
+
+    #dailyLimitUnsetModal .daily-limit-header {
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    #dailyLimitUnsetModal .stop-point-actions {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    #dailyLimitUnsetModal .stop-point-actions a,
+    #dailyLimitUnsetModal .stop-point-actions button {
+        width: auto;
+        justify-content: center;
     }
 
     .stop-point-body {
-        text-align: left;
-        margin: 0.9rem 0 1rem;
-        padding: 0.75rem 0.9rem;
+        margin: 0.85rem 0 1.1rem;
+        padding: 0.85rem 1rem;
         border-radius: 14px;
-        background: rgba(255, 255, 255, 0.05);
-        border-left: 4px solid rgba(217, 83, 79, 0.8);
+        background: #f8f9fa;
+        border-left: 4px solid #ff9900;
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 0.55rem;
     }
 
     .stop-point-body p {
         margin: 0;
-        font-size: 0.78rem;
-        color: rgba(247, 250, 250, 0.8);
+        font-size: 0.85rem;
+        color: #232f3e;
         display: flex;
         justify-content: space-between;
-        gap: 0.6rem;
+        gap: 0.75rem;
     }
 
     .stop-point-body strong {
-        color: #f2b35c;
+        color: #0f1111;
+        font-weight: 600;
+    }
+
+    .stop-point-amount-danger {
+        color: #c23b3b;
+        font-weight: 600;
     }
 
     .bonus-highlight {
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        margin-top: 0.75rem;
-        padding: 0.55rem 0.75rem;
+        margin-top: 0.7rem;
+        padding: 0.6rem 0.75rem;
         border-radius: 12px;
-        background: linear-gradient(135deg, rgba(92, 212, 255, 0.2), rgba(0, 168, 225, 0.18));
-        color: #7ce8ff;
-        font-size: 0.8rem;
+        background: linear-gradient(135deg, rgba(255, 153, 0, 0.12), rgba(255, 221, 176, 0.2));
+        color: #8a5a15;
+        font-size: 0.82rem;
         font-weight: 600;
-        letter-spacing: 0.03em;
-        border: 1px solid rgba(0, 168, 225, 0.25);
-        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.04);
+        letter-spacing: 0.02em;
+        border: 1px solid rgba(255, 153, 0, 0.25);
     }
 
     .bonus-highlight i {
-        color: #00a8e1;
+        color: #ff9900;
         font-size: 1rem;
-        filter: drop-shadow(0 2px 6px rgba(0, 168, 225, 0.45));
     }
 
     .bonus-highlight .bonus-rate {
@@ -748,7 +1041,7 @@
     }
 
     .bonus-highlight .bonus-rate.is-positive {
-        color: #4ade80;
+        color: #1b8a3a;
     }
 
     .stop-point-actions {
@@ -766,15 +1059,34 @@
 
     .stop-point-actions a,
     .stop-point-actions button {
-        padding: 0.55rem 1.4rem;
+        padding: 0.6rem 1.6rem;
         border-radius: 999px;
         border: none;
-        font-size: 0.85rem;
+        font-size: 0.88rem;
         font-weight: 600;
         cursor: pointer;
         text-decoration: none;
         text-align: center;
         transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    }
+
+    .stop-point-actions a {
+        background: #ff9900;
+        color: #0f1111;
+        box-shadow: 0 10px 24px rgba(255, 153, 0, 0.35);
+    }
+
+    .stop-point-actions button {
+        background: #ffffff;
+        border: 1px solid #d5d9d9;
+        color: #232f3e;
+    }
+
+    .stop-point-actions a:hover,
+    .stop-point-actions a:focus,
+    .stop-point-actions button:hover,
+    .stop-point-actions button:focus {
+        transform: translateY(-1px);
     }
 
     .stop-point-actions .ghost-button {
@@ -823,36 +1135,96 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.55rem;
-            padding: 0.9rem 1.1rem;
-            border-radius: 15px;
+            gap: 0.2rem;
+            padding: 0.3rem 0.4rem;
+            border-radius: 8px;
             background: linear-gradient(140deg, rgba(25, 33, 45, 0.92), rgba(14, 18, 25, 0.94));
             border: 1px solid rgba(255, 255, 255, 0.08);
             box-shadow: 0 10px 26px rgba(4, 8, 12, 0.6);
-            min-width: 180px;
+            min-width: 70px;
         }
 
-        .task-loader .spinner-ring {
-            width: 16px;
-            height: 16px;
-            border-radius: 999px;
-            border: 3px solid rgba(116, 198, 255, 0.18);
-            border-top-color: rgba(116, 198, 255, 0.9);
-            border-right-color: rgba(92, 212, 255, 0.75);
-            animation: loader-spin 0.95s linear infinite;
-            box-shadow: 0 0 8px rgba(92, 212, 255, 0.3);
+        .dots-container {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+            justify-content: center;
+            height: 12px;
+        }
+
+        .dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #f2b35c, #e3942d);
+            opacity: 0.3;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            opacity: 1;
+            transform: scale(1.2);
+            box-shadow: 0 0 12px rgba(242, 179, 92, 0.6);
+        }
+
+        @keyframes dotPulse {
+            0%, 80%, 100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+            40% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        .dot:nth-child(1) {
+            animation: dotPulse 1.5s ease-in-out infinite;
+        }
+
+        .dot:nth-child(2) {
+            animation: dotPulse 1.5s ease-in-out infinite 0.2s;
+        }
+
+        .dot:nth-child(3) {
+            animation: dotPulse 1.5s ease-in-out infinite 0.4s;
+        }
+
+        .checkmark {
+            width: 12px;
+            height: 12px;
+            opacity: 0;
+            transform: scale(0) rotate(-45deg);
+            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        .checkmark.visible {
+            opacity: 1;
+            transform: scale(1) rotate(0deg);
+        }
+
+        .checkmark::before {
+            content: '';
+            position: absolute;
+            width: 3px;
+            height: 6px;
+            border: solid #f2b35c;
+            border-width: 0 1.5px 1.5px 0;
+            transform: rotate(45deg);
+            box-shadow: 0 0 4px rgba(242, 179, 92, 0.6);
         }
 
         .task-loader .loader-label {
             color: rgba(242, 248, 255, 0.86);
             font-weight: 600;
             letter-spacing: 0.04em;
-            font-size: 0.82rem;
+            font-size: 0.65rem;
+            transition: all 0.3s ease;
         }
 
-        @keyframes loader-spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .task-loader .loader-label.done {
+            color: #f2b35c;
         }
 
         .stop-point-modal {
@@ -903,6 +1275,23 @@
         .meta-line {
             padding: 0.5rem 0.6rem;
         }
+
+        #stopPointModal {
+            padding: 0.5rem;
+        }
+
+        #stopPointModal .stop-point-dialog {
+            width: calc(100% - 1rem);
+            max-width: 100%;
+            max-height: 92vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #stopPointModal .stop-point-body {
+            overflow-y: auto;
+            flex: 1 1 auto;
+        }
     }
 
     @media (max-width: 420px) {
@@ -921,219 +1310,64 @@
 {% endblock %}
 
 {% block content %}
-<div class="mobile-shell">
-    
-    {% if messages %}
-    <section class="message-stack">
-        {% for message in messages %}
-            <div class="alert-banner {% if message.tags == 'warning' %}is-warning{% endif %}">
-                <span class="alert-icon">
-                    {% if message.tags == 'warning' %}
-                        <i class="fas fa-exclamation-triangle"></i>
-                    {% else %}
-                        <i class="fas fa-info"></i>
-                    {% endif %}
-                </span>
-                <span class="alert-text">{{ message }}</span>
-            </div>
-        {% endfor %}
-    </section>
-    {% endif %}
-
-    {% if task %}
-        <section class="glass-card balance-banner">
-            <div class="balance-top">
-                <div class="balance-amount">
-                    <span class="label">{% trans "Current balance" %}</span>
-                    <div class="value">
-                        <span class="currency">$</span>
-                        <span id="current_balance">{{ current_balance|default_if_none:0|floatformat:2 }}</span>
-                    </div>
-                </div>
-                <a class="recharge-button" href="{% url 'balance:recharge_amount' %}">
-                    <i class="fas fa-bolt"></i>
-                    {% trans "Recharge" %}
-                </a>
-            </div>
-        </section>
-
-        <div class="section-divider" role="presentation"></div>
-
-        <section class="metric-strip task-metrics" data-daily-limit="{{ daily_limit|default_if_none:0 }}" data-task-index="{{ display_task_number|default_if_none:0 }}" data-all-complete="{{ all_products_completed|yesno:"true,false" }}">
-            <div class="metric-card">
-                <div class="metric-icon teal">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <strong id="metric-limit">{{ daily_limit|default_if_none:0 }}</strong>
-                <p>{% trans "Daily limit" %}</p>
-            </div>
-            <div class="metric-card">
-                <div class="metric-icon amber">
-                    <i class="fas fa-check-circle"></i>
-                </div>
-                <strong id="metric-completed">0</strong>
-                <p>{% trans "Completed" %}</p>
-            </div>
-            <div class="metric-card">
-                <div class="metric-icon sky">
-                    <i class="fas fa-star-half-alt"></i>
-                </div>
-                <strong id="metric-remaining">0</strong>
-                <p>{% trans "Remaining" %}</p>
-            </div>
-        </section>
-
-        <section class="glass-card product-card">
-            <div class="product-media">
-                {% if task.product.file %}
-                    <img src="{{ task.product.file.url }}" alt="{{ task.product.name }}">
-                {% elif task.product.image %}
-                    <img src="{{ task.product.image.url }}" alt="{{ task.product.name }}">
-                {% else %}
-                    <span class="product-fallback">{{ task.product.name|default:_("N/A")|slice:":3"|upper }}</span>
-                {% endif %}
-            </div>
-            <div class="product-content">
-              
-                <div class="meta-stack">
-                    <div class="meta-line">
-                        <span class="meta-label">{% trans "Date" %}</span>
-                        <span class="meta-value">{{ task.product.created_at|date:"M d, Y g:i a" }}</span>
-                    </div>
-                    <div class="meta-line">
-                        <span class="meta-label">{% trans "Code" %}</span>
-                        <span class="meta-value">
-                            {% if task.product.product_code %}
-                                {{ task.product.product_code }}
-                            {% elif task.product.code %}
-                                {{ task.product.code }}
-                            {% else %}
-                                {{ task.product.name|default:_("N/A")|slice:":3"|upper }}-{{ task.product.name|default:_("N/A")|slice:"3:6"|upper }}
-                            {% endif %}
-                        </span>
-                    </div>
-                    <div class="meta-line">
-                        <span class="meta-label">{% trans "Price" %}</span>
-                        <span class="meta-value is-accent">
-                            {% if is_fake_mode and fake_display_price is not None %}
-                                ${{ fake_display_price|floatformat:2 }}
-                            {% else %}
-                                ${{ task.price|floatformat:2 }}
-                            {% endif %}
-                        </span>
-                    </div>
-                </div>
-                {% if is_fake_mode or real_price and real_price != task.price %}
-                    
-                {% endif %}
-            </div>
-        </section>
-
-        {% if not can_proceed %}
-            <p class="warning-text">
-                {% if block_reason %}{{ block_reason }}{% else %}{% trans "Cannot proceed with this task." %}{% endif %}
-            </p>
-        {% endif %}
-
-        <form method="post" id="next_product_form" class="actions-row">
-            {% csrf_token %}
-            <button type="submit" name="next_product" class="primary-button" {% if not can_proceed %}disabled{% endif %}>
-                {% if all_products_completed %}{% trans "All tasks completed" %}{% else %}{% trans "Next product" %}{% endif %}
-            </button>
-        </form>
-
-    {% else %}
-            
-          
-    {% endif %}
-
+<div id="taskPanelRoot">
+    {% include "products/partials/task_panel.html" %}
 </div>
 
 <div id="taskLoader" class="task-loader" role="status" aria-live="polite" aria-hidden="true">
     <div class="loader-dialog">
-        <span class="spinner-ring" aria-hidden="true"></span>
-        <span class="loader-label">loading...</span>
+        <div class="dots-container" id="loadingDots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="checkmark" id="loadingCheckmark"></div>
+        <span class="loader-label" id="loaderLabel">{% trans "Loading..." %}</span>
     </div>
 </div>
-
-{% if stop_point_info %}
-<!-- StopPoint Popup Modal -->
-<div id="stopPointModal" class="stop-point-modal" role="dialog" aria-modal="true">
-    <div class="stop-point-dialog">
-        <h2>Insufficient Balance</h2>
-        <div class="stop-point-body">
-            <p><strong>Product code:</strong> {{ stop_point_info.product_code }}</p>
-            <p><strong>Date:</strong> {{ stop_point_info.current_date|date:"M d, Y g:i A" }}</p>
-            <p><strong>Current balance:</strong> ${{ stop_point_info.current_balance|floatformat:2 }}</p>
-            <p><strong>Next product price:</strong> ${{ stop_point_info.next_product_price|floatformat:2 }}</p>
-            <p><strong>Recharge required:</strong> ${{ stop_point_info.required_balance|floatformat:2 }}</p>
-            {% if stop_point_info.bonus_percent and stop_point_info.bonus_percent > 0 %}
-            <div class="bonus-highlight">
-                <i class="fas fa-arrow-up" aria-hidden="true"></i>
-                <span>
-                    <strong>Lucky Order:</strong>
-                    <span class="bonus-rate is-positive">+{{ stop_point_info.bonus_percent }}%</span>
-                    on next product
-                </span>
-            </div>
-            {% endif %}
-        </div>
-        <p class="product-subtitle" style="text-align:center;"></p>
-        <div class="stop-point-actions">
-            <a href="{% url 'balance:wallet_dashboard' %}">Recharge Now</a>
-            <button type="button" onclick="document.getElementById('stopPointModal').style.display='none'">Close</button>
-        </div>
-    </div>
-</div>
-{% endif %}
-
-{% if all_products_completed %}
-<!-- Daily Tasks Completed Modal -->
-<div id="dailyCompleteModal" class="stop-point-modal" role="dialog" aria-modal="true">
-    <div class="amazon-modal-dialog">
-        <div class="amazon-modal-masthead">
-            <span class="amazon-modal-icon"><i class="fab fa-amazon"></i></span>
-            <h2 class="amazon-modal-title">Daily missions completed!</h2>
-        </div>
-        
-        <div class="amazon-modal-actions">
-            <a class="amazon-btn-ghost" href="{% url 'accounts:home_dashboard' %}">
-                <i class="fas fa-home"></i>
-                {% trans "Home" %}
-            </a>
-            <a class="amazon-btn" href="{% url 'wallet:withdraw' %}">
-                <i class="fas fa-coins"></i>
-                {% trans "Withdraw" %}
-            </a>
-        </div>
-    </div>
-</div>
-{% endif %}
-
-{% if daily_limit_unset %}
-<!-- Daily Limit Unset Modal -->
-<div id="dailyLimitUnsetModal" class="stop-point-modal" role="dialog" aria-modal="true">
-    <div class="amazon-modal-dialog">
-        <div class="amazon-modal-masthead">
-            <span class="amazon-modal-icon"><i class="fab fa-amazon"></i></span>
-            <h2 class="amazon-modal-title">{% trans "You Are Not Eligable" %}</h2>
-        </div>
-        
-        <div class="amazon-modal-actions">
-            <a class="amazon-btn-ghost" href="{% url 'accounts:home_dashboard' %}">
-                <i class="fas fa-home"></i>
-                {% trans "Home" %}
-            </a>
-            <a class="amazon-btn" href="{% url 'balance:recharge_amount' %}">
-                <i class="fas fa-bolt"></i>
-                {% trans "Recharge" %}
-            </a>
-        </div>
-    </div>
-</div>
-{% endif %}
 
 <script>
+const taskPanelRoot = document.getElementById('taskPanelRoot');
+const loaderOverlay = document.getElementById('taskLoader');
+const loadingDots = document.getElementById('loadingDots');
+const loadingCheckmark = document.getElementById('loadingCheckmark');
+const loaderLabel = document.getElementById('loaderLabel');
+const TASK_DELAY_MS = 2000;
+
+function showLoader() {
+    if (!loaderOverlay) return;
+    // Reset states
+    loadingDots.style.display = 'flex';
+    loadingCheckmark.classList.remove('visible');
+    loaderLabel.textContent = '{% trans "Loading..." %}';
+    loaderLabel.classList.remove('done');
+    
+    // Show loader immediately
+    loaderOverlay.classList.add('is-visible');
+    loaderOverlay.setAttribute('aria-hidden', 'false');
+}
+
+function showLoaderDone() {
+    if (!loaderOverlay) return;
+    
+    // Hide dots, show checkmark
+    loadingDots.style.display = 'none';
+    loadingCheckmark.classList.add('visible');
+    loaderLabel.textContent = '{% trans "Done!" %}';
+    loaderLabel.classList.add('done');
+    
+    // Hide after delay
+    setTimeout(() => {
+        hideLoader();
+    }, 800);
+}
+
+function hideLoader() {
+    if (!loaderOverlay) return;
+    loaderOverlay.classList.remove('is-visible');
+    loaderOverlay.setAttribute('aria-hidden', 'true');
+}
+
 function refreshWallet() {
     fetch("{% url 'products:get_balance' %}")
         .then(response => response.json())
@@ -1185,10 +1419,7 @@ function refreshWallet() {
         });
 }
 
-// Refresh wallet and commission every 5 seconds
-setInterval(refreshWallet, 5000);
-
-(function() {
+function hydrateMetrics() {
     const metrics = document.querySelector('.task-metrics');
     if (!metrics) return;
 
@@ -1214,40 +1445,26 @@ setInterval(refreshWallet, 5000);
     if (remainingEl) {
         remainingEl.textContent = remaining;
     }
-})();
+}
 
-(function() {
-    const nextProductForm = document.getElementById('next_product_form');
-    const loaderOverlay = document.getElementById('taskLoader');
-
-    if (nextProductForm && loaderOverlay) {
-        const hideLoader = () => {
-            loaderOverlay.classList.remove('is-visible');
-            loaderOverlay.setAttribute('aria-hidden', 'true');
-        };
-
-        nextProductForm.addEventListener('submit', function () {
-            loaderOverlay.classList.add('is-visible');
-            loaderOverlay.setAttribute('aria-hidden', 'false');
-        });
-
-        window.addEventListener('pageshow', hideLoader);
-    }
-
+function handleAlertBanners() {
     const alertBanners = document.querySelectorAll('.alert-banner');
-    if (alertBanners.length) {
-        setTimeout(() => {
-            alertBanners.forEach((banner) => {
-                banner.classList.add('is-fading');
-                banner.addEventListener('animationend', () => {
-                    banner.remove();
-                }, { once: true });
-            });
-        }, 4000);
+    if (!alertBanners.length) {
+        return;
     }
-})();
 
-window.addEventListener('load', () => {
+    alertBanners.forEach((banner) => {
+        const delay = parseInt(banner.dataset.dismiss || '4000', 10);
+        setTimeout(() => {
+            banner.classList.add('is-fading');
+            banner.addEventListener('animationend', () => {
+                banner.remove();
+            }, { once: true });
+        }, delay);
+    });
+}
+
+function revealAutoModals() {
     const dailyCompleteModal = document.getElementById('dailyCompleteModal');
     if (dailyCompleteModal) {
         dailyCompleteModal.style.display = 'flex';
@@ -1257,8 +1474,73 @@ window.addEventListener('load', () => {
     if (dailyLimitUnsetModal) {
         dailyLimitUnsetModal.style.display = 'flex';
     }
-});
+}
 
+
+function bindNextProductForm() {
+    const nextProductForm = document.getElementById('next_product_form');
+    if (!nextProductForm) {
+        return;
+    }
+
+    nextProductForm.addEventListener('submit', function handleSubmit(event) {
+        if (!window.fetch) {
+            return;
+        }
+        event.preventDefault();
+        showLoader();
+
+        const formData = new FormData(nextProductForm);
+        formData.append('next_product', '1');
+        setTimeout(() => {
+            fetch(nextProductForm.action || window.location.href, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                credentials: 'same-origin'
+            })
+                .then((response) => {
+                    const contentType = response.headers.get('content-type') || '';
+                    if (!contentType.includes('application/json')) {
+                        window.location.reload();
+                        return null;
+                    }
+                    return response.json();
+                })
+                .then((data) => {
+                    if (!data) {
+                        return;
+                    }
+                    if (typeof data.task_panel_html === 'string') {
+                        taskPanelRoot.innerHTML = data.task_panel_html;
+                        initTaskPanelInteractions();
+                    } else {
+                        window.location.reload();
+                    }
+                })
+                .catch(() => {
+                    window.location.reload();
+                })
+                .finally(() => {
+                    showLoaderDone();
+                });
+        }, TASK_DELAY_MS);
+    });
+}
+
+function initTaskPanelInteractions() {
+    hydrateMetrics();
+    handleAlertBanners();
+    revealAutoModals();
+    bindNextProductForm();
+}
+
+setInterval(refreshWallet, 5000);
+initTaskPanelInteractions();
+
+window.addEventListener('pageshow', () => hideLoader());
 </script>
 
 {% endblock %}

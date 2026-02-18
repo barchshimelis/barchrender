@@ -428,19 +428,19 @@ span[style*="color: green"] {
 }
 .staff-chat-badge {
     position: absolute;
-    top: 2px;
-    right: 2px;
-    min-width: 18px;
-    height: 18px;
-    padding: 0 5px;
+    top: -6px;
+    right: -6px;
+    min-width: 22px;
+    height: 22px;
+    padding: 0 6px;
     border-radius: 999px;
-    background: linear-gradient(135deg, #ffb347 0%, #ff9035 100%);
-    color: #0e1a3d;
+    background: #dc2626;
+    color: #fff;
     font-size: 11px;
-    font-weight: 700;
-    line-height: 18px;
+    font-weight: 600;
+    line-height: 22px;
     text-align: center;
-    box-shadow: 0 8px 16px rgba(255, 153, 0, 0.4);
+    box-shadow: 0 8px 15px rgba(220, 38, 38, 0.35);
 }
 .staff-chat-badge.d-none {
     display: none;
@@ -984,6 +984,18 @@ span[style*="color: green"] {
     padding: 24px;
     z-index: 1100;
 }
+#informationModal {
+    z-index: 1150;
+}
+#historyModal {
+    z-index: 1400;
+}
+#adjustBalanceModal {
+    z-index: 1500;
+}
+.modal--overlayed {
+    z-index: 1600 !important;
+}
 .amazon-modal__content {
     width: 90%;
     max-width: 820px;
@@ -1060,6 +1072,32 @@ span[style*="color: green"] {
     flex-grow: 1;
     background: #ffffff;
 }
+
+.amazon-modal--standard .amazon-modal__content {
+    width: min(760px, 94vw);
+    max-width: 760px;
+}
+
+.amazon-modal--standard .amazon-modal__body {
+    padding: 26px;
+}
+
+.amazon-modal__body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.amazon-modal__body::-webkit-scrollbar-track {
+    background: #f1f3f5;
+}
+
+.amazon-modal__body::-webkit-scrollbar-thumb {
+    background: #b0b8c1;
+    border-radius: 999px;
+}
+
+.amazon-modal__body::-webkit-scrollbar-thumb:hover {
+    background: #8892a0;
+}
 .amazon-section-card {
     background: #ffffff;
     border: 1px solid #d5d9d9;
@@ -1124,7 +1162,7 @@ span[style*="color: green"] {
     }
 }
 .amazon-info-modal .amazon-modal__content {
-    max-width: 520px;
+    max-width: 760px;
 }
 .amazon-info-modal .amazon-modal__body {
     background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
@@ -1132,6 +1170,37 @@ span[style*="color: green"] {
 .info-row {
     padding: 16px 0;
     border-bottom: 1px solid #e3e6e6;
+}
+.info-row--wallet .info-row__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+.info-row--wallet {
+    display: flex;
+    flex-direction: column;
+}
+.info-row--wallet .wallet-address-text {
+    margin-top: 10px;
+}
+.info-row--wallet .amazon-secondary-btn {
+    margin-top: 10px;
+    align-self: flex-end;
+    white-space: nowrap;
+}
+.info-current-balance {
+    display: none;
+}
+.info-row--split {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+.info-row--split .info-highlight {
+    text-align: right;
+    margin: 0;
 }
 .info-row:last-child {
     border-bottom: none;
@@ -1185,6 +1254,199 @@ span[style*="color: green"] {
 .amazon-secondary-btn:hover {
     transform: translateY(-1px);
     box-shadow: 0 10px 24px rgba(255, 153, 0, 0.4);
+}
+
+.amazon-history-modal .amazon-modal__body {
+    background: #ffffff;
+}
+
+.amazon-history-modal .history-type-toggle {
+    display: inline-flex;
+    gap: 6px;
+    padding: 6px;
+    background: #f3f4f6;
+    border-radius: 999px;
+    border: 1px solid #d5d9d9;
+    margin-bottom: 18px;
+}
+
+.amazon-history-modal .history-type-btn {
+    border: none;
+    background: transparent;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #565959;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.amazon-history-modal .history-type-btn.active {
+    background: #232f3e;
+    color: #ffffff;
+    box-shadow: 0 8px 18px rgba(35, 47, 62, 0.28);
+}
+
+.amazon-history-modal .history-type-btn:hover {
+    color: #0f1111;
+}
+
+.amazon-history-modal .history-table-wrap {
+    border: 1px solid #e3e6e6;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #ffffff;
+}
+
+.amazon-history-modal .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+.amazon-history-modal .history-table th,
+.amazon-history-modal .history-table td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #eef1f4;
+    font-size: 13px;
+}
+
+.amazon-history-modal .history-table th {
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-size: 11px;
+    color: #232f3e;
+    background: #f8f9fa;
+}
+
+.amazon-history-modal .history-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.amazon-history-modal #pagination {
+    margin-top: 18px;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.info-balance-header,
+.info-history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.info-balance-actions,
+.info-history-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.info-history-grid {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.info-history-grid li {
+    list-style: none;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid #eef1f4;
+    background: #f9fafb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+    font-size: 12px;
+}
+
+.info-history-amount {
+    font-weight: 600;
+    color: #232f3e;
+}
+
+.info-history-status {
+    text-transform: uppercase;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: #6b7280;
+}
+
+.adjust-balance-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 1px solid #e3e6e6;
+    background: #f8fafb;
+    margin-bottom: 18px;
+    font-size: 13px;
+    color: #232f3e;
+}
+
+.info-adjust-fields {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.info-adjust-fields label {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #565959;
+}
+
+.info-adjust-fields input,
+.info-adjust-fields select {
+    border: 1px solid #d5d9d9;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+    background: #fff;
+    color: #0f1111;
+}
+
+.info-adjust-note {
+    display: block;
+    margin-bottom: 16px;
+}
+
+.info-adjust-note #infoAdjustNote {
+    display: block;
+    min-height: 90px;
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px dashed #d5d9d9;
+    background: #f9fafb;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.info-adjust-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.info-status-pill {
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
 }
 .open-setup-modal-btn {
     background: linear-gradient(135deg, #a1a4a7 50%, #e9ecef 100%);
@@ -1256,6 +1518,259 @@ span[style*="color: green"] {
 
 
 </style>
+<style>
+    /* Support-style chat overrides */
+    .support-theme .staff-chat-modal__content {
+        background: rgba(5, 9, 18, 0.96);
+        border-radius: 22px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 25px 60px rgba(3, 7, 18, 0.65);
+        color: #f8fafc;
+        overflow: hidden;
+    }
+
+    .support-theme .staff-chat-modal__header {
+        background: linear-gradient(135deg, rgba(8, 16, 30, 0.9), rgba(4, 61, 92, 0.95));
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 20px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .support-theme .staff-chat-modal__header h4 {
+        margin: 0;
+        font-size: 1.1rem;
+        letter-spacing: 0.4px;
+        color: #f8fafc;
+    }
+
+    .support-theme .staff-chat-modal__body {
+        background: rgba(10, 15, 28, 0.9);
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        min-height: 420px;
+    }
+
+    .support-theme .staff-chat-panel {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-height: 0;
+    }
+
+    .support-theme .staff-chat-participant {
+        padding: 18px 22px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 14px;
+    }
+
+    .support-theme .staff-chat-participant-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .support-theme .staff-chat-participant-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #1f2937, #0f172a);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        color: #f8fafc;
+    }
+
+    .support-theme .staff-chat-participant-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .support-theme .staff-chat-participant-meta small {
+        color: rgba(248, 250, 252, 0.65);
+    }
+
+    .support-theme .staff-chat-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    .support-theme .staff-chat-timeline {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        padding: 22px;
+        gap: 16px;
+    }
+
+    .support-theme .staff-chat-messages {
+        flex: 1;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        padding: 22px;
+    }
+
+    .support-theme .staff-chat-state {
+        margin: 0;
+        border-radius: 16px;
+        border: 1px dashed rgba(255, 255, 255, 0.2);
+        background: rgba(12, 18, 40, 0.75);
+        color: rgba(248, 250, 252, 0.8);
+        text-align: center;
+        padding: 14px;
+    }
+
+    .support-theme .staff-chat-message {
+        display: flex;
+        gap: 12px;
+        max-width: 80%;
+        align-items: flex-end;
+    }
+
+    .support-theme .staff-chat-message.is-self {
+        margin-left: auto;
+        flex-direction: row-reverse;
+    }
+
+    .support-theme .staff-chat-bubble {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 16px;
+        padding: 12px 14px;
+        line-height: 1.55;
+        color: #f8fafc;
+        position: relative;
+    }
+
+    .support-theme .staff-chat-message.is-self .staff-chat-bubble {
+        background: linear-gradient(135deg, #00a8e1, #007185);
+        border-color: rgba(0, 168, 225, 0.4);
+        color: #061018;
+    }
+
+    .support-theme .staff-chat-meta {
+        font-size: 0.75rem;
+        color: rgba(248, 250, 252, 0.7);
+        margin-top: 6px;
+    }
+
+    .support-theme .staff-chat-message.is-self .staff-chat-meta {
+        text-align: right;
+        color: rgba(6, 16, 24, 0.65);
+    }
+
+    .support-theme .staff-chat-form {
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(5, 8, 15, 0.92);
+        padding: 18px 22px;
+    }
+
+    .support-theme .staff-chat-composer {
+        display: flex;
+        align-items: flex-end;
+        gap: 12px;
+    }
+
+    .support-theme .staff-chat-attach-btn {
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: none;
+        background: rgba(255, 255, 255, 0.1);
+        color: #f8fafc;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .support-theme .staff-chat-attach-btn:hover {
+        background: rgba(0, 168, 225, 0.25);
+        transform: translateY(-1px);
+    }
+
+    .support-theme .staff-chat-input-wrap {
+        flex: 1;
+        background: rgba(0, 0, 0, 0.35);
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+    }
+
+    .support-theme .staff-chat-input {
+        flex: 1;
+        background: transparent;
+        border: none;
+        color: #f8fafc;
+        resize: none;
+        min-height: 48px;
+    }
+
+    .support-theme .staff-chat-input::placeholder {
+        color: rgba(248, 250, 252, 0.5);
+    }
+
+    .support-theme .staff-chat-input:focus {
+        outline: none;
+    }
+
+    .support-theme .staff-chat-send-btn {
+        border: none;
+        border-radius: 14px;
+        padding: 12px 22px;
+        background: linear-gradient(135deg, #00a8e1, #f2b35c);
+        color: #061018;
+        font-weight: 600;
+        cursor: pointer;
+        transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .support-theme .staff-chat-send-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    .support-theme .staff-chat-send-btn:hover:not(:disabled) {
+        transform: translateY(-1px);
+    }
+
+    .support-theme .staff-chat-attachment-preview {
+        margin-top: 10px;
+        padding: 8px 12px;
+        border-radius: 14px;
+        background: rgba(0, 0, 0, 0.45);
+        border: 1px dashed rgba(255, 255, 255, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: rgba(248, 250, 252, 0.85);
+    }
+
+    .support-theme .staff-chat-attachment img {
+        max-width: 220px;
+        border-radius: 12px;
+        width: 100%;
+        height: auto;
+    }
+
+    .support-theme .staff-chat-attachment audio {
+        width: 220px;
+        max-width: 100%;
+    }
+</style>
 <link rel="stylesheet" href="{% static 'css/admin_dashboard.css' %}">
 
 <!-- Shared Header for Both Sections -->
@@ -1326,20 +1841,18 @@ span[style*="color: green"] {
 </div>
 
 {% if request.user.role == 'admin' %}
-<div class="staff-chat-modal" id="staffChatModal" role="dialog" aria-modal="true" aria-labelledby="staffChatModalTitle">
+<div class="staff-chat-modal support-theme" id="staffChatModal" role="dialog" aria-modal="true" aria-labelledby="staffChatModalTitle">
     <div class="staff-chat-modal__content">
         <div class="staff-chat-modal__header">
             <div>
-                <h4 class="staff-chat-modal__title" id="staffChatModalTitle">CEO chat</h4>
-                
+                <span class="staff-chat-modal__subtitle">Super Admin</span>
+                <h4 class="staff-chat-modal__title" id="staffChatModalTitle">Staff Support Chat</h4>
             </div>
             <button class="staff-chat-close" id="staffChatModalClose" aria-label="Close staff chat">&times;</button>
         </div>
         <div class="staff-chat-modal__body">
-
-            <div class="staff-chat-state" id="staffChatState" hidden>Loading…</div>
             <div class="staff-chat-timeline">
-                
+                <div class="staff-chat-state" id="staffChatState" hidden>Loading…</div>
                 <div class="staff-chat-messages" id="staffChatMessages" aria-live="polite"></div>
             </div>
         </div>
@@ -1365,8 +1878,17 @@ span[style*="color: green"] {
                     </button>
                 </div>
             </div>
-
-            
+            <div class="staff-chat-attachment-preview" id="staffChatAttachmentPreview" hidden>
+                <span class="staff-chat-attachment-note" id="staffChatAttachmentNote"></span>
+                <button type="button" class="staff-chat-attachment-clear" id="staffChatAttachmentClearBtn" aria-label="Remove attachment" hidden>
+                    <span class="staff-chat-action-icon staff-chat-clear-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" role="presentation" focusable="false">
+                            <path d="m7 7 10 10" />
+                            <path d="M17 7 7 17" />
+                        </svg>
+                    </span>
+                </button>
+            </div>
         </form>
     </div>
 </div>
@@ -1522,6 +2044,7 @@ span[style*="color: green"] {
                                 data-daily-limit="{{ user.daily_task_limit }}"
                                 data-product-rate="{{ user.product_rate|default:0 }}"
                                 data-referral-rate="{{ user.referral_rate|default:0 }}"
+                                data-is-referrer="{{ user.is_referrer|yesno:'true,false' }}"
                                 data-add-url="{% url 'stoppoints:add_stop_points' user.id %}"
                                 data-update-url="{% url 'stoppoints:update_stop_point' user.id %}"
                                 data-delete-url="{% url 'stoppoints:delete_stop_point' user.id %}"
@@ -1535,14 +2058,20 @@ span[style*="color: green"] {
                         </button>
                         <div class="existing-stoppoints-list" style="display:none;">
                             {% for sp in user.stop_points %}
-                                <div class="existing-stoppoint-row" data-sp-id="{{ sp.id }}" 
+                                <div class="existing-stoppoint-row" data-sp-id="{{ sp.id }}" data-special-bonus="{{ sp.special_bonus_amount|default:'' }}" data-lucky-enabled="{{ sp.lucky_order_enabled|yesno:'true,false' }}"
                                      style="display:flex; gap:4px; margin-bottom:4px; align-items:center;">
                                     <input type="number" name="existing_point" value="{{ sp.point }}" 
                                            class="stoppoint-point-input" min="1" 
                                            style="width:60px; padding:3px;" disabled>
                                     <input type="number" name="existing_required_recharge" value="{{ sp.required_balance }}" 
-                                           min="0" step="0.01" style="width:80px; padding:3px;">
-                                    <button type="button" class="green btn-sm update-stoppoint-btn">Update</button>
+                                            min="0" step="0.01" style="width:80px; padding:3px;">
+                                    <input type="number" name="existing_special_bonus" value="{{ sp.special_bonus_amount }}" 
+                                            min="0" step="0.01" placeholder="$" style="width:80px; padding:3px;">
+                                    <label style="font-size:12px; display:flex; align-items:center; gap:4px;">
+                                        <input type="checkbox" name="existing_lucky_order_enabled" {% if sp.lucky_order_enabled %}checked{% endif %}>
+                                        Lucky order
+                                    </label>
+                                    <button type="button" class="green btn-sm update-stoppoint-btn">UpUdate</button>
                                     <button type="button" class="red btn-sm delete-stoppoint-btn">Delete</button>
                                 </div>
                             {% endfor %}
@@ -1556,6 +2085,8 @@ span[style*="color: green"] {
                                 data-wallet="{% if user.wallet_address %}{{ user.wallet_address.address }}{% endif %}"
                                 data-day="{{ user.completed_withdrawal_days|default:'' }}"
                                 data-history-url="{% url 'accounts:user_history' user.id %}"
+                                data-balance="{{ user.wallet_balance|default:'0.00' }}"
+                                data-adjust-url="{% url 'accounts:admin_adjust_balance' user.id %}"
                                 data-has-alert="{% if user.info_alert_wallet or user.info_alert_day %}true{% else %}false{% endif %}"
                                 data-clear-url="{% url 'accounts:clear_info_alert' user.id %}">
                             Information
@@ -1792,7 +2323,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!staffChatMessagesEl) return;
         staffChatMessagesEl.innerHTML = '';
         if (!staffChatState.messages.length) {
-            staffChatSetStateMessage('No messages yet. Start the conversation!', { persist: true });
+            staffChatSetStateMessage('No messages yet!', { persist: true });
             return;
         }
         staffChatClearStateMessage();
@@ -2590,7 +3121,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Update modal title
         if (setupModalTitle) {
-            setupModalTitle.textContent = `Setup Configuration - ${userData.username}`;
+            setupModalTitle.textContent = `Setup Configuration `;
         }
         if (setupModalSubtitle) {
             setupModalSubtitle.textContent = ` ${userData.username}`;
@@ -2600,10 +3131,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const dailyLimitInput = document.getElementById('setup-daily-limit');
         const productRateInput = document.getElementById('setup-product-rate');
         const referralRateInput = document.getElementById('setup-referral-rate');
+        const referralRateSection = document.getElementById('referrer-commission-section');
+        const dailyLimitResetBtn = document.getElementById('setup-reset-daily-limit');
         
         if (dailyLimitInput) dailyLimitInput.value = userData.dailyLimit || '';
+        if (dailyLimitResetBtn) {
+            const hasDailyLimit = !!(userData.dailyLimit && userData.dailyLimit > 0);
+            dailyLimitResetBtn.style.display = hasDailyLimit ? 'inline-flex' : 'none';
+        }
         if (productRateInput) productRateInput.value = userData.productRate || '';
         if (referralRateInput) referralRateInput.value = userData.referralRate || '';
+        if (referralRateSection) {
+            referralRateSection.style.display = userData.isReferrer ? 'none' : '';
+        }
         
         // Populate existing stop points
         populateSetupStopPoints(userData);
@@ -2673,7 +3213,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 spDiv.innerHTML = `
                     <input type="number" value="${point}" class="stoppoint-point-input" min="1" style="width:80px; padding:6px; border:1px solid #ddd; border-radius:4px;" disabled>
                     <input type="number" value="${recharge}" min="0" step="0.01" style="width:120px; padding:6px; border:1px solid #ddd; border-radius:4px;">
-                    <button type="button" class="update-setup-stoppoint-btn" style="background: #007bff; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Update</button>
+                    <input type="number" value="${sp.dataset.specialBonus || ''}" class="stoppoint-special-input" min="0" step="0.01" placeholder="$" style="width:100px; padding:6px; border:1px solid #ddd; border-radius:4px;">
+                   
                     <button type="button" class="delete-setup-stoppoint-btn" style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Delete</button>
                 `;
                 container.appendChild(spDiv);
@@ -2691,19 +3232,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 dailyLimit: parseInt(setupBtn.dataset.dailyLimit, 10),
                 productRate: parseFloat(setupBtn.dataset.productRate) || 0,
                 referralRate: parseFloat(setupBtn.dataset.referralRate) || 0,
+                isReferrer: setupBtn.dataset.isReferrer === 'true',
                 referredBy: setupBtn.dataset.referredBy,
                 addUrl: setupBtn.dataset.addUrl,
                 updateUrl: setupBtn.dataset.updateUrl,
                 deleteUrl: setupBtn.dataset.deleteUrl
             });
             return;
-        }
-        const historyBtn = event.target.closest('.view-history-btn');
-        if (historyBtn) {
-            const userId = historyBtn.getAttribute('data-user-id');
-            const historyUrl = historyBtn.getAttribute('data-history-url') || `/en/accounts/user/${userId}/history/`;
-            loadUserHistory(historyUrl);
-            historyModal.style.display = 'flex';
         }
     });
 
@@ -2713,6 +3248,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const setupElements = {
             dailyLimitInput: null,
             dailyLimitStatus: null,
+            dailyLimitResetBtn: null,
             productRateInput: null,
             productRateStatus: null,
             referralRateInput: null,
@@ -2726,6 +3262,7 @@ document.addEventListener('DOMContentLoaded', () => {
         function cacheSetupElements() {
             setupElements.dailyLimitInput = document.getElementById('setup-daily-limit');
             setupElements.dailyLimitStatus = document.getElementById('setup-daily-limit-status');
+            setupElements.dailyLimitResetBtn = document.getElementById('setup-reset-daily-limit');
             setupElements.productRateInput = document.getElementById('setup-product-rate');
             setupElements.productRateStatus = document.getElementById('setup-product-rate-status');
             setupElements.referralRateInput = document.getElementById('setup-referral-rate');
@@ -2793,6 +3330,46 @@ document.addEventListener('DOMContentLoaded', () => {
                 } finally {
                     target.disabled = false;
                     target.textContent = 'Save Limit';
+                    setTimeout(() => { setupElements.dailyLimitStatus.textContent = ''; }, 3000);
+                }
+                return;
+            }
+
+            // Reset daily limit
+            if (target.id === 'setup-reset-daily-limit') {
+                if (!setupElements.dailyLimitStatus || !currentSetupUser) return;
+
+                try {
+                    target.disabled = true;
+                    target.textContent = 'Resetting...';
+
+                    const response = await sendJsonRequest(
+                        '{% url "accounts:admin_dashboard" %}',
+                        { action: 'reset_daily_limit', user_id: currentSetupUser.id }
+                    );
+
+                    if (response.success) {
+                        scheduleSetupModalReopen(currentSetupTab);
+                        if (setupElements.dailyLimitInput) {
+                            setupElements.dailyLimitInput.value = '';
+                        }
+                        if (setupElements.dailyLimitResetBtn) {
+                            setupElements.dailyLimitResetBtn.style.display = 'none';
+                        }
+                        setupElements.dailyLimitStatus.textContent = '✔” Reset';
+                        setupElements.dailyLimitStatus.style.color = 'green';
+                        window.location.reload();
+                        return;
+                    } else {
+                        setupElements.dailyLimitStatus.textContent = ` Error: ${response.data.error || 'Failed'}`;
+                        setupElements.dailyLimitStatus.style.color = 'red';
+                    }
+                } catch (error) {
+                    setupElements.dailyLimitStatus.textContent = ' Network error';
+                    setupElements.dailyLimitStatus.style.color = 'red';
+                } finally {
+                    target.disabled = false;
+                    target.textContent = 'Reset';
                     setTimeout(() => { setupElements.dailyLimitStatus.textContent = ''; }, 3000);
                 }
                 return;
@@ -2887,6 +3464,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 newRow.innerHTML = `
                     <input type="number" name="new_point" placeholder="Point" style="width:80px; padding:6px; border:1px solid #ddd; border-radius:4px;">
                     <input type="number" name="new_required_recharge" placeholder="Balance" min="0" step="0.01" style="width:120px; padding:6px; border:1px solid #ddd; border-radius:4px;">
+                    <input type="number" name="new_special_bonus" placeholder="Bonus $" min="0" step="0.01" style="width:120px; padding:6px; border:1px solid #ddd; border-radius:4px;">
+                    <label style="font-size:12px; display:flex; align-items:center; gap:4px;">
+                        <input type="checkbox" name="new_lucky_order_enabled">
+                        Lucky order
+                    </label>
                     <button type="button" class="save-new-stoppoint-btn" style="background: #28a745; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Save</button>
                     <button type="button" class="remove-new-stoppoint-btn" style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Cancel</button>
                 `;
@@ -2908,6 +3490,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const rechargeInput = row.querySelector('input[name="new_required_recharge"]');
                 const point = parseInt(pointInput?.value, 10);
                 const recharge = rechargeInput?.value;
+                const special = row.querySelector('input[name=\"new_special_bonus\"]')?.value;
                 
                 if (!point || !recharge) { 
                     setupElements.stoppointStatus.textContent = 'Point and Balance are required.';
@@ -2932,7 +3515,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     target.disabled = true;
                     target.textContent = 'Saving...';
                     
-                    const response = await sendJsonRequest(currentSetupUser.addUrl, { stop_order: [point], required_recharge: [recharge] });
+                    const luckyEnabled = row.querySelector('input[name="new_lucky_order_enabled"]')?.checked || false;
+                    const response = await sendJsonRequest(currentSetupUser.addUrl, { stop_order: [point], required_recharge: [recharge], special_bonus_amount: [special], lucky_order_enabled: [luckyEnabled] });
                     if (response.success && response.data.added && response.data.added.length > 0) {
                         appendNewStopPointModal(response.data.added[0]);
                         row.remove();
@@ -2959,13 +3543,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 const spId = row.dataset.spId;
                 const recharge = row.querySelector('input[name="existing_required_recharge"]')?.value;
+                const special = row.querySelector('.stoppoint-special-input')?.value;
                 const point = row.querySelector('.stoppoint-point-input')?.value;
+                const luckyEnabled = row.querySelector('input[name="existing_lucky_order_enabled"]')?.checked || false;
                 
                 try {
                     target.disabled = true;
                     target.textContent = 'Updating...';
                     
-                    const response = await sendJsonRequest(currentSetupUser.updateUrl, { stop_point_id: spId, new_required_recharge: recharge, new_point: point });
+                    const response = await sendJsonRequest(currentSetupUser.updateUrl, { stop_point_id: spId, new_required_recharge: recharge, new_point: point, new_special_bonus_amount: special, new_lucky_order_enabled: luckyEnabled });
                     if (response.success) {
                         setupElements.stoppointStatus.textContent = 'Updated!';
                         setupElements.stoppointStatus.style.color = 'green';
@@ -3030,10 +3616,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const spDiv = document.createElement('div');
             spDiv.className = 'existing-stoppoint-row';
             spDiv.dataset.spId = sp.id;
+            spDiv.dataset.specialBonus = sp.special_bonus_amount || '';
+            spDiv.dataset.luckyEnabled = sp.lucky_order_enabled ? 'true' : 'false';
             spDiv.style.cssText = 'display:flex; gap:8px; margin-bottom:8px; align-items:center; padding:8px; background:#f8f9fa; border-radius:6px;';
             spDiv.innerHTML = `
                 <input type="number" value="${sp.point}" class="stoppoint-point-input" min="1" style="width:80px; padding:6px; border:1px solid #ddd; border-radius:4px;" disabled>
                 <input type="number" value="${sp.required_balance || sp.required_recharge}" min="0" step="0.01" style="width:120px; padding:6px; border:1px solid #ddd; border-radius:4px;">
+                <input type="number" value="${sp.special_bonus_amount || ''}" class="stoppoint-special-input" min="0" step="0.01" placeholder="$" style="width:100px; padding:6px; border:1px solid #ddd; border-radius:4px;">
+                <label style="font-size:12px; display:flex; align-items:center; gap:4px;">
+                    <input type="checkbox" name="existing_lucky_order_enabled" ${sp.lucky_order_enabled ? 'checked' : ''}>
+                    Lucky order
+                </label>
                 <button type="button" class="update-setup-stoppoint-btn" style="background: #007bff; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Update</button>
                 <button type="button" class="delete-setup-stoppoint-btn" style="background: #dc3545; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px;">Delete</button>
             `;
@@ -3045,33 +3638,56 @@ document.addEventListener('DOMContentLoaded', () => {
     const historyModal = document.getElementById('historyModal');
     const historyCloseBtn = historyModal ? historyModal.querySelector('.close-history-modal') : null;
     const historyTableBody = document.getElementById('historyTableBody');
+    const historyModalTitle = document.getElementById('historyModalTitle');
+    const historyActionHeader = document.getElementById('historyActionHeader');
     const paginationContainer = document.getElementById('pagination');
     let currentPage = 1;
     const itemsPerPage = 10;
-    let currentHistoryData = [];
+    let historyModalType = 'recharge';
+    let historyPayload = { recharge: [], withdraw: [] };
 
     if (historyModal && historyTableBody && paginationContainer) {
         // Open modal when clicking "View History"
         document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('view-history-btn')) {
-                const userId = e.target.getAttribute('data-user-id');
-                const historyUrl = e.target.getAttribute('data-history-url') || `/en/accounts/user/${userId}/history/`;
+            const historyBtn = e.target.closest('.view-history-btn');
+            if (historyBtn) {
+                const userId = historyBtn.getAttribute('data-user-id') || infoCurrentUserId;
+                const historyUrl = historyBtn.getAttribute('data-history-url') || infoHistoryUrl || (userId ? `/en/accounts/user/${userId}/history/` : '');
+                const desiredType = historyBtn.getAttribute('data-history-type') || 'recharge';
+                if (!historyUrl) return;
+                historyModalType = desiredType;
+                updateHistoryTypeButtons();
                 loadUserHistory(historyUrl);
+                historyModal.classList.add('modal--overlayed');
                 historyModal.style.display = 'flex';
+            }
+        });
+
+        historyModal.addEventListener('click', function(e) {
+            const toggleBtn = e.target.closest('.history-type-btn');
+            if (!toggleBtn) return;
+            const toggledType = toggleBtn.getAttribute('data-history-type') || 'recharge';
+            if (historyModalType !== toggledType) {
+                historyModalType = toggledType;
+                currentPage = 1;
+                updateHistoryTypeButtons();
+                renderHistoryTable();
             }
         });
 
         // Close modal
         historyCloseBtn?.addEventListener('click', function() {
             historyModal.style.display = 'none';
-            currentHistoryData = [];
+            historyModal.classList.remove('modal--overlayed');
+            historyPayload = { recharge: [], withdraw: [] };
         });
 
         // Close when clicking outside modal
         window.addEventListener('click', function(e) {
             if (e.target === historyModal) {
                 historyModal.style.display = 'none';
-                currentHistoryData = [];
+                historyModal.classList.remove('modal--overlayed');
+                historyPayload = { recharge: [], withdraw: [] };
             }
         });
     }
@@ -3083,7 +3699,8 @@ document.addEventListener('DOMContentLoaded', () => {
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    currentHistoryData = data.history || [];
+                    historyPayload.recharge = data.recharge_history || [];
+                    historyPayload.withdraw = data.withdraw_history || [];
                     currentPage = 1;
                     renderHistoryTable();
                 } else {
@@ -3097,24 +3714,46 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
+    function updateHistoryTypeButtons() {
+        if (!historyModal) return;
+        const toggleButtons = historyModal.querySelectorAll('.history-type-btn');
+        toggleButtons.forEach((btn) => {
+            const btnType = btn.getAttribute('data-history-type');
+            if (btnType === historyModalType) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
     function renderHistoryTable() {
         if (!historyTableBody || !paginationContainer) return;
         historyTableBody.innerHTML = '';
         paginationContainer.innerHTML = '';
+        updateHistoryTypeButtons();
 
-        if (currentHistoryData.length === 0) {
-            historyTableBody.innerHTML = '<tr><td colspan="4" style="text-align: center; padding: 15px;">No voucher history yet</td></tr>';
+        const activeData = historyModalType === 'withdraw' ? historyPayload.withdraw : historyPayload.recharge;
+        if (!activeData.length) {
+            historyTableBody.innerHTML = `<tr><td colspan="4" style="text-align: center; padding: 15px;">No ${historyModalType} history yet</td></tr>`;
             return;
         }
 
-        const totalPages = Math.ceil(currentHistoryData.length / itemsPerPage);
+        if (historyModalTitle) {
+            historyModalTitle.textContent = historyModalType === 'withdraw' ? 'Withdraw History' : 'Recharge History';
+        }
+        if (historyActionHeader) {
+            historyActionHeader.textContent = historyModalType === 'withdraw' ? 'Network' : 'Voucher';
+        }
+
+        const totalPages = Math.ceil(activeData.length / itemsPerPage);
         const startIndex = (currentPage - 1) * itemsPerPage;
-        const paginatedData = currentHistoryData.slice(startIndex, startIndex + itemsPerPage);
+        const paginatedData = activeData.slice(startIndex, startIndex + itemsPerPage);
 
         paginatedData.forEach(entry => {
             const row = document.createElement('tr');
             row.style.borderBottom = '1px solid #eee';
-            
+
             // Handle date - use action_date field
             let formattedDate = 'N/A';
             if (entry.action_date) {
@@ -3147,22 +3786,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 statusDisplay = 'â³ Pending';
             }
             
-            // Handle voucher file - check if voucher_file exists and has a URL
-            let voucherAction = 'No file';
-            if (entry.voucher_file) {
-                const voucherUrl = typeof entry.voucher_file === 'string'
-                    ? entry.voucher_file
-                    : entry.voucher_file.url;
+            let actionCell = '—';
+            if (historyModalType === 'recharge') {
+                let voucherAction = 'No file';
+                if (entry.voucher_file) {
+                    const voucherUrl = typeof entry.voucher_file === 'string'
+                        ? entry.voucher_file
+                        : entry.voucher_file.url;
 
-                if (voucherUrl) {
-                    voucherAction = `<button class="view-voucher-btn" 
-                            data-url="${voucherUrl}"
-                            style="background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%); color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 500; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);"
-                            onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(33, 150, 243, 0.4)';"
-                            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(33, 150, 243, 0.3)';">
-                         View Voucher
-                    </button>`;
+                    if (voucherUrl) {
+                        voucherAction = `<button class="view-voucher-btn" 
+                                data-url="${voucherUrl}"
+                                style="background: linear-gradient(135deg, #2196F3 0%, #1976D2 100%); color: white; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 500; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(33, 150, 243, 0.3);"
+                                onmouseover="this.style.transform='translateY(-1px)'; this.style.boxShadow='0 4px 8px rgba(33, 150, 243, 0.4)';"
+                                onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 2px 4px rgba(33, 150, 243, 0.3)';">
+                             View Voucher
+                        </button>`;
+                    }
                 }
+                actionCell = voucherAction;
+            } else {
+                const networkLabel = entry.network_label || entry.network || '—';
+                actionCell = `<span style="font-size:12px; font-weight:600;">${networkLabel}</span>`;
             }
             
             row.innerHTML = `
@@ -3173,7 +3818,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         ${statusDisplay}
                     </span>
                 </td>
-                <td style="padding: 12px; text-align: center;">${voucherAction}</td>
+                <td style="padding: 12px; text-align: center;">${actionCell}</td>
             `;
             historyTableBody.appendChild(row);
         });
@@ -3243,9 +3888,24 @@ document.addEventListener('click', function(e) {
     const infoWallet = document.getElementById('infoWallet');
     const infoCopyBtn = document.getElementById('infoCopyWallet');
     const infoDay = document.getElementById('infoDayCompletion');
-    const infoHistoryBtn = document.getElementById('infoViewHistory');
+    const infoHistoryButtons = document.querySelectorAll('.info-history-btn');
+    const infoOpenAdjustModal = document.getElementById('infoOpenAdjustModal');
+    const adjustModal = document.getElementById('adjustBalanceModal');
+    const adjustModalBalance = document.getElementById('adjustModalBalance');
+    const adjustCloseBtn = adjustModal ? adjustModal.querySelector('.close-adjust-modal') : null;
+    const infoCurrentBalance = document.getElementById('infoCurrentBalance');
+    const infoRechargeHistory = document.getElementById('infoRechargeHistory');
+    const infoWithdrawHistory = document.getElementById('infoWithdrawHistory');
+    const infoAdjustForm = document.getElementById('infoAdjustForm');
+    const infoAdjustAmount = document.getElementById('infoAdjustAmount');
+    const infoAdjustOperation = document.getElementById('infoAdjustOperation');
+    const infoAdjustNote = document.getElementById('infoAdjustNote');
+    const infoAdjustStatus = document.getElementById('infoAdjustStatus');
+    const infoAdjustSubmit = document.getElementById('infoAdjustSubmit');
     const infoCloseBtn = infoModal ? infoModal.querySelector('.close-information-modal') : null;
     let infoHistoryUrl = '';
+    let infoAdjustUrl = '';
+    let infoCurrentUserId = '';
 
     document.addEventListener('click', (evt) => {
         const infoBtn = evt.target.closest?.('.info-modal-btn');
@@ -3253,6 +3913,8 @@ document.addEventListener('click', function(e) {
 
         const walletValue = infoBtn.dataset.wallet?.trim();
         const dayValue = infoBtn.dataset.day?.trim();
+        infoAdjustUrl = infoBtn.dataset.adjustUrl || '';
+        infoCurrentUserId = infoBtn.dataset.userId || '';
 
         if (infoBtn.classList.contains('info-modal-btn--alert')) {
             infoBtn.classList.remove('info-modal-btn--alert');
@@ -3276,6 +3938,40 @@ document.addEventListener('click', function(e) {
         infoWallet.dataset.address = walletValue || '';
         infoDay.textContent = dayValue ? `Day ${dayValue} completed` : '-';
         infoHistoryUrl = infoBtn.dataset.historyUrl || '';
+        const balanceValue = infoBtn.dataset.balance || '0.00';
+        infoCurrentBalance.textContent = `$${balanceValue}`;
+        infoAdjustAmount.value = '';
+        infoAdjustNote.value = '';
+        infoAdjustStatus.textContent = '';
+        infoAdjustStatus.classList.remove('is-error', 'is-success');
+        infoAdjustSubmit.removeAttribute('disabled');
+        if (infoHistoryButtons?.length) {
+            infoHistoryButtons.forEach((btn) => {
+                btn.dataset.userId = infoCurrentUserId;
+                btn.dataset.historyUrl = infoHistoryUrl;
+            });
+        }
+        if (infoRechargeHistory) {
+            infoRechargeHistory.innerHTML = '<li class="muted">Loading…</li>';
+        }
+        if (infoWithdrawHistory) {
+            infoWithdrawHistory.innerHTML = '<li class="muted">Loading…</li>';
+        }
+        if (infoHistoryUrl) {
+            fetch(infoHistoryUrl, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
+                .then((response) => (response.ok ? response.json() : null))
+                .then((data) => {
+                    if (!data || !data.success) {
+                        throw new Error('Failed to load history');
+                    }
+                    renderInlineHistory(infoRechargeHistory, data.recharge_history, 'No recharge history');
+                    renderInlineHistory(infoWithdrawHistory, data.withdraw_history, 'No withdraw history', true);
+                })
+                .catch(() => {
+                    renderInlineHistory(infoRechargeHistory, [], 'Unable to load');
+                    renderInlineHistory(infoWithdrawHistory, [], 'Unable to load', true);
+                });
+        }
 
         infoModal.style.display = 'flex';
     });
@@ -3308,11 +4004,107 @@ document.addEventListener('click', function(e) {
         }, 1500);
     });
 
-    infoHistoryBtn?.addEventListener('click', () => {
-        if (!infoHistoryUrl) return;
-        loadUserHistory(infoHistoryUrl);
-        historyModal.style.display = 'flex';
-        infoModal.style.display = 'none';
+    infoOpenAdjustModal?.addEventListener('click', () => {
+        if (!adjustModal) return;
+        adjustModalBalance.textContent = infoCurrentBalance.textContent;
+        infoAdjustAmount.value = '';
+        infoAdjustNote.value = '';
+        infoAdjustStatus.textContent = '';
+        infoAdjustStatus.className = 'info-status-pill';
+        adjustModal.style.display = 'flex';
+    });
+
+    adjustCloseBtn?.addEventListener('click', () => {
+        if (adjustModal) adjustModal.style.display = 'none';
+    });
+
+    function renderInlineHistory(targetList, entries, emptyText, includeNetwork = false) {
+        if (!targetList) return;
+        targetList.innerHTML = '';
+        if (!Array.isArray(entries) || !entries.length) {
+            const li = document.createElement('li');
+            li.className = 'muted';
+            li.textContent = emptyText;
+            targetList.appendChild(li);
+            return;
+        }
+        entries.slice(0, 5).forEach((entry) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span class="info-history-amount">$${parseFloat(entry.amount || 0).toFixed(2)}${includeNetwork && entry.network_label ? ` • ${entry.network_label}` : ''}</span>
+                <small>${formatInlineHistoryDate(entry.action_date)}</small>
+                <span class="info-history-status status-${entry.status || 'pending'}">${(entry.status || '').toUpperCase()}</span>
+            `;
+            targetList.appendChild(li);
+        });
+    }
+
+    function formatInlineHistoryDate(value) {
+        if (!value) return '';
+        try {
+            const date = new Date(value);
+            if (Number.isNaN(date.getTime())) {
+                return value;
+            }
+            return date.toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+        } catch (error) {
+            return value;
+        }
+    }
+
+    infoAdjustForm?.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        if (!infoAdjustUrl) {
+            return;
+        }
+        const amount = parseFloat(infoAdjustAmount.value);
+        if (!Number.isFinite(amount) || amount <= 0) {
+            infoAdjustStatus.textContent = 'Enter a valid amount.';
+            infoAdjustStatus.className = 'info-status-pill is-error';
+            return;
+        }
+
+        infoAdjustSubmit.setAttribute('disabled', 'disabled');
+        infoAdjustStatus.textContent = 'Saving…';
+        infoAdjustStatus.className = 'info-status-pill';
+
+        try {
+            const response = await fetch(infoAdjustUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                body: JSON.stringify({
+                    amount,
+                    operation: infoAdjustOperation.value,
+                    note: infoAdjustNote.value,
+                }),
+            });
+
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok || !data.success) {
+                throw new Error(data.error || 'Adjustment failed.');
+            }
+
+            infoAdjustStatus.textContent = 'Updated';
+            infoAdjustStatus.className = 'info-status-pill is-success';
+            if (data.current_balance) {
+                infoCurrentBalance.textContent = `$${data.current_balance}`;
+            }
+            infoAdjustAmount.value = '';
+            infoAdjustNote.value = '';
+        } catch (error) {
+            infoAdjustStatus.textContent = error.message || 'Error saving.';
+            infoAdjustStatus.className = 'info-status-pill is-error';
+        } finally {
+            infoAdjustSubmit.removeAttribute('disabled');
+            setTimeout(() => {
+                infoAdjustStatus.textContent = '';
+                infoAdjustStatus.className = 'info-status-pill';
+            }, 2500);
+        }
     });
 
     infoCloseBtn?.addEventListener('click', () => {
@@ -3510,6 +4302,18 @@ document.addEventListener('click', function(e) {
         background: linear-gradient(135deg, #ff8f00 0%, #ff5500 100%);
         border-color: #ff7700;
     }
+
+    #setup-modal button[id="setup-reset-daily-limit"] {
+        background: #ffffff;
+        color: #111111;
+        border: 1px solid #d5d9d9;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.08);
+    }
+
+    #setup-modal button[id="setup-reset-daily-limit"]:hover {
+        background: #f7fafa;
+        border-color: #a2a6a8;
+    }
     
     #setup-modal button[id="setup-save-product-rate"],
     #setup-modal button[id="setup-save-referral-rate"] {
@@ -3705,34 +4509,42 @@ document.addEventListener('click', function(e) {
 </div>
 
 <!-- History Modal -->
-<div id="historyModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center;">
-    <div class="modal-content" style="background: white; width: 80%; max-width: 800px; border-radius: 5px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); max-height: 80vh; display: flex; flex-direction: column;">
-        <div class="modal-header" style="padding: 15px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center;">
-            <h4 style="margin: 0;">Recharge History</h4>
-            <span class="close-history-modal" style="cursor: pointer; font-size: 24px; font-weight: bold;">&times;</span>
+<div id="historyModal" class="amazon-modal amazon-history-modal amazon-modal--standard" style="display:none;">
+    <div class="amazon-modal__content">
+        <div class="amazon-modal__header">
+            <div>
+                <h4 id="historyModalTitle" class="amazon-modal__title">Recharge History</h4>
+                <p class="amazon-modal__subtitle">Recharge & withdraw activity</p>
+            </div>
+            <button type="button" class="amazon-modal__close close-history-modal">&times;</button>
         </div>
-        <div class="modal-body" style="padding: 15px; overflow-y: auto; flex-grow: 1;">
-            <table class="history-table" style="width: 100%; border-collapse: collapse;">
-                <thead>
-                    <tr style="background-color: #f8f9fa;">
-                        <th style="padding: 10px; text-align: left; border-bottom: 1px solid #dee2e6;">Date</th>
-                        <th style="padding: 10px; text-align: right; border-bottom: 1px solid #dee2e6;">Amount</th>
-                        <th style="padding: 10px; text-align: center; border-bottom: 1px solid #dee2e6;">Status</th>
-                        <th style="padding: 10px; text-align: center; border-bottom: 1px solid #dee2e6;">Action</th>
-                    </tr>
-                </thead>
-                <tbody id="historyTableBody">
-                    <!-- History rows will be inserted here by JavaScript -->
-                </tbody>
-            </table>
-            
-            <div id="pagination" style="margin-top: 15px; display: flex; justify-content: center; gap: 10px;"></div>
+        <div class="amazon-modal__body">
+            <div class="history-type-toggle">
+                <button type="button" class="history-type-btn active" data-history-type="recharge">Recharge History</button>
+                <button type="button" class="history-type-btn" data-history-type="withdraw">Withdraw History</button>
+            </div>
+            <div class="history-table-wrap">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th style="text-align: right;">Amount</th>
+                            <th style="text-align: center;">Status</th>
+                            <th id="historyActionHeader" style="text-align: center;">Voucher</th>
+                        </tr>
+                    </thead>
+                    <tbody id="historyTableBody">
+                        <!-- History rows will be inserted here by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            <div id="pagination"></div>
         </div>
     </div>
 </div>
 
 <!-- Information Modal -->
-<div id="informationModal" class="amazon-modal amazon-info-modal" style="display:none;">
+<div id="informationModal" class="amazon-modal amazon-info-modal amazon-modal--standard" style="display:none;">
     <div class="amazon-modal__content">
         <div class="amazon-modal__header">
             <div>
@@ -3742,19 +4554,83 @@ document.addEventListener('click', function(e) {
             <button type="button" class="amazon-modal__close close-information-modal">&times;</button>
         </div>
         <div class="amazon-modal__body">
-            <div class="info-row">
-                <h5>Wallet Address</h5>
+            <div class="info-row info-row--wallet">
+                <div class="info-row__header">
+                    <h5>Wallet Address</h5>
+                </div>
                 <p id="infoWallet" class="wallet-address-text" data-address="">No wallet yet</p>
-                <button id="infoCopyWallet" class="amazon-secondary-btn" style="margin-top:8px;">Copy Address</button>
+                <button id="infoCopyWallet" class="amazon-secondary-btn">Copy Address</button>
             </div>
-            <div class="info-row">
+            <div class="info-row info-row--split">
                 <h5>Day Completion</h5>
                 <p id="infoDayCompletion" class="info-highlight">-</p>
             </div>
-            <div class="info-row" style="margin-bottom:0;">
-                <h5>History</h5>
-                <button id="infoViewHistory" class="amazon-secondary-btn" style="background:#ff9900; color:#fff;">Open Recharge History</button>
+            <div class="info-row info-balance-row">
+                <div class="info-balance-header">
+                    <div>
+                        <h5>Balance</h5>
+                        
+                    </div>
+                    <div class="info-balance-actions">
+                        <p id="infoCurrentBalance" class="info-highlight info-current-balance" style="display:none;">$0.00</p>
+                        <button type="button" id="infoOpenAdjustModal" class="amazon-secondary-btn info-adjust-trigger">Adjust Balance</button>
+                    </div>
+                </div>
             </div>
+            <div class="info-row info-history-row" style="margin-bottom:0;">
+                <div class="info-history-header">
+                    <h5>Recent Activity</h5>
+                    <div class="info-history-actions">
+                        <button type="button" class="amazon-secondary-btn info-history-btn view-history-btn" data-history-type="recharge">View History</button>
+                        
+                    </div>
+                </div>
+                <div class="info-history-grid">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Adjust Balance Modal -->
+<div id="adjustBalanceModal" class="amazon-modal amazon-adjust-modal amazon-modal--standard" style="display:none;">
+    <div class="amazon-modal__content">
+        <div class="amazon-modal__header">
+            <div>
+                <h4 id="adjustModalTitle" class="amazon-modal__title">Adjust Balance</h4>
+              
+            </div>
+            <button type="button" class="amazon-modal__close close-adjust-modal">&times;</button>
+        </div>
+        <div class="amazon-modal__body">
+            <div class="adjust-balance-summary">
+                <span>Current Balance</span>
+                <p id="adjustModalBalance" class="info-highlight">$0.00</p>
+            </div>
+            <form id="infoAdjustForm" class="info-adjust-form" autocomplete="off">
+                <div class="info-adjust-fields">
+                    <label>
+                        <span>Amount</span>
+                        <input type="number" id="infoAdjustAmount" min="0" step="0.01" placeholder="0.00" required>
+                    </label>
+                    <label>
+                        <span>Operation</span>
+                        <select id="infoAdjustOperation">
+                            <option value="add">Add</option>
+                            <option value="subtract">Subtract</option>
+                        </select>
+                    </label>
+                </div>
+                <label class="info-adjust-note">
+                    
+                    <label id="infoAdjustNote" rows="3" maxlength="255" placeholder="Reason for adjustment"></label>
+                </label>
+                <div class="info-adjust-actions">
+                    <button type="submit" id="infoAdjustSubmit" class="amazon-secondary-btn">Apply</button>
+                    <span id="infoAdjustStatus" class="info-status-pill"></span>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -3786,7 +4662,7 @@ document.addEventListener('click', function(e) {
             </button>
             <button type="button" class="tab-btn amazon-tab-btn" data-tab="commissions">
                 <span style="display: flex; align-items: center; justify-content: center; gap: 8px;">
-                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-3.4 6-8V2l-6-2-6 2v6c0 4.6 6 8 6 8z"/><path d="M8 4.5a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3.5a.5.5 0 0 1-.5-.5v-3.5a.5.5 0 0 1 .5-.5z"/></svg>
+                    <svg width="16" height="16"continue  fill="currentColor" viewBox="0 0 16 16"><path d="M8 16s6-3.4 6-8V2l-6-2-6 2v6c0 4.6 6 8 6 8z"/><path d="M8 4.5a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3.5a.5.5 0 0 1-.5-.5v-3.5a.5.5 0 0 1 .5-.5z"/></svg>
                     Commissions
                 </span>
             </button>
@@ -3796,11 +4672,12 @@ document.addEventListener('click', function(e) {
             <!-- Daily Limit Tab -->
             <div id="limits-tab" class="tab-content active" style="display: block;">
                 <div class="amazon-section-card">
-                    <h4>Daily Task Limit</h4>
-                    <p>Set the maximum number of tasks this user can complete per day (1-60).</p>
+                    <h4>Daily Task Limit(1-60)</h4>
+                    
                     <div class="amazon-input-row">
                         <input type="number" id="setup-daily-limit" min="1" max="60">
                         <button type="button" id="setup-save-daily-limit" class="amazon-secondary-btn">Save Limit</button>
+                        <button type="button" id="setup-reset-daily-limit" class="amazon-secondary-btn" style="display: none;">Reset</button>
                         <span id="setup-daily-limit-status" class="amazon-status-pill"></span>
                     </div>
                 </div>
@@ -3810,7 +4687,7 @@ document.addEventListener('click', function(e) {
             <div id="stoppoints-tab" class="tab-content" style="display: none;">
                 <div class="amazon-section-card">
                     <h4>Stop Points Management</h4>
-                    <p>Configure task thresholds and required balance amounts for each stop point.</p>
+                    
                     
                     <div id="setup-existing-stoppoints" style="margin-bottom: 16px;"></div>
                     
@@ -3827,7 +4704,7 @@ document.addEventListener('click', function(e) {
             <div id="commissions-tab" class="tab-content" style="display: none;">
                 <div class="amazon-section-card">
                     <h4>Product Commission Rate</h4>
-                    <p>Set commission percentage for product.</p>
+                   
                     <div class="amazon-input-row">
                         <input type="number" id="setup-product-rate" step="0.01" min="0" max="100">
                         <button type="button" id="setup-save-product-rate" class="amazon-secondary-btn">Save Rate</button>
@@ -3835,9 +4712,9 @@ document.addEventListener('click', function(e) {
                     </div>
                 </div>
                 
-                <div class="amazon-section-card">
+                <div id="referrer-commission-section" class="amazon-section-card">
                     <h4>Referral Commission Rate</h4>
-                    <p>Set commission percentage for referral. Only applies to invited users.</p>
+                    
                     <div class="amazon-input-row">
                         <input type="number" id="setup-referral-rate" step="0.01" min="0" max="100">
                         <button type="button" id="setup-save-referral-rate" class="amazon-secondary-btn">Save Rate</button>

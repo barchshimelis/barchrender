@@ -189,8 +189,12 @@ STATIC_URL = config('STATIC_URL', default='/static/')
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MEDIA_ROOT = BASE_DIR / 'media'
+# Media files: default to repo media locally, use Render disk in production
 MEDIA_URL = config('MEDIA_URL', default='/media/')
+if os.environ.get('RENDER') == 'true':
+    MEDIA_ROOT = '/opt/render/project/media'
+else:
+    MEDIA_ROOT = BASE_DIR / 'media'
 
 # ---------------------------------------------------------------------
 # Authentication

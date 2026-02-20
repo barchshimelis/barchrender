@@ -1,8 +1,9 @@
+#
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-10 03:38-0500\n"
+"POT-Creation-Date: 2026-02-19 16:31+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10,77 +11,75 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
-"(n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: AmazonProject/settings.py:124
+msgid "English"
+msgstr "англійская"
+
+#: AmazonProject/settings.py:125
+msgid "Arabic"
+msgstr "арабская"
+
+#: AmazonProject/settings.py:126
+msgid "Turkish"
+msgstr "турэцкая"
 
 #: AmazonProject/settings.py:127
-msgid "English"
-msgstr ""
+msgid "Russian"
+msgstr "рускі"
 
 #: AmazonProject/settings.py:128
-msgid "Arabic"
-msgstr ""
+msgid "Azerbaijani"
+msgstr "Азербайджанская"
 
 #: AmazonProject/settings.py:129
-msgid "Turkish"
-msgstr ""
+msgid "Thai"
+msgstr "Тайская"
 
 #: AmazonProject/settings.py:130
-msgid "Russian"
-msgstr ""
+msgid "Belarusian"
+msgstr "беларускі"
 
 #: AmazonProject/settings.py:131
-msgid "Azerbaijani"
-msgstr ""
+msgid "Spanish"
+msgstr "іспанскі"
 
 #: AmazonProject/settings.py:132
-msgid "Thai"
-msgstr ""
+msgid "Portuguese"
+msgstr "партугальская"
 
 #: AmazonProject/settings.py:133
-msgid "Belarusian"
-msgstr ""
+msgid "Vietnamese"
+msgstr "в'етнамская"
 
 #: AmazonProject/settings.py:134
-msgid "Spanish"
-msgstr ""
+msgid "Albanian"
+msgstr "албанец"
 
 #: AmazonProject/settings.py:135
-msgid "Portuguese"
-msgstr ""
+msgid "Spanish (Chile)"
+msgstr "Іспанская (Чылі)"
 
 #: AmazonProject/settings.py:136
-msgid "Vietnamese"
-msgstr ""
+msgid "Spanish (Mexico)"
+msgstr "Іспанская (Мексіка)"
 
 #: AmazonProject/settings.py:137
-msgid "Albanian"
-msgstr ""
+msgid "English (Nigeria)"
+msgstr "англійская (Нігерыя)"
 
 #: AmazonProject/settings.py:138
-msgid "Spanish (Chile)"
-msgstr ""
-
-#: AmazonProject/settings.py:139
-msgid "Spanish (Mexico)"
-msgstr ""
-
-#: AmazonProject/settings.py:140
-msgid "English (Nigeria)"
-msgstr ""
-
-#: AmazonProject/settings.py:141
 msgid "Estonian"
-msgstr ""
+msgstr "эстонскі"
 
 #: accounts/templates/accounts/activities.html:4 templates/base.html:286
 msgid "Activities"
-msgstr "Дзейнасці"
+msgstr "Мерапрыемствы"
 
 #: accounts/templates/accounts/activities.html:314
 msgid "Activity filters"
-msgstr "Фільтры дзейнасці"
+msgstr "Фільтры актыўнасці"
 
 #: accounts/templates/accounts/activities.html:316
 msgid "Start date"
@@ -110,7 +109,7 @@ msgstr "Гісторыя папаўнення"
 #: products/templates/products/partials/task_panel.html:41
 #: templates/index.html:412
 msgid "Recharge"
-msgstr "Папаўненне"
+msgstr "Перазарадка"
 
 #: accounts/templates/accounts/activities.html:352
 #, fuzzy, python-format
@@ -144,20 +143,20 @@ msgstr ""
 
 #: accounts/templates/accounts/activities.html:389
 msgid "More"
-msgstr ""
+msgstr "больш"
 
 #: accounts/templates/accounts/activities.html:394
 msgid "No recharge history"
-msgstr "Няма гісторыі папаўнення"
+msgstr "Няма гісторыі перазарадкі"
 
 #: accounts/templates/accounts/activities.html:395
 msgid "Submit a recharge request to see it tracked here."
-msgstr "Адправіць запыт на папаўненне, каб бачыць яго адсочаным тут."
+msgstr "Адпраўце запыт на папаўненне, каб убачыць яго адсочванне тут."
 
 #: accounts/templates/accounts/activities.html:400
 #: accounts/templates/accounts/activities.html:404
 msgid "Withdrawal history"
-msgstr "Гісторыя зняцця"
+msgstr "Гісторыя зняцця сродкаў"
 
 #: accounts/templates/accounts/activities.html:414
 #: accounts/templates/accounts/activities.html:434
@@ -196,27 +195,27 @@ msgstr ""
 
 #: accounts/templates/accounts/activities.html:449
 msgid "more"
-msgstr ""
+msgstr "больш"
 
 #: accounts/templates/accounts/activities.html:454
 msgid "No withdrawal history"
-msgstr "Няма гісторыі зняцця"
+msgstr "Няма гісторыі зняцця сродкаў"
 
 #: accounts/templates/accounts/activities.html:455
 msgid "Once you submit a withdrawal request it will show up here."
-msgstr "Калі вы адправіце запыт на зняцце, ён з'явіцца тут."
+msgstr "Пасля адпраўкі запыту на зняцце ён з'явіцца тут."
 
 #: accounts/templates/accounts/activities.html:473
 msgid "Show"
-msgstr ""
+msgstr "Паказаць"
 
 #: accounts/templates/accounts/activities.html:473
 msgid "Hide"
-msgstr ""
+msgstr "Схаваць"
 
 #: accounts/templates/accounts/admin_base_auth.html:8
 msgid "Admin Console"
-msgstr "Адміністрацыйная кансоль"
+msgstr "Кансоль адміністратара"
 
 #: accounts/templates/accounts/admin_base_auth.html:485
 msgid "Administration"
@@ -225,7 +224,7 @@ msgstr "Адміністрацыя"
 #: accounts/templates/accounts/admin_base_auth.html:486
 #: accounts/templates/accounts/base_auth.html:8
 msgid "Amazon Market"
-msgstr "Amazon Market"
+msgstr "Рынак Amazon"
 
 #: accounts/templates/accounts/admin_base_auth.html:497
 msgid "Internal Access"
@@ -237,11 +236,11 @@ msgstr "Уваход адміністратара"
 
 #: accounts/templates/accounts/adminlogin.html:5
 msgid "Admin Access"
-msgstr "Адміністрацыйны доступ"
+msgstr "Доступ адміністратара"
 
 #: accounts/templates/accounts/adminlogin.html:15
 msgid "Admin"
-msgstr "Адміністратар"
+msgstr "Адмін"
 
 #: accounts/templates/accounts/adminlogin.html:42
 #: accounts/templates/accounts/customerservicelogin.html:42
@@ -262,72 +261,72 @@ msgstr "Пароль"
 #: accounts/templates/accounts/customerservicelogin.html:48
 #: accounts/templates/accounts/superadminlogin.html:48
 msgid "Sign In"
-msgstr "Увайсці"
+msgstr "Увайдзіце"
 
 #: accounts/templates/accounts/adminlogin.html:53
 #: accounts/templates/accounts/customerservicelogin.html:53
 #: accounts/templates/accounts/superadminlogin.html:53
 msgid "Enter result"
-msgstr "Увядзіце суму"
+msgstr "Увядзіце вынік"
 
-#: accounts/templates/accounts/base_auth.html:600
+#: accounts/templates/accounts/base_auth.html:603
 msgid "Amazon logo"
-msgstr "Уваход у Amazon"
+msgstr "Лагатып Amazon"
 
-#: accounts/templates/accounts/base_auth.html:605
+#: accounts/templates/accounts/base_auth.html:608
 #: accounts/templates/accounts/me.html:551
 #: accounts/templates/accounts/me.html:556
 msgid "Change language"
 msgstr "Змяніць мову"
 
-#: accounts/templates/accounts/base_auth.html:612
+#: accounts/templates/accounts/base_auth.html:615
 #: accounts/templates/accounts/me.html:562
 msgid "Choose language"
 msgstr "Выберыце мову"
 
-#: accounts/templates/accounts/base_auth.html:613
+#: accounts/templates/accounts/base_auth.html:616
 #: accounts/templates/accounts/me.html:563
 msgid "Close language menu"
-msgstr "Закрыць меню мовы"
+msgstr "Зачыніць меню мовы"
 
-#: accounts/templates/accounts/base_auth.html:650
+#: accounts/templates/accounts/base_auth.html:653
 msgid "Error"
 msgstr "Памылка"
 
-#: accounts/templates/accounts/base_auth.html:652
+#: accounts/templates/accounts/base_auth.html:655
 msgid "Warning"
 msgstr "Папярэджанне"
 
-#: accounts/templates/accounts/base_auth.html:668
+#: accounts/templates/accounts/base_auth.html:671
 msgid "Conditions of Use"
 msgstr "Умовы выкарыстання"
 
-#: accounts/templates/accounts/base_auth.html:669
+#: accounts/templates/accounts/base_auth.html:672
 msgid "Privacy Notice"
-msgstr "Нататка аб прыватнасці"
+msgstr "Паведамленне аб прыватнасці"
 
-#: accounts/templates/accounts/base_auth.html:670
+#: accounts/templates/accounts/base_auth.html:673
 msgid "Help"
 msgstr "Даведка"
 
-#: accounts/templates/accounts/base_auth.html:672
+#: accounts/templates/accounts/base_auth.html:675
 #, python-format
 msgid "&copy; %(year)s Amazon Market"
 msgstr "&copy; %(year)s Amazon Market"
 
 #: accounts/templates/accounts/customerservicelogin.html:4
 msgid "Customer Service Login"
-msgstr "Уваход у службу падтрымкі"
+msgstr "Уваход у службу падтрымкі кліентаў"
 
 #: accounts/templates/accounts/customerservicelogin.html:5
 #: accounts/templates/accounts/customerservicelogin.html:15
 #: chat/templates/chat/guest_chat.html:249
 msgid "Customer Service"
-msgstr "Служба падтрымкі"
+msgstr "Абслугоўванне кліентаў"
 
 #: accounts/templates/accounts/me.html:4
 msgid "My Account"
-msgstr "Май акаўнт"
+msgstr "Мой рахунак"
 
 #: accounts/templates/accounts/me.html:544
 msgid "Notifications"
@@ -341,7 +340,7 @@ msgstr "Налады"
 #: products/templates/products/partials/task_panel.html:204
 #: templates/index.html:419
 msgid "Withdraw"
-msgstr "Зняцце"
+msgstr "Зняць"
 
 #: accounts/templates/accounts/me.html:634
 msgid "Quick access"
@@ -349,7 +348,7 @@ msgstr "Хуткі доступ"
 
 #: accounts/templates/accounts/me.html:641
 msgid "Personal info"
-msgstr "Асабістыя звесткі"
+msgstr "Асабістая інфармацыя"
 
 #: accounts/templates/accounts/me.html:648
 msgid "Order record"
@@ -357,11 +356,11 @@ msgstr "Запіс заказу"
 
 #: accounts/templates/accounts/me.html:655
 msgid "Recharge record"
-msgstr "Запіс папаўнення"
+msgstr "Папаўненне запісу"
 
 #: accounts/templates/accounts/me.html:662
 msgid "Withdrawal record"
-msgstr "Запіс зняцця"
+msgstr "Запіс аб зняцці сродкаў"
 
 #: accounts/templates/accounts/me.html:677
 msgid "Sign out"
@@ -371,7 +370,7 @@ msgstr "Выйсці"
 #, fuzzy
 #| msgid "Customer Service"
 msgid "Chat with Customer Service"
-msgstr "Служба падтрымкі"
+msgstr "Чат са службай падтрымкі кліентаў"
 
 #: accounts/templates/accounts/profile.html:4
 msgid "Profile"
@@ -379,7 +378,7 @@ msgstr "Профіль"
 
 #: accounts/templates/accounts/profile.html:246
 msgid "Member since"
-msgstr "Удзельнік з"
+msgstr "Член з"
 
 #: accounts/templates/accounts/profile.html:258
 msgid "Contact information"
@@ -392,11 +391,11 @@ msgstr "Тэлефон"
 #: accounts/templates/accounts/profile.html:262
 #: accounts/templates/accounts/profile.html:266
 msgid "Not provided"
-msgstr "Не прадстаўлена"
+msgstr "Не прадугледжана"
 
 #: accounts/templates/accounts/profile.html:265
 msgid "Email"
-msgstr "Email"
+msgstr "Электронная пошта"
 
 #: accounts/templates/accounts/profile.html:269
 #: accounts/templates/accounts/user_register.html:124
@@ -405,11 +404,11 @@ msgstr "Рэферальны код"
 
 #: accounts/templates/accounts/profile.html:270
 msgid "Not available"
-msgstr "Недаступна"
+msgstr "Няма ў наяўнасці"
 
 #: accounts/templates/accounts/profile.html:279
 msgid "Recent activity"
-msgstr "Нядаўняя дзейнасць"
+msgstr "Апошнія дзеянні"
 
 #: accounts/templates/accounts/profile.html:284
 msgid "Profile updated"
@@ -417,7 +416,7 @@ msgstr "Профіль абноўлены"
 
 #: accounts/templates/accounts/profile.html:285
 msgid "You refreshed your personal information."
-msgstr "Вы абнавілі свае асабістыя звесткі."
+msgstr "Вы абнавілі сваю асабістую інфармацыю."
 
 #: accounts/templates/accounts/profile.html:286
 msgid "Just now"
@@ -429,27 +428,27 @@ msgstr "Праверка бяспекі"
 
 #: accounts/templates/accounts/profile.html:293
 msgid "Fund password confirmed for withdrawal."
-msgstr "Пароль фонду пацверджаны для зняцця."
+msgstr "Пароль фонду пацверджаны для вываду."
 
 #: accounts/templates/accounts/profile.html:294
 msgid "+12h"
-msgstr "+12г"
+msgstr "+12 гадзін"
 
 #: accounts/templates/accounts/profile.html:300
 msgid "Referral milestone"
-msgstr "Рэферальны веха"
+msgstr "Рэферальны этап"
 
 #: accounts/templates/accounts/profile.html:301
 msgid "You unlocked a new referral bonus tier."
-msgstr "Вы адкрылі новы ўзровень рэферальнай бонуса."
+msgstr "Вы адкрылі новы бонусны ўзровень за рэфералаў."
 
 #: accounts/templates/accounts/profile.html:302
 msgid "+2d"
-msgstr "+2д"
+msgstr "+2 дн"
 
 #: accounts/templates/accounts/superadminlogin.html:4
 msgid "Super Admin Login"
-msgstr "Уваход супер адміністратара"
+msgstr "Уваход суперадміністратара"
 
 #: accounts/templates/accounts/superadminlogin.html:5
 #: accounts/templates/accounts/superadminlogin.html:15
@@ -460,49 +459,49 @@ msgstr "Супер адміністратар"
 #: accounts/templates/accounts/user_login.html:18
 #: accounts/templates/accounts/user_register.html:132
 msgid "Sign in"
-msgstr "Увайсці"
+msgstr "Увайдзіце ў сістэму"
 
 #: accounts/templates/accounts/user_login.html:12
 msgid "Username or phone number"
-msgstr "Email або нумар мабільнага тэлефона"
+msgstr "Імя карыстальніка або нумар тэлефона"
 
 #: accounts/templates/accounts/user_login.html:22
 msgid "Forgot your password?"
-msgstr "Забылі свой пароль?"
+msgstr "Забыліся пароль?"
 
 #: accounts/templates/accounts/user_login.html:24
 msgid "Create your account"
-msgstr "Стварыце свой акаўнт"
+msgstr "Стварыце свой уліковы запіс"
 
 #: accounts/templates/accounts/user_login.html:27
 msgid "New to Amazon?"
-msgstr "Новы ў Amazon?"
+msgstr "Упершыню ў Amazon?"
 
 #: accounts/templates/accounts/user_login.html:29
 #: accounts/templates/accounts/user_register.html:127
 msgid "Create your Amazon account"
-msgstr "Стварыце свой акаўнт Amazon"
+msgstr "Стварыце свой уліковы запіс Amazon"
 
 #: accounts/templates/accounts/user_register.html:106
 msgid "Create account"
-msgstr "Стварыць акаўнт"
+msgstr "Стварыць уліковы запіс"
 
 #: accounts/templates/accounts/user_register.html:111
 msgid "Mobile number"
-msgstr "Нумар мабільнага тэлефона"
+msgstr "Мабільны нумар"
 
 #: accounts/templates/accounts/user_register.html:112
 msgid "e.g., +1234567890"
-msgstr "напр., +1234567890"
+msgstr "напрыклад, +1234567890"
 
 #: accounts/templates/accounts/user_register.html:115
 #: accounts/templates/accounts/user_register.html:122
 msgid "6-15 characters"
-msgstr "6-15 сімвалаў"
+msgstr "6-15 знакаў"
 
 #: accounts/templates/accounts/user_register.html:118
 msgid "At least 6 characters"
-msgstr "Найменш 6 сімвалаў"
+msgstr "Мінімум 6 сімвалаў"
 
 #: accounts/templates/accounts/user_register.html:121
 #: wallet/templates/wallet/wallet_management.html:682
@@ -511,157 +510,164 @@ msgstr "Пароль фонду"
 
 #: accounts/templates/accounts/user_register.html:125
 msgid "6 characters"
-msgstr "6 сімвалаў"
+msgstr "6 знакаў"
 
 #: accounts/templates/accounts/user_register.html:131
 msgid "Already have an account?"
-msgstr "Ужы ёсць акаўнт?"
+msgstr "У вас ужо ёсць уліковы запіс?"
 
-#: accounts/views.py:103 accounts/views.py:513 accounts/views.py:546
+#: accounts/views.py:106 accounts/views.py:516 accounts/views.py:554
 msgid "Try again"
 msgstr "Паспрабуйце яшчэ раз"
 
-#: accounts/views.py:845
+#: accounts/views.py:858
 msgid "All fields are required."
-msgstr "Усе палі неабходна запоўніць."
+msgstr "Усе палі абавязковыя для запаўнення."
 
-#: accounts/views.py:854
-msgid "Phone number must be numeric and may start with + (max 15 digits)."
-msgstr ""
-"Нумар тэлефона павінен складацца з лічбаў і можа пачынацца з + (не больш за "
-"15 знакаў)."
-
-#: accounts/views.py:859
-msgid "Username must be between 6 and 15 characters."
-msgstr "Імя карыстальніка павінна мець ад 6 да 15 сімвалаў."
-
-#: accounts/views.py:864
-msgid "Password must be between 6 and 15 characters."
-msgstr "Пароль павінен мець ад 6 да 15 сімвалаў."
-
-#: accounts/views.py:869
-msgid "Fund password must be between 6 and 15 characters."
-msgstr "Пароль фонда павінен мець ад 6 да 15 сімвалаў."
+#: accounts/views.py:868
+msgid "wrong phone number"
+msgstr "няправільны нумар тэлефона"
 
 #: accounts/views.py:874
-msgid "Referral code must be exactly 6 characters."
-msgstr "Рэферальны код павінен складацца дакладна з 6 сімвалаў."
+msgid "wrong user name"
+msgstr "няправільнае імя карыстальніка"
 
-#: accounts/views.py:881
+#: accounts/views.py:880
+msgid "enter correct password"
+msgstr "увядзіце правільны пароль"
+
+#: accounts/views.py:886
+msgid "enter correct fund password"
+msgstr "увядзіце правільны пароль фонду"
+
+#: accounts/views.py:892
+msgid "enter correct refral code"
+msgstr "увядзіце правільны код рэферала"
+
+#: accounts/views.py:900
 msgid "Invalid referral code."
-msgstr "Недзейсны рэферальны код."
+msgstr "Няправільны рэферальны код."
 
-#: accounts/views.py:888
-msgid "This user's referral code has already been used."
-msgstr "Рэферальны код гэтага карыстальніка ўжо выкарыстоўваўся."
+#: accounts/views.py:908
+#, fuzzy
+#| msgid "This user cannot invite others"
+msgid "This user cannot invite others."
+msgstr "Гэты карыстальнік не можа запрашаць іншых."
 
-#: accounts/views.py:893 accounts/views.py:919
-msgid "Username already exists. Please choose a different username."
-msgstr "Імя карыстальніка ўжо існуе. Абярыце іншае імя."
-
-#: accounts/views.py:897 accounts/views.py:917
-msgid "Phone number already exists. Please use a different phone number."
-msgstr "Нумар тэлефона ўжо існуе. Калі ласка, выкарыстайце іншы нумар."
+#: accounts/views.py:915
+msgid "maximum invition reaached"
+msgstr "максімальнае запрашэнне дасягнута"
 
 #: accounts/views.py:921
+msgid "Username already exists"
+msgstr "Імя карыстальніка ўжо існуе"
+
+#: accounts/views.py:925
+msgid "Phone number already exists"
+msgstr "Нумар тэлефона ўжо існуе"
+
+#: accounts/views.py:948
+msgid "Phone number already exists. Please use a different phone number."
+msgstr "Нумар тэлефона ўжо існуе. Выкарыстоўвайце іншы нумар тэлефона."
+
+#: accounts/views.py:950
+msgid "Username already exists. Please choose a different username."
+msgstr "Імя карыстальніка ўжо існуе. Выберыце іншае імя карыстальніка."
+
+#: accounts/views.py:952
 msgid "Registration failed. Please try again."
-msgstr "Рэгістрацыя не атрымалася. Паспрабуйце яшчэ раз."
+msgstr "Збой рэгістрацыі. Калі ласка, паспрабуйце яшчэ раз."
 
-#: accounts/views.py:941
+#: accounts/views.py:972
 msgid "Registration successful! Please login."
-msgstr ""
+msgstr "Рэгістрацыя паспяховая! Калі ласка, увайдзіце."
 
-#: accounts/views.py:972 accounts/views.py:991
-msgid "Invalid credentials."
-msgstr ""
+#: accounts/views.py:1003 accounts/views.py:1009 accounts/views.py:1015
+#: accounts/views.py:1022
+#, fuzzy
+#| msgid "company rules viloated,Please contact customer service"
+msgid "company rules viloated,Please contact customer service."
+msgstr "правілы кампаніі парушаны, калі ласка, звярніцеся ў службу падтрымкі."
 
-#: accounts/views.py:978
-msgid "Organization rules violated, please contact customer service."
-msgstr ""
-
-#: accounts/views.py:984
-msgid "Unable to authenticate. Please try again."
-msgstr ""
-
-#: accounts/views.py:1058
+#: accounts/views.py:1089
 msgid "Product task"
-msgstr "Заданне прадукту"
+msgstr "Заданне на выраб"
 
-#: accounts/views.py:1064
+#: accounts/views.py:1095
 msgid "Task commission earned"
-msgstr "Заработаны камісійны за заданне"
+msgstr "Заробленая камісія"
 
-#: accounts/views.py:1065
+#: accounts/views.py:1096
 #, python-format
 msgid "Completed %(product)s task."
 msgstr "Заданне %(product)s завершана."
 
-#: accounts/views.py:1067
+#: accounts/views.py:1098
 msgid "Success"
-msgstr "Паспяхова"
+msgstr "Поспех"
 
-#: accounts/views.py:1075 accounts/views.py:1102 accounts/views.py:1129
+#: accounts/views.py:1106 accounts/views.py:1133 accounts/views.py:1160
 msgid "Pending"
 msgstr "У чаканні"
 
-#: accounts/views.py:1076 accounts/views.py:1103 accounts/views.py:1131
-#: accounts/views.py:1180
+#: accounts/views.py:1107 accounts/views.py:1134 accounts/views.py:1162
+#: accounts/views.py:1211
 msgid "Approved"
-msgstr "Зацверджана"
+msgstr "Зацверджаны"
 
-#: accounts/views.py:1077 accounts/views.py:1104 accounts/views.py:1132
-#: accounts/views.py:1181
+#: accounts/views.py:1108 accounts/views.py:1135 accounts/views.py:1163
+#: accounts/views.py:1212
 msgid "Rejected"
 msgstr "Адхілена"
 
-#: accounts/views.py:1088
+#: accounts/views.py:1119
 msgid "Recharge request"
-msgstr "Запыт на папаўненне"
+msgstr "Запыт папаўнення"
 
-#: accounts/views.py:1089
+#: accounts/views.py:1120
 #, python-format
 msgid "Recharge of %(amount)s is %(status)s."
 msgstr "Папаўненне %(amount)s %(status)s."
 
-#: accounts/views.py:1115
+#: accounts/views.py:1146
 msgid "Balance request"
-msgstr "Запыт на баланс"
+msgstr "Запыт балансу"
 
-#: accounts/views.py:1116
+#: accounts/views.py:1147
 #, python-format
 msgid "Balance request of %(amount)s is %(status)s."
 msgstr "Запыт на баланс %(amount)s %(status)s."
 
-#: accounts/views.py:1130
+#: accounts/views.py:1161
 msgid "Processing"
-msgstr "Апрацоўваецца"
+msgstr "Апрацоўка"
 
-#: accounts/views.py:1133
+#: accounts/views.py:1164
 msgid "Cancelled"
 msgstr "Адменена"
 
-#: accounts/views.py:1144
+#: accounts/views.py:1175
 msgid "Withdrawal request"
-msgstr "Запыт на зняцце"
+msgstr "Запыт на зняцце сродкаў"
 
-#: accounts/views.py:1145
+#: accounts/views.py:1176
 #, python-format
 msgid "Withdrawal of %(amount)s via %(network)s."
-msgstr "Зняцце %(amount)s праз %(network)s."
+msgstr "Вывад %(amount)s праз %(network)s."
 
-#: accounts/views.py:1159
+#: accounts/views.py:1190
 msgid "Read"
-msgstr "Прачытана"
+msgstr "Прачытайце"
 
-#: accounts/views.py:1159
+#: accounts/views.py:1190
 msgid "Unread"
-msgstr "Непрачытана"
+msgstr "Непрачытанае"
 
-#: accounts/views.py:1372
+#: accounts/views.py:1406
 msgid "Continue task"
-msgstr "Працягнуць да аплаты"
+msgstr "Працягнуць заданне"
 
-#: accounts/views.py:1374 templates/index.html:433
+#: accounts/views.py:1408 templates/index.html:433
 msgid "Start task"
 msgstr "Пачаць заданне"
 
@@ -684,19 +690,19 @@ msgstr ""
 #: balance/templates/balance/upload_voucher.html:428
 #: balance/templates/balance/upload_voucher.html:431
 msgid "Copy address"
-msgstr "Капіяваць адрас"
+msgstr "Скапіруйце адрас"
 
 #: balance/templates/balance/upload_voucher.html:429
 msgid "Copied"
-msgstr "Скапіявана"
+msgstr "Скапіравана"
 
 #: balance/templates/balance/upload_voucher.html:446
 msgid "Voucher uploaded"
-msgstr "Ваўчар загружаны"
+msgstr "Ваўчар запампаваны"
 
 #: balance/templates/balance/upload_voucher.html:457
 msgid "Please upload the transfer voucher"
-msgstr "Калі ласка, загрузіць ваўчар пераводу"
+msgstr "Калі ласка, загрузіце ваўчар на перадачу"
 
 #: balance/templates/balance/upload_voucher.html:458
 msgid "Replace voucher"
@@ -704,21 +710,23 @@ msgstr "Замяніць ваўчар"
 
 #: balance/templates/balance/upload_voucher.html:471
 msgid "Back to wallet dashboard"
-msgstr "Назад да панэлі кішэня"
+msgstr "Вярнуцца да прыборнай панэлі кашалька"
 
 #: balance/templates/balance/wallet_dashboard.html:4
 msgid "Wallet dashboard"
-msgstr "Панэль кішэня"
+msgstr "Прыборная панэль кашалька"
 
 #: balance/templates/balance/wallet_dashboard.html:294 templates/base.html:282
 msgid "Balance"
 msgstr "Баланс"
 
-#: balance/templates/balance/wallet_dashboard.html:303 templates/index.html:381
+#: balance/templates/balance/wallet_dashboard.html:303
+#: templates/index.html:381
 msgid "Product commission"
 msgstr "Камісія прадукту"
 
-#: balance/templates/balance/wallet_dashboard.html:315 templates/index.html:393
+#: balance/templates/balance/wallet_dashboard.html:315
+#: templates/index.html:393
 msgid "Referral commission"
 msgstr "Рэферальная камісія"
 
@@ -740,11 +748,11 @@ msgstr "Няправільная сума."
 
 #: balance/views.py:113
 msgid "Amount received. Please upload your voucher to complete the request."
-msgstr "Сума атрымана. Загрузіце ваўчар, каб завяршыць запыт."
+msgstr "Атрыманая сума. Каб выканаць запыт, загрузіце свой ваўчар."
 
 #: balance/views.py:129
 msgid "Voucher uploaded successfully. Await admin approval."
-msgstr "Ваўчар паспяхова загружаны. Чакайце зацвярджэння адміністратара."
+msgstr "Ваўчар паспяхова запампаваны. Чакайце адабрэння адміністратара."
 
 #: balance/views.py:161
 #, fuzzy, python-format
@@ -770,7 +778,7 @@ msgstr "Сума папаўнення абноўлена да %(amount)s"
 
 #: balance/views.py:237
 msgid "Invalid amount"
-msgstr "Увядзіце суму"
+msgstr "Няправільная сума"
 
 #: balance/views.py:254
 msgid "Amount must be positive."
@@ -778,7 +786,7 @@ msgstr "Сума павінна быць станоўчай."
 
 #: balance/views.py:262
 msgid "Your balance request has been submitted."
-msgstr "Ваш запыт на баланс адпраўлены."
+msgstr "Ваш запыт балансу адпраўлены."
 
 #: balance/views.py:280
 #, fuzzy, python-format
@@ -788,15 +796,17 @@ msgstr "Запыт на баланс %(amount)s %(status)s."
 
 #: chat/templates/chat/guest_chat.html:251
 msgid "Close chat"
-msgstr "Закрыць размову"
+msgstr "Зачыніць чат"
 
 #: chat/templates/chat/guest_chat.html:259
 msgid "Hello! Welcome to Amazon Support. How can I help you today?"
-msgstr "Прывітанне! Вітаем у падтрымку Amazon. Як я магу дапамагчы вам сёння?"
+msgstr ""
+"Прывітанне! Сардэчна запрашаем у службу падтрымкі Amazon. Чым я магу "
+"дапамагчы вам сёння?"
 
 #: chat/templates/chat/guest_chat.html:265
 msgid "Type a message…"
-msgstr "Увядзіце паведамленне…"
+msgstr "Увядзіце паведамленне..."
 
 #: chat/templates/chat/guest_chat.html:268
 #: chat/templates/chat/user_support_portal.html:667
@@ -805,69 +815,70 @@ msgstr "Адправіць"
 
 #: chat/templates/chat/guest_chat.html:276
 msgid "File must be ≤ 2 MB"
-msgstr "Файл павін быць ≤ 2 МБ"
+msgstr "Файл павінен быць ≤ 2 МБ"
 
 #: chat/templates/chat/guest_chat.html:277
 msgid "File type not allowed"
-msgstr "Тып файла не дазволены"
+msgstr "Тып файла недапушчальны"
 
 #: chat/templates/chat/user_support_portal.html:4
 msgid "Support Chat"
-msgstr ""
+msgstr "Чат падтрымкі"
 
 #: chat/templates/chat/user_support_portal.html:588
 #, fuzzy
 #| msgid "Customer Service"
 msgid "Customer Service Chat"
-msgstr "Служба падтрымкі"
+msgstr "Чат абслугоўвання кліентаў"
 
 #: chat/templates/chat/user_support_portal.html:591
 msgid "Direct chat with our customer service team."
-msgstr ""
+msgstr "Непасрэдны чат з нашай службай падтрымкі кліентаў."
 
 #: chat/templates/chat/user_support_portal.html:593
 msgid "Assist users and keep every request in one place."
-msgstr ""
+msgstr "Дапамагайце карыстальнікам і захоўвайце кожны запыт у адным месцы."
 
 #: chat/templates/chat/user_support_portal.html:602
 #, fuzzy
 #| msgid "Customer Service"
 msgid "Customer service team"
-msgstr "Служба падтрымкі"
+msgstr "Каманда абслугоўвання кліентаў"
 
 #: chat/templates/chat/user_support_portal.html:623
 msgid "User threads"
-msgstr ""
+msgstr "Патокі карыстальнікаў"
 
 #: chat/templates/chat/user_support_portal.html:624
 msgid "Refresh"
-msgstr ""
+msgstr "Абнавіць"
 
 #: chat/templates/chat/user_support_portal.html:627
 msgid "No active chats yet."
-msgstr ""
+msgstr "Пакуль няма актыўных чатаў."
 
 #: chat/templates/chat/user_support_portal.html:637
 #, fuzzy
 #| msgid "Select network"
 msgid "Select a thread"
-msgstr "Выберыце сетку"
+msgstr "Выберыце нітку"
 
 #: chat/templates/chat/user_support_portal.html:638
 msgid "Waiting"
-msgstr ""
+msgstr "Чаканне"
 
 #: chat/templates/chat/user_support_portal.html:647
 msgid "Start chatting with customer service—ask anything you need."
 msgstr ""
+"Пачніце размаўляць са службай падтрымкі - пытайцеся ўсё, што вам трэба."
 
 #: chat/templates/chat/user_support_portal.html:649
 msgid "Pick a user from the left to see the conversation."
-msgstr ""
+msgstr "Выберыце карыстальніка злева, каб убачыць размову."
 
 #: chat/templates/chat/user_support_portal.html:662
 msgid "Write your message…"
-msgstr "Увядзіце паведамленне…"
+msgstr "Напішыце паведамленне…"
 
 #: products/templates/products/partials/task_panel.html:23
 #: products/templates/products/partials/task_panel.html:149
@@ -881,7 +892,7 @@ msgstr "Бягучы баланс"
 
 #: products/templates/products/partials/task_panel.html:54
 msgid "Avliable Products"
-msgstr "Даступныя тавары"
+msgstr "Даступныя прадукты"
 
 #: products/templates/products/partials/task_panel.html:61
 msgid "Completed"
@@ -904,94 +915,89 @@ msgstr "Дата"
 #: products/templates/products/partials/task_panel.html:89
 #: products/templates/products/partials/task_panel.html:154
 msgid "Name"
-msgstr ""
+msgstr "Імя"
 
 #: products/templates/products/partials/task_panel.html:103
 msgid "Price"
-msgstr "Цана"
+msgstr "Кошт"
 
 #: products/templates/products/partials/task_panel.html:113
-
 msgid "Commission"
-msgstr "Камісія прадукту"
+msgstr "Камісія"
 
 #: products/templates/products/partials/task_panel.html:126
 msgid "Cannot proceed with this task."
-msgstr "Немагчы працягваць з гэтым заданнем."
+msgstr "Немагчыма працягнуць выкананне гэтай задачы."
 
 #: products/templates/products/partials/task_panel.html:133
 #: products/templates/products/partials/task_panel.html:192
 msgid "All tasks completed"
-msgstr "Усе заданні завершаны"
+msgstr "Усе задачы выкананы"
 
 #: products/templates/products/partials/task_panel.html:133
 msgid "Next product"
 msgstr "Наступны прадукт"
 
-#: products/templates/products/partials/task_panel.html:150
-
-msgid "Recharge to continue tasks"
-msgstr "Папаўненне %(amount)s %(status)s."
-
 #: products/templates/products/partials/task_panel.html:157
 msgid "Next product price"
-msgstr "Цана наступнага тавару"
+msgstr "Наступная цана прадукту"
 
 #: products/templates/products/partials/task_panel.html:158
 #, fuzzy
 #| msgid "Balance"
 msgid "Balance gap"
-msgstr "Баланс"
+msgstr "Разрыў балансу"
 
 #: products/templates/products/partials/task_panel.html:160
 msgid "Estimated total balance"
-msgstr ""
+msgstr "Разліковы агульны баланс"
 
 #: products/templates/products/partials/task_panel.html:168
 #, python-format
 msgid "Lucky order: Additional bonus unlocked $%(amount)s"
-msgstr ""
+msgstr "Lucky order: Additional bonus unlocked $%(amount)s"
 
 #: products/templates/products/partials/task_panel.html:172
 msgid "Lucky order: Additional bonus unlocked extra after recharge"
 msgstr ""
+"Шчаслівы заказ: дадатковы бонус адкрываецца дадаткова пасля папаўнення"
 
 #: products/templates/products/partials/task_panel.html:181
 msgid "Recharge now"
-msgstr "Папоўніць зараз"
+msgstr "Перазарадзіце зараз"
 
 #: products/templates/products/partials/task_panel.html:182
 #: products/templates/products/partials/task_panel.html:233
 msgid "Close"
-msgstr "Закрыць"
+msgstr "Блізка"
 
 #: products/templates/products/partials/task_panel.html:193
 msgid "Funds and information security guaranteed"
-msgstr ""
+msgstr "Сродкі і інфармацыйная бяспека гарантаваныя"
 
 #: products/templates/products/partials/task_panel.html:196
 #, fuzzy
 #| msgid "Withdraw"
 msgid "Available Withdraw"
-msgstr "Зняцце"
+msgstr "Даступны зняцце"
 
 #: products/templates/products/partials/task_panel.html:208
 #: products/templates/products/partials/task_panel.html:230
 #: templates/base.html:278
 msgid "Home"
-msgstr "Галоўная"
+msgstr "дадому"
 
 #: products/templates/products/partials/task_panel.html:223
 msgid "You Are Not Eligable"
-msgstr ""
+msgstr "Вы не маеце права"
 
 #: products/templates/products/partials/task_panel.html:224
 msgid "Please contact support to enable tasks"
-msgstr ""
+msgstr "Каб уключыць задачы, звярніцеся ў службу падтрымкі"
 
 #: products/templates/products/products.html:5
 msgid "Products"
-msgstr "Прадукты"
+msgstr "прадукты"
 
 #: products/templates/products/products.html:1325
 #: products/templates/products/products.html:1342
@@ -1000,7 +1006,7 @@ msgstr "Загрузка..."
 
 #: products/templates/products/products.html:1356
 msgid "Done!"
-msgstr ""
+msgstr "Гатова!"
 
 #: products/templates/products/regulation_policy.html:4
 msgid "Regulation policy"
@@ -1008,7 +1014,7 @@ msgstr "Палітыка рэгулявання"
 
 #: products/templates/products/regulation_policy.html:260
 msgid "Account & Identity Standards"
-msgstr "Стандарты акаўнта і асобы"
+msgstr "Стандарты ўліковага запісу і ідэнтыфікацыі"
 
 #: products/templates/products/regulation_policy.html:262
 msgid ""
@@ -1016,13 +1022,14 @@ msgid ""
 "falsification, or sharing credentials with third parties is strictly "
 "prohibited and may result in immediate suspension pending review."
 msgstr ""
-"Рэгіструйцеся сапраўднай асабістай інфармацыяй. Шматакаўнтнасць, падробка "
-"асобы або перадача ўліковых даных трэцім асобам строга забараняецца і можа "
-"прывесці да неадкладнага прыпынення да разгляду."
+"Зарэгіструйцеся з сапраўднай асабістай інфармацыяй. Мультыакаўнты, "
+"фальсіфікацыя ідэнтыфікацыйных дадзеных або перадача ўліковых дадзеных "
+"трэцім асобам строга забароненыя і могуць прывесці да неадкладнага "
+"прыпынення да разгляду."
 
 #: products/templates/products/regulation_policy.html:269
 msgid "Task Integrity & Completion"
-msgstr "Цэласнасць і завяршэнне заданняў"
+msgstr "Цэласнасць задачы і завяршэнне"
 
 #: products/templates/products/regulation_policy.html:271
 msgid ""
@@ -1030,10 +1037,10 @@ msgid ""
 "misreporting progress, or manipulating screenshots are misconduct and lead "
 "to forfeiture of commissions and possible account closure."
 msgstr ""
-"Дакладна выконвайце кожнае інструкцыю для задання. Аўтаматызаваныя "
-"інструменты, выкарыстанне проксі, няправільнае паведамленне аб прагрэсе або "
-"маніпуляванне скрыншотамі з'яўляюцца парушэннем і прыводзяць да страты "
-"камісій і магчымага закрыцця акаўнта."
+"Дакладна выконвайце інструктаж па кожным заданні. Аўтаматызаваныя "
+"інструменты, выкарыстанне проксі-сервера, скажэнне прагрэсу або "
+"маніпуляванне скрыншотамі з'яўляюцца неправамернымі паводзінамі і прыводзяць"
+" да канфіскацыі камісійных і магчымага закрыцця акаўнта."
 
 #: products/templates/products/regulation_policy.html:278
 msgid "Financial Compliance"
@@ -1043,24 +1050,24 @@ msgstr "Фінансавая адпаведнасць"
 msgid ""
 "Deposits undergo anti-fraud screening before becoming available for tasks."
 msgstr ""
-"Дэпазиты праходзяць праверку на махлярацтва перад тым, як стануць даступнымі "
-"для заданняў."
+"Дэпазіты праходзяць праверку на прадмет махлярства, перш чым стаць "
+"даступнымі для выканання задач."
 
 #: products/templates/products/regulation_policy.html:281
 msgid ""
 "Withdrawals require two-factor confirmation and may take up to 24 hours for "
 "compliance checks."
 msgstr ""
-"Зняцці патрабуюць двухфактарнага пацверджэння і могуць заняць да 24 гадзін "
-"для праверак адпаведнасці."
+"Для зняцця сродкаў патрабуецца двухфакторнае пацверджанне, а праверка "
+"адпаведнасці можа заняць да 24 гадзін."
 
 #: products/templates/products/regulation_policy.html:282
 msgid ""
 "Commission earnings are fully logged and accessible inside the wallet "
 "dashboard."
 msgstr ""
-"Заработаныя камісіі поўнасцю запісваюцца і даступныя ўнутры панэлі кішэня."
-"Заработаныя камісіі поўнасцю запісваюцца і даступныя ўнутры панэлі кішэня."
+"Камісійныя даходы цалкам рэгіструюцца і даступныя на прыборнай панэлі "
+"кашалька."
 
 #: products/templates/products/regulation_policy.html:290
 msgid "Data Protection"
@@ -1069,15 +1076,15 @@ msgstr "Абарона дадзеных"
 #: products/templates/products/regulation_policy.html:292
 msgid ""
 "We collect only the data required to manage task assignments and payments. "
-"Personal information is encrypted, stored securely, and never shared without "
-"consent unless required by law. Users must keep task data confidential to "
+"Personal information is encrypted, stored securely, and never shared without"
+" consent unless required by law. Users must keep task data confidential to "
 "protect merchants and platform integrity."
 msgstr ""
-"Мы збіраем толькі дадзеныя, неабходныя для кіравання заданнямі і выплатамі. "
-"Асабістая інфармацыя шыфруецца, захоўваецца бяспечна і ніколі не дзяліцца "
-"без згоды, калі не патрабуецца законам. Карыстальнікі павінны трымаць "
-"дадзеныя заданняў канфідэнцыйна, каб абараняць гандляроў і цэласнасць "
-"платформы."
+"Мы збіраем толькі даныя, неабходныя для кіравання размеркаваннем заданняў і "
+"выплатамі. Асабістая інфармацыя шыфруецца, бяспечна захоўваецца і ніколі не "
+"перадаецца без згоды, калі гэтага не патрабуе закон. Карыстальнікі павінны "
+"захоўваць канфідэнцыяльнасць даных задач, каб абараніць прадаўцоў і "
+"цэласнасць платформы."
 
 #: products/templates/products/regulation_policy.html:299
 msgid "Dispute Resolution"
@@ -1089,17 +1096,17 @@ msgid ""
 "evidence. Compliance specialists review all disputes objectively and "
 "document outcomes for full transparency."
 msgstr ""
-"Паведаміце пра нязгоды на працягу 48 гадзін, прадстаўляючы спасылкі на "
-"заданні і доказы. Спецыялісты па адпаведнасці аглядваюць усе спрэчкі "
-"аб'ектыўна і дакументуюць вынікі для поўнай празрыстасці."
+"Паведаміце аб разыходжаннях на працягу 48 гадзін, падаючы спасылкі на задачы"
+" і доказы. Спецыялісты па адпаведнасці аб'ектыўна разглядаюць усе спрэчкі і "
+"дакументуюць вынікі для поўнай празрыстасці."
 
 #: products/templates/products/regulation_policy.html:308
 msgid ""
 "Need clarification or wish to report a policy concern? Our compliance desk "
 "is available daily."
 msgstr ""
-"Патрабуецца разъясненне або хочаце паведаміць пра праблему з палітыкай? Наша "
-"служба адпаведнасці даступная штодзень."
+"Патрэбна тлумачэнне або хочаце паведаміць аб праблеме палітыкі? Наша служба "
+"адпаведнасці працуе штодня."
 
 #: products/templates/products/regulation_policy.html:313
 msgid "Back"
@@ -1107,21 +1114,21 @@ msgstr "Назад"
 
 #: products/views.py:103 products/views.py:317
 msgid "System is busy processing tasks. Please retry in a moment."
-msgstr "Сістэма занята апрацоўкай задач. Паспрабуйце яшчэ раз пазней."
+msgstr "Сістэма занятая апрацоўкай задач. Паўтарыце спробу праз імгненне."
 
 #: products/views.py:303
 #, fuzzy
 #| msgid "Cannot proceed with this task."
 msgid "Cannot proceed to next task."
-msgstr "Немагчы працягваць з гэтым заданнем."
+msgstr "Немагчыма перайсці да наступнага задання."
 
 #: products/views.py:305
 msgid "Task is not available or already completed."
-msgstr ""
+msgstr "Задача недаступная або ўжо выкананая."
 
 #: templates/base.html:248
 msgid "You are offline. Please reconnect."
-msgstr "Вы пазасеткі. Падключыцеся зноў."
+msgstr "Вы па-за сеткай. Падключыцеся паўторна."
 
 #: templates/base.html:290
 msgid "Me"
@@ -1129,7 +1136,7 @@ msgstr "Я"
 
 #: templates/index.html:352
 msgid "Hello"
-msgstr "Прывітанне"
+msgstr "прывітанне"
 
 #: templates/index.html:354
 msgid "No phone"
@@ -1140,14 +1147,12 @@ msgid "Invite code"
 msgstr "Код запрашэння"
 
 #: templates/index.html:372
-
 msgid "Total Recharged"
-msgstr "Агульна зароблена"
+msgstr "Агульная зарадка"
 
 #: templates/index.html:402
-
 msgid "Lucky order bonus"
-msgstr "Шчаслівы заказ"
+msgstr "Бонус за ўдалы заказ"
 
 #: templates/index.html:426
 msgid "About us"
@@ -1155,11 +1160,11 @@ msgstr "Пра нас"
 
 #: templates/index.html:439
 msgid "Available products"
-msgstr "Даступныя тавары"
+msgstr "Даступныя прадукты"
 
 #: templates/index.html:457
 msgid "Featured opportunity"
-msgstr "Вылучная магчымасць"
+msgstr "Вартая магчымасць"
 
 #: templates/index.html:459
 #, python-format
@@ -1173,136 +1178,173 @@ msgstr "Цана $%(price)s"
 
 #: templates/index.html:469
 msgid "Prime pick drop"
-msgstr "Выбар прэм'ер"
+msgstr "Прайм-пік падзенне"
 
 #: templates/index.html:471
 msgid "Earn up to $185"
-msgstr "Заработаць да $185"
+msgstr "Зарабляйце да 185 долараў"
 
 #: templates/index.html:472
 msgid "Price $129.00"
 msgstr "Цана $129.00"
 
 #: venv/lib/python3.12/site-packages/django/contrib/messages/apps.py:16
+#: venv/lib64/python3.12/site-packages/django/contrib/messages/apps.py:16
 msgid "Messages"
-msgstr ""
+msgstr "Паведамленні"
 
 #: venv/lib/python3.12/site-packages/django/contrib/sitemaps/apps.py:8
+#: venv/lib64/python3.12/site-packages/django/contrib/sitemaps/apps.py:8
 msgid "Site Maps"
-msgstr ""
+msgstr "Карты сайта"
 
 #: venv/lib/python3.12/site-packages/django/contrib/staticfiles/apps.py:9
+#: venv/lib64/python3.12/site-packages/django/contrib/staticfiles/apps.py:9
 msgid "Static Files"
-msgstr ""
+msgstr "Статычныя файлы"
 
 #: venv/lib/python3.12/site-packages/django/contrib/syndication/apps.py:7
+#: venv/lib64/python3.12/site-packages/django/contrib/syndication/apps.py:7
 msgid "Syndication"
-msgstr ""
+msgstr "Сіндыкацыя"
 
 #. Translators: String used to replace omitted page numbers in elided page
 #. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
 #: venv/lib/python3.12/site-packages/django/core/paginator.py:30
+#: venv/lib64/python3.12/site-packages/django/core/paginator.py:30
 msgid "…"
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/core/paginator.py:32
+#: venv/lib64/python3.12/site-packages/django/core/paginator.py:32
 msgid "That page number is not an integer"
-msgstr ""
+msgstr "Гэты нумар старонкі не з'яўляецца цэлым лікам"
 
 #: venv/lib/python3.12/site-packages/django/core/paginator.py:33
+#: venv/lib64/python3.12/site-packages/django/core/paginator.py:33
 msgid "That page number is less than 1"
-msgstr ""
+msgstr "Гэты нумар старонкі меншы за 1"
 
 #: venv/lib/python3.12/site-packages/django/core/paginator.py:34
+#: venv/lib64/python3.12/site-packages/django/core/paginator.py:34
 msgid "That page contains no results"
-msgstr ""
+msgstr "На гэтай старонцы няма вынікаў"
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:22
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:22
 msgid "Enter a valid value."
-msgstr ""
+msgstr "Увядзіце сапраўднае значэнне."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:70
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:70
 msgid "Enter a valid domain name."
-msgstr ""
+msgstr "Увядзіце сапраўднае даменнае імя."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:153
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:775
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:153
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:775
 msgid "Enter a valid URL."
-msgstr ""
+msgstr "Увядзіце сапраўдны URL."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:200
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:200
 msgid "Enter a valid integer."
-msgstr ""
+msgstr "Увядзіце сапраўдны цэлы лік."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:211
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:211
 msgid "Enter a valid email address."
-msgstr "Увядзіце адрас свайго crypto кішэня"
+msgstr "Увядзіце сапраўдны адрас электроннай пошты."
 
 #. Translators: "letters" means latin letters: a-z and A-Z.
 #: venv/lib/python3.12/site-packages/django/core/validators.py:289
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:289
 msgid ""
 "Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
 msgstr ""
+"Увядзіце сапраўдны \"смоўж\", які складаецца з літар, лічбаў, падкрэслівання"
+" або злучкоў."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:297
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:297
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
-"hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
+" hyphens."
 msgstr ""
+"Увядзіце сапраўдны \"смоўж\", які складаецца з літар Юнікода, лічбаў, "
+"падкрэслівання або злучкоў."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:309
 #: venv/lib/python3.12/site-packages/django/core/validators.py:318
 #: venv/lib/python3.12/site-packages/django/core/validators.py:332
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2220
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:309
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:318
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:332
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2220
 #, python-format
 msgid "Enter a valid %(protocol)s address."
-msgstr ""
+msgstr "Enter a valid %(protocol)s address."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:311
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:311
 msgid "IPv4"
-msgstr ""
+msgstr "IPv4"
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:320
 #: venv/lib/python3.12/site-packages/django/utils/ipv6.py:43
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:320
+#: venv/lib64/python3.12/site-packages/django/utils/ipv6.py:43
 msgid "IPv6"
-msgstr ""
+msgstr "IPv6"
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:334
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:334
 msgid "IPv4 or IPv6"
-msgstr ""
+msgstr "IPv4 або IPv6"
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:375
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:375
 msgid "Enter only digits separated by commas."
-msgstr ""
+msgstr "Уводзьце толькі лічбы, падзеленыя коскамі."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:381
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:381
 #, python-format
 msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
-msgstr ""
+msgstr "Ensure this value is %(limit_value)s (it is %(show_value)s)."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:416
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:416
 #, python-format
 msgid "Ensure this value is less than or equal to %(limit_value)s."
-msgstr ""
+msgstr "Ensure this value is less than or equal to %(limit_value)s."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:425
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:425
 #, python-format
 msgid "Ensure this value is greater than or equal to %(limit_value)s."
-msgstr ""
+msgstr "Ensure this value is greater than or equal to %(limit_value)s."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:434
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:434
 #, python-format
 msgid "Ensure this value is a multiple of step size %(limit_value)s."
-msgstr ""
+msgstr "Ensure this value is a multiple of step size %(limit_value)s."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:441
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:441
 #, python-format
 msgid ""
 "Ensure this value is a multiple of step size %(limit_value)s, starting from "
 "%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
 msgstr ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:473
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:473
 #, python-format
 msgid ""
 "Ensure this value has at least %(limit_value)d character (it has "
@@ -1316,6 +1358,7 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:491
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:491
 #, python-format
 msgid ""
 "Ensure this value has at most %(limit_value)d character (it has "
@@ -1331,10 +1374,14 @@ msgstr[3] ""
 #: venv/lib/python3.12/site-packages/django/core/validators.py:514
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:366
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:405
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:514
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:366
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:405
 msgid "Enter a number."
-msgstr ""
+msgstr "Увядзіце лік."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:516
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:516
 #, python-format
 msgid "Ensure that there are no more than %(max)s digit in total."
 msgid_plural "Ensure that there are no more than %(max)s digits in total."
@@ -1344,6 +1391,7 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:521
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:521
 #, python-format
 msgid "Ensure that there are no more than %(max)s decimal place."
 msgid_plural "Ensure that there are no more than %(max)s decimal places."
@@ -1353,6 +1401,7 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:526
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:526
 #, python-format
 msgid ""
 "Ensure that there are no more than %(max)s digit before the decimal point."
@@ -1364,349 +1413,446 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:597
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:597
 #, python-format
 msgid ""
 "File extension “%(extension)s” is not allowed. Allowed extensions are: "
 "%(allowed_extensions)s."
 msgstr ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:659
+#: venv/lib64/python3.12/site-packages/django/core/validators.py:659
 msgid "Null characters are not allowed."
-msgstr "Тып файла не дазволены"
+msgstr "Нулявыя сімвалы не дапускаюцца."
 
 #: venv/lib/python3.12/site-packages/django/db/models/base.py:1600
 #: venv/lib/python3.12/site-packages/django/forms/models.py:908
+#: venv/lib64/python3.12/site-packages/django/db/models/base.py:1600
+#: venv/lib64/python3.12/site-packages/django/forms/models.py:908
 msgid "and"
-msgstr ""
+msgstr "і"
 
 #: venv/lib/python3.12/site-packages/django/db/models/base.py:1602
+#: venv/lib64/python3.12/site-packages/django/db/models/base.py:1602
 #, python-format
 msgid "%(model_name)s with this %(field_labels)s already exists."
-msgstr ""
+msgstr "%(model_name)s with this %(field_labels)s already exists."
 
 #: venv/lib/python3.12/site-packages/django/db/models/constraints.py:22
+#: venv/lib64/python3.12/site-packages/django/db/models/constraints.py:22
 #, python-format
 msgid "Constraint “%(name)s” is violated."
-msgstr ""
+msgstr "Constraint “%(name)s” is violated."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:134
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:134
 #, python-format
 msgid "Value %(value)r is not a valid choice."
-msgstr ""
+msgstr "Value %(value)r is not a valid choice."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:135
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:135
 msgid "This field cannot be null."
-msgstr ""
+msgstr "Гэта поле не можа быць пустым."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:136
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:136
 msgid "This field cannot be blank."
-msgstr ""
+msgstr "Гэта поле не можа быць пустым."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:137
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:137
 #, python-format
 msgid "%(model_name)s with this %(field_label)s already exists."
-msgstr ""
+msgstr "%(model_name)s with this %(field_label)s already exists."
 
 #. Translators: The 'lookup_type' is one of 'date', 'year' or
 #. 'month'. Eg: "Title must be unique for pub_date year"
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:141
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:141
 #, python-format
 msgid ""
 "%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
 msgstr ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:180
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:180
 #, python-format
 msgid "Field of type: %(field_type)s"
-msgstr ""
+msgstr "Field of type: %(field_type)s"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1162
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1162
 #, python-format
 msgid "“%(value)s” value must be either True or False."
-msgstr ""
+msgstr "“%(value)s” value must be either True or False."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1163
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1163
 #, python-format
 msgid "“%(value)s” value must be either True, False, or None."
-msgstr ""
+msgstr "“%(value)s” value must be either True, False, or None."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1165
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1165
 msgid "Boolean (Either True or False)"
-msgstr ""
+msgstr "Лагічнае значэнне (ісціна, ілжыва)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1215
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1215
 #, python-format
 msgid "String (up to %(max_length)s)"
-msgstr ""
+msgstr "String (up to %(max_length)s)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1217
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1217
 msgid "String (unlimited)"
-msgstr ""
+msgstr "Радок (неабмежаваны)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1326
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1326
 msgid "Comma-separated integers"
-msgstr ""
+msgstr "Цэлыя лікі, падзеленыя коскамі"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1427
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1427
 #, python-format
 msgid ""
 "“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
 "format."
 msgstr ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1431
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1566
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1431
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1566
 #, python-format
 msgid ""
 "“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
 "date."
 msgstr ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1435
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1435
 msgid "Date (without time)"
-msgstr ""
+msgstr "Дата (без часу)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1562
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1562
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
-"uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
 msgstr ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1570
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
-"[TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
 msgstr ""
+"“%(value)s” value has the correct format (YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1575
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1575
 msgid "Date (with time)"
-msgstr ""
+msgstr "Дата (з часам)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1702
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1702
 #, python-format
 msgid "“%(value)s” value must be a decimal number."
-msgstr ""
+msgstr "“%(value)s” value must be a decimal number."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1704
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1704
 msgid "Decimal number"
-msgstr "Нумар мабільнага тэлефона"
+msgstr "Дзесятковы лік"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1864
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1864
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
-"uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
 msgstr ""
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1868
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1868
 msgid "Duration"
-msgstr ""
+msgstr "Працягласць"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1920
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1920
 msgid "Email address"
-msgstr "Капіяваць адрас"
+msgstr "Адрас электроннай пошты"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1945
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1945
 msgid "File path"
-msgstr ""
+msgstr "Шлях да файла"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2023
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2023
 #, python-format
 msgid "“%(value)s” value must be a float."
-msgstr ""
+msgstr "“%(value)s” value must be a float."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2025
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2025
 msgid "Floating point number"
-msgstr ""
+msgstr "Лік з плаваючай кропкай"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2065
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2065
 #, python-format
 msgid "“%(value)s” value must be an integer."
-msgstr ""
+msgstr "“%(value)s” value must be an integer."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2067
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2067
 msgid "Integer"
-msgstr ""
+msgstr "Цэлы лік"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2163
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2163
 msgid "Big (8 byte) integer"
-msgstr ""
+msgstr "Вялікае (8 байт) цэлае лік"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2180
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2180
 msgid "Small integer"
-msgstr ""
+msgstr "Маленькае цэлае"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2188
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2188
 msgid "IPv4 address"
-msgstr "Капіяваць адрас"
+msgstr "Адрас IPv4"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2219
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2219
 msgid "IP address"
-msgstr "Капіяваць адрас"
+msgstr "IP-адрас"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2310
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2311
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2310
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2311
 #, python-format
 msgid "“%(value)s” value must be either None, True or False."
-msgstr ""
+msgstr "“%(value)s” value must be either None, True or False."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2313
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2313
 msgid "Boolean (Either True, False or None)"
-msgstr ""
+msgstr "Лагічнае (Ісціна, Хлусня або Няма)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2364
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2364
 msgid "Positive big integer"
-msgstr ""
+msgstr "Вялікі дадатны лік"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2379
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2379
 msgid "Positive integer"
-msgstr ""
+msgstr "Цэлы дадатны лік"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2394
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2394
 msgid "Positive small integer"
-msgstr ""
+msgstr "Малы дадатны цэлы лік"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2410
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2410
 #, python-format
 msgid "Slug (up to %(max_length)s)"
-msgstr ""
+msgstr "Slug (up to %(max_length)s)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2446
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2446
 msgid "Text"
-msgstr ""
+msgstr "Тэкст"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2526
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2526
 #, python-format
 msgid ""
 "“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
 "format."
 msgstr ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2530
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2530
 #, python-format
 msgid ""
 "“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
 "invalid time."
 msgstr ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2534
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2534
 msgid "Time"
-msgstr ""
+msgstr "Час"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2642
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2642
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2666
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2666
 msgid "Raw binary data"
-msgstr ""
+msgstr "Неапрацаваныя двайковыя даныя"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2731
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2731
 #, python-format
 msgid "“%(value)s” is not a valid UUID."
-msgstr ""
+msgstr "“%(value)s” is not a valid UUID."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2733
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2733
 msgid "Universally unique identifier"
-msgstr ""
+msgstr "Універсальны унікальны ідэнтыфікатар"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/files.py:244
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/files.py:244
 msgid "File"
-msgstr ""
+msgstr "Файл"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/files.py:420
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/files.py:420
 msgid "Image"
-msgstr ""
+msgstr "Малюнак"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/json.py:24
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/json.py:24
 msgid "A JSON object"
-msgstr ""
+msgstr "Аб'ект JSON"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/json.py:26
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/json.py:26
 msgid "Value must be valid JSON."
-msgstr ""
+msgstr "Значэнне павінна быць сапраўдным JSON."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:978
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/related.py:978
 #, python-format
 msgid "%(model)s instance with %(field)s %(value)r is not a valid choice."
-msgstr ""
+msgstr "%(model)s instance with %(field)s %(value)r is not a valid choice."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:981
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/related.py:981
 msgid "Foreign Key (type determined by related field)"
-msgstr ""
+msgstr "Знешні ключ (тып вызначаецца адпаведным полем)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1275
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/related.py:1275
 msgid "One-to-one relationship"
-msgstr ""
+msgstr "Адносіны адзін да аднаго"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1332
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/related.py:1332
 #, python-format
 msgid "%(from)s-%(to)s relationship"
-msgstr ""
+msgstr "%(from)s-%(to)s relationship"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1334
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/related.py:1334
 #, python-format
 msgid "%(from)s-%(to)s relationships"
-msgstr ""
+msgstr "%(from)s-%(to)s relationships"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1382
+#: venv/lib64/python3.12/site-packages/django/db/models/fields/related.py:1382
 msgid "Many-to-many relationship"
-msgstr ""
+msgstr "Адносіны шмат да многіх"
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the label
+#. characters will prevent the default label_suffix to be appended to the
+#. label
 #: venv/lib/python3.12/site-packages/django/forms/boundfield.py:185
+#: venv/lib64/python3.12/site-packages/django/forms/boundfield.py:185
 msgid ":?.!"
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:95
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:95
 msgid "This field is required."
-msgstr ""
+msgstr "Гэта поле абавязковае."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:315
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:315
 msgid "Enter a whole number."
-msgstr ""
+msgstr "Увядзіце цэлы лік."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:486
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1267
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:486
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:1267
 msgid "Enter a valid date."
-msgstr ""
+msgstr "Увядзіце сапраўдную дату."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:509
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1268
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:509
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:1268
 msgid "Enter a valid time."
-msgstr ""
+msgstr "Увядзіце сапраўдны час."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:536
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:536
 msgid "Enter a valid date/time."
-msgstr ""
+msgstr "Увядзіце сапраўдную дату/час."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:570
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:570
 msgid "Enter a valid duration."
-msgstr ""
+msgstr "Увядзіце сапраўдную працягласць."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:571
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:571
 #, python-brace-format
 msgid "The number of days must be between {min_days} and {max_days}."
-msgstr ""
+msgstr "Колькасць дзён павінна быць ад {min_days} да {max_days}."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:640
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:640
 msgid "No file was submitted. Check the encoding type on the form."
-msgstr ""
+msgstr "Файл не быў адпраўлены. Праверце тып кадоўкі ў форме."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:641
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:641
 msgid "No file was submitted."
-msgstr ""
+msgstr "Файл не быў адпраўлены."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:642
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:642
 msgid "The submitted file is empty."
-msgstr ""
+msgstr "Адпраўлены файл пусты."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:644
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:644
 #, python-format
-msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid ""
+"Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -1715,58 +1861,77 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:649
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:649
 msgid "Please either submit a file or check the clear checkbox, not both."
-msgstr ""
+msgstr "Калі ласка, адпраўце файл або пастаўце галачку ў полі, але не абодва."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:717
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:717
 msgid ""
 "Upload a valid image. The file you uploaded was either not an image or a "
 "corrupted image."
 msgstr ""
+"Загрузіце сапраўдную выяву. Запампаваны вамі файл альбо не з'яўляецца "
+"выявай, альбо выява пашкоджана."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:889
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:975
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1592
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:889
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:975
+#: venv/lib64/python3.12/site-packages/django/forms/models.py:1592
 #, python-format
 msgid "Select a valid choice. %(value)s is not one of the available choices."
-msgstr ""
+msgstr "Select a valid choice. %(value)s is not one of the available choices."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:977
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1096
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1590
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:977
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:1096
+#: venv/lib64/python3.12/site-packages/django/forms/models.py:1590
 msgid "Enter a list of values."
-msgstr ""
+msgstr "Увядзіце спіс значэнняў."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1097
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:1097
 msgid "Enter a complete value."
-msgstr ""
+msgstr "Увядзіце поўнае значэнне."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1339
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:1339
 msgid "Enter a valid UUID."
-msgstr ""
+msgstr "Увядзіце сапраўдны UUID."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1369
+#: venv/lib64/python3.12/site-packages/django/forms/fields.py:1369
 msgid "Enter a valid JSON."
-msgstr ""
+msgstr "Увядзіце сапраўдны JSON."
 
 #. Translators: This is the default suffix added to form field labels
 #: venv/lib/python3.12/site-packages/django/forms/forms.py:97
+#: venv/lib64/python3.12/site-packages/django/forms/forms.py:97
 msgid ":"
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/forms/forms.py:239
+#: venv/lib64/python3.12/site-packages/django/forms/forms.py:239
 #, python-format
 msgid "(Hidden field %(name)s) %(error)s"
-msgstr ""
+msgstr "(Hidden field %(name)s) %(error)s"
 
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:61
+#: venv/lib64/python3.12/site-packages/django/forms/formsets.py:61
 #, python-format
 msgid ""
 "ManagementForm data is missing or has been tampered with. Missing fields: "
 "%(field_names)s. You may need to file a bug report if the issue persists."
 msgstr ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
 
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:65
+#: venv/lib64/python3.12/site-packages/django/forms/formsets.py:65
 #, python-format
 msgid "Please submit at most %(num)d form."
 msgid_plural "Please submit at most %(num)d forms."
@@ -1776,6 +1941,7 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:70
+#: venv/lib64/python3.12/site-packages/django/forms/formsets.py:70
 #, python-format
 msgid "Please submit at least %(num)d form."
 msgid_plural "Please submit at least %(num)d forms."
@@ -1786,85 +1952,113 @@ msgstr[3] ""
 
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:484
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:491
+#: venv/lib64/python3.12/site-packages/django/forms/formsets.py:484
+#: venv/lib64/python3.12/site-packages/django/forms/formsets.py:491
 msgid "Order"
-msgstr ""
+msgstr "Парадак"
 
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:499
+#: venv/lib64/python3.12/site-packages/django/forms/formsets.py:499
 msgid "Delete"
-msgstr ""
+msgstr "Выдаліць"
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:901
+#: venv/lib64/python3.12/site-packages/django/forms/models.py:901
 #, python-format
 msgid "Please correct the duplicate data for %(field)s."
-msgstr ""
+msgstr "Please correct the duplicate data for %(field)s."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:906
+#: venv/lib64/python3.12/site-packages/django/forms/models.py:906
 #, python-format
 msgid "Please correct the duplicate data for %(field)s, which must be unique."
 msgstr ""
+"Please correct the duplicate data for %(field)s, which must be unique."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:913
+#: venv/lib64/python3.12/site-packages/django/forms/models.py:913
 #, python-format
 msgid ""
 "Please correct the duplicate data for %(field_name)s which must be unique "
 "for the %(lookup)s in %(date_field)s."
 msgstr ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:922
+#: venv/lib64/python3.12/site-packages/django/forms/models.py:922
 msgid "Please correct the duplicate values below."
-msgstr ""
+msgstr "Калі ласка, выпраўце паўтаральныя значэнні ніжэй."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1359
+#: venv/lib64/python3.12/site-packages/django/forms/models.py:1359
 msgid "The inline value did not match the parent instance."
-msgstr ""
+msgstr "Убудаванае значэнне не супадае з бацькоўскім асобнікам."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1450
-msgid "Select a valid choice. That choice is not one of the available choices."
+#: venv/lib64/python3.12/site-packages/django/forms/models.py:1450
+msgid ""
+"Select a valid choice. That choice is not one of the available choices."
 msgstr ""
+"Выберыце правільны выбар. Гэты выбар не з'яўляецца адным з даступных "
+"варыянтаў."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1594
+#: venv/lib64/python3.12/site-packages/django/forms/models.py:1594
 #, python-format
 msgid "“%(pk)s” is not a valid value."
-msgstr ""
+msgstr "“%(pk)s” is not a valid value."
 
 #: venv/lib/python3.12/site-packages/django/forms/utils.py:229
+#: venv/lib64/python3.12/site-packages/django/forms/utils.py:229
 #, python-format
 msgid ""
 "%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
 "may be ambiguous or it may not exist."
 msgstr ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:527
+#: venv/lib64/python3.12/site-packages/django/forms/widgets.py:527
 msgid "Clear"
-msgstr ""
+msgstr "Ясна"
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:528
+#: venv/lib64/python3.12/site-packages/django/forms/widgets.py:528
 msgid "Currently"
-msgstr "Бягучы баланс"
+msgstr "У цяперашні час"
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:529
+#: venv/lib64/python3.12/site-packages/django/forms/widgets.py:529
 msgid "Change"
-msgstr ""
+msgstr "Змена"
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:866
+#: venv/lib64/python3.12/site-packages/django/forms/widgets.py:866
 msgid "Unknown"
-msgstr ""
+msgstr "Невядомы"
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:867
+#: venv/lib64/python3.12/site-packages/django/forms/widgets.py:867
 msgid "Yes"
-msgstr ""
+msgstr "так"
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:868
+#: venv/lib64/python3.12/site-packages/django/forms/widgets.py:868
 msgid "No"
-msgstr ""
+msgstr "няма"
 
 #. Translators: Please do not add spaces around commas.
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:873
+#: venv/lib64/python3.12/site-packages/django/template/defaultfilters.py:873
 msgid "yes,no,maybe"
-msgstr ""
+msgstr "так, не, магчыма"
 
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:903
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:920
+#: venv/lib64/python3.12/site-packages/django/template/defaultfilters.py:903
+#: venv/lib64/python3.12/site-packages/django/template/defaultfilters.py:920
 #, python-format
 msgid "%(size)d byte"
 msgid_plural "%(size)d bytes"
@@ -1874,349 +2068,428 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:922
+#: venv/lib64/python3.12/site-packages/django/template/defaultfilters.py:922
 #, python-format
 msgid "%s KB"
-msgstr ""
+msgstr "%s КБ"
 
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:924
+#: venv/lib64/python3.12/site-packages/django/template/defaultfilters.py:924
 #, python-format
 msgid "%s MB"
-msgstr ""
+msgstr "%s МБ"
 
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:926
+#: venv/lib64/python3.12/site-packages/django/template/defaultfilters.py:926
 #, python-format
 msgid "%s GB"
-msgstr ""
+msgstr "%s ГБ"
 
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:928
+#: venv/lib64/python3.12/site-packages/django/template/defaultfilters.py:928
 #, python-format
 msgid "%s TB"
-msgstr ""
+msgstr "%s ТБ"
 
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:930
+#: venv/lib64/python3.12/site-packages/django/template/defaultfilters.py:930
 #, python-format
 msgid "%s PB"
-msgstr ""
+msgstr "%s ПБ"
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:74
+#: venv/lib64/python3.12/site-packages/django/utils/dateformat.py:74
 msgid "p.m."
-msgstr ""
+msgstr "вечара"
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:75
+#: venv/lib64/python3.12/site-packages/django/utils/dateformat.py:75
 msgid "a.m."
-msgstr ""
+msgstr "раніца"
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:80
+#: venv/lib64/python3.12/site-packages/django/utils/dateformat.py:80
 msgid "PM"
-msgstr ""
+msgstr "PM"
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:81
+#: venv/lib64/python3.12/site-packages/django/utils/dateformat.py:81
 msgid "AM"
-msgstr ""
+msgstr "AM"
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:153
+#: venv/lib64/python3.12/site-packages/django/utils/dateformat.py:153
 msgid "midnight"
-msgstr ""
+msgstr "апоўначы"
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:155
+#: venv/lib64/python3.12/site-packages/django/utils/dateformat.py:155
 msgid "noon"
-msgstr ""
+msgstr "поўдзень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:7
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:7
 msgid "Monday"
-msgstr ""
+msgstr "панядзелак"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:8
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:8
 msgid "Tuesday"
-msgstr ""
+msgstr "аўторак"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:9
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:9
 msgid "Wednesday"
-msgstr ""
+msgstr "серада"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:10
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:10
 msgid "Thursday"
-msgstr ""
+msgstr "чацвер"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:11
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:11
 msgid "Friday"
-msgstr ""
+msgstr "Пятніца"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:12
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:12
 msgid "Saturday"
-msgstr ""
+msgstr "субота"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:13
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:13
 msgid "Sunday"
-msgstr ""
+msgstr "Нядзеля"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:16
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:16
 msgid "Mon"
-msgstr ""
+msgstr "Пн"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:17
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:17
 msgid "Tue"
-msgstr ""
+msgstr "аўт"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:18
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:18
 msgid "Wed"
-msgstr ""
+msgstr "ср"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:19
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:19
 msgid "Thu"
-msgstr ""
+msgstr "чц"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:20
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:20
 msgid "Fri"
-msgstr ""
+msgstr "пт"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:21
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:21
 msgid "Sat"
-msgstr ""
+msgstr "сб"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:22
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:22
 msgid "Sun"
-msgstr ""
+msgstr "Сонца"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:25
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:25
 msgid "January"
-msgstr ""
+msgstr "Студзень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:26
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:26
 msgid "February"
-msgstr ""
+msgstr "люты"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:27
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:27
 msgid "March"
-msgstr ""
+msgstr "сакавік"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:28
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:28
 msgid "April"
-msgstr ""
+msgstr "Красавік"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:29
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:29
 msgid "May"
-msgstr ""
+msgstr "мая"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:30
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:30
 msgid "June"
-msgstr ""
+msgstr "Чэрвень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:31
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:31
 msgid "July"
-msgstr ""
+msgstr "ліпень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:32
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:32
 msgid "August"
-msgstr ""
+msgstr "жнівень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:33
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:33
 msgid "September"
-msgstr ""
+msgstr "верасень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:34
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:34
 msgid "October"
-msgstr ""
+msgstr "кастрычніка"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:35
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:35
 msgid "November"
-msgstr ""
+msgstr "лістапад"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:36
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:36
 msgid "December"
-msgstr ""
+msgstr "Снежань"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:39
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:39
 msgid "jan"
-msgstr ""
+msgstr "ян"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:40
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:40
 msgid "feb"
-msgstr ""
+msgstr "лют"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:41
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:41
 msgid "mar"
-msgstr ""
+msgstr "сак"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:42
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:42
 msgid "apr"
-msgstr ""
+msgstr "крас"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:43
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:43
 msgid "may"
-msgstr ""
+msgstr "можа"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:44
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:44
 msgid "jun"
-msgstr ""
+msgstr "чэрв"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:45
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:45
 msgid "jul"
-msgstr ""
+msgstr "ліп"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:46
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:46
 msgid "aug"
-msgstr ""
+msgstr "жн"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:47
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:47
 msgid "sep"
-msgstr ""
+msgstr "вер"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:48
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:48
 msgid "oct"
-msgstr ""
+msgstr "кастрычнік"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:49
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:49
 msgid "nov"
-msgstr ""
+msgstr "лістап"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:50
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:50
 msgid "dec"
-msgstr ""
+msgstr "дэк"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:53
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:53
 msgctxt "abbrev. month"
 msgid "Jan."
-msgstr ""
+msgstr "Ян."
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:54
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:54
 msgctxt "abbrev. month"
 msgid "Feb."
-msgstr ""
+msgstr "люты"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:55
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:55
 msgctxt "abbrev. month"
 msgid "March"
-msgstr ""
+msgstr "сакавік"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:56
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:56
 msgctxt "abbrev. month"
 msgid "April"
-msgstr ""
+msgstr "Красавік"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:57
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:57
 msgctxt "abbrev. month"
 msgid "May"
-msgstr ""
+msgstr "мая"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:58
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:58
 msgctxt "abbrev. month"
 msgid "June"
-msgstr ""
+msgstr "Чэрвень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:59
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:59
 msgctxt "abbrev. month"
 msgid "July"
-msgstr ""
+msgstr "ліпень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:60
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:60
 msgctxt "abbrev. month"
 msgid "Aug."
-msgstr ""
+msgstr "Жнівень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:61
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:61
 msgctxt "abbrev. month"
 msgid "Sept."
-msgstr ""
+msgstr "верасень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:62
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:62
 msgctxt "abbrev. month"
 msgid "Oct."
-msgstr ""
+msgstr "Кастрычнік"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:63
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:63
 msgctxt "abbrev. month"
 msgid "Nov."
-msgstr ""
+msgstr "лістапада"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:64
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:64
 msgctxt "abbrev. month"
 msgid "Dec."
-msgstr ""
+msgstr "снежань"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:67
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:67
 msgctxt "alt. month"
 msgid "January"
-msgstr ""
+msgstr "Студзень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:68
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:68
 msgctxt "alt. month"
 msgid "February"
-msgstr ""
+msgstr "люты"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:69
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:69
 msgctxt "alt. month"
 msgid "March"
-msgstr ""
+msgstr "сакавік"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:70
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:70
 msgctxt "alt. month"
 msgid "April"
-msgstr ""
+msgstr "Красавік"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:71
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:71
 msgctxt "alt. month"
 msgid "May"
-msgstr ""
+msgstr "мая"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:72
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:72
 msgctxt "alt. month"
 msgid "June"
-msgstr ""
+msgstr "Чэрвень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:73
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:73
 msgctxt "alt. month"
 msgid "July"
-msgstr ""
+msgstr "ліпень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:74
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:74
 msgctxt "alt. month"
 msgid "August"
-msgstr ""
+msgstr "жнівень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:75
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:75
 msgctxt "alt. month"
 msgid "September"
-msgstr ""
+msgstr "верасень"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:76
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:76
 msgctxt "alt. month"
 msgid "October"
-msgstr ""
+msgstr "кастрычніка"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:77
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:77
 msgctxt "alt. month"
 msgid "November"
-msgstr ""
+msgstr "лістапад"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:78
+#: venv/lib64/python3.12/site-packages/django/utils/dates.py:78
 #, fuzzy
 #| msgid "Decimal number"
 msgctxt "alt. month"
 msgid "December"
-msgstr "Нумар мабільнага тэлефона"
+msgstr "Снежань"
 
 #: venv/lib/python3.12/site-packages/django/utils/ipv6.py:20
+#: venv/lib64/python3.12/site-packages/django/utils/ipv6.py:20
 msgid "This is not a valid IPv6 address."
-msgstr ""
+msgstr "Гэта несапраўдны адрас IPv6."
 
 #: venv/lib/python3.12/site-packages/django/utils/text.py:76
+#: venv/lib64/python3.12/site-packages/django/utils/text.py:76
 #, python-format
 msgctxt "String to return when truncating text"
 msgid "%(truncated_text)s…"
-msgstr ""
+msgstr "%(truncated_text)s…"
 
 #: venv/lib/python3.12/site-packages/django/utils/text.py:287
+#: venv/lib64/python3.12/site-packages/django/utils/text.py:287
 msgid "or"
-msgstr ""
+msgstr "або"
 
 #. Translators: This string is used as a separator between list elements
 #: venv/lib/python3.12/site-packages/django/utils/text.py:306
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:135
+#: venv/lib64/python3.12/site-packages/django/utils/text.py:306
+#: venv/lib64/python3.12/site-packages/django/utils/timesince.py:135
 msgid ", "
 msgstr ""
 
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:8
+#: venv/lib64/python3.12/site-packages/django/utils/timesince.py:8
 #, python-format
 msgid "%(num)d year"
 msgid_plural "%(num)d years"
@@ -2226,6 +2499,7 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:9
+#: venv/lib64/python3.12/site-packages/django/utils/timesince.py:9
 #, python-format
 msgid "%(num)d month"
 msgid_plural "%(num)d months"
@@ -2235,6 +2509,7 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:10
+#: venv/lib64/python3.12/site-packages/django/utils/timesince.py:10
 #, python-format
 msgid "%(num)d week"
 msgid_plural "%(num)d weeks"
@@ -2244,6 +2519,7 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:11
+#: venv/lib64/python3.12/site-packages/django/utils/timesince.py:11
 #, python-format
 msgid "%(num)d day"
 msgid_plural "%(num)d days"
@@ -2253,6 +2529,7 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:12
+#: venv/lib64/python3.12/site-packages/django/utils/timesince.py:12
 #, python-format
 msgid "%(num)d hour"
 msgid_plural "%(num)d hours"
@@ -2262,6 +2539,7 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:13
+#: venv/lib64/python3.12/site-packages/django/utils/timesince.py:13
 #, python-format
 msgid "%(num)d minute"
 msgid_plural "%(num)d minutes"
@@ -2271,173 +2549,237 @@ msgstr[2] ""
 msgstr[3] ""
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:29
+#: venv/lib64/python3.12/site-packages/django/views/csrf.py:29
 msgid "Forbidden"
-msgstr ""
+msgstr "Забаронена"
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:30
+#: venv/lib64/python3.12/site-packages/django/views/csrf.py:30
 msgid "CSRF verification failed. Request aborted."
-msgstr ""
+msgstr "Збой праверкі CSRF. Запыт адменены."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:34
+#: venv/lib64/python3.12/site-packages/django/views/csrf.py:34
 msgid ""
 "You are seeing this message because this HTTPS site requires a “Referer "
 "header” to be sent by your web browser, but none was sent. This header is "
 "required for security reasons, to ensure that your browser is not being "
 "hijacked by third parties."
 msgstr ""
+"Вы бачыце гэта паведамленне, таму што гэты HTTPS-сайт патрабуе, каб ваш вэб-"
+"браўзер адправіў загаловак Referer, але ён не быў адпраўлены. Гэты загаловак"
+" неабходны з меркаванняў бяспекі, каб пераканацца, што ваш браўзер не "
+"ўзламаны трэцімі асобамі."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:40
+#: venv/lib64/python3.12/site-packages/django/views/csrf.py:40
 msgid ""
 "If you have configured your browser to disable “Referer” headers, please re-"
 "enable them, at least for this site, or for HTTPS connections, or for “same-"
 "origin” requests."
 msgstr ""
+"Калі вы наладзілі свой браўзер на адключэнне загалоўкаў «Referer», уключыце "
+"іх паўторна, прынамсі, для гэтага сайта, або для злучэнняў HTTPS, або для "
+"запытаў «аднолькавага паходжання»."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:45
+#: venv/lib64/python3.12/site-packages/django/views/csrf.py:45
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
-"including the “Referrer-Policy: no-referrer” header, please remove them. The "
-"CSRF protection requires the “Referer” header to do strict referer checking. "
-"If you’re concerned about privacy, use alternatives like <a "
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
+" including the “Referrer-Policy: no-referrer” header, please remove them. "
+"The CSRF protection requires the “Referer” header to do strict referer "
+"checking. If you’re concerned about privacy, use alternatives like <a "
 "rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
+"Калі вы выкарыстоўваеце тэг <meta name=\"referrer\" content=\"no-referrer\">"
+" або ўключаеце загаловак «Referrer-Policy: no-referrer», выдаліце ​​іх. "
+"Абарона CSRF патрабуе строгай праверкі загалоўка \"Referer\". Калі вы "
+"турбуецеся аб прыватнасці, выкарыстоўвайце такія альтэрнатывы, як <a "
+"rel=\"noreferrer\" …> для спасылак на староннія сайты."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:54
+#: venv/lib64/python3.12/site-packages/django/views/csrf.py:54
 msgid ""
 "You are seeing this message because this site requires a CSRF cookie when "
 "submitting forms. This cookie is required for security reasons, to ensure "
 "that your browser is not being hijacked by third parties."
 msgstr ""
+"Вы бачыце гэта паведамленне, таму што гэты сайт патрабуе кукі CSRF пры "
+"адпраўцы формаў. Гэты файл cookie неабходны з меркаванняў бяспекі, каб "
+"гарантаваць, што ваш браўзер не будзе захоплены трэцімі асобамі."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:60
+#: venv/lib64/python3.12/site-packages/django/views/csrf.py:60
 msgid ""
 "If you have configured your browser to disable cookies, please re-enable "
 "them, at least for this site, or for “same-origin” requests."
 msgstr ""
+"Калі вы наладзілі свой браўзер на адключэнне файлаў cookie, уключыце іх "
+"паўторна, па меншай меры, для гэтага сайта або для запытаў «аднолькавага "
+"паходжання»."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:66
+#: venv/lib64/python3.12/site-packages/django/views/csrf.py:66
 msgid "More information is available with DEBUG=True."
-msgstr ""
+msgstr "Дадатковая інфармацыя даступная з DEBUG=True."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:44
+#: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:44
 msgid "No year specified"
-msgstr ""
+msgstr "Год не ўказаны"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:64
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:115
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:214
+#: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:64
+#: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:115
+#: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:214
 msgid "Date out of range"
-msgstr ""
+msgstr "Дата па-за дыяпазонам"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:94
+#: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:94
 msgid "No month specified"
-msgstr ""
+msgstr "Месяц не ўказаны"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:147
+#: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:147
 msgid "No day specified"
-msgstr ""
+msgstr "Дзень не пазначаны"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:194
+#: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:194
 msgid "No week specified"
-msgstr ""
+msgstr "Тыдзень не ўказаны"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:353
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:384
+#: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:353
+#: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:384
 #, python-format
 msgid "No %(verbose_name_plural)s available"
-msgstr ""
+msgstr "No %(verbose_name_plural)s available"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:680
+#: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:680
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because %(class_name)s."
-"allow_future is False."
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
 msgstr ""
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:720
+#: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:720
 #, python-format
 msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
-msgstr ""
+msgstr "Invalid date string “%(datestr)s” given format “%(format)s”"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/detail.py:56
+#: venv/lib64/python3.12/site-packages/django/views/generic/detail.py:56
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
-msgstr ""
+msgstr "No %(verbose_name)s found matching the query"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/list.py:70
+#: venv/lib64/python3.12/site-packages/django/views/generic/list.py:70
 msgid "Page is not “last”, nor can it be converted to an int."
-msgstr ""
+msgstr "Старонка не з'яўляецца \"апошняй\", і яе нельга пераўтварыць у int."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/list.py:77
+#: venv/lib64/python3.12/site-packages/django/views/generic/list.py:77
 #, python-format
 msgid "Invalid page (%(page_number)s): %(message)s"
-msgstr ""
+msgstr "Invalid page (%(page_number)s): %(message)s"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/list.py:173
+#: venv/lib64/python3.12/site-packages/django/views/generic/list.py:173
 #, python-format
 msgid "Empty list and “%(class_name)s.allow_empty” is False."
-msgstr ""
+msgstr "Empty list and “%(class_name)s.allow_empty” is False."
 
 #: venv/lib/python3.12/site-packages/django/views/static.py:49
+#: venv/lib64/python3.12/site-packages/django/views/static.py:49
 msgid "Directory indexes are not allowed here."
-msgstr ""
+msgstr "Індэксы каталогаў тут не дапускаюцца."
 
 #: venv/lib/python3.12/site-packages/django/views/static.py:51
+#: venv/lib64/python3.12/site-packages/django/views/static.py:51
 #, python-format
 msgid "“%(path)s” does not exist"
-msgstr ""
+msgstr "“%(path)s” does not exist"
 
 #: venv/lib/python3.12/site-packages/django/views/static.py:68
 #: venv/lib/python3.12/site-packages/django/views/templates/directory_index.html:8
 #: venv/lib/python3.12/site-packages/django/views/templates/directory_index.html:11
+#: venv/lib64/python3.12/site-packages/django/views/static.py:68
+#: venv/lib64/python3.12/site-packages/django/views/templates/directory_index.html:8
+#: venv/lib64/python3.12/site-packages/django/views/templates/directory_index.html:11
 #, python-format
 msgid "Index of %(directory)s"
-msgstr ""
+msgstr "Index of %(directory)s"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:7
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:204
+#: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:7
+#: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:204
 msgid "The install worked successfully! Congratulations!"
-msgstr ""
+msgstr "Ўстаноўка спрацавала паспяхова! Віншую!"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:206
+#: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:206
 #, python-format
 msgid ""
 "View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
 "target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
 msgstr ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:208
+#: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:208
 #, python-format
 msgid ""
-"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
-"%(version)s/ref/settings/#debug\" target=\"_blank\" "
-"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
-"configured any URLs."
+"You are seeing this page because <a "
+"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
+"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
+"and you have not configured any URLs."
 msgstr ""
+"You are seeing this page because <a "
+"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
+"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
+"and you have not configured any URLs."
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:217
+#: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:217
 msgid "Django Documentation"
-msgstr ""
+msgstr "Дакументацыя Django"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:218
+#: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:218
 msgid "Topics, references, &amp; how-to’s"
-msgstr ""
+msgstr "Тэмы, спасылкі, &amp; інструкцыі"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:226
+#: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:226
 msgid "Tutorial: A Polling App"
-msgstr ""
+msgstr "Падручнік: праграма для галасавання"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:227
+#: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:227
 msgid "Get started with Django"
-msgstr ""
+msgstr "Пачніце з Django"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:235
+#: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:235
 msgid "Django Community"
-msgstr ""
+msgstr "Супольнасць Django"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:236
+#: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:236
 msgid "Connect, get help, or contribute"
-msgstr ""
+msgstr "Падключайцеся, атрымлівайце дапамогу або ўносіце свой уклад"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:14
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:54
@@ -2457,67 +2799,92 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:458
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:470
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:478
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:14
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:54
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:62
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:72
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:82
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:86
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:118
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:137
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:364
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:369
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:379
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:399
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:416
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:435
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:441
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:458
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:470
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:478
 msgid "title"
-msgstr ""
+msgstr "назва"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:18
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:18
 #, fuzzy
 #| msgid "Password"
 msgid "password"
-msgstr "Пароль"
+msgstr "пароль"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:245
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:264
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:245
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:264
 msgid "title a"
-msgstr ""
+msgstr "назва а"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:249
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:275
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:249
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:275
 msgid "title b"
-msgstr ""
+msgstr "назва б"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:253
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:253
 msgid "title c"
-msgstr ""
+msgstr "назва c"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:257
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:257
 msgid "title d"
-msgstr ""
+msgstr "назва d"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:380
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/models.py:380
 msgid "visits"
-msgstr ""
+msgstr "візіты"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/translation.py:62
+#: venv/lib64/python3.12/site-packages/modeltranslation/tests/translation.py:62
 msgid "Sorry, translation is not available."
-msgstr ""
+msgstr "На жаль, пераклад недаступны."
 
 #: venv/lib/python3.12/site-packages/modeltranslation/widgets.py:32
+#: venv/lib64/python3.12/site-packages/modeltranslation/widgets.py:32
 msgid "None"
-msgstr ""
+msgstr "Няма"
 
 #: venv/lib/python3.12/site-packages/mypy/main.py:423
+#: venv/lib64/python3.12/site-packages/mypy/main.py:423
 #, python-format
 msgid "%(prog)s: error: %(message)s\n"
-msgstr ""
-
-#: wallet/templates/wallet/wallet_management.html:625
-msgid "No wallet bound yet"
-msgstr ""
+msgstr "%(prog)s: error: %(message)s\n"
 
 #: wallet/templates/wallet/wallet_management.html:632
 #, fuzzy
 #| msgid "Withdrawal form"
 msgid "Bind wallet form"
-msgstr "Форма зняцця"
+msgstr "Звязаць форму кашалька"
 
 #: wallet/templates/wallet/wallet_management.html:638
 msgid "Enter your  wallet address"
-msgstr "Увядзіце адрас свайго crypto кішэня"
+msgstr "Увядзіце адрас кашалька"
 
 #: wallet/templates/wallet/wallet_management.html:641
 msgid "Save wallet"
-msgstr "Захаваць кішэню"
+msgstr "Захаваць кашалёк"
 
 #: wallet/templates/wallet/wallet_management.html:648
 msgid "Withdrawal form"
@@ -2542,165 +2909,193 @@ msgstr "Зняць усе"
 
 #: wallet/templates/wallet/wallet_management.html:687
 msgid "Enter fund password"
-msgstr "Пароль фонду"
+msgstr "Увядзіце пароль фонду"
 
 #: wallet/templates/wallet/wallet_management.html:691
 msgid "Submit withdrawal"
-msgstr "Зняцце"
+msgstr "Адправіць зняцце"
 
 #: wallet/templates/wallet/wallet_management.html:710
 msgid "All selected"
-msgstr "Усе вылучаны"
+msgstr "Усе выбраныя"
 
-#: wallet/views.py:66
+#: wallet/views.py:82
 msgid ""
 "❌ You cannot change your wallet address once bound. Please contact customer "
 "service if you need to update it."
 msgstr ""
+"❌ Вы не можаце змяніць свой адрас кашалька пасля прывязкі. Калі вам трэба "
+"абнавіць яго, звярніцеся ў службу падтрымкі."
 
-#: wallet/views.py:73
+#: wallet/views.py:89
 #, python-format
 msgid ""
-"You must complete all %(total)d tasks before binding your wallet. Completed: "
-"%(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed:"
+" %(completed)d"
 msgstr ""
+"You must complete all %(total)d tasks before binding your wallet. Completed:"
+" %(completed)d"
 
-#: wallet/views.py:83
+#: wallet/views.py:99
 msgid "Wallet address is required."
-msgstr "Капіяваць адрас"
+msgstr "Патрабуецца адрас кашалька."
 
-#: wallet/views.py:87
+#: wallet/views.py:103
 #, fuzzy, python-format
 #| msgid "Referral code must be exactly 6 characters."
 msgid "Wallet address must be at least %(length)d characters."
 msgstr "Рэферальны код павінен складацца дакладна з 6 сімвалаў."
 
-#: wallet/views.py:92
+#: wallet/views.py:108
 msgid "Wallet address should only contain letters and numbers."
-msgstr ""
+msgstr "Адрас кашалька павінен змяшчаць толькі літары і лічбы."
 
-#: wallet/views.py:94
+#: wallet/views.py:110
 msgid "This wallet address is already linked to another account."
-msgstr " Гэты адрас кашалька ўжо прывязаны да іншага ўліковага запісу."
+msgstr "Гэты адрас кашалька ўжо звязаны з іншым уліковым запісам."
 
-#: wallet/views.py:116
+#: wallet/views.py:132
 #, fuzzy
 #| msgid "✅ Wallet bound successfully! "
 msgid "✅ Wallet bound successfully!"
-msgstr "✅ Кашалёк паспяхова прывязаны!"
+msgstr "✅ Кашалёк паспяхова звязаны!"
 
-#: wallet/views.py:122
+#: wallet/views.py:138
 msgid "You must bind your wallet before making a withdrawal."
-msgstr " Вы павінны прывязаць кашалёк перад вывадам сродкаў."
+msgstr "Вы павінны прывязаць свой кашалёк перад тым, як зняць грошы."
 
-#: wallet/views.py:129
+#: wallet/views.py:145
 #, python-format
 msgid ""
 "You must complete all %(total)d tasks before withdrawing. Completed: "
 "%(completed)d/%(total)d"
 msgstr ""
+"You must complete all %(total)d tasks before withdrawing. Completed: "
+"%(completed)d/%(total)d"
 
-#: wallet/views.py:142
-#, fuzzy
-#| msgid "All tasks completed"
-msgid "tasks are not complete"
-msgstr "Усе заданні завершаны"
-
-#: wallet/views.py:159
+#: wallet/views.py:175
 msgid "Invalid fund password."
-msgstr "Пароль фонду"
+msgstr "Няправільны пароль фонду."
 
-#: wallet/views.py:163
+#: wallet/views.py:179
 msgid "Please select a network protocol."
-msgstr " Калі ласка, абярыце сеткавы пратакол."
+msgstr "Выберыце сеткавы пратакол."
 
-#: wallet/views.py:173
+#: wallet/views.py:189
 msgid "Insufficient balance for withdrawal."
-msgstr "Недастатковы баланс для вываду сродкаў."
+msgstr "Недастатковы баланс для вываду."
 
-#: wallet/views.py:182
+#: wallet/views.py:198
 msgid "Please enter a valid withdrawal amount."
-msgstr "Увядзіце суму зняцця"
-
-#: wallet/views.py:187
-msgid "Withdrawal amount must be greater than zero."
-msgstr "Сума вываду павінна быць больш за нуль."
-
-#: wallet/views.py:193
-#, python-format
-msgid "You cannot withdraw more than your available balance of %(amount)s."
-msgstr ""
+msgstr "Увядзіце сапраўдную суму зняцця."
 
 #: wallet/views.py:203
+msgid "Withdrawal amount must be greater than zero."
+msgstr "Сума зняцця павінна быць больш за нуль."
+
+#: wallet/views.py:209
+#, python-format
+msgid "You cannot withdraw more than your available balance of %(amount)s."
+msgstr "You cannot withdraw more than your available balance of %(amount)s."
+
+#: wallet/views.py:219
 #, python-format
 msgid "Minimum withdrawal amount is %(amount)s."
 msgstr "Мінімальная сума для вываду — %(amount)s."
 
-#: wallet/views.py:213
+#: wallet/views.py:229
 #, python-format
 msgid "Maximum withdrawal amount per transaction is %(amount)s."
-msgstr ""
+msgstr "Maximum withdrawal amount per transaction is %(amount)s."
 
-#: wallet/views.py:228
+#: wallet/views.py:244
 #, python-format
 msgid ""
 "Daily withdrawal limit exceeded. You can withdraw up to %(amount)s more "
 "today."
 msgstr ""
+"Daily withdrawal limit exceeded. You can withdraw up to %(amount)s more "
+"today."
 
-#: wallet/views.py:243
+#: wallet/views.py:259
 msgid "You have too many pending withdrawal requests. "
-msgstr "У вас занадта шмат запытаў на вывад сродкаў у чаканні."
+msgstr "У вас занадта шмат чакаючых запытаў на зняцце сродкаў."
 
-#: wallet/views.py:290
+#: wallet/views.py:306
 msgid "Withdrawal request submitted successfully!"
-msgstr "Заяўка на вывад паспяхова адпраўлена!"
+msgstr "Запыт на вывад паспяхова адпраўлены!"
 
-#: wallet/views.py:298
+#: wallet/views.py:314
 #, python-format
 msgid "An error occurred while processing your withdrawal: %(error)s"
 msgstr "Пры апрацоўцы вашага вываду адбылася памылка: %(error)s"
 
+#~ msgid "Phone number must be numeric and may start with + (max 15 digits)."
+#~ msgstr ""
+#~ "Нумар тэлефона павінен быць лічбавым і можа пачынацца з + (максімум 15 "
+#~ "лічбаў)."
+
+#~ msgid "Username must be between 6 and 15 characters."
+#~ msgstr "Імя карыстальніка павінна быць ад 6 да 15 сімвалаў."
+
+#~ msgid "Password must be between 6 and 15 characters."
+#~ msgstr "Пароль павінен быць ад 6 да 15 сімвалаў."
+
+#~ msgid "Fund password must be between 6 and 15 characters."
+#~ msgstr "Пароль фонду павінен быць ад 6 да 15 сімвалаў."
+
+#~ msgid "Referral code must be exactly 6 characters."
+#~ msgstr "Рэферальны код павінен складацца роўна з 6 знакаў."
+
+#~ msgid "This user's referral code has already been used."
+#~ msgstr "Рэферальны код гэтага карыстальніка ўжо выкарыстоўваўся."
+
+#~ msgid "Recharge to continue tasks"
+#~ msgstr "Перазарадзіце, каб працягнуць задачы"
+
+#, fuzzy
+#~ msgid "tasks are not complete"
+#~ msgstr "заданні не выкананы"
+
 #~ msgid "Chat"
-#~ msgstr "Размовіць"
+#~ msgstr "Чат"
 
 #~ msgid "Amazon Sign-In"
 #~ msgstr "Уваход у Amazon"
 
 #~ msgid "Chat with Support"
-#~ msgstr "Размовіць з падтрымкай"
+#~ msgstr "Чат са службай падтрымкі"
 
 #~ msgid "Code"
 #~ msgstr "Код"
 
 #~ msgid "Recharge required"
-#~ msgstr "Патрэбна папаўненне"
+#~ msgstr "Патрабуецца падзарадка"
 
 #~ msgid "on next product"
-#~ msgstr "на наступным тавары"
+#~ msgstr "на наступным прадукце"
 
 #~ msgid "Daily missions completed!"
-#~ msgstr "Штодзённыя заданні выкананы!"
+#~ msgstr "Штодзённыя місіі выкананы!"
 
 #~ msgid "My Site"
 #~ msgstr "Мой сайт"
 
 #~ msgid "Cumulative balance"
-#~ msgstr "Накапіцельны баланс"
+#~ msgstr "Назапашвальны баланс"
 
 #~ msgid "Wallet address"
-#~ msgstr "Капіяваць адрас"
+#~ msgstr "Адрас кашалька"
 
 #, fuzzy
-#~| msgid "Enter your  wallet address"
 #~ msgid "Enter your wallet address"
-#~ msgstr "Увядзіце адрас свайго crypto кішэня"
+#~ msgstr "Увядзіце адрас кашалька"
 
 #~ msgid "Product code"
 #~ msgstr "Код прадукту"
 
 #~ msgid "Fresh missions arrive throughout the day."
-#~ msgstr "Новыя місіі прыбываюць на працягу дня."
+#~ msgstr "Свежыя місіі прыходзяць на працягу дня."
 
 #~ msgid "Check back soon"
-#~ msgstr "Праверце хутка"
+#~ msgstr "Праверце пазней"

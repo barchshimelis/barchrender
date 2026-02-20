@@ -20,92 +20,92 @@ msgstr ""
 
 #: AmazonProject/settings.py:127
 msgid "English"
-msgstr ""
+msgstr "anglisht"
 
 #: AmazonProject/settings.py:128
 msgid "Arabic"
-msgstr ""
+msgstr "arabisht"
 
 #: AmazonProject/settings.py:129
 msgid "Turkish"
-msgstr ""
+msgstr "turqisht"
 
 #: AmazonProject/settings.py:130
 msgid "Russian"
-msgstr ""
+msgstr "rusisht"
 
 #: AmazonProject/settings.py:131
 msgid "Azerbaijani"
-msgstr ""
+msgstr "Azerbajxhani"
 
 #: AmazonProject/settings.py:132
 msgid "Thai"
-msgstr ""
+msgstr "Thai"
 
 #: AmazonProject/settings.py:133
 msgid "Belarusian"
-msgstr ""
+msgstr "bjellorusisht"
 
 #: AmazonProject/settings.py:134
 msgid "Spanish"
-msgstr ""
+msgstr "spanjisht"
 
 #: AmazonProject/settings.py:135
 msgid "Portuguese"
-msgstr ""
+msgstr "portugeze"
 
 #: AmazonProject/settings.py:136
 msgid "Vietnamese"
-msgstr ""
+msgstr "vietnameze"
 
 #: AmazonProject/settings.py:137
 msgid "Albanian"
-msgstr ""
+msgstr "shqiptare"
 
 #: AmazonProject/settings.py:138
 msgid "Spanish (Chile)"
-msgstr ""
+msgstr "spanjisht (Kili)"
 
 #: AmazonProject/settings.py:139
 msgid "Spanish (Mexico)"
-msgstr ""
+msgstr "spanjisht (Meksikë)"
 
 #: AmazonProject/settings.py:140
 msgid "English (Nigeria)"
-msgstr ""
+msgstr "anglisht (Nigeri)"
 
 #: AmazonProject/settings.py:141
 msgid "Estonian"
-msgstr ""
+msgstr "estoneze"
 
 #: accounts/templates/accounts/activities.html:4 templates/base.html:286
 msgid "Activities"
-msgstr ""
+msgstr "Aktivitetet"
 
 #: accounts/templates/accounts/activities.html:314
 msgid "Activity filters"
-msgstr ""
+msgstr "Filtrat e aktivitetit"
 
 #: accounts/templates/accounts/activities.html:316
 msgid "Start date"
-msgstr ""
+msgstr "Data e fillimit"
 
 #: accounts/templates/accounts/activities.html:320
 msgid "End date"
-msgstr ""
+msgstr "Data e përfundimit"
 
 #: accounts/templates/accounts/activities.html:324
 msgid "Activity type"
-msgstr ""
+msgstr "Lloji i aktivitetit"
 
 #: accounts/templates/accounts/activities.html:326
 msgid "All"
-msgstr ""
+msgstr "Të gjitha"
 
 #: accounts/templates/accounts/activities.html:336
 #: accounts/templates/accounts/activities.html:340
 msgid "Recharge history"
-msgstr ""
+msgstr "Historia e rimbushjes"
 
 #: accounts/templates/accounts/activities.html:350
 #: accounts/templates/accounts/activities.html:372
@@ -114,7 +114,7 @@ msgstr ""
 #: products/templates/products/partials/task_panel.html:41
 #: templates/index.html:412
 msgid "Recharge"
-msgstr ""
+msgstr "Rimbushje"
 
 #: accounts/templates/accounts/activities.html:352
 #, python-format
@@ -123,6 +123,9 @@ msgid ""
 "                                     %(timestamp)s\n"
 "                                "
 msgstr ""
+"\n"
+"                                     %(timestamp)s\n"
+"                                "
 
 #: accounts/templates/accounts/activities.html:374
 #, python-format
@@ -131,28 +134,31 @@ msgid ""
 "                                          %(timestamp)s\n"
 "                                    "
 msgstr ""
+"\n"
+"                                          %(timestamp)s\n"
+"                                    "
 
 #: accounts/templates/accounts/activities.html:389
 msgid "More"
-msgstr ""
+msgstr "Më shumë"
 
 #: accounts/templates/accounts/activities.html:394
 msgid "No recharge history"
-msgstr ""
+msgstr "Nuk ka histori rimbushjeje"
 
 #: accounts/templates/accounts/activities.html:395
 msgid "Submit a recharge request to see it tracked here."
-msgstr ""
+msgstr "Paraqisni një kërkesë rimbushjeje për ta parë të gjurmuar këtu."
 
 #: accounts/templates/accounts/activities.html:400
 #: accounts/templates/accounts/activities.html:404
 msgid "Withdrawal history"
-msgstr ""
+msgstr "Historia e tërheqjes"
 
 #: accounts/templates/accounts/activities.html:414
 #: accounts/templates/accounts/activities.html:434
 msgid "Withdrawal"
-msgstr ""
+msgstr "Tërheqja"
 
 #: accounts/templates/accounts/activities.html:417
 #, python-format
@@ -161,6 +167,9 @@ msgid ""
 "                                    %(timestamp)s\n"
 "                                "
 msgstr ""
+"\n"
+"                                    %(timestamp)s\n"
+"                                "
 
 #: accounts/templates/accounts/activities.html:437
 #, python-format
@@ -169,62 +178,65 @@ msgid ""
 "                                         %(timestamp)s\n"
 "                                    "
 msgstr ""
+"\n"
+"                                         %(timestamp)s\n"
+"                                    "
 
 #: accounts/templates/accounts/activities.html:449
 msgid "more"
-msgstr ""
+msgstr "më shumë"
 
 #: accounts/templates/accounts/activities.html:454
 msgid "No withdrawal history"
-msgstr ""
+msgstr "Nuk ka histori tërheqjeje"
 
 #: accounts/templates/accounts/activities.html:455
 msgid "Once you submit a withdrawal request it will show up here."
-msgstr ""
+msgstr "Pasi të paraqisni një kërkesë për tërheqje, ajo do të shfaqet këtu."
 
 #: accounts/templates/accounts/activities.html:473
 msgid "Show"
-msgstr ""
+msgstr "Shfaq"
 
 #: accounts/templates/accounts/activities.html:473
 msgid "Hide"
-msgstr ""
+msgstr "Fshih"
 
 #: accounts/templates/accounts/admin_base_auth.html:8
 msgid "Admin Console"
-msgstr ""
+msgstr "Konsola e administratorit"
 
 #: accounts/templates/accounts/admin_base_auth.html:485
 msgid "Administration"
-msgstr ""
+msgstr "Administrata"
 
 #: accounts/templates/accounts/admin_base_auth.html:486
 #: accounts/templates/accounts/base_auth.html:8
 msgid "Amazon Market"
-msgstr ""
+msgstr "Tregu i Amazonës"
 
 #: accounts/templates/accounts/admin_base_auth.html:497
 msgid "Internal Access"
-msgstr ""
+msgstr "Qasja e brendshme"
 
 #: accounts/templates/accounts/adminlogin.html:4
 msgid "Admin Login"
-msgstr ""
+msgstr "Hyrja e administratorit"
 
 #: accounts/templates/accounts/adminlogin.html:5
 msgid "Admin Access"
-msgstr ""
+msgstr "Qasja e administratorit"
 
 #: accounts/templates/accounts/adminlogin.html:15
 msgid "Admin"
-msgstr ""
+msgstr "Admin"
 
 #: accounts/templates/accounts/adminlogin.html:42
 #: accounts/templates/accounts/customerservicelogin.html:42
 #: accounts/templates/accounts/superadminlogin.html:42
 #: accounts/templates/accounts/user_register.html:114
 msgid "Username"
-msgstr ""
+msgstr "Emri i përdoruesit"
 
 #: accounts/templates/accounts/adminlogin.html:45
 #: accounts/templates/accounts/customerservicelogin.html:45
@@ -232,415 +244,423 @@ msgstr ""
 #: accounts/templates/accounts/user_login.html:15
 #: accounts/templates/accounts/user_register.html:117
 msgid "Password"
-msgstr ""
+msgstr "Fjalëkalimi"
 
 #: accounts/templates/accounts/adminlogin.html:48
 #: accounts/templates/accounts/customerservicelogin.html:48
 #: accounts/templates/accounts/superadminlogin.html:48
 msgid "Sign In"
-msgstr ""
+msgstr "Hyni"
 
 #: accounts/templates/accounts/adminlogin.html:53
 #: accounts/templates/accounts/customerservicelogin.html:53
 #: accounts/templates/accounts/superadminlogin.html:53
 msgid "Enter result"
-msgstr ""
+msgstr "Fut rezultatin"
 
 #: accounts/templates/accounts/base_auth.html:600
 msgid "Amazon logo"
-msgstr ""
+msgstr "Logoja e Amazon"
 
 #: accounts/templates/accounts/base_auth.html:605
 #: accounts/templates/accounts/me.html:551
 #: accounts/templates/accounts/me.html:556
 msgid "Change language"
-msgstr ""
+msgstr "Ndrysho gjuhën"
 
 #: accounts/templates/accounts/base_auth.html:612
 #: accounts/templates/accounts/me.html:562
 msgid "Choose language"
-msgstr ""
+msgstr "Zgjidhni gjuhën"
 
 #: accounts/templates/accounts/base_auth.html:613
 #: accounts/templates/accounts/me.html:563
 msgid "Close language menu"
-msgstr ""
+msgstr "Mbyll menynë e gjuhës"
 
 #: accounts/templates/accounts/base_auth.html:650
 msgid "Error"
-msgstr ""
+msgstr "Gabim"
 
 #: accounts/templates/accounts/base_auth.html:652
 msgid "Warning"
-msgstr ""
+msgstr "Paralajmërim"
 
 #: accounts/templates/accounts/base_auth.html:668
 msgid "Conditions of Use"
-msgstr ""
+msgstr "Kushtet e Perdorimit"
 
 #: accounts/templates/accounts/base_auth.html:669
 msgid "Privacy Notice"
-msgstr ""
+msgstr "Njoftimi i privatësisë"
 
 #: accounts/templates/accounts/base_auth.html:670
 msgid "Help"
-msgstr ""
+msgstr "Ndihmë"
 
 #: accounts/templates/accounts/base_auth.html:672
 #, python-format
 msgid "&copy; %(year)s Amazon Market"
-msgstr ""
+msgstr "&copy; %(year)s Amazon Market"
 
 #: accounts/templates/accounts/customerservicelogin.html:4
 msgid "Customer Service Login"
-msgstr ""
+msgstr "Hyrja në shërbimin e klientit"
 
 #: accounts/templates/accounts/customerservicelogin.html:5
 #: accounts/templates/accounts/customerservicelogin.html:15
 #: chat/templates/chat/guest_chat.html:249
 msgid "Customer Service"
-msgstr ""
+msgstr "Shërbimi ndaj klientit"
 
 #: accounts/templates/accounts/me.html:4
 msgid "My Account"
-msgstr ""
+msgstr "Llogaria ime"
 
 #: accounts/templates/accounts/me.html:544
 msgid "Notifications"
-msgstr ""
+msgstr "Njoftimet"
 
 #: accounts/templates/accounts/me.html:589
 msgid "Settings"
-msgstr ""
+msgstr "Cilësimet"
 
 #: accounts/templates/accounts/me.html:625
 #: products/templates/products/partials/task_panel.html:204
 #: templates/index.html:419
 msgid "Withdraw"
-msgstr ""
+msgstr "Tërhiqet"
 
 #: accounts/templates/accounts/me.html:634
 msgid "Quick access"
-msgstr ""
+msgstr "Qasje e shpejtë"
 
 #: accounts/templates/accounts/me.html:641
 msgid "Personal info"
-msgstr ""
+msgstr "Informacion personal"
 
 #: accounts/templates/accounts/me.html:648
 msgid "Order record"
-msgstr ""
+msgstr "Regjistrimi i porosive"
 
 #: accounts/templates/accounts/me.html:655
 msgid "Recharge record"
-msgstr ""
+msgstr "Regjistrimi i rimbushjes"
 
 #: accounts/templates/accounts/me.html:662
 msgid "Withdrawal record"
-msgstr ""
+msgstr "Procesverbali i tërheqjes"
 
 #: accounts/templates/accounts/me.html:677
 msgid "Sign out"
-msgstr ""
+msgstr "Dilni"
 
 #: accounts/templates/accounts/me.html:683
 msgid "Chat with Customer Service"
-msgstr ""
+msgstr "Bisedoni me Shërbimin e Klientit"
 
 #: accounts/templates/accounts/profile.html:4
 msgid "Profile"
-msgstr ""
+msgstr "Profili"
 
 #: accounts/templates/accounts/profile.html:246
 msgid "Member since"
-msgstr ""
+msgstr "Anëtar që nga"
 
 #: accounts/templates/accounts/profile.html:258
 msgid "Contact information"
-msgstr ""
+msgstr "Informacioni i kontaktit"
 
 #: accounts/templates/accounts/profile.html:261
 msgid "Phone"
-msgstr ""
+msgstr "Telefoni"
 
 #: accounts/templates/accounts/profile.html:262
 #: accounts/templates/accounts/profile.html:266
 msgid "Not provided"
-msgstr ""
+msgstr "Nuk ofrohet"
 
 #: accounts/templates/accounts/profile.html:265
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 #: accounts/templates/accounts/profile.html:269
 #: accounts/templates/accounts/user_register.html:124
 msgid "Referral code"
-msgstr ""
+msgstr "Kodi i referimit"
 
 #: accounts/templates/accounts/profile.html:270
 msgid "Not available"
-msgstr ""
+msgstr "Nuk disponohet"
 
 #: accounts/templates/accounts/profile.html:279
 msgid "Recent activity"
-msgstr ""
+msgstr "Aktiviteti i fundit"
 
 #: accounts/templates/accounts/profile.html:284
 msgid "Profile updated"
-msgstr ""
+msgstr "Profili u përditësua"
 
 #: accounts/templates/accounts/profile.html:285
 msgid "You refreshed your personal information."
-msgstr ""
+msgstr "Rifreskove të dhënat e tua personale."
 
 #: accounts/templates/accounts/profile.html:286
 msgid "Just now"
-msgstr ""
+msgstr "Vetëm tani"
 
 #: accounts/templates/accounts/profile.html:292
 msgid "Security check"
-msgstr ""
+msgstr "Kontrolli i sigurisë"
 
 #: accounts/templates/accounts/profile.html:293
 msgid "Fund password confirmed for withdrawal."
-msgstr ""
+msgstr "Fjalëkalimi i fondit është konfirmuar për tërheqje."
 
 #: accounts/templates/accounts/profile.html:294
 msgid "+12h"
-msgstr ""
+msgstr "+12 orë"
 
 #: accounts/templates/accounts/profile.html:300
 msgid "Referral milestone"
-msgstr ""
+msgstr "Pika historike e referimit"
 
 #: accounts/templates/accounts/profile.html:301
 msgid "You unlocked a new referral bonus tier."
-msgstr ""
+msgstr "Ju hapët një nivel të ri bonus referimi."
 
 #: accounts/templates/accounts/profile.html:302
 msgid "+2d"
-msgstr ""
+msgstr "+2d"
 
 #: accounts/templates/accounts/superadminlogin.html:4
 msgid "Super Admin Login"
-msgstr ""
+msgstr "Hyrja e Super Admin"
 
 #: accounts/templates/accounts/superadminlogin.html:5
 #: accounts/templates/accounts/superadminlogin.html:15
 msgid "Super Admin"
-msgstr ""
+msgstr "Super Admin"
 
 #: accounts/templates/accounts/user_login.html:8
 #: accounts/templates/accounts/user_login.html:18
 #: accounts/templates/accounts/user_register.html:132
 msgid "Sign in"
-msgstr ""
+msgstr "Identifikohu"
 
 #: accounts/templates/accounts/user_login.html:12
 msgid "Username or phone number"
-msgstr ""
+msgstr "Emri i përdoruesit ose numri i telefonit"
 
 #: accounts/templates/accounts/user_login.html:22
 msgid "Forgot your password?"
-msgstr ""
+msgstr "Keni harruar fjalëkalimin tuaj?"
 
 #: accounts/templates/accounts/user_login.html:24
 msgid "Create your account"
-msgstr ""
+msgstr "Krijoni llogarinë tuaj"
 
 #: accounts/templates/accounts/user_login.html:27
 msgid "New to Amazon?"
-msgstr ""
+msgstr "I ri në Amazon?"
 
 #: accounts/templates/accounts/user_login.html:29
 #: accounts/templates/accounts/user_register.html:127
 msgid "Create your Amazon account"
-msgstr ""
+msgstr "Krijoni llogarinë tuaj në Amazon"
 
 #: accounts/templates/accounts/user_register.html:106
 msgid "Create account"
-msgstr ""
+msgstr "Krijo llogari"
 
 #: accounts/templates/accounts/user_register.html:111
 msgid "Mobile number"
-msgstr ""
+msgstr "Numri i celularit"
 
 #: accounts/templates/accounts/user_register.html:112
 msgid "e.g., +1234567890"
-msgstr ""
+msgstr "p.sh., +1234567890"
 
 #: accounts/templates/accounts/user_register.html:115
 #: accounts/templates/accounts/user_register.html:122
 msgid "6-15 characters"
-msgstr ""
+msgstr "6-15 karaktere"
 
 #: accounts/templates/accounts/user_register.html:118
 msgid "At least 6 characters"
-msgstr ""
+msgstr "Të paktën 6 karaktere"
 
 #: accounts/templates/accounts/user_register.html:121
 #: wallet/templates/wallet/wallet_management.html:682
 msgid "Fund password"
-msgstr ""
+msgstr "Fjalëkalimi i fondit"
 
 #: accounts/templates/accounts/user_register.html:125
 msgid "6 characters"
-msgstr ""
+msgstr "6 karaktere"
 
 #: accounts/templates/accounts/user_register.html:131
 msgid "Already have an account?"
-msgstr ""
+msgstr "Keni tashmë një llogari?"
 
 #: accounts/views.py:103 accounts/views.py:513 accounts/views.py:546
 msgid "Try again"
-msgstr ""
+msgstr "Provo sërish"
 
 #: accounts/views.py:845
 msgid "All fields are required."
-msgstr ""
+msgstr "Të gjitha fushat janë të nevojshme."
 
 #: accounts/views.py:854
 msgid "Phone number must be numeric and may start with + (max 15 digits)."
 msgstr ""
+"Numri i telefonit duhet të jetë numerik dhe mund të fillojë me + (maksimumi "
+"15 shifra)."
 
 #: accounts/views.py:859
 msgid "Username must be between 6 and 15 characters."
-msgstr ""
+msgstr "Emri i përdoruesit duhet të jetë nga 6 deri në 15 karaktere."
 
 #: accounts/views.py:864
 msgid "Password must be between 6 and 15 characters."
-msgstr ""
+msgstr "Fjalëkalimi duhet të jetë nga 6 deri në 15 karaktere."
 
 #: accounts/views.py:869
 msgid "Fund password must be between 6 and 15 characters."
-msgstr ""
+msgstr "Fjalëkalimi i fondit duhet të jetë nga 6 deri në 15 karaktere."
 
 #: accounts/views.py:874
 msgid "Referral code must be exactly 6 characters."
-msgstr ""
+msgstr "Kodi i referimit duhet të jetë saktësisht 6 karaktere."
 
 #: accounts/views.py:881
 msgid "Invalid referral code."
-msgstr ""
+msgstr "Kodi i pavlefshëm referimi."
 
 #: accounts/views.py:888
 msgid "This user's referral code has already been used."
-msgstr ""
+msgstr "Kodi i referimit të këtij përdoruesi është përdorur tashmë."
 
 #: accounts/views.py:893 accounts/views.py:919
 msgid "Username already exists. Please choose a different username."
 msgstr ""
+"Emri i përdoruesit ekziston tashmë. Ju lutemi zgjidhni një emër përdoruesi "
+"tjetër."
 
 #: accounts/views.py:897 accounts/views.py:917
 msgid "Phone number already exists. Please use a different phone number."
 msgstr ""
+"Numri i telefonit ekziston tashmë. Ju lutemi përdorni një numër tjetër "
+"telefoni."
 
 #: accounts/views.py:921
 msgid "Registration failed. Please try again."
-msgstr ""
+msgstr "Regjistrimi dështoi. Ju lutemi provoni përsëri."
 
 #: accounts/views.py:941
 msgid "Registration successful! Please login."
-msgstr ""
+msgstr "Regjistrimi i suksesshëm! Ju lutemi identifikohuni."
 
 #: accounts/views.py:972 accounts/views.py:991
 msgid "Invalid credentials."
-msgstr ""
+msgstr "Kredencialet e pavlefshme."
 
 #: accounts/views.py:978
 msgid "Organization rules violated, please contact customer service."
 msgstr ""
+"Rregullat e organizatës janë shkelur, ju lutemi kontaktoni shërbimin e "
+"klientit."
 
 #: accounts/views.py:984
 msgid "Unable to authenticate. Please try again."
-msgstr ""
+msgstr "Nuk mund të vërtetohet. Ju lutemi provoni përsëri."
 
 #: accounts/views.py:1058
 msgid "Product task"
-msgstr ""
+msgstr "Detyra e produktit"
 
 #: accounts/views.py:1064
 msgid "Task commission earned"
-msgstr ""
+msgstr "Komisioni i detyrës i fituar"
 
 #: accounts/views.py:1065
 #, python-format
 msgid "Completed %(product)s task."
-msgstr ""
+msgstr "Completed %(product)s task."
 
 #: accounts/views.py:1067
 msgid "Success"
-msgstr ""
+msgstr "Suksese"
 
 #: accounts/views.py:1075 accounts/views.py:1102 accounts/views.py:1129
 msgid "Pending"
-msgstr ""
+msgstr "Në pritje"
 
 #: accounts/views.py:1076 accounts/views.py:1103 accounts/views.py:1131
 #: accounts/views.py:1180
 msgid "Approved"
-msgstr ""
+msgstr "Miratuar"
 
 #: accounts/views.py:1077 accounts/views.py:1104 accounts/views.py:1132
 #: accounts/views.py:1181
 msgid "Rejected"
-msgstr ""
+msgstr "Refuzuar"
 
 #: accounts/views.py:1088
 msgid "Recharge request"
-msgstr ""
+msgstr "Kërkesa për rimbushje"
 
 #: accounts/views.py:1089
 #, python-format
 msgid "Recharge of %(amount)s is %(status)s."
-msgstr ""
+msgstr "Recharge of %(amount)s is %(status)s."
 
 #: accounts/views.py:1115
 msgid "Balance request"
-msgstr ""
+msgstr "Kërkesa për bilanc"
 
 #: accounts/views.py:1116
 #, python-format
 msgid "Balance request of %(amount)s is %(status)s."
-msgstr ""
+msgstr "Balance request of %(amount)s is %(status)s."
 
 #: accounts/views.py:1130
 msgid "Processing"
-msgstr ""
+msgstr "Përpunimi"
 
 #: accounts/views.py:1133
 msgid "Cancelled"
-msgstr ""
+msgstr "Anuluar"
 
 #: accounts/views.py:1144
 msgid "Withdrawal request"
-msgstr ""
+msgstr "Kërkesa për tërheqje"
 
 #: accounts/views.py:1145
 #, python-format
 msgid "Withdrawal of %(amount)s via %(network)s."
-msgstr ""
+msgstr "Tërheqja e %(amount)s përmes %(network)s."
 
 #: accounts/views.py:1159
 msgid "Read"
-msgstr ""
+msgstr "Lexoni"
 
 #: accounts/views.py:1159
 msgid "Unread"
-msgstr ""
+msgstr "Të palexuara"
 
 #: accounts/views.py:1372
 msgid "Continue task"
-msgstr ""
+msgstr "Vazhdoni detyrën"
 
 #: accounts/views.py:1374 templates/index.html:433
 msgid "Start task"
-msgstr ""
+msgstr "Filloni detyrën"
 
 #: balance/templates/balance/upload_voucher.html:4
 #: balance/templates/balance/upload_voucher.html:463
 msgid "Upload voucher"
-msgstr ""
+msgstr "Ngarko kupon"
 
 #: balance/templates/balance/upload_voucher.html:411
 #, python-format
@@ -649,320 +669,330 @@ msgid ""
 "                            Amount $%(amount)s\n"
 "                        "
 msgstr ""
+"\n"
+"                            Amount $%(amount)s\n"
+"                        "
 
 #: balance/templates/balance/upload_voucher.html:428
 #: balance/templates/balance/upload_voucher.html:431
 msgid "Copy address"
-msgstr ""
+msgstr "Kopjo adresën"
 
 #: balance/templates/balance/upload_voucher.html:429
 msgid "Copied"
-msgstr ""
+msgstr "E kopjuar"
 
 #: balance/templates/balance/upload_voucher.html:446
 msgid "Voucher uploaded"
-msgstr ""
+msgstr "Kupon u ngarkua"
 
 #: balance/templates/balance/upload_voucher.html:457
 msgid "Please upload the transfer voucher"
-msgstr ""
+msgstr "Ju lutemi ngarkoni kuponin e transferimit"
 
 #: balance/templates/balance/upload_voucher.html:458
 msgid "Replace voucher"
-msgstr ""
+msgstr "Zëvendësoni kuponin"
 
 #: balance/templates/balance/upload_voucher.html:471
 msgid "Back to wallet dashboard"
-msgstr ""
+msgstr "Kthehu te paneli i portofolit"
 
 #: balance/templates/balance/wallet_dashboard.html:4
 msgid "Wallet dashboard"
-msgstr ""
+msgstr "Paneli i portofolit"
 
 #: balance/templates/balance/wallet_dashboard.html:294 templates/base.html:282
 msgid "Balance"
-msgstr ""
+msgstr "Bilanci"
 
-#: balance/templates/balance/wallet_dashboard.html:303 templates/index.html:381
+#: balance/templates/balance/wallet_dashboard.html:303
+#: templates/index.html:381
 msgid "Product commission"
-msgstr ""
+msgstr "komisioni i produktit"
 
-#: balance/templates/balance/wallet_dashboard.html:315 templates/index.html:393
+#: balance/templates/balance/wallet_dashboard.html:315
+#: templates/index.html:393
 msgid "Referral commission"
-msgstr ""
+msgstr "Komisioni i referimit"
 
 #: balance/templates/balance/wallet_dashboard.html:344
 msgid "Enter amount"
-msgstr ""
+msgstr "Shkruani shumën"
 
 #: balance/templates/balance/wallet_dashboard.html:350
 msgid "Continue to payment"
-msgstr ""
+msgstr "Vazhdoni të paguani"
 
 #: balance/views.py:104 balance/views.py:249
 msgid "No amount specified."
-msgstr ""
+msgstr "Asnjë shumë e specifikuar."
 
 #: balance/views.py:109 balance/views.py:257
 msgid "Invalid amount."
-msgstr ""
+msgstr "Shuma e pavlefshme."
 
 #: balance/views.py:113
 msgid "Amount received. Please upload your voucher to complete the request."
 msgstr ""
+"Shuma e marrë. Ju lutemi ngarkoni kuponin tuaj për të plotësuar kërkesën."
 
 #: balance/views.py:129
 msgid "Voucher uploaded successfully. Await admin approval."
-msgstr ""
+msgstr "Kuponi u ngarkua me sukses. Prisni miratimin nga administratori."
 
 #: balance/views.py:161
 #, python-format
 msgid "Voucher for %(user)s approved. Current balance: %(amount)s"
-msgstr ""
+msgstr "Voucher for %(user)s approved. Current balance: %(amount)s"
 
 #: balance/views.py:187
 #, python-format
 msgid "Voucher for %(user)s has been rejected."
-msgstr ""
+msgstr "Voucher for %(user)s has been rejected."
 
 #: balance/views.py:210
 #, python-format
 msgid "Recharge request for %(user)s has been removed."
-msgstr ""
+msgstr "Recharge request for %(user)s has been removed."
 
 #: balance/views.py:233
 #, python-format
 msgid "Recharge amount updated to %(amount)s"
-msgstr ""
+msgstr "Recharge amount updated to %(amount)s"
 
 #: balance/views.py:237
 msgid "Invalid amount"
-msgstr ""
+msgstr "Shuma e pavlefshme"
 
 #: balance/views.py:254
 msgid "Amount must be positive."
-msgstr ""
+msgstr "Shuma duhet të jetë pozitive."
 
 #: balance/views.py:262
 msgid "Your balance request has been submitted."
-msgstr ""
+msgstr "Kërkesa juaj për bilanc është dorëzuar."
 
 #: balance/views.py:280
 #, python-format
 msgid "Balance request for %(user)s approved."
-msgstr ""
+msgstr "Balance request for %(user)s approved."
 
 #: chat/templates/chat/guest_chat.html:251
 msgid "Close chat"
-msgstr ""
+msgstr "Mbylle bisedën"
 
 #: chat/templates/chat/guest_chat.html:259
 msgid "Hello! Welcome to Amazon Support. How can I help you today?"
 msgstr ""
+"Përshëndetje! Mirë se vini në Mbështetjen e Amazon. Si mund t'ju ndihmoj "
+"sot?"
 
 #: chat/templates/chat/guest_chat.html:265
 msgid "Type a message…"
-msgstr ""
+msgstr "Shkruani një mesazh…"
 
 #: chat/templates/chat/guest_chat.html:268
 #: chat/templates/chat/user_support_portal.html:667
 msgid "Send"
-msgstr ""
+msgstr "Dërgo"
 
 #: chat/templates/chat/guest_chat.html:276
 msgid "File must be ≤ 2 MB"
-msgstr ""
+msgstr "Skedari duhet të jetë ≤ 2 MB"
 
 #: chat/templates/chat/guest_chat.html:277
 msgid "File type not allowed"
-msgstr ""
+msgstr "Lloji i skedarit nuk lejohet"
 
 #: chat/templates/chat/user_support_portal.html:4
 msgid "Support Chat"
-msgstr ""
+msgstr "Mbështetje Chat"
 
 #: chat/templates/chat/user_support_portal.html:588
 msgid "Customer Service Chat"
-msgstr ""
+msgstr "Bisedë për shërbimin ndaj klientit"
 
 #: chat/templates/chat/user_support_portal.html:591
 msgid "Direct chat with our customer service team."
-msgstr ""
+msgstr "Bisedoni direkt me ekipin tonë të shërbimit ndaj klientit."
 
 #: chat/templates/chat/user_support_portal.html:593
 msgid "Assist users and keep every request in one place."
-msgstr ""
+msgstr "Ndihmoni përdoruesit dhe mbani çdo kërkesë në një vend."
 
 #: chat/templates/chat/user_support_portal.html:602
 msgid "Customer service team"
-msgstr ""
+msgstr "Ekipi i shërbimit ndaj klientit"
 
 #: chat/templates/chat/user_support_portal.html:623
 msgid "User threads"
-msgstr ""
+msgstr "Fijet e përdoruesve"
 
 #: chat/templates/chat/user_support_portal.html:624
 msgid "Refresh"
-msgstr ""
+msgstr "Rifresko"
 
 #: chat/templates/chat/user_support_portal.html:627
 msgid "No active chats yet."
-msgstr ""
+msgstr "Nuk ka ende biseda aktive."
 
 #: chat/templates/chat/user_support_portal.html:637
 msgid "Select a thread"
-msgstr ""
+msgstr "Zgjidhni një fije"
 
 #: chat/templates/chat/user_support_portal.html:638
 msgid "Waiting"
-msgstr ""
+msgstr "Në pritje"
 
 #: chat/templates/chat/user_support_portal.html:647
 msgid "Start chatting with customer service—ask anything you need."
 msgstr ""
+"Filloni të bisedoni me shërbimin ndaj klientit - pyesni gjithçka që ju "
+"nevojitet."
 
 #: chat/templates/chat/user_support_portal.html:649
 msgid "Pick a user from the left to see the conversation."
-msgstr ""
+msgstr "Zgjidh një përdorues nga e majta për të parë bisedën."
 
 #: chat/templates/chat/user_support_portal.html:662
 msgid "Write your message…"
-msgstr ""
+msgstr "Shkruani mesazhin tuaj…"
 
 #: products/templates/products/partials/task_panel.html:23
 #: products/templates/products/partials/task_panel.html:149
 msgid "Insufficient balance"
-msgstr ""
+msgstr "Bilanci i pamjaftueshëm"
 
 #: products/templates/products/partials/task_panel.html:33
 #: products/templates/products/partials/task_panel.html:156
 msgid "Current balance"
-msgstr ""
+msgstr "Bilanci aktual"
 
 #: products/templates/products/partials/task_panel.html:54
 msgid "Avliable Products"
-msgstr ""
+msgstr "Produktet e disponueshme"
 
 #: products/templates/products/partials/task_panel.html:61
 msgid "Completed"
-msgstr ""
+msgstr "E përfunduar"
 
 #: products/templates/products/partials/task_panel.html:68
 msgid "Remaining"
-msgstr ""
+msgstr "E mbetur"
 
 #: products/templates/products/partials/task_panel.html:79
 #: templates/index.html:358
 msgid "N/A"
-msgstr ""
+msgstr "N/A"
 
 #: products/templates/products/partials/task_panel.html:85
 #: products/templates/products/partials/task_panel.html:155
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #: products/templates/products/partials/task_panel.html:89
 #: products/templates/products/partials/task_panel.html:154
 msgid "Name"
-msgstr ""
+msgstr "Emri"
 
 #: products/templates/products/partials/task_panel.html:103
 msgid "Price"
-msgstr ""
+msgstr "Çmimi"
 
 #: products/templates/products/partials/task_panel.html:113
 msgid "Commission"
-msgstr ""
+msgstr "Komisioni"
 
 #: products/templates/products/partials/task_panel.html:126
 msgid "Cannot proceed with this task."
-msgstr ""
+msgstr "Nuk mund të vazhdohet me këtë detyrë."
 
 #: products/templates/products/partials/task_panel.html:133
 #: products/templates/products/partials/task_panel.html:192
 msgid "All tasks completed"
-msgstr ""
+msgstr "Të gjitha detyrat e përfunduara"
 
 #: products/templates/products/partials/task_panel.html:133
 msgid "Next product"
-msgstr ""
+msgstr "Produkti i radhës"
 
 #: products/templates/products/partials/task_panel.html:150
 msgid "Recharge to continue tasks"
-msgstr ""
+msgstr "Rimbushni për të vazhduar detyrat"
 
 #: products/templates/products/partials/task_panel.html:157
 msgid "Next product price"
-msgstr ""
+msgstr "Çmimi i produktit të radhës"
 
 #: products/templates/products/partials/task_panel.html:158
 msgid "Balance gap"
-msgstr ""
+msgstr "Hendeku i bilancit"
 
 #: products/templates/products/partials/task_panel.html:160
 msgid "Estimated total balance"
-msgstr ""
+msgstr "Bilanci total i vlerësuar"
 
 #: products/templates/products/partials/task_panel.html:168
 #, python-format
 msgid "Lucky order: Additional bonus unlocked $%(amount)s"
-msgstr ""
+msgstr "Lucky order: Additional bonus unlocked $%(amount)s"
 
 #: products/templates/products/partials/task_panel.html:172
 msgid "Lucky order: Additional bonus unlocked extra after recharge"
-msgstr ""
+msgstr "Porosia me fat: Bonus shtesë i zhbllokuar shtesë pas rimbushjes"
 
 #: products/templates/products/partials/task_panel.html:181
 msgid "Recharge now"
-msgstr ""
+msgstr "Rimbushni tani"
 
 #: products/templates/products/partials/task_panel.html:182
 #: products/templates/products/partials/task_panel.html:233
 msgid "Close"
-msgstr ""
+msgstr "Mbylle"
 
 #: products/templates/products/partials/task_panel.html:193
 msgid "Funds and information security guaranteed"
-msgstr ""
+msgstr "Siguria e fondeve dhe informacionit e garantuar"
 
 #: products/templates/products/partials/task_panel.html:196
 msgid "Available Withdraw"
-msgstr ""
+msgstr "Në dispozicion Tërheqje"
 
 #: products/templates/products/partials/task_panel.html:208
 #: products/templates/products/partials/task_panel.html:230
 #: templates/base.html:278
 msgid "Home"
-msgstr ""
+msgstr "Shtëpi"
 
 #: products/templates/products/partials/task_panel.html:223
 msgid "You Are Not Eligable"
-msgstr ""
+msgstr "Ju nuk kualifikoheni"
 
 #: products/templates/products/partials/task_panel.html:224
 msgid "Please contact support to enable tasks"
-msgstr ""
+msgstr "Kontaktoni me mbështetjen për të aktivizuar detyrat"
 
 #: products/templates/products/products.html:5
 msgid "Products"
-msgstr ""
+msgstr "Produktet"
 
 #: products/templates/products/products.html:1325
 #: products/templates/products/products.html:1342
 msgid "Loading..."
-msgstr ""
+msgstr "Po ngarkohet..."
 
 #: products/templates/products/products.html:1356
 msgid "Done!"
-msgstr ""
+msgstr "U krye!"
 
 #: products/templates/products/regulation_policy.html:4
 msgid "Regulation policy"
-msgstr ""
+msgstr "Politika rregulluese"
 
 #: products/templates/products/regulation_policy.html:260
 msgid "Account & Identity Standards"
-msgstr ""
+msgstr "Standardet e Llogarisë dhe Identitetit"
 
 #: products/templates/products/regulation_policy.html:262
 msgid ""
@@ -970,10 +1000,14 @@ msgid ""
 "falsification, or sharing credentials with third parties is strictly "
 "prohibited and may result in immediate suspension pending review."
 msgstr ""
+"Regjistrohu me të dhëna autentike personale. Kontabiliteti i shumëfishtë, "
+"falsifikimi i identitetit ose ndarja e kredencialeve me palët e treta është "
+"rreptësisht e ndaluar dhe mund të rezultojë në pezullim të menjëhershëm në "
+"pritje të shqyrtimit."
 
 #: products/templates/products/regulation_policy.html:269
 msgid "Task Integrity & Completion"
-msgstr ""
+msgstr "Integriteti dhe Përfundimi i Detyrës"
 
 #: products/templates/products/regulation_policy.html:271
 msgid ""
@@ -981,43 +1015,58 @@ msgid ""
 "misreporting progress, or manipulating screenshots are misconduct and lead "
 "to forfeiture of commissions and possible account closure."
 msgstr ""
+"Ndiqni me saktësi çdo informim të detyrës. Mjetet e automatizuara, përdorimi"
+" i proxy, raportimi i gabuar i progresit ose manipulimi i pamjeve të ekranit"
+" janë sjellje të pahijshme dhe çojnë në konfiskimin e komisioneve dhe "
+"mbylljen e mundshme të llogarisë."
 
 #: products/templates/products/regulation_policy.html:278
 msgid "Financial Compliance"
-msgstr ""
+msgstr "Pajtueshmëria financiare"
 
 #: products/templates/products/regulation_policy.html:280
 msgid ""
 "Deposits undergo anti-fraud screening before becoming available for tasks."
 msgstr ""
+"Depozitat i nënshtrohen shqyrtimit kundër mashtrimit përpara se të bëhen të "
+"disponueshme për detyra."
 
 #: products/templates/products/regulation_policy.html:281
 msgid ""
 "Withdrawals require two-factor confirmation and may take up to 24 hours for "
 "compliance checks."
 msgstr ""
+"Tërheqjet kërkojnë konfirmim me dy faktorë dhe mund të duhen deri në 24 orë "
+"për kontrollet e pajtueshmërisë."
 
 #: products/templates/products/regulation_policy.html:282
 msgid ""
 "Commission earnings are fully logged and accessible inside the wallet "
 "dashboard."
 msgstr ""
+"Fitimet e komisionit janë plotësisht të regjistruara dhe të aksesueshme "
+"brenda panelit të portofolit."
 
 #: products/templates/products/regulation_policy.html:290
 msgid "Data Protection"
-msgstr ""
+msgstr "Mbrojtja e të dhënave"
 
 #: products/templates/products/regulation_policy.html:292
 msgid ""
 "We collect only the data required to manage task assignments and payments. "
-"Personal information is encrypted, stored securely, and never shared without "
-"consent unless required by law. Users must keep task data confidential to "
+"Personal information is encrypted, stored securely, and never shared without"
+" consent unless required by law. Users must keep task data confidential to "
 "protect merchants and platform integrity."
 msgstr ""
+"Ne mbledhim vetëm të dhënat e kërkuara për të menaxhuar detyrat dhe pagesat."
+" Informacioni personal është i koduar, i ruajtur në mënyrë të sigurt dhe nuk"
+" ndahet kurrë pa pëlqimin, përveç nëse kërkohet me ligj. Përdoruesit duhet "
+"të mbajnë konfidenciale të dhënat e detyrave për të mbrojtur tregtarët dhe "
+"integritetin e platformës."
 
 #: products/templates/products/regulation_policy.html:299
 msgid "Dispute Resolution"
-msgstr ""
+msgstr "Zgjidhja e mosmarrëveshjeve"
 
 #: products/templates/products/regulation_policy.html:301
 msgid ""
@@ -1025,157 +1074,167 @@ msgid ""
 "evidence. Compliance specialists review all disputes objectively and "
 "document outcomes for full transparency."
 msgstr ""
+"Raportoni mospërputhjet brenda 48 orëve, duke ofruar referenca dhe prova të "
+"detyrave. Specialistët e pajtueshmërisë shqyrtojnë të gjitha mosmarrëveshjet"
+" në mënyrë objektive dhe dokumentojnë rezultatet për transparencë të plotë."
 
 #: products/templates/products/regulation_policy.html:308
 msgid ""
 "Need clarification or wish to report a policy concern? Our compliance desk "
 "is available daily."
 msgstr ""
+"Keni nevojë për sqarime apo dëshironi të raportoni një shqetësim politik? "
+"Tavolina jonë e pajtueshmërisë është e disponueshme çdo ditë."
 
 #: products/templates/products/regulation_policy.html:313
 msgid "Back"
-msgstr ""
+msgstr "Mbrapa"
 
 #: products/views.py:103 products/views.py:317
 msgid "System is busy processing tasks. Please retry in a moment."
 msgstr ""
+"Sistemi është i zënë me përpunimin e detyrave. Ju lutemi riprovoni në një "
+"moment."
 
 #: products/views.py:303
 msgid "Cannot proceed to next task."
-msgstr ""
+msgstr "Nuk mund të vazhdohet me detyrën tjetër."
 
 #: products/views.py:305
 msgid "Task is not available or already completed."
-msgstr ""
+msgstr "Detyra nuk është e disponueshme ose e përfunduar tashmë."
 
 #: templates/base.html:248
 msgid "You are offline. Please reconnect."
-msgstr ""
+msgstr "Ju jeni jashtë linje. Ju lutemi rilidheni."
 
 #: templates/base.html:290
 msgid "Me"
-msgstr ""
+msgstr "Unë"
 
 #: templates/index.html:352
 msgid "Hello"
-msgstr ""
+msgstr "pershendetje"
 
 #: templates/index.html:354
 msgid "No phone"
-msgstr ""
+msgstr "Asnjë telefon"
 
 #: templates/index.html:357
 msgid "Invite code"
-msgstr ""
+msgstr "Kodi i ftesës"
 
 #: templates/index.html:372
 msgid "Total Recharged"
-msgstr ""
+msgstr "Gjithsej i rimbushur"
 
 #: templates/index.html:402
 msgid "Lucky order bonus"
-msgstr ""
+msgstr "Bonusi i porosisë me fat"
 
 #: templates/index.html:426
 msgid "About us"
-msgstr ""
+msgstr "Rreth nesh"
 
 #: templates/index.html:439
 msgid "Available products"
-msgstr ""
+msgstr "Produktet e disponueshme"
 
 #: templates/index.html:457
 msgid "Featured opportunity"
-msgstr ""
+msgstr "Mundësi e veçuar"
 
 #: templates/index.html:459
 #, python-format
 msgid "Earn $%(amount)s"
-msgstr ""
+msgstr "Earn $%(amount)s"
 
 #: templates/index.html:460
 #, python-format
 msgid "Price $%(price)s"
-msgstr ""
+msgstr "Price $%(price)s"
 
 #: templates/index.html:469
 msgid "Prime pick drop"
-msgstr ""
+msgstr "Pika kryesore e zgjedhjes"
 
 #: templates/index.html:471
 msgid "Earn up to $185"
-msgstr ""
+msgstr "Fitoni deri në 185 dollarë"
 
 #: templates/index.html:472
 msgid "Price $129.00"
-msgstr ""
+msgstr "Çmimi 129,00 dollarë"
 
 #: venv/lib/python3.12/site-packages/django/contrib/messages/apps.py:16
 msgid "Messages"
-msgstr ""
+msgstr "Mesazhet"
 
 #: venv/lib/python3.12/site-packages/django/contrib/sitemaps/apps.py:8
 msgid "Site Maps"
-msgstr ""
+msgstr "Hartat e faqeve"
 
 #: venv/lib/python3.12/site-packages/django/contrib/staticfiles/apps.py:9
 msgid "Static Files"
-msgstr ""
+msgstr "Skedarët statikë"
 
 #: venv/lib/python3.12/site-packages/django/contrib/syndication/apps.py:7
 msgid "Syndication"
-msgstr ""
+msgstr "Sindikata"
 
 #. Translators: String used to replace omitted page numbers in elided page
 #. range generated by paginators, e.g. [1, 2, '…', 5, 6, 7, '…', 9, 10].
 #: venv/lib/python3.12/site-packages/django/core/paginator.py:30
 msgid "…"
-msgstr ""
+msgstr "…"
 
 #: venv/lib/python3.12/site-packages/django/core/paginator.py:32
 msgid "That page number is not an integer"
-msgstr ""
+msgstr "Ky numër i faqes nuk është një numër i plotë"
 
 #: venv/lib/python3.12/site-packages/django/core/paginator.py:33
 msgid "That page number is less than 1"
-msgstr ""
+msgstr "Numri i faqes është më pak se 1"
 
 #: venv/lib/python3.12/site-packages/django/core/paginator.py:34
 msgid "That page contains no results"
-msgstr ""
+msgstr "Ajo faqe nuk përmban asnjë rezultat"
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:22
 msgid "Enter a valid value."
-msgstr ""
+msgstr "Fut një vlerë të vlefshme."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:70
 msgid "Enter a valid domain name."
-msgstr ""
+msgstr "Fut një emër domain të vlefshëm."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:153
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:775
 msgid "Enter a valid URL."
-msgstr ""
+msgstr "Fut një URL të vlefshme."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:200
 msgid "Enter a valid integer."
-msgstr ""
+msgstr "Fut një numër të plotë të vlefshëm."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:211
 msgid "Enter a valid email address."
-msgstr ""
+msgstr "Fut një adresë të vlefshme emaili."
 
 #. Translators: "letters" means latin letters: a-z and A-Z.
 #: venv/lib/python3.12/site-packages/django/core/validators.py:289
 msgid ""
 "Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
 msgstr ""
+"Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:297
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
-"hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
+" hyphens."
 msgstr ""
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
+" hyphens."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:309
 #: venv/lib/python3.12/site-packages/django/core/validators.py:318
@@ -1183,44 +1242,44 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2220
 #, python-format
 msgid "Enter a valid %(protocol)s address."
-msgstr ""
+msgstr "Enter a valid %(protocol)s address."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:311
 msgid "IPv4"
-msgstr ""
+msgstr "IPv4"
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:320
 #: venv/lib/python3.12/site-packages/django/utils/ipv6.py:43
 msgid "IPv6"
-msgstr ""
+msgstr "IPv6"
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:334
 msgid "IPv4 or IPv6"
-msgstr ""
+msgstr "IPv4 ose IPv6"
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:375
 msgid "Enter only digits separated by commas."
-msgstr ""
+msgstr "Futni vetëm shifra të ndara me presje."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:381
 #, python-format
 msgid "Ensure this value is %(limit_value)s (it is %(show_value)s)."
-msgstr ""
+msgstr "Ensure this value is %(limit_value)s (it is %(show_value)s)."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:416
 #, python-format
 msgid "Ensure this value is less than or equal to %(limit_value)s."
-msgstr ""
+msgstr "Ensure this value is less than or equal to %(limit_value)s."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:425
 #, python-format
 msgid "Ensure this value is greater than or equal to %(limit_value)s."
-msgstr ""
+msgstr "Ensure this value is greater than or equal to %(limit_value)s."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:434
 #, python-format
 msgid "Ensure this value is a multiple of step size %(limit_value)s."
-msgstr ""
+msgstr "Ensure this value is a multiple of step size %(limit_value)s."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:441
 #, python-format
@@ -1228,6 +1287,8 @@ msgid ""
 "Ensure this value is a multiple of step size %(limit_value)s, starting from "
 "%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
 msgstr ""
+"Ensure this value is a multiple of step size %(limit_value)s, starting from "
+"%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:473
 #, python-format
@@ -1255,7 +1316,7 @@ msgstr[1] ""
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:366
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:405
 msgid "Enter a number."
-msgstr ""
+msgstr "Fut një numër."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:516
 #, python-format
@@ -1286,43 +1347,45 @@ msgid ""
 "File extension “%(extension)s” is not allowed. Allowed extensions are: "
 "%(allowed_extensions)s."
 msgstr ""
+"File extension “%(extension)s” is not allowed. Allowed extensions are: "
+"%(allowed_extensions)s."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:659
 msgid "Null characters are not allowed."
-msgstr ""
+msgstr "Karakteret null nuk lejohen."
 
 #: venv/lib/python3.12/site-packages/django/db/models/base.py:1600
 #: venv/lib/python3.12/site-packages/django/forms/models.py:908
 msgid "and"
-msgstr ""
+msgstr "dhe"
 
 #: venv/lib/python3.12/site-packages/django/db/models/base.py:1602
 #, python-format
 msgid "%(model_name)s with this %(field_labels)s already exists."
-msgstr ""
+msgstr "%(model_name)s with this %(field_labels)s already exists."
 
 #: venv/lib/python3.12/site-packages/django/db/models/constraints.py:22
 #, python-format
 msgid "Constraint “%(name)s” is violated."
-msgstr ""
+msgstr "Constraint “%(name)s” is violated."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:134
 #, python-format
 msgid "Value %(value)r is not a valid choice."
-msgstr ""
+msgstr "Value %(value)r is not a valid choice."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:135
 msgid "This field cannot be null."
-msgstr ""
+msgstr "Kjo fushë nuk mund të jetë nule."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:136
 msgid "This field cannot be blank."
-msgstr ""
+msgstr "Kjo fushë nuk mund të jetë bosh."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:137
 #, python-format
 msgid "%(model_name)s with this %(field_label)s already exists."
-msgstr ""
+msgstr "%(model_name)s with this %(field_label)s already exists."
 
 #. Translators: The 'lookup_type' is one of 'date', 'year' or
 #. 'month'. Eg: "Title must be unique for pub_date year"
@@ -1331,38 +1394,39 @@ msgstr ""
 msgid ""
 "%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
 msgstr ""
+"%(field_label)s must be unique for %(date_field_label)s %(lookup_type)s."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:180
 #, python-format
 msgid "Field of type: %(field_type)s"
-msgstr ""
+msgstr "Field of type: %(field_type)s"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1162
 #, python-format
 msgid "“%(value)s” value must be either True or False."
-msgstr ""
+msgstr "“%(value)s” value must be either True or False."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1163
 #, python-format
 msgid "“%(value)s” value must be either True, False, or None."
-msgstr ""
+msgstr "“%(value)s” value must be either True, False, or None."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1165
 msgid "Boolean (Either True or False)"
-msgstr ""
+msgstr "Boolean (Ose e vërtetë ose e gabuar)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1215
 #, python-format
 msgid "String (up to %(max_length)s)"
-msgstr ""
+msgstr "String (up to %(max_length)s)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1217
 msgid "String (unlimited)"
-msgstr ""
+msgstr "Varg (i pakufizuar)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1326
 msgid "Comma-separated integers"
-msgstr ""
+msgstr "Numrat e plotë të ndarë me presje"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1427
 #, python-format
@@ -1370,6 +1434,8 @@ msgid ""
 "“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
 "format."
 msgstr ""
+"“%(value)s” value has an invalid date format. It must be in YYYY-MM-DD "
+"format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1431
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1566
@@ -1378,121 +1444,129 @@ msgid ""
 "“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
 "date."
 msgstr ""
+"“%(value)s” value has the correct format (YYYY-MM-DD) but it is an invalid "
+"date."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1435
 msgid "Date (without time)"
-msgstr ""
+msgstr "Data (pa kohë)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1562
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
-"uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
 msgstr ""
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
-"[TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
 msgstr ""
+"“%(value)s” value has the correct format (YYYY-MM-DD "
+"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1575
 msgid "Date (with time)"
-msgstr ""
+msgstr "Data (me orën)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1702
 #, python-format
 msgid "“%(value)s” value must be a decimal number."
-msgstr ""
+msgstr "“%(value)s” value must be a decimal number."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1704
 msgid "Decimal number"
-msgstr ""
+msgstr "Numri dhjetor"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1864
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
-"uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
 msgstr ""
+"“%(value)s” value has an invalid format. It must be in [DD] "
+"[[HH:]MM:]ss[.uuuuuu] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1868
 msgid "Duration"
-msgstr ""
+msgstr "Kohëzgjatja"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1920
 msgid "Email address"
-msgstr ""
+msgstr "Adresa e emailit"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1945
 msgid "File path"
-msgstr ""
+msgstr "Rruga e skedarit"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2023
 #, python-format
 msgid "“%(value)s” value must be a float."
-msgstr ""
+msgstr "“%(value)s” value must be a float."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2025
 msgid "Floating point number"
-msgstr ""
+msgstr "Numri i pikës lundruese"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2065
 #, python-format
 msgid "“%(value)s” value must be an integer."
-msgstr ""
+msgstr "“%(value)s” value must be an integer."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2067
 msgid "Integer"
-msgstr ""
+msgstr "Numër i plotë"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2163
 msgid "Big (8 byte) integer"
-msgstr ""
+msgstr "Numër i plotë i madh (8 byte)."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2180
 msgid "Small integer"
-msgstr ""
+msgstr "Numër i vogël i plotë"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2188
 msgid "IPv4 address"
-msgstr ""
+msgstr "Adresa IPv4"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2219
 msgid "IP address"
-msgstr ""
+msgstr "Adresa IP"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2310
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2311
 #, python-format
 msgid "“%(value)s” value must be either None, True or False."
-msgstr ""
+msgstr "“%(value)s” value must be either None, True or False."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2313
 msgid "Boolean (Either True, False or None)"
-msgstr ""
+msgstr "Boolean (Ose e vërtetë, e rreme ose asnjë)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2364
 msgid "Positive big integer"
-msgstr ""
+msgstr "Numër i plotë pozitiv pozitiv"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2379
 msgid "Positive integer"
-msgstr ""
+msgstr "Numër i plotë pozitiv"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2394
 msgid "Positive small integer"
-msgstr ""
+msgstr "Numër i plotë pozitiv i vogël"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2410
 #, python-format
 msgid "Slug (up to %(max_length)s)"
-msgstr ""
+msgstr "Slug (up to %(max_length)s)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2446
 msgid "Text"
-msgstr ""
+msgstr "Teksti"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2526
 #, python-format
@@ -1500,6 +1574,8 @@ msgid ""
 "“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
 "format."
 msgstr ""
+"“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
+"format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2530
 #, python-format
@@ -1507,123 +1583,127 @@ msgid ""
 "“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
 "invalid time."
 msgstr ""
+"“%(value)s” value has the correct format (HH:MM[:ss[.uuuuuu]]) but it is an "
+"invalid time."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2534
 msgid "Time"
-msgstr ""
+msgstr "Koha"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2642
 msgid "URL"
-msgstr ""
+msgstr "URL"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2666
 msgid "Raw binary data"
-msgstr ""
+msgstr "Të dhëna binare të papërpunuara"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2731
 #, python-format
 msgid "“%(value)s” is not a valid UUID."
-msgstr ""
+msgstr "“%(value)s” is not a valid UUID."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2733
 msgid "Universally unique identifier"
-msgstr ""
+msgstr "Identifikues universal unik"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/files.py:244
 msgid "File"
-msgstr ""
+msgstr "Skedari"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/files.py:420
 msgid "Image"
-msgstr ""
+msgstr "Imazhi"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/json.py:24
 msgid "A JSON object"
-msgstr ""
+msgstr "Një objekt JSON"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/json.py:26
 msgid "Value must be valid JSON."
-msgstr ""
+msgstr "Vlera duhet të jetë e vlefshme JSON."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:978
 #, python-format
 msgid "%(model)s instance with %(field)s %(value)r is not a valid choice."
-msgstr ""
+msgstr "%(model)s instance with %(field)s %(value)r is not a valid choice."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:981
 msgid "Foreign Key (type determined by related field)"
-msgstr ""
+msgstr "Çelësi i huaj (lloji i përcaktuar nga fusha përkatëse)"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1275
 msgid "One-to-one relationship"
-msgstr ""
+msgstr "Marrëdhënie një me një"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1332
 #, python-format
 msgid "%(from)s-%(to)s relationship"
-msgstr ""
+msgstr "%(from)s-%(to)s relationship"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1334
 #, python-format
 msgid "%(from)s-%(to)s relationships"
-msgstr ""
+msgstr "%(from)s-%(to)s relationships"
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/related.py:1382
 msgid "Many-to-many relationship"
-msgstr ""
+msgstr "Marrëdhënie shumë-për-shumë"
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the label
+#. characters will prevent the default label_suffix to be appended to the
+#. label
 #: venv/lib/python3.12/site-packages/django/forms/boundfield.py:185
 msgid ":?.!"
-msgstr ""
+msgstr ":?.!"
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:95
 msgid "This field is required."
-msgstr ""
+msgstr "Kjo fushë është e nevojshme."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:315
 msgid "Enter a whole number."
-msgstr ""
+msgstr "Futni një numër të plotë."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:486
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1267
 msgid "Enter a valid date."
-msgstr ""
+msgstr "Fut një datë të vlefshme."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:509
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1268
 msgid "Enter a valid time."
-msgstr ""
+msgstr "Fut një kohë të vlefshme."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:536
 msgid "Enter a valid date/time."
-msgstr ""
+msgstr "Fut një datë/orë të vlefshme."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:570
 msgid "Enter a valid duration."
-msgstr ""
+msgstr "Fut një kohëzgjatje të vlefshme."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:571
 #, python-brace-format
 msgid "The number of days must be between {min_days} and {max_days}."
-msgstr ""
+msgstr "Numri i ditëve duhet të jetë nga {min_ditë} dhe {max_ditë}."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:640
 msgid "No file was submitted. Check the encoding type on the form."
-msgstr ""
+msgstr "Nuk u dorëzua asnjë dosje. Kontrolloni llojin e kodimit në formular."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:641
 msgid "No file was submitted."
-msgstr ""
+msgstr "Nuk u dorëzua asnjë dosje."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:642
 msgid "The submitted file is empty."
-msgstr ""
+msgstr "Skedari i dorëzuar është bosh."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:644
 #, python-format
-msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid ""
+"Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -1632,47 +1712,51 @@ msgstr[1] ""
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:649
 msgid "Please either submit a file or check the clear checkbox, not both."
 msgstr ""
+"Ju lutemi dorëzoni një skedar ose kontrolloni kutinë e kontrollit, jo të "
+"dyja."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:717
 msgid ""
 "Upload a valid image. The file you uploaded was either not an image or a "
 "corrupted image."
 msgstr ""
+"Ngarko një imazh të vlefshëm. Skedari që ngarkove nuk ishte ose një imazh "
+"ose një imazh i dëmtuar."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:889
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:975
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1592
 #, python-format
 msgid "Select a valid choice. %(value)s is not one of the available choices."
-msgstr ""
+msgstr "Select a valid choice. %(value)s is not one of the available choices."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:977
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1096
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1590
 msgid "Enter a list of values."
-msgstr ""
+msgstr "Futni një listë vlerash."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1097
 msgid "Enter a complete value."
-msgstr ""
+msgstr "Fut një vlerë të plotë."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1339
 msgid "Enter a valid UUID."
-msgstr ""
+msgstr "Fut një UUID të vlefshme."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:1369
 msgid "Enter a valid JSON."
-msgstr ""
+msgstr "Fut një JSON të vlefshëm."
 
 #. Translators: This is the default suffix added to form field labels
 #: venv/lib/python3.12/site-packages/django/forms/forms.py:97
 msgid ":"
-msgstr ""
+msgstr ":"
 
 #: venv/lib/python3.12/site-packages/django/forms/forms.py:239
 #, python-format
 msgid "(Hidden field %(name)s) %(error)s"
-msgstr ""
+msgstr "(Hidden field %(name)s) %(error)s"
 
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:61
 #, python-format
@@ -1680,6 +1764,8 @@ msgid ""
 "ManagementForm data is missing or has been tampered with. Missing fields: "
 "%(field_names)s. You may need to file a bug report if the issue persists."
 msgstr ""
+"ManagementForm data is missing or has been tampered with. Missing fields: "
+"%(field_names)s. You may need to file a bug report if the issue persists."
 
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:65
 #, python-format
@@ -1698,21 +1784,22 @@ msgstr[1] ""
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:484
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:491
 msgid "Order"
-msgstr ""
+msgstr "Rendit"
 
 #: venv/lib/python3.12/site-packages/django/forms/formsets.py:499
 msgid "Delete"
-msgstr ""
+msgstr "Fshije"
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:901
 #, python-format
 msgid "Please correct the duplicate data for %(field)s."
-msgstr ""
+msgstr "Please correct the duplicate data for %(field)s."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:906
 #, python-format
 msgid "Please correct the duplicate data for %(field)s, which must be unique."
 msgstr ""
+"Please correct the duplicate data for %(field)s, which must be unique."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:913
 #, python-format
@@ -1720,23 +1807,28 @@ msgid ""
 "Please correct the duplicate data for %(field_name)s which must be unique "
 "for the %(lookup)s in %(date_field)s."
 msgstr ""
+"Please correct the duplicate data for %(field_name)s which must be unique "
+"for the %(lookup)s in %(date_field)s."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:922
 msgid "Please correct the duplicate values below."
-msgstr ""
+msgstr "Ju lutemi korrigjoni vlerat e dyfishta më poshtë."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1359
 msgid "The inline value did not match the parent instance."
-msgstr ""
+msgstr "Vlera e linjës nuk përputhej me shembullin mëmë."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1450
-msgid "Select a valid choice. That choice is not one of the available choices."
+msgid ""
+"Select a valid choice. That choice is not one of the available choices."
 msgstr ""
+"Zgjidhni një zgjedhje të vlefshme. Kjo zgjedhje nuk është një nga zgjedhjet "
+"e disponueshme."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1594
 #, python-format
 msgid "“%(pk)s” is not a valid value."
-msgstr ""
+msgstr "“%(pk)s” is not a valid value."
 
 #: venv/lib/python3.12/site-packages/django/forms/utils.py:229
 #, python-format
@@ -1744,35 +1836,37 @@ msgid ""
 "%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
 "may be ambiguous or it may not exist."
 msgstr ""
+"%(datetime)s couldn’t be interpreted in time zone %(current_timezone)s; it "
+"may be ambiguous or it may not exist."
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:527
 msgid "Clear"
-msgstr ""
+msgstr "E qartë"
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:528
 msgid "Currently"
-msgstr ""
+msgstr "Aktualisht"
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:529
 msgid "Change"
-msgstr ""
+msgstr "Ndryshimi"
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:866
 msgid "Unknown"
-msgstr ""
+msgstr "E panjohur"
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:867
 msgid "Yes"
-msgstr ""
+msgstr "po"
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:868
 msgid "No"
-msgstr ""
+msgstr "Nr"
 
 #. Translators: Please do not add spaces around commas.
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:873
 msgid "yes,no,maybe"
-msgstr ""
+msgstr "po, jo, ndoshta"
 
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:903
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:920
@@ -1785,343 +1879,343 @@ msgstr[1] ""
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:922
 #, python-format
 msgid "%s KB"
-msgstr ""
+msgstr "%s KB"
 
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:924
 #, python-format
 msgid "%s MB"
-msgstr ""
+msgstr "%s MB"
 
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:926
 #, python-format
 msgid "%s GB"
-msgstr ""
+msgstr "%s GB"
 
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:928
 #, python-format
 msgid "%s TB"
-msgstr ""
+msgstr "%s TB"
 
 #: venv/lib/python3.12/site-packages/django/template/defaultfilters.py:930
 #, python-format
 msgid "%s PB"
-msgstr ""
+msgstr "%s BP"
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:74
 msgid "p.m."
-msgstr ""
+msgstr "p.m."
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:75
 msgid "a.m."
-msgstr ""
+msgstr "paradite"
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:80
 msgid "PM"
-msgstr ""
+msgstr "PM"
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:81
 msgid "AM"
-msgstr ""
+msgstr "AM"
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:153
 msgid "midnight"
-msgstr ""
+msgstr "mesnatë"
 
 #: venv/lib/python3.12/site-packages/django/utils/dateformat.py:155
 msgid "noon"
-msgstr ""
+msgstr "mesditë"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:7
 msgid "Monday"
-msgstr ""
+msgstr "e hënë"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:8
 msgid "Tuesday"
-msgstr ""
+msgstr "e martë"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:9
 msgid "Wednesday"
-msgstr ""
+msgstr "e mërkurë"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:10
 msgid "Thursday"
-msgstr ""
+msgstr "e enjte"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:11
 msgid "Friday"
-msgstr ""
+msgstr "e premte"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:12
 msgid "Saturday"
-msgstr ""
+msgstr "e shtunë"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:13
 msgid "Sunday"
-msgstr ""
+msgstr "të dielën"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:16
 msgid "Mon"
-msgstr ""
+msgstr "e hënë"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:17
 msgid "Tue"
-msgstr ""
+msgstr "e martë"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:18
 msgid "Wed"
-msgstr ""
+msgstr "e mërkurë"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:19
 msgid "Thu"
-msgstr ""
+msgstr "e enjte"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:20
 msgid "Fri"
-msgstr ""
+msgstr "e premte"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:21
 msgid "Sat"
-msgstr ""
+msgstr "Shtu"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:22
 msgid "Sun"
-msgstr ""
+msgstr "dielli"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:25
 msgid "January"
-msgstr ""
+msgstr "janar"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:26
 msgid "February"
-msgstr ""
+msgstr "shkurt"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:27
 msgid "March"
-msgstr ""
+msgstr "mars"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:28
 msgid "April"
-msgstr ""
+msgstr "prill"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:29
 msgid "May"
-msgstr ""
+msgstr "maj"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:30
 msgid "June"
-msgstr ""
+msgstr "qershor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:31
 msgid "July"
-msgstr ""
+msgstr "korrik"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:32
 msgid "August"
-msgstr ""
+msgstr "gusht"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:33
 msgid "September"
-msgstr ""
+msgstr "shtator"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:34
 msgid "October"
-msgstr ""
+msgstr "tetor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:35
 msgid "November"
-msgstr ""
+msgstr "Nëntor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:36
 msgid "December"
-msgstr ""
+msgstr "dhjetor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:39
 msgid "jan"
-msgstr ""
+msgstr "janar"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:40
 msgid "feb"
-msgstr ""
+msgstr "shkurt"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:41
 msgid "mar"
-msgstr ""
+msgstr "mars"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:42
 msgid "apr"
-msgstr ""
+msgstr "prill"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:43
 msgid "may"
-msgstr ""
+msgstr "mund"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:44
 msgid "jun"
-msgstr ""
+msgstr "qershor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:45
 msgid "jul"
-msgstr ""
+msgstr "korrik"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:46
 msgid "aug"
-msgstr ""
+msgstr "gusht"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:47
 msgid "sep"
-msgstr ""
+msgstr "shtator"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:48
 msgid "oct"
-msgstr ""
+msgstr "tetor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:49
 msgid "nov"
-msgstr ""
+msgstr "nëntor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:50
 msgid "dec"
-msgstr ""
+msgstr "dhjetor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:53
 msgctxt "abbrev. month"
 msgid "Jan."
-msgstr ""
+msgstr "janar"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:54
 msgctxt "abbrev. month"
 msgid "Feb."
-msgstr ""
+msgstr "shkurt"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:55
 msgctxt "abbrev. month"
 msgid "March"
-msgstr ""
+msgstr "mars"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:56
 msgctxt "abbrev. month"
 msgid "April"
-msgstr ""
+msgstr "prill"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:57
 msgctxt "abbrev. month"
 msgid "May"
-msgstr ""
+msgstr "maj"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:58
 msgctxt "abbrev. month"
 msgid "June"
-msgstr ""
+msgstr "qershor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:59
 msgctxt "abbrev. month"
 msgid "July"
-msgstr ""
+msgstr "korrik"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:60
 msgctxt "abbrev. month"
 msgid "Aug."
-msgstr ""
+msgstr "gusht"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:61
 msgctxt "abbrev. month"
 msgid "Sept."
-msgstr ""
+msgstr "shtator."
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:62
 msgctxt "abbrev. month"
 msgid "Oct."
-msgstr ""
+msgstr "tetor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:63
 msgctxt "abbrev. month"
 msgid "Nov."
-msgstr ""
+msgstr "nëntor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:64
 msgctxt "abbrev. month"
 msgid "Dec."
-msgstr ""
+msgstr "dhjetor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:67
 msgctxt "alt. month"
 msgid "January"
-msgstr ""
+msgstr "janar"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:68
 msgctxt "alt. month"
 msgid "February"
-msgstr ""
+msgstr "shkurt"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:69
 msgctxt "alt. month"
 msgid "March"
-msgstr ""
+msgstr "mars"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:70
 msgctxt "alt. month"
 msgid "April"
-msgstr ""
+msgstr "prill"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:71
 msgctxt "alt. month"
 msgid "May"
-msgstr ""
+msgstr "maj"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:72
 msgctxt "alt. month"
 msgid "June"
-msgstr ""
+msgstr "qershor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:73
 msgctxt "alt. month"
 msgid "July"
-msgstr ""
+msgstr "korrik"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:74
 msgctxt "alt. month"
 msgid "August"
-msgstr ""
+msgstr "gusht"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:75
 msgctxt "alt. month"
 msgid "September"
-msgstr ""
+msgstr "shtator"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:76
 msgctxt "alt. month"
 msgid "October"
-msgstr ""
+msgstr "tetor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:77
 msgctxt "alt. month"
 msgid "November"
-msgstr ""
+msgstr "Nëntor"
 
 #: venv/lib/python3.12/site-packages/django/utils/dates.py:78
 msgctxt "alt. month"
 msgid "December"
-msgstr ""
+msgstr "dhjetor"
 
 #: venv/lib/python3.12/site-packages/django/utils/ipv6.py:20
 msgid "This is not a valid IPv6 address."
-msgstr ""
+msgstr "Kjo nuk është një adresë e vlefshme IPv6."
 
 #: venv/lib/python3.12/site-packages/django/utils/text.py:76
 #, python-format
 msgctxt "String to return when truncating text"
 msgid "%(truncated_text)s…"
-msgstr ""
+msgstr "%(truncated_text)s…"
 
 #: venv/lib/python3.12/site-packages/django/utils/text.py:287
 msgid "or"
-msgstr ""
+msgstr "ose"
 
 #. Translators: This string is used as a separator between list elements
 #: venv/lib/python3.12/site-packages/django/utils/text.py:306
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:135
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: venv/lib/python3.12/site-packages/django/utils/timesince.py:8
 #, python-format
@@ -2167,11 +2261,11 @@ msgstr[1] ""
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:29
 msgid "Forbidden"
-msgstr ""
+msgstr "e ndaluar"
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:30
 msgid "CSRF verification failed. Request aborted."
-msgstr ""
+msgstr "Verifikimi CSRF dështoi. Kërkesa u ndërpre."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:34
 msgid ""
@@ -2180,6 +2274,10 @@ msgid ""
 "required for security reasons, to ensure that your browser is not being "
 "hijacked by third parties."
 msgstr ""
+"Po e shihni këtë mesazh sepse ky sajt HTTPS kërkon që të dërgohet një \"kokë"
+" referimi\" nga shfletuesi juaj i uebit, por asnjë nuk u dërgua. Ky titull "
+"kërkohet për arsye sigurie, për të siguruar që shfletuesi juaj të mos "
+"rrëmbehet nga palët e treta."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:40
 msgid ""
@@ -2187,15 +2285,24 @@ msgid ""
 "enable them, at least for this site, or for HTTPS connections, or for “same-"
 "origin” requests."
 msgstr ""
+"Nëse e keni konfiguruar shfletuesin tuaj për të çaktivizuar titujt "
+"\"Referer\", ju lutemi ri-aktivizoni ato, të paktën për këtë sajt, ose për "
+"lidhjet HTTPS, ose për kërkesa \"me origjinë të njëjtë\"."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:45
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
-"including the “Referrer-Policy: no-referrer” header, please remove them. The "
-"CSRF protection requires the “Referer” header to do strict referer checking. "
-"If you’re concerned about privacy, use alternatives like <a "
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
+" including the “Referrer-Policy: no-referrer” header, please remove them. "
+"The CSRF protection requires the “Referer” header to do strict referer "
+"checking. If you’re concerned about privacy, use alternatives like <a "
 "rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
+"Nëse jeni duke përdorur etiketën <meta name=\"referrer\" content=\"no-"
+"referrer\"> ose duke përfshirë titullin \"Referrer-Policy: no-referrer\", ju"
+" lutemi hiqni ato. Mbrojtja CSRF kërkon që kreu \"Referer\" të bëjë kontroll"
+" të rreptë të referuesit. Nëse jeni të shqetësuar për privatësinë, përdorni "
+"alternativa si <a rel=\"noreferrer\" …> për lidhjet me faqet e palëve të "
+"treta."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:54
 msgid ""
@@ -2203,96 +2310,104 @@ msgid ""
 "submitting forms. This cookie is required for security reasons, to ensure "
 "that your browser is not being hijacked by third parties."
 msgstr ""
+"Po e shihni këtë mesazh sepse ky sajt kërkon një cookie CSRF kur dorëzon "
+"formularët. Kjo cookie kërkohet për arsye sigurie, për të siguruar që "
+"shfletuesi juaj të mos rrëmbehet nga palët e treta."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:60
 msgid ""
 "If you have configured your browser to disable cookies, please re-enable "
 "them, at least for this site, or for “same-origin” requests."
 msgstr ""
+"Nëse e keni konfiguruar shfletuesin tuaj për të çaktivizuar cookie-t, ju "
+"lutemi riaktivizoni ato, të paktën për këtë sajt, ose për kërkesa \"me "
+"origjinë të njëjtë\"."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:66
 msgid "More information is available with DEBUG=True."
-msgstr ""
+msgstr "Më shumë informacion është i disponueshëm me DEBUG=E vërtetë."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:44
 msgid "No year specified"
-msgstr ""
+msgstr "Asnjë vit i specifikuar"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:64
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:115
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:214
 msgid "Date out of range"
-msgstr ""
+msgstr "Data jashtë rrezes"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:94
 msgid "No month specified"
-msgstr ""
+msgstr "Asnjë muaj nuk është specifikuar"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:147
 msgid "No day specified"
-msgstr ""
+msgstr "Asnjë ditë e caktuar"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:194
 msgid "No week specified"
-msgstr ""
+msgstr "Nuk është përcaktuar asnjë javë"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:353
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:384
 #, python-format
 msgid "No %(verbose_name_plural)s available"
-msgstr ""
+msgstr "No %(verbose_name_plural)s available"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:680
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because %(class_name)s."
-"allow_future is False."
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
 msgstr ""
+"Future %(verbose_name_plural)s not available because "
+"%(class_name)s.allow_future is False."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:720
 #, python-format
 msgid "Invalid date string “%(datestr)s” given format “%(format)s”"
-msgstr ""
+msgstr "Invalid date string “%(datestr)s” given format “%(format)s”"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/detail.py:56
 #, python-format
 msgid "No %(verbose_name)s found matching the query"
-msgstr ""
+msgstr "No %(verbose_name)s found matching the query"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/list.py:70
 msgid "Page is not “last”, nor can it be converted to an int."
-msgstr ""
+msgstr "Faqja nuk është \"e fundit\", as nuk mund të konvertohet në int."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/list.py:77
 #, python-format
 msgid "Invalid page (%(page_number)s): %(message)s"
-msgstr ""
+msgstr "Invalid page (%(page_number)s): %(message)s"
 
 #: venv/lib/python3.12/site-packages/django/views/generic/list.py:173
 #, python-format
 msgid "Empty list and “%(class_name)s.allow_empty” is False."
-msgstr ""
+msgstr "Empty list and “%(class_name)s.allow_empty” is False."
 
 #: venv/lib/python3.12/site-packages/django/views/static.py:49
 msgid "Directory indexes are not allowed here."
-msgstr ""
+msgstr "Indekset e drejtorive nuk lejohen këtu."
 
 #: venv/lib/python3.12/site-packages/django/views/static.py:51
 #, python-format
 msgid "“%(path)s” does not exist"
-msgstr ""
+msgstr "“%(path)s” does not exist"
 
 #: venv/lib/python3.12/site-packages/django/views/static.py:68
 #: venv/lib/python3.12/site-packages/django/views/templates/directory_index.html:8
 #: venv/lib/python3.12/site-packages/django/views/templates/directory_index.html:11
 #, python-format
 msgid "Index of %(directory)s"
-msgstr ""
+msgstr "Index of %(directory)s"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:7
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:204
 msgid "The install worked successfully! Congratulations!"
-msgstr ""
+msgstr "Instalimi funksionoi me sukses! urime!"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:206
 #, python-format
@@ -2300,39 +2415,45 @@ msgid ""
 "View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
 "target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
 msgstr ""
+"View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
+"target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:208
 #, python-format
 msgid ""
-"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
-"%(version)s/ref/settings/#debug\" target=\"_blank\" "
-"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
-"configured any URLs."
+"You are seeing this page because <a "
+"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
+"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
+"and you have not configured any URLs."
 msgstr ""
+"You are seeing this page because <a "
+"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
+"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
+"and you have not configured any URLs."
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:217
 msgid "Django Documentation"
-msgstr ""
+msgstr "Dokumentacioni i Django"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:218
 msgid "Topics, references, &amp; how-to’s"
-msgstr ""
+msgstr "Temat, referencat, &amp; si-të"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:226
 msgid "Tutorial: A Polling App"
-msgstr ""
+msgstr "Tutorial: Një aplikacion për votime"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:227
 msgid "Get started with Django"
-msgstr ""
+msgstr "Filloni me Django"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:235
 msgid "Django Community"
-msgstr ""
+msgstr "Komuniteti Django"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:236
 msgid "Connect, get help, or contribute"
-msgstr ""
+msgstr "Lidhu, merr ndihmë ose kontribuo"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:14
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:54
@@ -2353,133 +2474,137 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:470
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:478
 msgid "title"
-msgstr ""
+msgstr "titull"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:18
 msgid "password"
-msgstr ""
+msgstr "fjalëkalimin"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:245
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:264
 msgid "title a"
-msgstr ""
+msgstr "titulli a"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:249
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:275
 msgid "title b"
-msgstr ""
+msgstr "titulli b"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:253
 msgid "title c"
-msgstr ""
+msgstr "titulli c"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:257
 msgid "title d"
-msgstr ""
+msgstr "titulli d"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/models.py:380
 msgid "visits"
-msgstr ""
+msgstr "vizitat"
 
 #: venv/lib/python3.12/site-packages/modeltranslation/tests/translation.py:62
 msgid "Sorry, translation is not available."
-msgstr ""
+msgstr "Na vjen keq, përkthimi nuk është i disponueshëm."
 
 #: venv/lib/python3.12/site-packages/modeltranslation/widgets.py:32
 msgid "None"
-msgstr ""
+msgstr "Asnjë"
 
 #: venv/lib/python3.12/site-packages/mypy/main.py:423
 #, python-format
 msgid "%(prog)s: error: %(message)s\n"
-msgstr ""
+msgstr "%(prog)s: error: %(message)s\n"
 
 #: wallet/templates/wallet/wallet_management.html:625
 msgid "No wallet bound yet"
-msgstr ""
+msgstr "Asnjë portofol ende i lidhur"
 
 #: wallet/templates/wallet/wallet_management.html:632
 msgid "Bind wallet form"
-msgstr ""
+msgstr "Formulari i portofolit të lidhjes"
 
 #: wallet/templates/wallet/wallet_management.html:638
 msgid "Enter your  wallet address"
-msgstr ""
+msgstr "Shkruani adresën tuaj të portofolit"
 
 #: wallet/templates/wallet/wallet_management.html:641
 msgid "Save wallet"
-msgstr ""
+msgstr "Ruani portofolin"
 
 #: wallet/templates/wallet/wallet_management.html:648
 msgid "Withdrawal form"
-msgstr ""
+msgstr "Formulari i tërheqjes"
 
 #: wallet/templates/wallet/wallet_management.html:655
 msgid "Select network"
-msgstr ""
+msgstr "Zgjidhni rrjetin"
 
 #: wallet/templates/wallet/wallet_management.html:664
 msgid "Withdrawal amount (USD)"
-msgstr ""
+msgstr "Shuma e tërheqjes (USD)"
 
 #: wallet/templates/wallet/wallet_management.html:673
 msgid "Enter withdrawal amount"
-msgstr ""
+msgstr "Futni shumën e tërheqjes"
 
 #: wallet/templates/wallet/wallet_management.html:674
 #: wallet/templates/wallet/wallet_management.html:718
 msgid "Withdraw all"
-msgstr ""
+msgstr "Tërhiqni të gjitha"
 
 #: wallet/templates/wallet/wallet_management.html:687
 msgid "Enter fund password"
-msgstr ""
+msgstr "Fut fjalëkalimin e fondit"
 
 #: wallet/templates/wallet/wallet_management.html:691
 msgid "Submit withdrawal"
-msgstr ""
+msgstr "Paraqisni tërheqjen"
 
 #: wallet/templates/wallet/wallet_management.html:710
 msgid "All selected"
-msgstr ""
+msgstr "Të gjitha të zgjedhura"
 
 #: wallet/views.py:66
 msgid ""
 "❌ You cannot change your wallet address once bound. Please contact customer "
 "service if you need to update it."
 msgstr ""
+"❌ Nuk mund ta ndryshoni adresën e portofolit pasi të keni lidhur. Ju lutemi,"
+" kontaktoni shërbimin e klientit nëse keni nevojë ta përditësoni atë."
 
 #: wallet/views.py:73
 #, python-format
 msgid ""
-"You must complete all %(total)d tasks before binding your wallet. Completed: "
-"%(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed:"
+" %(completed)d"
 msgstr ""
+"You must complete all %(total)d tasks before binding your wallet. Completed:"
+" %(completed)d"
 
 #: wallet/views.py:83
 msgid "Wallet address is required."
-msgstr ""
+msgstr "Kërkohet adresa e portofolit."
 
 #: wallet/views.py:87
 #, python-format
 msgid "Wallet address must be at least %(length)d characters."
-msgstr ""
+msgstr "Wallet address must be at least %(length)d characters."
 
 #: wallet/views.py:92
 msgid "Wallet address should only contain letters and numbers."
-msgstr ""
+msgstr "Adresa e portofolit duhet të përmbajë vetëm shkronja dhe numra."
 
 #: wallet/views.py:94
 msgid "This wallet address is already linked to another account."
-msgstr ""
+msgstr "Kjo adresë e portofolit është tashmë e lidhur me një llogari tjetër."
 
 #: wallet/views.py:116
 msgid "✅ Wallet bound successfully!"
-msgstr ""
+msgstr "✅ Portofoli i lidhur me sukses!"
 
 #: wallet/views.py:122
 msgid "You must bind your wallet before making a withdrawal."
-msgstr ""
+msgstr "Ju duhet të lidhni portofolin tuaj përpara se të bëni një tërheqje."
 
 #: wallet/views.py:129
 #, python-format
@@ -2487,45 +2612,47 @@ msgid ""
 "You must complete all %(total)d tasks before withdrawing. Completed: "
 "%(completed)d/%(total)d"
 msgstr ""
+"You must complete all %(total)d tasks before withdrawing. Completed: "
+"%(completed)d/%(total)d"
 
 #: wallet/views.py:142
 msgid "tasks are not complete"
-msgstr ""
+msgstr "detyrat nuk janë të plota"
 
 #: wallet/views.py:159
 msgid "Invalid fund password."
-msgstr ""
+msgstr "Fjalëkalim i pavlefshëm i fondit."
 
 #: wallet/views.py:163
 msgid "Please select a network protocol."
-msgstr ""
+msgstr "Ju lutemi zgjidhni një protokoll rrjeti."
 
 #: wallet/views.py:173
 msgid "Insufficient balance for withdrawal."
-msgstr ""
+msgstr "Bilanci i pamjaftueshëm për tërheqje."
 
 #: wallet/views.py:182
 msgid "Please enter a valid withdrawal amount."
-msgstr ""
+msgstr "Ju lutemi vendosni një shumë të vlefshme tërheqjeje."
 
 #: wallet/views.py:187
 msgid "Withdrawal amount must be greater than zero."
-msgstr ""
+msgstr "Shuma e tërheqjes duhet të jetë më e madhe se zero."
 
 #: wallet/views.py:193
 #, python-format
 msgid "You cannot withdraw more than your available balance of %(amount)s."
-msgstr ""
+msgstr "You cannot withdraw more than your available balance of %(amount)s."
 
 #: wallet/views.py:203
 #, python-format
 msgid "Minimum withdrawal amount is %(amount)s."
-msgstr ""
+msgstr "Minimum withdrawal amount is %(amount)s."
 
 #: wallet/views.py:213
 #, python-format
 msgid "Maximum withdrawal amount per transaction is %(amount)s."
-msgstr ""
+msgstr "Maximum withdrawal amount per transaction is %(amount)s."
 
 #: wallet/views.py:228
 #, python-format
@@ -2533,16 +2660,52 @@ msgid ""
 "Daily withdrawal limit exceeded. You can withdraw up to %(amount)s more "
 "today."
 msgstr ""
+"Daily withdrawal limit exceeded. You can withdraw up to %(amount)s more "
+"today."
 
 #: wallet/views.py:243
 msgid "You have too many pending withdrawal requests. "
-msgstr ""
+msgstr "Keni shumë kërkesa për tërheqje në pritje."
 
 #: wallet/views.py:290
 msgid "Withdrawal request submitted successfully!"
-msgstr ""
+msgstr "Kërkesa për tërheqje u dorëzua me sukses!"
 
 #: wallet/views.py:298
 #, python-format
 msgid "An error occurred while processing your withdrawal: %(error)s"
+msgstr "An error occurred while processing your withdrawal: %(error)s"
+
+#: accounts/views.py:868
+msgid "wrong phone number"
+msgstr "numër i gabuar i telefonit"
+
+#: accounts/views.py:874
+msgid "wrong user name"
+msgstr "emri i gabuar i përdoruesit"
+
+#: accounts/views.py:880
+msgid "enter correct password"
+msgstr "fut fjalëkalimin e saktë"
+
+#: accounts/views.py:886
+msgid "enter correct fund password"
+msgstr "shkruani fjalëkalimin e saktë të fondit"
+
+#: accounts/views.py:892
+msgid "enter correct refral code"
+msgstr "shkruani kodin e saktë të rikthimit"
+
+#: accounts/views.py:908
+msgid "This user cannot invite others"
+msgstr "Ky përdorues nuk mund të ftojë të tjerë"
+
+#: accounts/views.py:915
+msgid "maximum invition reaached"
+msgstr "ftesa maksimale e arritur"
+
+#: accounts/views.py:1068
+msgid "company rules viloated,Please contact customer service"
 msgstr ""
+"Rregullat e kompanisë janë shkelur, Ju lutemi kontaktoni shërbimin ndaj "
+"klientit"

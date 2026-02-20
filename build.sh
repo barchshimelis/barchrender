@@ -10,15 +10,10 @@ python manage.py migrate --noinput
 echo "=== Collect static files ==="
 python manage.py collectstatic --noinput
 
-# Ensure persistent media mount exists and copy repo preloaded media
-MEDIA_MOUNT="/opt/render/project/media"
-echo "=== Ensure media mount exists at $MEDIA_MOUNT ==="
-mkdir -p "$MEDIA_MOUNT"
-chmod -R 755 "$MEDIA_MOUNT" || true
-
+# Copy repo media into the container media folder so preloaded images are available
 if [ -d "media" ]; then
-  echo "=== Copying repo media into mounted disk ==="
-  cp -R media/* "$MEDIA_MOUNT/" || true
+  echo "=== Copying repo media into container media folder ==="
+  cp -R media/* media/ || true
 fi
 
 # Create superuser from env vars (no email required)

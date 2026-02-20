@@ -20,9 +20,18 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
+# ALLOWED_HOSTS: read comma-separated hosts from env, trim blanks, ignore empty entries
+_raw_allowed = config('ALLOWED_HOSTS', default='')
+ALLOWED_HOSTS = [h.strip() for h in _raw_allowed.split(',') if h.strip()]
 
-CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='').split(',')
+
+# CSRF trusted origins: ensure each origin starts with http:// or https://
+_raw_csrf = config('CSRF_TRUSTED_ORIGINS', default='')
+CSRF_TRUSTED_ORIGINS = [
+    origin if origin.startswith(('http://', 'https://')) else f'https://{origin}'
+    for origin in [s.strip() for s in _raw_csrf.split(',') if s.strip()]
+]
+
 
 
 # ---------------------------------------------------------------------

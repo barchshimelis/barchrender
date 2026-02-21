@@ -1,49 +1,51 @@
-#!/usr/bin/env bash
-set -e
+#!/bin/bash
+echo "==> Starting build..."
 
+# Activate virtual environment if not already
+# source .venv/bin/activate  # Render usually auto-activates
+
+# ---------------------------------------------------------------------
+# 1. Install dependencies
+# ---------------------------------------------------------------------
 echo "=== Install dependencies ==="
+pip install --upgrade pip
 pip install -r requirements.txt
 
+# ---------------------------------------------------------------------
+# 2. Run migrations
+# ---------------------------------------------------------------------
 echo "=== Run migrations ==="
 python manage.py migrate --noinput
 
+# ---------------------------------------------------------------------
+# 3. Collect static files
+# ---------------------------------------------------------------------
 echo "=== Collect static files ==="
 python manage.py collectstatic --noinput
 
-# Copy repo media into the container media folder so preloaded images are available
-if [ -d "media" ]; then
-  echo "=== Copying repo media into container media folder ==="
-  cp -R media/* media/ || true
+# ---------------------------------------------------------------------
+# 4. Prepare media directories
+# ---------------------------------------------------------------------
+echo "=== Prepare media directories ==="
+# Runtime media path on Render
+RENDER_MEDIA="/opt/render/project/media"
+
+# Make sure base media folder exists
+mkdir -p "$RENDER_MEDIA"
+
+# Preloaded images from repo (products)
+mkdir -p "$RENDER_MEDIA/products"
+cp -r media/products/* "$RENDER_MEDIA/products/" || true
+
+# Upload folders (vouchers)
+mkdir -p "$RENDER_MEDIA/vouchers"
+
+# ---------------------------------------------------------------------
+# 5. Create superuser from environment variables (if provided)
+# ---------------------------------------------------------------------
+echo "=== Create superuser if env vars provided ==="
+if [[ -n "$DJANGO_SUPERUSER_USERNAME" && -n "$DJANGO_SUPERUSER_EMAIL" && -n "$DJANGO_SUPERUSER_PASSWORD" ]]; then
+    python manage.py createsuperuser --noinput || true
 fi
 
-# Create superuser from env vars (Option A: using django.setup())
-echo "=== Create superuser from env vars if provided ==="
-python - <<'PY'
-import os
-import django
-
-# Initialize Django apps
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'AmazonProject.settings')
-django.setup()  # Fixes AppRegistryNotReady
-
-from django.contrib.auth import get_user_model
-User = get_user_model()
-
-username = os.environ.get('DJANGO_SUPERUSER_USERNAME')
-password = os.environ.get('DJANGO_SUPERUSER_PASSWORD')
-
-if username and password:
-    if not User.objects.filter(username=username).exists():
-        try:
-            User.objects.create_superuser(username=username, email='', password=password)
-        except TypeError:
-            User.objects.create_superuser(username=username, password=password)
-        print("Superuser created:", username)
-    else:
-        print("Superuser already exists:", username)
-else:
-    print("DJANGO_SUPERUSER_USERNAME or DJANGO_SUPERUSER_PASSWORD not set; skipping superuser creation")
-PY
-
-echo "Build finished"
-exit 0
+echo "==> Build finished successfully!"

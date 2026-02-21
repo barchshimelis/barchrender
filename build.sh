@@ -1,9 +1,6 @@
 #!/bin/bash
 echo "==> Starting build..."
 
-# Activate virtual environment if not already
-# source .venv/bin/activate  # Render usually auto-activates
-
 # ---------------------------------------------------------------------
 # 1. Install dependencies
 # ---------------------------------------------------------------------
@@ -34,7 +31,8 @@ RENDER_MEDIA="/opt/render/project/media"
 mkdir -p "$RENDER_MEDIA"
 
 # Preloaded images from repo (products)
-cp -r media/products "$RENDER_MEDIA/" || true
+mkdir -p "$RENDER_MEDIA/products"
+cp -r media/products/* "$RENDER_MEDIA/products/" || true
 
 # Upload folders (vouchers)
 mkdir -p "$RENDER_MEDIA/vouchers"

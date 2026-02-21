@@ -100,18 +100,47 @@ CHANNEL_LAYERS = {
 }
 
 # ---------------------------------------------------------------------
-# Database
+# Database (prefer DATABASE_URL; avoid local socket fallback)
 # ---------------------------------------------------------------------
-DATABASES = {
-    'default': {
-        'ENGINE': config('DB_ENGINE', default='django.db.backends.sqlite3'),
-        'NAME': config('DB_NAME', default=BASE_DIR / 'db.sqlite3'),
-        'USER': config('DB_USER', default=''),
-        'PASSWORD': config('DB_PASSWORD', default=''),
-        'HOST': config('DB_HOST', default=''),
-        'PORT': config('DB_PORT', default=''),
+import urllib.parse
+
+DATABASE_URL = config('DATABASE_URL', default='').strip()
+
+if DATABASE_URL:
+    url = urllib.parse.urlparse(DATABASE_URL)
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql' if url.scheme.startswith('postgres') else 'django.db.backends.sqlite3',
+            'NAME': url.path[1:],
+            'USER': url.username or '',
+            'PASSWORD': url.password or '',
+            'HOST': url.hostname or '',
+            'PORT': url.port or '5432',
+        }
     }
-}
+else:
+    DB_ENGINE = config('DB_ENGINE', default='django.db.backends.sqlite3')
+    DB_HOST = config('DB_HOST', default='')
+    # If DB_ENGINE is postgres but DB_HOST is empty, fall back to SQLite to avoid local socket
+    if DB_ENGINE in ('django.db.backends.postgresql', 'django.db.backends.postgresql_psycopg2') and DB_HOST:
+        DATABASES = {
+            'default': {
+                'ENGINE': DB_ENGINE,
+                'NAME': config('DB_NAME', default=BASE_DIR / 'db.sqlite3'),
+                'USER': config('DB_USER', default=''),
+                'PASSWORD': config('DB_PASSWORD', default=''),
+                'HOST': DB_HOST,
+                'PORT': config('DB_PORT', default='5432'),
+            }
+        }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
+
  
 
 # ---------------------------------------------------------------------

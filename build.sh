@@ -10,21 +10,23 @@ python manage.py migrate --noinput
 echo "=== Collect static files ==="
 python manage.py collectstatic --noinput
 
-echo "=== Preparing media directory ==="
-mkdir -p /opt/render/project/media
-
+# Copy repo media into the container media folder so preloaded images are available
 if [ -d "media" ]; then
-  echo "=== Copying repo media to runtime media directory ==="
-  cp -r media/* /opt/render/project/media/ || true
-else
-  echo "No repo media directory found"
+  echo "=== Copying repo media into container media folder ==="
+  cp -R media/* media/ || true
 fi
 
+# Create superuser from env vars (Option A: using django.setup())
 echo "=== Create superuser from env vars if provided ==="
 python - <<'PY'
 import os
-from django.contrib.auth import get_user_model
+import django
 
+# Initialize Django apps
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'AmazonProject.settings')
+django.setup()  # Fixes AppRegistryNotReady
+
+from django.contrib.auth import get_user_model
 User = get_user_model()
 
 username = os.environ.get('DJANGO_SUPERUSER_USERNAME')

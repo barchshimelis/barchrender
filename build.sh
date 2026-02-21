@@ -34,8 +34,7 @@ RENDER_MEDIA="/opt/render/project/media"
 mkdir -p "$RENDER_MEDIA"
 
 # Preloaded images from repo (products)
-mkdir -p "$RENDER_MEDIA/products"
-cp -r media/products/* "$RENDER_MEDIA/products/" || true
+cp -r media/products "$RENDER_MEDIA/" || true
 
 # Upload folders (vouchers)
 mkdir -p "$RENDER_MEDIA/vouchers"

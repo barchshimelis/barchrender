@@ -20,18 +20,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-# ALLOWED_HOSTS: read comma-separated hosts from env, trim blanks, ignore empty entries
-_raw_allowed = config('ALLOWED_HOSTS', default='')
-ALLOWED_HOSTS = [h.strip() for h in _raw_allowed.split(',') if h.strip()]
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
 
-
-# CSRF trusted origins: ensure each origin starts with http:// or https://
-_raw_csrf = config('CSRF_TRUSTED_ORIGINS', default='')
-CSRF_TRUSTED_ORIGINS = [
-    origin if origin.startswith(('http://', 'https://')) else f'https://{origin}'
-    for origin in [s.strip() for s in _raw_csrf.split(',') if s.strip()]
-]
-
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='').split(',')
 
 
 # ---------------------------------------------------------------------
@@ -100,47 +91,18 @@ CHANNEL_LAYERS = {
 }
 
 # ---------------------------------------------------------------------
-# Database (prefer DATABASE_URL; avoid local socket fallback)
+# Database
 # ---------------------------------------------------------------------
-import urllib.parse
-
-DATABASE_URL = config('DATABASE_URL', default='').strip()
-
-if DATABASE_URL:
-    url = urllib.parse.urlparse(DATABASE_URL)
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql' if url.scheme.startswith('postgres') else 'django.db.backends.sqlite3',
-            'NAME': url.path[1:],
-            'USER': url.username or '',
-            'PASSWORD': url.password or '',
-            'HOST': url.hostname or '',
-            'PORT': url.port or '5432',
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': config('DB_ENGINE', default='django.db.backends.sqlite3'),
+        'NAME': config('DB_NAME', default=BASE_DIR / 'db.sqlite3'),
+        'USER': config('DB_USER', default=''),
+        'PASSWORD': config('DB_PASSWORD', default=''),
+        'HOST': config('DB_HOST', default=''),
+        'PORT': config('DB_PORT', default=''),
     }
-else:
-    DB_ENGINE = config('DB_ENGINE', default='django.db.backends.sqlite3')
-    DB_HOST = config('DB_HOST', default='')
-    # If DB_ENGINE is postgres but DB_HOST is empty, fall back to SQLite to avoid local socket
-    if DB_ENGINE in ('django.db.backends.postgresql', 'django.db.backends.postgresql_psycopg2') and DB_HOST:
-        DATABASES = {
-            'default': {
-                'ENGINE': DB_ENGINE,
-                'NAME': config('DB_NAME', default=BASE_DIR / 'db.sqlite3'),
-                'USER': config('DB_USER', default=''),
-                'PASSWORD': config('DB_PASSWORD', default=''),
-                'HOST': DB_HOST,
-                'PORT': config('DB_PORT', default='5432'),
-            }
-        }
-    else:
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': BASE_DIR / 'db.sqlite3',
-            }
-        }
-
+}
  
 
 # ---------------------------------------------------------------------
@@ -227,12 +189,18 @@ STATIC_URL = config('STATIC_URL', default='/static/')
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Media files: default to repo media locally, use Render disk in production
-MEDIA_URL = config('MEDIA_URL', default='/media/')
-if os.environ.get('RENDER') == 'true':
-    MEDIA_ROOT = '/opt/render/project/media'
+# Media configuration
+# By default use the project's `media/` directory locally. In Render builds
+# we may copy preloaded media into a runtime path; use `RENDER_MEDIA` env var
+# so build and runtime agree on the same folder. User uploads will remain
+# ephemeral on Render (as requested).
+_render_media = config('RENDER_MEDIA', default='')
+if _render_media:
+    MEDIA_ROOT = Path(_render_media)
 else:
     MEDIA_ROOT = BASE_DIR / 'media'
+
+MEDIA_URL = config('MEDIA_URL', default='/media/')
 
 # ---------------------------------------------------------------------
 # Authentication

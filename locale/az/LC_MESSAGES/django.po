@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 16:31+0000\n"
+"POT-Creation-Date: 2026-02-22 09:52+0000\n"
 "PO-Revision-Date: 2025-12-17 07:35+0000\n"
 "Last-Translator: Cascade <cascade@example.com>\n"
 "Language-Team: Azerbaijani <LL@li.org>\n"
@@ -105,9 +105,9 @@ msgstr "Doldurma tarixi"
 #: accounts/templates/accounts/activities.html:350
 #: accounts/templates/accounts/activities.html:372
 #: accounts/templates/accounts/me.html:618
-#: balance/templates/balance/wallet_dashboard.html:332
+#: balance/templates/balance/wallet_dashboard.html:335
 #: products/templates/products/partials/task_panel.html:41
-#: templates/index.html:412
+#: templates/index.html:414
 msgid "Recharge"
 msgstr "Yenidən doldurun"
 
@@ -338,7 +338,7 @@ msgstr "Parametrlər"
 
 #: accounts/templates/accounts/me.html:625
 #: products/templates/products/partials/task_panel.html:204
-#: templates/index.html:419
+#: templates/index.html:421
 msgid "Withdraw"
 msgstr "geri çəkilmək"
 
@@ -568,8 +568,7 @@ msgstr "Telefon nömrəsi artıq mövcuddur"
 
 #: accounts/views.py:948
 msgid "Phone number already exists. Please use a different phone number."
-msgstr ""
-"Telefon nömrəsi artıq mövcuddur. Fərqli telefon nömrəsi istifadə edin."
+msgstr "Telefon nömrəsi artıq mövcuddur. Fərqli telefon nömrəsi istifadə edin."
 
 #: accounts/views.py:950
 msgid "Username already exists. Please choose a different username."
@@ -669,7 +668,7 @@ msgstr "Oxunmamış"
 msgid "Continue task"
 msgstr "Tapşırığı davam etdirin"
 
-#: accounts/views.py:1408 templates/index.html:433
+#: accounts/views.py:1408 templates/index.html:435
 msgid "Start task"
 msgstr "Tapşırığa başlayın"
 
@@ -718,25 +717,23 @@ msgstr "Pul kisəsinin idarə panelinə qayıt"
 msgid "Wallet dashboard"
 msgstr "Pul kisəsinin idarə paneli"
 
-#: balance/templates/balance/wallet_dashboard.html:294 templates/base.html:282
+#: balance/templates/balance/wallet_dashboard.html:297 templates/base.html:282
 msgid "Balance"
 msgstr "Balans"
 
-#: balance/templates/balance/wallet_dashboard.html:303
-#: templates/index.html:381
+#: balance/templates/balance/wallet_dashboard.html:306 templates/index.html:383
 msgid "Product commission"
 msgstr "Məhsul komissiyası"
 
-#: balance/templates/balance/wallet_dashboard.html:315
-#: templates/index.html:393
+#: balance/templates/balance/wallet_dashboard.html:318 templates/index.html:395
 msgid "Referral commission"
 msgstr "İstinad komissiyası"
 
-#: balance/templates/balance/wallet_dashboard.html:344
+#: balance/templates/balance/wallet_dashboard.html:347
 msgid "Enter amount"
 msgstr "Məbləği daxil edin"
 
-#: balance/templates/balance/wallet_dashboard.html:350
+#: balance/templates/balance/wallet_dashboard.html:353
 msgid "Continue to payment"
 msgstr "Ödəməyə davam edin"
 
@@ -908,7 +905,7 @@ msgid "Remaining"
 msgstr "Qalan"
 
 #: products/templates/products/partials/task_panel.html:79
-#: templates/index.html:358
+#: templates/index.html:360
 msgid "N/A"
 msgstr "Yoxdur"
 
@@ -1078,8 +1075,8 @@ msgstr "Məlumatların Mühafizəsi"
 #: products/templates/products/regulation_policy.html:292
 msgid ""
 "We collect only the data required to manage task assignments and payments. "
-"Personal information is encrypted, stored securely, and never shared without"
-" consent unless required by law. Users must keep task data confidential to "
+"Personal information is encrypted, stored securely, and never shared without "
+"consent unless required by law. Users must keep task data confidential to "
 "protect merchants and platform integrity."
 msgstr ""
 "Biz yalnız tapşırıqları və ödənişləri idarə etmək üçün tələb olunan "
@@ -1139,57 +1136,57 @@ msgstr "Siz oflaynsınız. Lütfən, yenidən qoşulun."
 msgid "Me"
 msgstr "Mən"
 
-#: templates/index.html:352
+#: templates/index.html:354
 msgid "Hello"
 msgstr "salam"
 
-#: templates/index.html:354
+#: templates/index.html:356
 msgid "No phone"
 msgstr "Telefon yoxdur"
 
-#: templates/index.html:357
+#: templates/index.html:359
 msgid "Invite code"
 msgstr "Dəvət kodu"
 
-#: templates/index.html:372
+#: templates/index.html:374
 msgid "Total Recharged"
 msgstr "Ümumi doldurulmuş"
 
-#: templates/index.html:402
+#: templates/index.html:404
 msgid "Lucky order bonus"
 msgstr "Uğurlu sifariş bonusu"
 
-#: templates/index.html:426
+#: templates/index.html:428
 msgid "About us"
 msgstr "Haqqımızda"
 
-#: templates/index.html:439
+#: templates/index.html:441
 msgid "Available products"
 msgstr "Mövcud məhsullar"
 
-#: templates/index.html:457
+#: templates/index.html:459
 msgid "Featured opportunity"
 msgstr "Seçilmiş fürsət"
 
-#: templates/index.html:459
+#: templates/index.html:461
 #, python-format
 msgid "Earn $%(amount)s"
 msgstr "%(amount)s$ qazan"
 
-#: templates/index.html:460
+#: templates/index.html:462
 #, python-format
 msgid "Price $%(price)s"
 msgstr "Qiymət %(price)s$"
 
-#: templates/index.html:469
+#: templates/index.html:471
 msgid "Prime pick drop"
 msgstr "Əsas seçim düşməsi"
 
-#: templates/index.html:471
+#: templates/index.html:473
 msgid "Earn up to $185"
 msgstr "185 dollara qədər qazanın"
 
-#: templates/index.html:472
+#: templates/index.html:474
 msgid "Price $129.00"
 msgstr "Qiymət 129.00$"
 
@@ -1274,8 +1271,8 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/core/validators.py:297
 #: venv/lib64/python3.12/site-packages/django/core/validators.py:297
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
-" hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
 msgstr ""
 "Unicode hərflərindən, rəqəmlərdən, alt xəttdən və ya tirelərdən ibarət "
 "etibarlı \"şlaq\" daxil edin."
@@ -1543,21 +1540,21 @@ msgstr "Tarix (vaxt olmadan)"
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1562
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 msgstr ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 msgstr ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1575
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1575
@@ -1579,11 +1576,11 @@ msgstr "Onluq ədəd"
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1864
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 msgstr ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1868
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1868
@@ -1781,8 +1778,7 @@ msgid "Many-to-many relationship"
 msgstr "Çoxdan çoxa münasibət"
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the
-#. label
+#. characters will prevent the default label_suffix to be appended to the label
 #: venv/lib/python3.12/site-packages/django/forms/boundfield.py:185
 #: venv/lib64/python3.12/site-packages/django/forms/boundfield.py:185
 msgid ":?.!"
@@ -1846,8 +1842,7 @@ msgstr "Təqdim olunan fayl boşdur."
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:644
 #: venv/lib64/python3.12/site-packages/django/forms/fields.py:644
 #, python-format
-msgid ""
-"Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -1857,8 +1852,7 @@ msgstr[1] ""
 #: venv/lib64/python3.12/site-packages/django/forms/fields.py:649
 msgid "Please either submit a file or check the clear checkbox, not both."
 msgstr ""
-"Lütfən, ya faylı təqdim edin, ya da hər ikisini deyil, sil qutusunu "
-"yoxlayın."
+"Lütfən, ya faylı təqdim edin, ya da hər ikisini deyil, sil qutusunu yoxlayın."
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:717
 #: venv/lib64/python3.12/site-packages/django/forms/fields.py:717
@@ -1963,8 +1957,7 @@ msgstr "Please correct the duplicate data for %(field)s."
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:906
 #, python-format
 msgid "Please correct the duplicate data for %(field)s, which must be unique."
-msgstr ""
-"Please correct the duplicate data for %(field)s, which must be unique."
+msgstr "Please correct the duplicate data for %(field)s, which must be unique."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:913
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:913
@@ -1988,8 +1981,7 @@ msgstr "Daxil edilmiş dəyər əsas instansiyaya uyğun gəlmədi."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1450
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:1450
-msgid ""
-"Select a valid choice. That choice is not one of the available choices."
+msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr "Etibarlı seçim seçin. Bu seçim mövcud seçimlərdən biri deyil."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1594
@@ -2560,10 +2552,10 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:45
 #: venv/lib64/python3.12/site-packages/django/views/csrf.py:45
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
-" including the “Referrer-Policy: no-referrer” header, please remove them. "
-"The CSRF protection requires the “Referer” header to do strict referer "
-"checking. If you’re concerned about privacy, use alternatives like <a "
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
 "rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
 "Əgər siz <meta name=\"referrer\" content=\"no-referrer\"> teqindən istifadə "
@@ -2580,9 +2572,9 @@ msgid ""
 "submitting forms. This cookie is required for security reasons, to ensure "
 "that your browser is not being hijacked by third parties."
 msgstr ""
-"Siz bu mesajı görürsünüz, çünki bu sayt formaları təqdim edərkən CSRF kukisi"
-" tələb edir. Bu kuki brauzerinizin üçüncü tərəflər tərəfindən "
-"oğurlanmamasını təmin etmək üçün təhlükəsizlik səbəbləri ilə tələb olunur."
+"Siz bu mesajı görürsünüz, çünki bu sayt formaları təqdim edərkən CSRF kukisi "
+"tələb edir. Bu kuki brauzerinizin üçüncü tərəflər tərəfindən oğurlanmamasını "
+"təmin etmək üçün təhlükəsizlik səbəbləri ilə tələb olunur."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:60
 #: venv/lib64/python3.12/site-packages/django/views/csrf.py:60
@@ -2640,11 +2632,11 @@ msgstr "No %(verbose_name_plural)s available"
 #: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:680
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 msgstr ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:720
 #: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:720
@@ -2717,15 +2709,15 @@ msgstr ""
 #: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:208
 #, python-format
 msgid ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 msgstr ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:217
 #: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:217
@@ -2900,17 +2892,17 @@ msgid ""
 "❌ You cannot change your wallet address once bound. Please contact customer "
 "service if you need to update it."
 msgstr ""
-"❌ Cüzdanınızı bağladıqdan sonra ünvanınızı dəyişə bilməzsiniz. Onu yeniləmək"
-" lazımdırsa, müştəri xidməti ilə əlaqə saxlayın."
+"❌ Cüzdanınızı bağladıqdan sonra ünvanınızı dəyişə bilməzsiniz. Onu "
+"yeniləmək lazımdırsa, müştəri xidməti ilə əlaqə saxlayın."
 
 #: wallet/views.py:89
 #, python-format
 msgid ""
-"You must complete all %(total)d tasks before binding your wallet. Completed:"
-" %(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed: "
+"%(completed)d"
 msgstr ""
-"You must complete all %(total)d tasks before binding your wallet. Completed:"
-" %(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed: "
+"%(completed)d"
 
 #: wallet/views.py:99
 msgid "Wallet address is required."
@@ -3080,11 +3072,13 @@ msgstr "Çıxarışınız işlənərkən səhv baş verdi: %(error)s"
 #, fuzzy, python-format
 #~ msgid ""
 #~ "\n"
-#~ "                Complete all %(completed)s of %(total)s tasks to unlock wallet binding.\n"
+#~ "                Complete all %(completed)s of %(total)s tasks to unlock "
+#~ "wallet binding.\n"
 #~ "                "
 #~ msgstr ""
 #~ "\n"
-#~ "                    Bağlamadan əvvəl bütün %(count)s tapşırığı tamamlayın ( %(completed)s/%(count)s bitdi).\n"
+#~ "                    Bağlamadan əvvəl bütün %(count)s tapşırığı tamamlayın "
+#~ "( %(completed)s/%(count)s bitdi).\n"
 #~ "                "
 
 #, fuzzy

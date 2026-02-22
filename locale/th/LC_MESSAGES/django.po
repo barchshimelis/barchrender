@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 16:31+0000\n"
+"POT-Creation-Date: 2026-02-22 09:52+0000\n"
 "PO-Revision-Date: 2025-12-17 07:47+0000\n"
 "Last-Translator: Cascade <cascade@example.com>\n"
 "Language-Team: Thai <LL@li.org>\n"
@@ -105,9 +105,9 @@ msgstr "ประวัติการเติมเงิน"
 #: accounts/templates/accounts/activities.html:350
 #: accounts/templates/accounts/activities.html:372
 #: accounts/templates/accounts/me.html:618
-#: balance/templates/balance/wallet_dashboard.html:332
+#: balance/templates/balance/wallet_dashboard.html:335
 #: products/templates/products/partials/task_panel.html:41
-#: templates/index.html:412
+#: templates/index.html:414
 msgid "Recharge"
 msgstr "เติมเงิน"
 
@@ -338,7 +338,7 @@ msgstr "การตั้งค่า"
 
 #: accounts/templates/accounts/me.html:625
 #: products/templates/products/partials/task_panel.html:204
-#: templates/index.html:419
+#: templates/index.html:421
 msgid "Withdraw"
 msgstr "ถอน"
 
@@ -667,7 +667,7 @@ msgstr "ยังไม่ได้อ่าน"
 msgid "Continue task"
 msgstr "ทำหน้าที่ต่อไป"
 
-#: accounts/views.py:1408 templates/index.html:433
+#: accounts/views.py:1408 templates/index.html:435
 msgid "Start task"
 msgstr "เริ่มงาน"
 
@@ -716,25 +716,23 @@ msgstr "กลับไปที่แดชบอร์ดกระเป๋า
 msgid "Wallet dashboard"
 msgstr "แดชบอร์ดกระเป๋าสตางค์"
 
-#: balance/templates/balance/wallet_dashboard.html:294 templates/base.html:282
+#: balance/templates/balance/wallet_dashboard.html:297 templates/base.html:282
 msgid "Balance"
 msgstr "สมดุล"
 
-#: balance/templates/balance/wallet_dashboard.html:303
-#: templates/index.html:381
+#: balance/templates/balance/wallet_dashboard.html:306 templates/index.html:383
 msgid "Product commission"
 msgstr "ค่าคอมมิชชันผลิตภัณฑ์"
 
-#: balance/templates/balance/wallet_dashboard.html:315
-#: templates/index.html:393
+#: balance/templates/balance/wallet_dashboard.html:318 templates/index.html:395
 msgid "Referral commission"
 msgstr "ค่าคอมมิชชันการอ้างอิง"
 
-#: balance/templates/balance/wallet_dashboard.html:344
+#: balance/templates/balance/wallet_dashboard.html:347
 msgid "Enter amount"
 msgstr "ใส่จำนวนเงิน"
 
-#: balance/templates/balance/wallet_dashboard.html:350
+#: balance/templates/balance/wallet_dashboard.html:353
 msgid "Continue to payment"
 msgstr "ดำเนินการชำระเงินต่อไป"
 
@@ -748,9 +746,7 @@ msgstr "จำนวนเงินไม่ถูกต้อง"
 
 #: balance/views.py:113
 msgid "Amount received. Please upload your voucher to complete the request."
-msgstr ""
-"จำนวนเงินที่ได้รับ. "
-"โปรดอัปโหลดบัตรกำนัลของคุณเพื่อดำเนินการตามคำขอให้เสร็จสิ้น"
+msgstr "จำนวนเงินที่ได้รับ. โปรดอัปโหลดบัตรกำนัลของคุณเพื่อดำเนินการตามคำขอให้เสร็จสิ้น"
 
 #: balance/views.py:129
 msgid "Voucher uploaded successfully. Await admin approval."
@@ -804,8 +800,7 @@ msgstr "ปิดแชท"
 
 #: chat/templates/chat/guest_chat.html:259
 msgid "Hello! Welcome to Amazon Support. How can I help you today?"
-msgstr ""
-"สวัสดี! ยินดีต้อนรับสู่ฝ่ายสนับสนุนของ Amazon วันนี้ฉันจะช่วยคุณได้อย่างไร?"
+msgstr "สวัสดี! ยินดีต้อนรับสู่ฝ่ายสนับสนุนของ Amazon วันนี้ฉันจะช่วยคุณได้อย่างไร?"
 
 #: chat/templates/chat/guest_chat.html:265
 msgid "Type a message…"
@@ -907,7 +902,7 @@ msgid "Remaining"
 msgstr "ที่เหลืออยู่"
 
 #: products/templates/products/partials/task_panel.html:79
-#: templates/index.html:358
+#: templates/index.html:360
 msgid "N/A"
 msgstr "ไม่มี"
 
@@ -1023,9 +1018,9 @@ msgid ""
 "falsification, or sharing credentials with third parties is strictly "
 "prohibited and may result in immediate suspension pending review."
 msgstr ""
-"ลงทะเบียนด้วยข้อมูลส่วนบุคคลที่แท้จริง ห้ามใช้หลายบัญชี "
-"การปลอมแปลงข้อมูลประจำตัว หรือการแบ่งปันข้อมูลรับรองกับบุคคลที่สามโดยเด็ดขาด"
-" และอาจส่งผลให้มีการระงับทันทีเพื่อรอการตรวจสอบ"
+"ลงทะเบียนด้วยข้อมูลส่วนบุคคลที่แท้จริง ห้ามใช้หลายบัญชี การปลอมแปลงข้อมูลประจำตัว "
+"หรือการแบ่งปันข้อมูลรับรองกับบุคคลที่สามโดยเด็ดขาด "
+"และอาจส่งผลให้มีการระงับทันทีเพื่อรอการตรวจสอบ"
 
 #: products/templates/products/regulation_policy.html:269
 msgid "Task Integrity & Completion"
@@ -1062,8 +1057,7 @@ msgstr ""
 msgid ""
 "Commission earnings are fully logged and accessible inside the wallet "
 "dashboard."
-msgstr ""
-"รายได้ค่าคอมมิชชันจะถูกบันทึกไว้อย่างสมบูรณ์และสามารถเข้าถึงได้ภายในแดชบอร์ดกระเป๋าเงิน"
+msgstr "รายได้ค่าคอมมิชชันจะถูกบันทึกไว้อย่างสมบูรณ์และสามารถเข้าถึงได้ภายในแดชบอร์ดกระเป๋าเงิน"
 
 #: products/templates/products/regulation_policy.html:290
 msgid "Data Protection"
@@ -1072,13 +1066,13 @@ msgstr "การปกป้องข้อมูล"
 #: products/templates/products/regulation_policy.html:292
 msgid ""
 "We collect only the data required to manage task assignments and payments. "
-"Personal information is encrypted, stored securely, and never shared without"
-" consent unless required by law. Users must keep task data confidential to "
+"Personal information is encrypted, stored securely, and never shared without "
+"consent unless required by law. Users must keep task data confidential to "
 "protect merchants and platform integrity."
 msgstr ""
 "เรารวบรวมเฉพาะข้อมูลที่จำเป็นในการจัดการการมอบหมายงานและการชำระเงิน "
-"ข้อมูลส่วนบุคคลได้รับการเข้ารหัส เก็บไว้อย่างปลอดภัย "
-"และไม่เคยแบ่งปันโดยไม่ได้รับความยินยอม เว้นแต่กฎหมายกำหนด "
+"ข้อมูลส่วนบุคคลได้รับการเข้ารหัส เก็บไว้อย่างปลอดภัย และไม่เคยแบ่งปันโดยไม่ได้รับความยินยอม "
+"เว้นแต่กฎหมายกำหนด "
 "ผู้ใช้จะต้องเก็บข้อมูลงานไว้เป็นความลับเพื่อปกป้องผู้ค้าและความสมบูรณ์ของแพลตฟอร์ม"
 
 #: products/templates/products/regulation_policy.html:299
@@ -1128,57 +1122,57 @@ msgstr "คุณออฟไลน์อยู่ กรุณาเชื่�
 msgid "Me"
 msgstr "ฉัน"
 
-#: templates/index.html:352
+#: templates/index.html:354
 msgid "Hello"
 msgstr "สวัสดี"
 
-#: templates/index.html:354
+#: templates/index.html:356
 msgid "No phone"
 msgstr "ไม่มีโทรศัพท์"
 
-#: templates/index.html:357
+#: templates/index.html:359
 msgid "Invite code"
 msgstr "รหัสเชิญ"
 
-#: templates/index.html:372
+#: templates/index.html:374
 msgid "Total Recharged"
 msgstr "ชาร์จแล้วทั้งหมด"
 
-#: templates/index.html:402
+#: templates/index.html:404
 msgid "Lucky order bonus"
 msgstr "โบนัสการสั่งซื้อโชคดี"
 
-#: templates/index.html:426
+#: templates/index.html:428
 msgid "About us"
 msgstr "เกี่ยวกับเรา"
 
-#: templates/index.html:439
+#: templates/index.html:441
 msgid "Available products"
 msgstr "สินค้าที่มีจำหน่าย"
 
-#: templates/index.html:457
+#: templates/index.html:459
 msgid "Featured opportunity"
 msgstr "โอกาสที่โดดเด่น"
 
-#: templates/index.html:459
+#: templates/index.html:461
 #, python-format
 msgid "Earn $%(amount)s"
 msgstr "รับ $%(amount)s"
 
-#: templates/index.html:460
+#: templates/index.html:462
 #, python-format
 msgid "Price $%(price)s"
 msgstr "ราคา $%(price)s"
 
-#: templates/index.html:469
+#: templates/index.html:471
 msgid "Prime pick drop"
 msgstr "ไพรม์เลือกดรอป"
 
-#: templates/index.html:471
+#: templates/index.html:473
 msgid "Earn up to $185"
 msgstr "รับสูงถึง $185"
 
-#: templates/index.html:472
+#: templates/index.html:474
 msgid "Price $129.00"
 msgstr "ราคา $129.00"
 
@@ -1256,17 +1250,14 @@ msgstr "ป้อนที่อยู่อีเมลที่ถูกต้
 #: venv/lib64/python3.12/site-packages/django/core/validators.py:289
 msgid ""
 "Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
-msgstr ""
-"ป้อน “slug” ที่ถูกต้องซึ่งประกอบด้วยตัวอักษร ตัวเลข ขีดล่าง หรือขีดกลาง"
+msgstr "ป้อน “slug” ที่ถูกต้องซึ่งประกอบด้วยตัวอักษร ตัวเลข ขีดล่าง หรือขีดกลาง"
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:297
 #: venv/lib64/python3.12/site-packages/django/core/validators.py:297
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
-" hyphens."
-msgstr ""
-"ป้อน “slug” ที่ถูกต้องซึ่งประกอบด้วยตัวอักษร Unicode ตัวเลข ขีดล่าง "
-"หรือขีดกลาง"
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
+msgstr "ป้อน “slug” ที่ถูกต้องซึ่งประกอบด้วยตัวอักษร Unicode ตัวเลข ขีดล่าง หรือขีดกลาง"
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:309
 #: venv/lib/python3.12/site-packages/django/core/validators.py:318
@@ -1526,21 +1517,21 @@ msgstr "วันที่ (ไม่มีเวลา)"
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1562
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 msgstr ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 msgstr ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1575
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1575
@@ -1562,11 +1553,11 @@ msgstr "เลขทศนิยม"
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1864
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 msgstr ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1868
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1868
@@ -1764,8 +1755,7 @@ msgid "Many-to-many relationship"
 msgstr "ความสัมพันธ์แบบกลุ่มต่อกลุ่ม"
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the
-#. label
+#. characters will prevent the default label_suffix to be appended to the label
 #: venv/lib/python3.12/site-packages/django/forms/boundfield.py:185
 #: venv/lib64/python3.12/site-packages/django/forms/boundfield.py:185
 msgid ":?.!"
@@ -1829,8 +1819,7 @@ msgstr "ไฟล์ที่ส่งว่างเปล่า"
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:644
 #: venv/lib64/python3.12/site-packages/django/forms/fields.py:644
 #, python-format
-msgid ""
-"Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -1845,8 +1834,7 @@ msgstr "โปรดส่งไฟล์หรือทำเครื่อง
 msgid ""
 "Upload a valid image. The file you uploaded was either not an image or a "
 "corrupted image."
-msgstr ""
-"อัปโหลดรูปภาพที่ถูกต้อง ไฟล์ที่คุณอัปโหลดไม่ใช่รูปภาพหรือรูปภาพที่เสียหาย"
+msgstr "อัปโหลดรูปภาพที่ถูกต้อง ไฟล์ที่คุณอัปโหลดไม่ใช่รูปภาพหรือรูปภาพที่เสียหาย"
 
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:889
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:975
@@ -1940,8 +1928,7 @@ msgstr "Please correct the duplicate data for %(field)s."
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:906
 #, python-format
 msgid "Please correct the duplicate data for %(field)s, which must be unique."
-msgstr ""
-"Please correct the duplicate data for %(field)s, which must be unique."
+msgstr "Please correct the duplicate data for %(field)s, which must be unique."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:913
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:913
@@ -1965,8 +1952,7 @@ msgstr "ค่าอินไลน์ไม่ตรงกับอินสแ
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1450
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:1450
-msgid ""
-"Select a valid choice. That choice is not one of the available choices."
+msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr "เลือกตัวเลือกที่ถูกต้อง ตัวเลือกนั้นไม่ใช่หนึ่งในตัวเลือกที่มีอยู่"
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1594
@@ -2511,9 +2497,8 @@ msgid ""
 "required for security reasons, to ensure that your browser is not being "
 "hijacked by third parties."
 msgstr ""
-"คุณเห็นข้อความนี้เนื่องจากไซต์ HTTPS นี้กำหนดให้เว็บเบราว์เซอร์ของคุณส่ง "
-"\"ส่วนหัวผู้อ้างอิง\" แต่ไม่มีการส่งเลย "
-"ส่วนหัวนี้จำเป็นสำหรับเหตุผลด้านความปลอดภัย "
+"คุณเห็นข้อความนี้เนื่องจากไซต์ HTTPS นี้กำหนดให้เว็บเบราว์เซอร์ของคุณส่ง \"ส่วนหัวผู้อ้างอิง\" "
+"แต่ไม่มีการส่งเลย ส่วนหัวนี้จำเป็นสำหรับเหตุผลด้านความปลอดภัย "
 "เพื่อให้แน่ใจว่าเบราว์เซอร์ของคุณจะไม่ถูกไฮแจ็กโดยบุคคลที่สาม"
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:40
@@ -2523,24 +2508,22 @@ msgid ""
 "enable them, at least for this site, or for HTTPS connections, or for “same-"
 "origin” requests."
 msgstr ""
-"หากคุณได้กำหนดค่าเบราว์เซอร์ของคุณให้ปิดใช้งานส่วนหัว \"ผู้อ้างอิง\" "
-"โปรดเปิดใช้งานอีกครั้ง อย่างน้อยสำหรับไซต์นี้ หรือสำหรับการเชื่อมต่อ HTTPS "
-"หรือสำหรับคำขอ \"ที่มาเดียวกัน\""
+"หากคุณได้กำหนดค่าเบราว์เซอร์ของคุณให้ปิดใช้งานส่วนหัว \"ผู้อ้างอิง\" โปรดเปิดใช้งานอีกครั้ง "
+"อย่างน้อยสำหรับไซต์นี้ หรือสำหรับการเชื่อมต่อ HTTPS หรือสำหรับคำขอ \"ที่มาเดียวกัน\""
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:45
 #: venv/lib64/python3.12/site-packages/django/views/csrf.py:45
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
-" including the “Referrer-Policy: no-referrer” header, please remove them. "
-"The CSRF protection requires the “Referer” header to do strict referer "
-"checking. If you’re concerned about privacy, use alternatives like <a "
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
 "rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
-"หากคุณใช้แท็ก <meta name=\"referrer\" content=\"no-referrer\"> หรือมีส่วนหัว"
-" “Referrer-Policy: no-referrer” โปรดลบออก การป้องกัน CSRF ต้องใช้ส่วนหัว "
-"\"ผู้อ้างอิง\" เพื่อทำการตรวจสอบผู้อ้างอิงอย่างเข้มงวด "
-"หากคุณกังวลเกี่ยวกับความเป็นส่วนตัว ให้ใช้ทางเลือกอื่นเช่น <a "
-"rel=\"noreferrer\" …> สำหรับลิงก์ไปยังเว็บไซต์บุคคลที่สาม"
+"หากคุณใช้แท็ก <meta name=\"referrer\" content=\"no-referrer\"> หรือมีส่วนหัว "
+"“Referrer-Policy: no-referrer” โปรดลบออก การป้องกัน CSRF ต้องใช้ส่วนหัว \"ผู้อ้างอิง\" "
+"เพื่อทำการตรวจสอบผู้อ้างอิงอย่างเข้มงวด หากคุณกังวลเกี่ยวกับความเป็นส่วนตัว ให้ใช้ทางเลือกอื่นเช่น "
+"<a rel=\"noreferrer\" …> สำหรับลิงก์ไปยังเว็บไซต์บุคคลที่สาม"
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:54
 #: venv/lib64/python3.12/site-packages/django/views/csrf.py:54
@@ -2559,9 +2542,8 @@ msgid ""
 "If you have configured your browser to disable cookies, please re-enable "
 "them, at least for this site, or for “same-origin” requests."
 msgstr ""
-"หากคุณได้กำหนดค่าเบราว์เซอร์ของคุณให้ปิดการใช้งานคุกกี้ "
-"โปรดเปิดใช้งานอีกครั้ง อย่างน้อยสำหรับไซต์นี้ หรือสำหรับคำขอ "
-"\"ที่มาเดียวกัน\""
+"หากคุณได้กำหนดค่าเบราว์เซอร์ของคุณให้ปิดการใช้งานคุกกี้ โปรดเปิดใช้งานอีกครั้ง "
+"อย่างน้อยสำหรับไซต์นี้ หรือสำหรับคำขอ \"ที่มาเดียวกัน\""
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:66
 #: venv/lib64/python3.12/site-packages/django/views/csrf.py:66
@@ -2609,11 +2591,11 @@ msgstr "No %(verbose_name_plural)s available"
 #: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:680
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 msgstr ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:720
 #: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:720
@@ -2686,15 +2668,15 @@ msgstr ""
 #: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:208
 #, python-format
 msgid ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 msgstr ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:217
 #: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:217
@@ -2875,11 +2857,11 @@ msgstr ""
 #: wallet/views.py:89
 #, python-format
 msgid ""
-"You must complete all %(total)d tasks before binding your wallet. Completed:"
-" %(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed: "
+"%(completed)d"
 msgstr ""
-"You must complete all %(total)d tasks before binding your wallet. Completed:"
-" %(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed: "
+"%(completed)d"
 
 #: wallet/views.py:99
 #, fuzzy
@@ -3047,11 +3029,13 @@ msgstr "เกิดข้อผิดพลาดขณะดำเนินก
 #, fuzzy, python-format
 #~ msgid ""
 #~ "\n"
-#~ "                Complete all %(completed)s of %(total)s tasks to unlock wallet binding.\n"
+#~ "                Complete all %(completed)s of %(total)s tasks to unlock "
+#~ "wallet binding.\n"
 #~ "                "
 #~ msgstr ""
 #~ "\n"
-#~ "                    ทำงาน %(count)s งานให้ครบก่อนเชื่อม (เสร็จ %(completed)s/%(count)s)\n"
+#~ "                    ทำงาน %(count)s งานให้ครบก่อนเชื่อม (เสร็จ %(completed)s/"
+#~ "%(count)s)\n"
 #~ "                "
 
 #, fuzzy

@@ -1,0 +1,74 @@
+/* Responsive wrapper and minimal utilities to scale the Home page without changing styles */
+
+/* Page container: center and limit width, preserve safe-area for mobile */
+.page-container{
+  max-width: 980px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: env(safe-area-inset-top,20px) 16px calc(env(safe-area-inset-bottom,20px) + 88px);
+  width: 100%;
+}
+
+/* Generic card/panel tuning to match Profile spacing (non-invasive) */
+.card, .panel, .box, .wallet-card, .profile-card {
+  border-radius: 20px;
+  padding: 16px;
+  box-sizing: border-box;
+  max-width: 100%;
+}
+
+/* Buttons: scale and keep consistent hit area */
+button, .btn, .button {
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 28px;
+  box-sizing: border-box;
+}
+
+/* Quick access grid: 2 columns on small screens */
+.quick-access, .quick-grid, .quick-access-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+/* Floating action button: keep above bottom nav and not overlap content */
+.fab, .floating-action, .chat-fab {
+  position: fixed;
+  right: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom, 0px) + 56px); /* sit above nav */
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  z-index: 60;
+}
+
+/* Bottom nav safe spacing: ensure content doesn't get hidden */
+footer, .bottom-nav, .nav-bar {
+  z-index: 50;
+}
+
+/* Readability fallback: slightly darken page background behind cards if needed */
+.page-overlay {
+  background: rgba(0,0,0,0.18);
+  backdrop-filter: blur(6px);
+}
+
+/* Breakpoints: scale up spacing and grid on larger screens */
+@media (min-width: 600px) {
+  .page-container { padding-left: 22px; padding-right: 22px; padding-bottom: calc(env(safe-area-inset-bottom,20px) + 92px); }
+  .card, .panel, .box { padding: 18px; border-radius: 22px; }
+  button, .btn, .button { min-height: 48px; padding: 12px 18px; }
+  .quick-access, .quick-grid { gap: 14px; }
+}
+
+@media (min-width: 900px) {
+  .page-container { padding: 28px; }
+  .card, .panel, .box { padding: 22px; border-radius: 26px; }
+  button, .btn, .button { min-height: 52px; padding: 14px 22px; }
+  .quick-access, .quick-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .fab, .floating-action, .chat-fab { right: 28px; bottom: 28px; }
+}

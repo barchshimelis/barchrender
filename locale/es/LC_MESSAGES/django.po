@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 16:31+0000\n"
+"POT-Creation-Date: 2026-02-22 09:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,7 +11,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
 
 #: AmazonProject/settings.py:124
 msgid "English"
@@ -105,9 +106,9 @@ msgstr "Historial de recarga"
 #: accounts/templates/accounts/activities.html:350
 #: accounts/templates/accounts/activities.html:372
 #: accounts/templates/accounts/me.html:618
-#: balance/templates/balance/wallet_dashboard.html:332
+#: balance/templates/balance/wallet_dashboard.html:335
 #: products/templates/products/partials/task_panel.html:41
-#: templates/index.html:412
+#: templates/index.html:414
 msgid "Recharge"
 msgstr "Recargar"
 
@@ -338,7 +339,7 @@ msgstr "Ajustes"
 
 #: accounts/templates/accounts/me.html:625
 #: products/templates/products/partials/task_panel.html:204
-#: templates/index.html:419
+#: templates/index.html:421
 msgid "Withdraw"
 msgstr "Retirar"
 
@@ -669,7 +670,7 @@ msgstr "No leído"
 msgid "Continue task"
 msgstr "Continuar tarea"
 
-#: accounts/views.py:1408 templates/index.html:433
+#: accounts/views.py:1408 templates/index.html:435
 msgid "Start task"
 msgstr "Iniciar tarea"
 
@@ -718,25 +719,23 @@ msgstr "Volver al panel de billetera"
 msgid "Wallet dashboard"
 msgstr "Panel de billetera"
 
-#: balance/templates/balance/wallet_dashboard.html:294 templates/base.html:282
+#: balance/templates/balance/wallet_dashboard.html:297 templates/base.html:282
 msgid "Balance"
 msgstr "Balance"
 
-#: balance/templates/balance/wallet_dashboard.html:303
-#: templates/index.html:381
+#: balance/templates/balance/wallet_dashboard.html:306 templates/index.html:383
 msgid "Product commission"
 msgstr "Comisión de producto"
 
-#: balance/templates/balance/wallet_dashboard.html:315
-#: templates/index.html:393
+#: balance/templates/balance/wallet_dashboard.html:318 templates/index.html:395
 msgid "Referral commission"
 msgstr "Comisión de referencia"
 
-#: balance/templates/balance/wallet_dashboard.html:344
+#: balance/templates/balance/wallet_dashboard.html:347
 msgid "Enter amount"
 msgstr "Ingrese la cantidad"
 
-#: balance/templates/balance/wallet_dashboard.html:350
+#: balance/templates/balance/wallet_dashboard.html:353
 msgid "Continue to payment"
 msgstr "Continuar con el pago"
 
@@ -909,7 +908,7 @@ msgid "Remaining"
 msgstr "Restante"
 
 #: products/templates/products/partials/task_panel.html:79
-#: templates/index.html:358
+#: templates/index.html:360
 msgid "N/A"
 msgstr "N / A"
 
@@ -964,8 +963,7 @@ msgstr "Lucky order: Additional bonus unlocked $%(amount)s"
 #: products/templates/products/partials/task_panel.html:172
 msgid "Lucky order: Additional bonus unlocked extra after recharge"
 msgstr ""
-"Orden de la suerte: bonificación adicional desbloqueada después de la "
-"recarga"
+"Orden de la suerte: bonificación adicional desbloqueada después de la recarga"
 
 #: products/templates/products/partials/task_panel.html:181
 msgid "Recharge now"
@@ -1030,8 +1028,8 @@ msgid ""
 msgstr ""
 "Regístrese con información personal auténtica. La contabilidad múltiple, la "
 "falsificación de identidad o el intercambio de credenciales con terceros "
-"están estrictamente prohibidos y pueden resultar en una suspensión inmediata"
-" pendiente de revisión."
+"están estrictamente prohibidos y pueden resultar en una suspensión inmediata "
+"pendiente de revisión."
 
 #: products/templates/products/regulation_policy.html:269
 msgid "Task Integrity & Completion"
@@ -1082,8 +1080,8 @@ msgstr "Protección de datos"
 #: products/templates/products/regulation_policy.html:292
 msgid ""
 "We collect only the data required to manage task assignments and payments. "
-"Personal information is encrypted, stored securely, and never shared without"
-" consent unless required by law. Users must keep task data confidential to "
+"Personal information is encrypted, stored securely, and never shared without "
+"consent unless required by law. Users must keep task data confidential to "
 "protect merchants and platform integrity."
 msgstr ""
 "Solo recopilamos los datos necesarios para gestionar las asignaciones de "
@@ -1102,8 +1100,8 @@ msgid ""
 "evidence. Compliance specialists review all disputes objectively and "
 "document outcomes for full transparency."
 msgstr ""
-"Reportar discrepancias dentro de las 48 horas, proporcionando referencias de"
-" tareas y evidencia. Los especialistas en cumplimiento revisan todas las "
+"Reportar discrepancias dentro de las 48 horas, proporcionando referencias de "
+"tareas y evidencia. Los especialistas en cumplimiento revisan todas las "
 "disputas de manera objetiva y documentan los resultados para lograr total "
 "transparencia."
 
@@ -1122,8 +1120,7 @@ msgstr "Atrás"
 #: products/views.py:103 products/views.py:317
 msgid "System is busy processing tasks. Please retry in a moment."
 msgstr ""
-"El sistema está ocupado procesando tareas. Vuelva a intentarlo en un "
-"momento."
+"El sistema está ocupado procesando tareas. Vuelva a intentarlo en un momento."
 
 #: products/views.py:303
 #, fuzzy
@@ -1143,57 +1140,57 @@ msgstr "Estás desconectado. Por favor vuelva a conectarse."
 msgid "Me"
 msgstr "A mí"
 
-#: templates/index.html:352
+#: templates/index.html:354
 msgid "Hello"
 msgstr "Hola"
 
-#: templates/index.html:354
+#: templates/index.html:356
 msgid "No phone"
 msgstr "sin telefono"
 
-#: templates/index.html:357
+#: templates/index.html:359
 msgid "Invite code"
 msgstr "código de invitación"
 
-#: templates/index.html:372
+#: templates/index.html:374
 msgid "Total Recharged"
 msgstr "Total Recargado"
 
-#: templates/index.html:402
+#: templates/index.html:404
 msgid "Lucky order bonus"
 msgstr "Bono por orden afortunada"
 
-#: templates/index.html:426
+#: templates/index.html:428
 msgid "About us"
 msgstr "Sobre nosotros"
 
-#: templates/index.html:439
+#: templates/index.html:441
 msgid "Available products"
 msgstr "Productos disponibles"
 
-#: templates/index.html:457
+#: templates/index.html:459
 msgid "Featured opportunity"
 msgstr "Oportunidad destacada"
 
-#: templates/index.html:459
+#: templates/index.html:461
 #, python-format
 msgid "Earn $%(amount)s"
 msgstr "Gana $%(amount)s"
 
-#: templates/index.html:460
+#: templates/index.html:462
 #, python-format
 msgid "Price $%(price)s"
 msgstr "Precio $%(price)s"
 
-#: templates/index.html:469
+#: templates/index.html:471
 msgid "Prime pick drop"
 msgstr "Caída de selección principal"
 
-#: templates/index.html:471
+#: templates/index.html:473
 msgid "Earn up to $185"
 msgstr "Gana hasta $185"
 
-#: templates/index.html:472
+#: templates/index.html:474
 msgid "Price $129.00"
 msgstr "Precio $129.00"
 
@@ -1278,8 +1275,8 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/core/validators.py:297
 #: venv/lib64/python3.12/site-packages/django/core/validators.py:297
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
-" hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
 msgstr ""
 "Ingrese un \"slug\" válido que consta de letras, números, guiones bajos o "
 "guiones Unicode."
@@ -1552,21 +1549,21 @@ msgstr "Fecha (sin hora)"
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1562
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 msgstr ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 msgstr ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1575
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1575
@@ -1588,11 +1585,11 @@ msgstr "numero decimal"
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1864
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 msgstr ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1868
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1868
@@ -1790,8 +1787,7 @@ msgid "Many-to-many relationship"
 msgstr "Relación de muchos a muchos"
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the
-#. label
+#. characters will prevent the default label_suffix to be appended to the label
 #: venv/lib/python3.12/site-packages/django/forms/boundfield.py:185
 #: venv/lib64/python3.12/site-packages/django/forms/boundfield.py:185
 msgid ":?.!"
@@ -1857,8 +1853,7 @@ msgstr "El archivo enviado está vacío."
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:644
 #: venv/lib64/python3.12/site-packages/django/forms/fields.py:644
 #, python-format
-msgid ""
-"Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -1975,8 +1970,7 @@ msgstr "Please correct the duplicate data for %(field)s."
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:906
 #, python-format
 msgid "Please correct the duplicate data for %(field)s, which must be unique."
-msgstr ""
-"Please correct the duplicate data for %(field)s, which must be unique."
+msgstr "Please correct the duplicate data for %(field)s, which must be unique."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:913
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:913
@@ -2000,8 +1994,7 @@ msgstr "El valor en línea no coincide con la instancia principal."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1450
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:1450
-msgid ""
-"Select a valid choice. That choice is not one of the available choices."
+msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 "Seleccione una opción válida. Esa elección no es una de las opciones "
 "disponibles."
@@ -2581,18 +2574,18 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:45
 #: venv/lib64/python3.12/site-packages/django/views/csrf.py:45
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
-" including the “Referrer-Policy: no-referrer” header, please remove them. "
-"The CSRF protection requires the “Referer” header to do strict referer "
-"checking. If you’re concerned about privacy, use alternatives like <a "
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
 "rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
 "Si está utilizando la etiqueta <meta name=\"referrer\" content=\"no-"
 "referrer\"> o incluye el encabezado “Referrer-Policy: no-referrer”, "
 "elimínelas. La protección CSRF requiere que el encabezado \"Referer\" "
 "realice una verificación estricta del referente. Si le preocupa la "
-"privacidad, utilice alternativas como <a rel=\"noreferrer\"…> para enlaces a"
-" sitios de terceros."
+"privacidad, utilice alternativas como <a rel=\"noreferrer\"…> para enlaces a "
+"sitios de terceros."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:54
 #: venv/lib64/python3.12/site-packages/django/views/csrf.py:54
@@ -2661,11 +2654,11 @@ msgstr "No %(verbose_name_plural)s available"
 #: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:680
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 msgstr ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:720
 #: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:720
@@ -2738,15 +2731,15 @@ msgstr ""
 #: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:208
 #, python-format
 msgid ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 msgstr ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:217
 #: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:217
@@ -2927,11 +2920,11 @@ msgstr ""
 #: wallet/views.py:89
 #, python-format
 msgid ""
-"You must complete all %(total)d tasks before binding your wallet. Completed:"
-" %(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed: "
+"%(completed)d"
 msgstr ""
-"You must complete all %(total)d tasks before binding your wallet. Completed:"
-" %(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed: "
+"%(completed)d"
 
 #: wallet/views.py:99
 #, fuzzy
@@ -3059,8 +3052,8 @@ msgstr "Ocurrió un error al procesar tu retiro: %(error)s"
 
 #~ msgid "Organization rules violated, please contact customer service."
 #~ msgstr ""
-#~ "Se infringieron las reglas de la organización, comuníquese con el servicio "
-#~ "de atención al cliente."
+#~ "Se infringieron las reglas de la organización, comuníquese con el "
+#~ "servicio de atención al cliente."
 
 #~ msgid "Unable to authenticate. Please try again."
 #~ msgstr "No se puede autenticar. Por favor inténtalo de nuevo."
@@ -3106,11 +3099,13 @@ msgstr "Ocurrió un error al procesar tu retiro: %(error)s"
 #, fuzzy, python-format
 #~ msgid ""
 #~ "\n"
-#~ "                Complete all %(completed)s of %(total)s tasks to unlock wallet binding.\n"
+#~ "                Complete all %(completed)s of %(total)s tasks to unlock "
+#~ "wallet binding.\n"
 #~ "                "
 #~ msgstr ""
 #~ "\n"
-#~ "                    Completa todas las %(count)s tareas antes de vincular (%(completed)s/%(count)s completadas).\n"
+#~ "                    Completa todas las %(count)s tareas antes de vincular "
+#~ "(%(completed)s/%(count)s completadas).\n"
 #~ "                "
 
 #, fuzzy

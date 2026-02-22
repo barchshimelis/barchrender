@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 16:32+0000\n"
+"POT-Creation-Date: 2026-02-22 09:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,9 +105,9 @@ msgstr "Histórico de recarga"
 #: accounts/templates/accounts/activities.html:350
 #: accounts/templates/accounts/activities.html:372
 #: accounts/templates/accounts/me.html:618
-#: balance/templates/balance/wallet_dashboard.html:332
+#: balance/templates/balance/wallet_dashboard.html:335
 #: products/templates/products/partials/task_panel.html:41
-#: templates/index.html:412
+#: templates/index.html:414
 msgid "Recharge"
 msgstr "Recarregar"
 
@@ -338,7 +338,7 @@ msgstr "Configurações"
 
 #: accounts/templates/accounts/me.html:625
 #: products/templates/products/partials/task_panel.html:204
-#: templates/index.html:419
+#: templates/index.html:421
 msgid "Withdraw"
 msgstr "Retirar"
 
@@ -668,7 +668,7 @@ msgstr "Não lido"
 msgid "Continue task"
 msgstr "Continuar tarefa"
 
-#: accounts/views.py:1408 templates/index.html:433
+#: accounts/views.py:1408 templates/index.html:435
 msgid "Start task"
 msgstr "Iniciar tarefa"
 
@@ -717,25 +717,23 @@ msgstr "Voltar ao painel da carteira"
 msgid "Wallet dashboard"
 msgstr "Painel da carteira"
 
-#: balance/templates/balance/wallet_dashboard.html:294 templates/base.html:282
+#: balance/templates/balance/wallet_dashboard.html:297 templates/base.html:282
 msgid "Balance"
 msgstr "Equilíbrio"
 
-#: balance/templates/balance/wallet_dashboard.html:303
-#: templates/index.html:381
+#: balance/templates/balance/wallet_dashboard.html:306 templates/index.html:383
 msgid "Product commission"
 msgstr "Comissão do produto"
 
-#: balance/templates/balance/wallet_dashboard.html:315
-#: templates/index.html:393
+#: balance/templates/balance/wallet_dashboard.html:318 templates/index.html:395
 msgid "Referral commission"
 msgstr "Comissão de referência"
 
-#: balance/templates/balance/wallet_dashboard.html:344
+#: balance/templates/balance/wallet_dashboard.html:347
 msgid "Enter amount"
 msgstr "Insira o valor"
 
-#: balance/templates/balance/wallet_dashboard.html:350
+#: balance/templates/balance/wallet_dashboard.html:353
 msgid "Continue to payment"
 msgstr "Continuar para o pagamento"
 
@@ -907,7 +905,7 @@ msgid "Remaining"
 msgstr "Restante"
 
 #: products/templates/products/partials/task_panel.html:79
-#: templates/index.html:358
+#: templates/index.html:360
 msgid "N/A"
 msgstr "N / D"
 
@@ -1077,15 +1075,15 @@ msgstr "Proteção de Dados"
 #: products/templates/products/regulation_policy.html:292
 msgid ""
 "We collect only the data required to manage task assignments and payments. "
-"Personal information is encrypted, stored securely, and never shared without"
-" consent unless required by law. Users must keep task data confidential to "
+"Personal information is encrypted, stored securely, and never shared without "
+"consent unless required by law. Users must keep task data confidential to "
 "protect merchants and platform integrity."
 msgstr ""
 "Coletamos apenas os dados necessários para gerenciar atribuições de tarefas "
 "e pagamentos. As informações pessoais são criptografadas, armazenadas de "
 "forma segura e nunca são compartilhadas sem consentimento, a menos que "
-"exigido por lei. Os usuários devem manter os dados das tarefas confidenciais"
-" para proteger os comerciantes e a integridade da plataforma."
+"exigido por lei. Os usuários devem manter os dados das tarefas confidenciais "
+"para proteger os comerciantes e a integridade da plataforma."
 
 #: products/templates/products/regulation_policy.html:299
 msgid "Dispute Resolution"
@@ -1097,8 +1095,8 @@ msgid ""
 "evidence. Compliance specialists review all disputes objectively and "
 "document outcomes for full transparency."
 msgstr ""
-"Relate discrepâncias dentro de 48 horas, fornecendo referências de tarefas e"
-" evidências. Os especialistas em conformidade analisam todas as disputas de "
+"Relate discrepâncias dentro de 48 horas, fornecendo referências de tarefas e "
+"evidências. Os especialistas em conformidade analisam todas as disputas de "
 "forma objetiva e documentam os resultados para obter total transparência."
 
 #: products/templates/products/regulation_policy.html:308
@@ -1106,8 +1104,8 @@ msgid ""
 "Need clarification or wish to report a policy concern? Our compliance desk "
 "is available daily."
 msgstr ""
-"Precisa de esclarecimentos ou deseja relatar uma preocupação política? Nosso"
-" balcão de conformidade está disponível diariamente."
+"Precisa de esclarecimentos ou deseja relatar uma preocupação política? Nosso "
+"balcão de conformidade está disponível diariamente."
 
 #: products/templates/products/regulation_policy.html:313
 msgid "Back"
@@ -1137,59 +1135,59 @@ msgstr "Você está off-line. Por favor, reconecte."
 msgid "Me"
 msgstr "Meu"
 
-#: templates/index.html:352
+#: templates/index.html:354
 msgid "Hello"
 msgstr "Olá"
 
-#: templates/index.html:354
+#: templates/index.html:356
 msgid "No phone"
 msgstr "Sem telefone"
 
-#: templates/index.html:357
+#: templates/index.html:359
 msgid "Invite code"
 msgstr "Código de convite"
 
-#: templates/index.html:372
+#: templates/index.html:374
 #, fuzzy
 #| msgid "Recharge"
 msgid "Total Recharged"
 msgstr "Totalmente recarregado"
 
-#: templates/index.html:402
+#: templates/index.html:404
 msgid "Lucky order bonus"
 msgstr "Bônus de pedido de sorte"
 
-#: templates/index.html:426
+#: templates/index.html:428
 msgid "About us"
 msgstr "Sobre nós"
 
-#: templates/index.html:439
+#: templates/index.html:441
 msgid "Available products"
 msgstr "Produtos disponíveis"
 
-#: templates/index.html:457
+#: templates/index.html:459
 msgid "Featured opportunity"
 msgstr "Oportunidade em destaque"
 
-#: templates/index.html:459
+#: templates/index.html:461
 #, python-format
 msgid "Earn $%(amount)s"
 msgstr "Ganhe $%(amount)s"
 
-#: templates/index.html:460
+#: templates/index.html:462
 #, python-format
 msgid "Price $%(price)s"
 msgstr "Preço $%(price)s"
 
-#: templates/index.html:469
+#: templates/index.html:471
 msgid "Prime pick drop"
 msgstr "Queda de escolha principal"
 
-#: templates/index.html:471
+#: templates/index.html:473
 msgid "Earn up to $185"
 msgstr "Ganhe até $ 185"
 
-#: templates/index.html:472
+#: templates/index.html:474
 msgid "Price $129.00"
 msgstr "Preço $ 129,00"
 
@@ -1273,8 +1271,8 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/core/validators.py:297
 #: venv/lib64/python3.12/site-packages/django/core/validators.py:297
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
-" hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
 msgstr ""
 "Insira um “slug” válido que consiste em letras, números, sublinhados ou "
 "hifens Unicode."
@@ -1542,21 +1540,21 @@ msgstr "Data (sem hora)"
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1562
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 msgstr ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 msgstr ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1575
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1575
@@ -1578,11 +1576,11 @@ msgstr "Número decimal"
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1864
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 msgstr ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1868
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1868
@@ -1780,8 +1778,7 @@ msgid "Many-to-many relationship"
 msgstr "Relacionamento muitos-para-muitos"
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the
-#. label
+#. characters will prevent the default label_suffix to be appended to the label
 #: venv/lib/python3.12/site-packages/django/forms/boundfield.py:185
 #: venv/lib64/python3.12/site-packages/django/forms/boundfield.py:185
 msgid ":?.!"
@@ -1846,8 +1843,7 @@ msgstr "O arquivo enviado está vazio."
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:644
 #: venv/lib64/python3.12/site-packages/django/forms/fields.py:644
 #, python-format
-msgid ""
-"Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -1961,8 +1957,7 @@ msgstr "Please correct the duplicate data for %(field)s."
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:906
 #, python-format
 msgid "Please correct the duplicate data for %(field)s, which must be unique."
-msgstr ""
-"Please correct the duplicate data for %(field)s, which must be unique."
+msgstr "Please correct the duplicate data for %(field)s, which must be unique."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:913
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:913
@@ -1986,8 +1981,7 @@ msgstr "O valor embutido não correspondeu à instância pai."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1450
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:1450
-msgid ""
-"Select a valid choice. That choice is not one of the available choices."
+msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 "Selecione uma opção válida. Essa escolha não é uma das opções disponíveis."
 
@@ -2540,9 +2534,9 @@ msgid ""
 "required for security reasons, to ensure that your browser is not being "
 "hijacked by third parties."
 msgstr ""
-"Você está vendo esta mensagem porque este site HTTPS exige que um “cabeçalho"
-" de referência” seja enviado pelo seu navegador, mas nenhum foi enviado. "
-"Este cabeçalho é necessário por motivos de segurança, para garantir que seu "
+"Você está vendo esta mensagem porque este site HTTPS exige que um “cabeçalho "
+"de referência” seja enviado pelo seu navegador, mas nenhum foi enviado. Este "
+"cabeçalho é necessário por motivos de segurança, para garantir que seu "
 "navegador não seja invadido por terceiros."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:40
@@ -2559,10 +2553,10 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:45
 #: venv/lib64/python3.12/site-packages/django/views/csrf.py:45
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
-" including the “Referrer-Policy: no-referrer” header, please remove them. "
-"The CSRF protection requires the “Referer” header to do strict referer "
-"checking. If you’re concerned about privacy, use alternatives like <a "
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
 "rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
 "Se você estiver usando a tag <meta name=\"referrer\" content=\"no-"
@@ -2638,11 +2632,11 @@ msgstr "No %(verbose_name_plural)s available"
 #: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:680
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 msgstr ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:720
 #: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:720
@@ -2715,15 +2709,15 @@ msgstr ""
 #: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:208
 #, python-format
 msgid ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 msgstr ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:217
 #: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:217
@@ -2904,11 +2898,11 @@ msgstr ""
 #: wallet/views.py:89
 #, python-format
 msgid ""
-"You must complete all %(total)d tasks before binding your wallet. Completed:"
-" %(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed: "
+"%(completed)d"
 msgstr ""
-"You must complete all %(total)d tasks before binding your wallet. Completed:"
-" %(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed: "
+"%(completed)d"
 
 #: wallet/views.py:99
 #, fuzzy

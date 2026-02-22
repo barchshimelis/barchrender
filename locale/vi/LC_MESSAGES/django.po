@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 16:32+0000\n"
+"POT-Creation-Date: 2026-02-22 09:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,9 +105,9 @@ msgstr "Lịch sử nạp tiền"
 #: accounts/templates/accounts/activities.html:350
 #: accounts/templates/accounts/activities.html:372
 #: accounts/templates/accounts/me.html:618
-#: balance/templates/balance/wallet_dashboard.html:332
+#: balance/templates/balance/wallet_dashboard.html:335
 #: products/templates/products/partials/task_panel.html:41
-#: templates/index.html:412
+#: templates/index.html:414
 msgid "Recharge"
 msgstr "nạp tiền"
 
@@ -338,7 +338,7 @@ msgstr "Cài đặt"
 
 #: accounts/templates/accounts/me.html:625
 #: products/templates/products/partials/task_panel.html:204
-#: templates/index.html:419
+#: templates/index.html:421
 msgid "Withdraw"
 msgstr "Rút"
 
@@ -587,8 +587,7 @@ msgstr "Đăng ký thành công! Vui lòng đăng nhập."
 #, fuzzy
 #| msgid "company rules viloated,Please contact customer service"
 msgid "company rules viloated,Please contact customer service."
-msgstr ""
-"vi phạm nội quy công ty, vui lòng liên hệ bộ phận chăm sóc khách hàng."
+msgstr "vi phạm nội quy công ty, vui lòng liên hệ bộ phận chăm sóc khách hàng."
 
 #: accounts/views.py:1089
 msgid "Product task"
@@ -668,7 +667,7 @@ msgstr "Chưa đọc"
 msgid "Continue task"
 msgstr "Tiếp tục nhiệm vụ"
 
-#: accounts/views.py:1408 templates/index.html:433
+#: accounts/views.py:1408 templates/index.html:435
 msgid "Start task"
 msgstr "Bắt đầu nhiệm vụ"
 
@@ -717,25 +716,23 @@ msgstr "Quay lại bảng điều khiển ví"
 msgid "Wallet dashboard"
 msgstr "Trang tổng quan của ví"
 
-#: balance/templates/balance/wallet_dashboard.html:294 templates/base.html:282
+#: balance/templates/balance/wallet_dashboard.html:297 templates/base.html:282
 msgid "Balance"
 msgstr "Sự cân bằng"
 
-#: balance/templates/balance/wallet_dashboard.html:303
-#: templates/index.html:381
+#: balance/templates/balance/wallet_dashboard.html:306 templates/index.html:383
 msgid "Product commission"
 msgstr "Hoa hồng sản phẩm"
 
-#: balance/templates/balance/wallet_dashboard.html:315
-#: templates/index.html:393
+#: balance/templates/balance/wallet_dashboard.html:318 templates/index.html:395
 msgid "Referral commission"
 msgstr "Hoa hồng giới thiệu"
 
-#: balance/templates/balance/wallet_dashboard.html:344
+#: balance/templates/balance/wallet_dashboard.html:347
 msgid "Enter amount"
 msgstr "Nhập số tiền"
 
-#: balance/templates/balance/wallet_dashboard.html:350
+#: balance/templates/balance/wallet_dashboard.html:353
 msgid "Continue to payment"
 msgstr "Tiếp tục thanh toán"
 
@@ -875,8 +872,8 @@ msgstr "Chờ"
 #: chat/templates/chat/user_support_portal.html:647
 msgid "Start chatting with customer service—ask anything you need."
 msgstr ""
-"Bắt đầu trò chuyện với bộ phận dịch vụ khách hàng—hãy hỏi bất kỳ điều gì bạn"
-" cần."
+"Bắt đầu trò chuyện với bộ phận dịch vụ khách hàng—hãy hỏi bất kỳ điều gì bạn "
+"cần."
 
 #: chat/templates/chat/user_support_portal.html:649
 msgid "Pick a user from the left to see the conversation."
@@ -911,7 +908,7 @@ msgid "Remaining"
 msgstr "Còn lại"
 
 #: products/templates/products/partials/task_panel.html:79
-#: templates/index.html:358
+#: templates/index.html:360
 msgid "N/A"
 msgstr "không áp dụng"
 
@@ -1042,8 +1039,8 @@ msgid ""
 "to forfeiture of commissions and possible account closure."
 msgstr ""
 "Thực hiện theo từng bản tóm tắt nhiệm vụ một cách chính xác. Các công cụ tự "
-"động, sử dụng proxy, tiến trình báo cáo sai hoặc thao túng ảnh chụp màn hình"
-" là hành vi sai trái và dẫn đến việc bị mất tiền hoa hồng và có thể bị đóng "
+"động, sử dụng proxy, tiến trình báo cáo sai hoặc thao túng ảnh chụp màn hình "
+"là hành vi sai trái và dẫn đến việc bị mất tiền hoa hồng và có thể bị đóng "
 "tài khoản."
 
 #: products/templates/products/regulation_policy.html:278
@@ -1069,8 +1066,8 @@ msgid ""
 "Commission earnings are fully logged and accessible inside the wallet "
 "dashboard."
 msgstr ""
-"Thu nhập hoa hồng được ghi lại đầy đủ và có thể truy cập được bên trong bảng"
-" điều khiển ví."
+"Thu nhập hoa hồng được ghi lại đầy đủ và có thể truy cập được bên trong bảng "
+"điều khiển ví."
 
 #: products/templates/products/regulation_policy.html:290
 msgid "Data Protection"
@@ -1079,14 +1076,14 @@ msgstr "Bảo vệ dữ liệu"
 #: products/templates/products/regulation_policy.html:292
 msgid ""
 "We collect only the data required to manage task assignments and payments. "
-"Personal information is encrypted, stored securely, and never shared without"
-" consent unless required by law. Users must keep task data confidential to "
+"Personal information is encrypted, stored securely, and never shared without "
+"consent unless required by law. Users must keep task data confidential to "
 "protect merchants and platform integrity."
 msgstr ""
 "Chúng tôi chỉ thu thập dữ liệu cần thiết để quản lý việc phân công nhiệm vụ "
 "và thanh toán. Thông tin cá nhân được mã hóa, lưu trữ an toàn và không bao "
-"giờ chia sẻ mà không có sự đồng ý trừ khi pháp luật yêu cầu. Người dùng phải"
-" giữ bí mật dữ liệu nhiệm vụ để bảo vệ người bán và tính toàn vẹn của nền "
+"giờ chia sẻ mà không có sự đồng ý trừ khi pháp luật yêu cầu. Người dùng phải "
+"giữ bí mật dữ liệu nhiệm vụ để bảo vệ người bán và tính toàn vẹn của nền "
 "tảng."
 
 #: products/templates/products/regulation_policy.html:299
@@ -1138,59 +1135,59 @@ msgstr "Bạn đang ngoại tuyến. Vui lòng kết nối lại."
 msgid "Me"
 msgstr "Tôi"
 
-#: templates/index.html:352
+#: templates/index.html:354
 msgid "Hello"
 msgstr "Xin chào"
 
-#: templates/index.html:354
+#: templates/index.html:356
 msgid "No phone"
 msgstr "Không có điện thoại"
 
-#: templates/index.html:357
+#: templates/index.html:359
 msgid "Invite code"
 msgstr "Mã mời"
 
-#: templates/index.html:372
+#: templates/index.html:374
 msgid "Total Recharged"
 msgstr "Tổng số tiền đã nạp"
 
-#: templates/index.html:402
+#: templates/index.html:404
 #, fuzzy
 #| msgid "Lucky order"
 msgid "Lucky order bonus"
 msgstr "Tiền thưởng đơn hàng may mắn"
 
-#: templates/index.html:426
+#: templates/index.html:428
 msgid "About us"
 msgstr "Về chúng tôi"
 
-#: templates/index.html:439
+#: templates/index.html:441
 msgid "Available products"
 msgstr "Sản phẩm có sẵn"
 
-#: templates/index.html:457
+#: templates/index.html:459
 msgid "Featured opportunity"
 msgstr "Cơ hội nổi bật"
 
-#: templates/index.html:459
+#: templates/index.html:461
 #, python-format
 msgid "Earn $%(amount)s"
 msgstr "Kiếm $%(amount)s"
 
-#: templates/index.html:460
+#: templates/index.html:462
 #, python-format
 msgid "Price $%(price)s"
 msgstr "Giá $%(price)s"
 
-#: templates/index.html:469
+#: templates/index.html:471
 msgid "Prime pick drop"
 msgstr "Chọn thả Prime"
 
-#: templates/index.html:471
+#: templates/index.html:473
 msgid "Earn up to $185"
 msgstr "Kiếm tới $185"
 
-#: templates/index.html:472
+#: templates/index.html:474
 msgid "Price $129.00"
 msgstr "Giá $129,00"
 
@@ -1274,11 +1271,11 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/core/validators.py:297
 #: venv/lib64/python3.12/site-packages/django/core/validators.py:297
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
-" hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
 msgstr ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
-" hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:309
 #: venv/lib/python3.12/site-packages/django/core/validators.py:318
@@ -1538,21 +1535,21 @@ msgstr "Ngày (không có thời gian)"
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1562
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 msgstr ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 msgstr ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1575
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1575
@@ -1574,11 +1571,11 @@ msgstr "Số thập phân"
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1864
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 msgstr ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1868
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1868
@@ -1776,8 +1773,7 @@ msgid "Many-to-many relationship"
 msgstr "Mối quan hệ nhiều-nhiều"
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the
-#. label
+#. characters will prevent the default label_suffix to be appended to the label
 #: venv/lib/python3.12/site-packages/django/forms/boundfield.py:185
 #: venv/lib64/python3.12/site-packages/django/forms/boundfield.py:185
 msgid ":?.!"
@@ -1841,8 +1837,7 @@ msgstr "Tệp đã gửi trống."
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:644
 #: venv/lib64/python3.12/site-packages/django/forms/fields.py:644
 #, python-format
-msgid ""
-"Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -1953,8 +1948,7 @@ msgstr "Please correct the duplicate data for %(field)s."
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:906
 #, python-format
 msgid "Please correct the duplicate data for %(field)s, which must be unique."
-msgstr ""
-"Please correct the duplicate data for %(field)s, which must be unique."
+msgstr "Please correct the duplicate data for %(field)s, which must be unique."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:913
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:913
@@ -1978,8 +1972,7 @@ msgstr "Giá trị nội tuyến không khớp với phiên bản gốc."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1450
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:1450
-msgid ""
-"Select a valid choice. That choice is not one of the available choices."
+msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 "Chọn một lựa chọn hợp lệ. Sự lựa chọn đó không phải là một trong những lựa "
 "chọn có sẵn."
@@ -2545,10 +2538,10 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:45
 #: venv/lib64/python3.12/site-packages/django/views/csrf.py:45
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
-" including the “Referrer-Policy: no-referrer” header, please remove them. "
-"The CSRF protection requires the “Referer” header to do strict referer "
-"checking. If you’re concerned about privacy, use alternatives like <a "
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
 "rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
 "Nếu bạn đang sử dụng thẻ <meta name=\"referrer\" content=\"no-referrer\"> "
@@ -2625,11 +2618,11 @@ msgstr "No %(verbose_name_plural)s available"
 #: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:680
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 msgstr ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:720
 #: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:720
@@ -2646,7 +2639,8 @@ msgstr "No %(verbose_name)s found matching the query"
 #: venv/lib/python3.12/site-packages/django/views/generic/list.py:70
 #: venv/lib64/python3.12/site-packages/django/views/generic/list.py:70
 msgid "Page is not “last”, nor can it be converted to an int."
-msgstr "Trang không phải là \"cuối cùng\" và cũng không thể chuyển đổi thành int."
+msgstr ""
+"Trang không phải là \"cuối cùng\" và cũng không thể chuyển đổi thành int."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/list.py:77
 #: venv/lib64/python3.12/site-packages/django/views/generic/list.py:77
@@ -2702,15 +2696,15 @@ msgstr ""
 #: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:208
 #, python-format
 msgid ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 msgstr ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:217
 #: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:217
@@ -2891,11 +2885,11 @@ msgstr ""
 #: wallet/views.py:89
 #, python-format
 msgid ""
-"You must complete all %(total)d tasks before binding your wallet. Completed:"
-" %(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed: "
+"%(completed)d"
 msgstr ""
-"You must complete all %(total)d tasks before binding your wallet. Completed:"
-" %(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed: "
+"%(completed)d"
 
 #: wallet/views.py:99
 #, fuzzy
@@ -2998,7 +2992,8 @@ msgid "An error occurred while processing your withdrawal: %(error)s"
 msgstr "Đã xảy ra lỗi khi xử lý yêu cầu rút tiền của bạn: %(error)s"
 
 #~ msgid "Phone number must be numeric and may start with + (max 15 digits)."
-#~ msgstr "Số điện thoại phải là số và có thể bắt đầu bằng + (tối đa 15 chữ số)."
+#~ msgstr ""
+#~ "Số điện thoại phải là số và có thể bắt đầu bằng + (tối đa 15 chữ số)."
 
 #~ msgid "Username must be between 6 and 15 characters."
 #~ msgstr "Tên người dùng phải có từ 6 đến 15 ký tự."
@@ -3019,7 +3014,8 @@ msgstr "Đã xảy ra lỗi khi xử lý yêu cầu rút tiền của bạn: %(e
 #~ msgstr "Thông tin xác thực không hợp lệ."
 
 #~ msgid "Organization rules violated, please contact customer service."
-#~ msgstr "Nội quy tổ chức bị vi phạm, vui lòng liên hệ với dịch vụ khách hàng."
+#~ msgstr ""
+#~ "Nội quy tổ chức bị vi phạm, vui lòng liên hệ với dịch vụ khách hàng."
 
 #~ msgid "Unable to authenticate. Please try again."
 #~ msgstr "Không thể xác thực. Vui lòng thử lại."
@@ -3065,11 +3061,13 @@ msgstr "Đã xảy ra lỗi khi xử lý yêu cầu rút tiền của bạn: %(e
 #, fuzzy, python-format
 #~ msgid ""
 #~ "\n"
-#~ "                Complete all %(completed)s of %(total)s tasks to unlock wallet binding.\n"
+#~ "                Complete all %(completed)s of %(total)s tasks to unlock "
+#~ "wallet binding.\n"
 #~ "                "
 #~ msgstr ""
 #~ "\n"
-#~ "                    Hoàn thành tất cả %(count)s nhiệm vụ trước khi ràng buộc (%(completed)s/%(count)s đã làm).\n"
+#~ "                    Hoàn thành tất cả %(count)s nhiệm vụ trước khi ràng "
+#~ "buộc (%(completed)s/%(count)s đã làm).\n"
 #~ "                "
 
 #, fuzzy

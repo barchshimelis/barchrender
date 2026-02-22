@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 16:31+0000\n"
+"POT-Creation-Date: 2026-02-22 09:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,7 +11,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: AmazonProject/settings.py:124
 msgid "English"
@@ -105,9 +107,9 @@ msgstr "Гісторыя папаўнення"
 #: accounts/templates/accounts/activities.html:350
 #: accounts/templates/accounts/activities.html:372
 #: accounts/templates/accounts/me.html:618
-#: balance/templates/balance/wallet_dashboard.html:332
+#: balance/templates/balance/wallet_dashboard.html:335
 #: products/templates/products/partials/task_panel.html:41
-#: templates/index.html:412
+#: templates/index.html:414
 msgid "Recharge"
 msgstr "Перазарадка"
 
@@ -338,7 +340,7 @@ msgstr "Налады"
 
 #: accounts/templates/accounts/me.html:625
 #: products/templates/products/partials/task_panel.html:204
-#: templates/index.html:419
+#: templates/index.html:421
 msgid "Withdraw"
 msgstr "Зняць"
 
@@ -667,7 +669,7 @@ msgstr "Непрачытанае"
 msgid "Continue task"
 msgstr "Працягнуць заданне"
 
-#: accounts/views.py:1408 templates/index.html:433
+#: accounts/views.py:1408 templates/index.html:435
 msgid "Start task"
 msgstr "Пачаць заданне"
 
@@ -716,25 +718,23 @@ msgstr "Вярнуцца да прыборнай панэлі кашалька"
 msgid "Wallet dashboard"
 msgstr "Прыборная панэль кашалька"
 
-#: balance/templates/balance/wallet_dashboard.html:294 templates/base.html:282
+#: balance/templates/balance/wallet_dashboard.html:297 templates/base.html:282
 msgid "Balance"
 msgstr "Баланс"
 
-#: balance/templates/balance/wallet_dashboard.html:303
-#: templates/index.html:381
+#: balance/templates/balance/wallet_dashboard.html:306 templates/index.html:383
 msgid "Product commission"
 msgstr "Камісія прадукту"
 
-#: balance/templates/balance/wallet_dashboard.html:315
-#: templates/index.html:393
+#: balance/templates/balance/wallet_dashboard.html:318 templates/index.html:395
 msgid "Referral commission"
 msgstr "Рэферальная камісія"
 
-#: balance/templates/balance/wallet_dashboard.html:344
+#: balance/templates/balance/wallet_dashboard.html:347
 msgid "Enter amount"
 msgstr "Увядзіце суму"
 
-#: balance/templates/balance/wallet_dashboard.html:350
+#: balance/templates/balance/wallet_dashboard.html:353
 msgid "Continue to payment"
 msgstr "Працягнуць да аплаты"
 
@@ -903,7 +903,7 @@ msgid "Remaining"
 msgstr "Засталося"
 
 #: products/templates/products/partials/task_panel.html:79
-#: templates/index.html:358
+#: templates/index.html:360
 msgid "N/A"
 msgstr "Н/Д"
 
@@ -959,8 +959,7 @@ msgstr "Lucky order: Additional bonus unlocked $%(amount)s"
 
 #: products/templates/products/partials/task_panel.html:172
 msgid "Lucky order: Additional bonus unlocked extra after recharge"
-msgstr ""
-"Шчаслівы заказ: дадатковы бонус адкрываецца дадаткова пасля папаўнення"
+msgstr "Шчаслівы заказ: дадатковы бонус адкрываецца дадаткова пасля папаўнення"
 
 #: products/templates/products/partials/task_panel.html:181
 msgid "Recharge now"
@@ -1039,8 +1038,8 @@ msgid ""
 msgstr ""
 "Дакладна выконвайце інструктаж па кожным заданні. Аўтаматызаваныя "
 "інструменты, выкарыстанне проксі-сервера, скажэнне прагрэсу або "
-"маніпуляванне скрыншотамі з'яўляюцца неправамернымі паводзінамі і прыводзяць"
-" да канфіскацыі камісійных і магчымага закрыцця акаўнта."
+"маніпуляванне скрыншотамі з'яўляюцца неправамернымі паводзінамі і прыводзяць "
+"да канфіскацыі камісійных і магчымага закрыцця акаўнта."
 
 #: products/templates/products/regulation_policy.html:278
 msgid "Financial Compliance"
@@ -1076,8 +1075,8 @@ msgstr "Абарона дадзеных"
 #: products/templates/products/regulation_policy.html:292
 msgid ""
 "We collect only the data required to manage task assignments and payments. "
-"Personal information is encrypted, stored securely, and never shared without"
-" consent unless required by law. Users must keep task data confidential to "
+"Personal information is encrypted, stored securely, and never shared without "
+"consent unless required by law. Users must keep task data confidential to "
 "protect merchants and platform integrity."
 msgstr ""
 "Мы збіраем толькі даныя, неабходныя для кіравання размеркаваннем заданняў і "
@@ -1096,8 +1095,8 @@ msgid ""
 "evidence. Compliance specialists review all disputes objectively and "
 "document outcomes for full transparency."
 msgstr ""
-"Паведаміце аб разыходжаннях на працягу 48 гадзін, падаючы спасылкі на задачы"
-" і доказы. Спецыялісты па адпаведнасці аб'ектыўна разглядаюць усе спрэчкі і "
+"Паведаміце аб разыходжаннях на працягу 48 гадзін, падаючы спасылкі на задачы "
+"і доказы. Спецыялісты па адпаведнасці аб'ектыўна разглядаюць усе спрэчкі і "
 "дакументуюць вынікі для поўнай празрыстасці."
 
 #: products/templates/products/regulation_policy.html:308
@@ -1134,57 +1133,57 @@ msgstr "Вы па-за сеткай. Падключыцеся паўторна."
 msgid "Me"
 msgstr "Я"
 
-#: templates/index.html:352
+#: templates/index.html:354
 msgid "Hello"
 msgstr "прывітанне"
 
-#: templates/index.html:354
+#: templates/index.html:356
 msgid "No phone"
 msgstr "Няма тэлефона"
 
-#: templates/index.html:357
+#: templates/index.html:359
 msgid "Invite code"
 msgstr "Код запрашэння"
 
-#: templates/index.html:372
+#: templates/index.html:374
 msgid "Total Recharged"
 msgstr "Агульная зарадка"
 
-#: templates/index.html:402
+#: templates/index.html:404
 msgid "Lucky order bonus"
 msgstr "Бонус за ўдалы заказ"
 
-#: templates/index.html:426
+#: templates/index.html:428
 msgid "About us"
 msgstr "Пра нас"
 
-#: templates/index.html:439
+#: templates/index.html:441
 msgid "Available products"
 msgstr "Даступныя прадукты"
 
-#: templates/index.html:457
+#: templates/index.html:459
 msgid "Featured opportunity"
 msgstr "Вартая магчымасць"
 
-#: templates/index.html:459
+#: templates/index.html:461
 #, python-format
 msgid "Earn $%(amount)s"
 msgstr "Заработаць $%(amount)s"
 
-#: templates/index.html:460
+#: templates/index.html:462
 #, python-format
 msgid "Price $%(price)s"
 msgstr "Цана $%(price)s"
 
-#: templates/index.html:469
+#: templates/index.html:471
 msgid "Prime pick drop"
 msgstr "Прайм-пік падзенне"
 
-#: templates/index.html:471
+#: templates/index.html:473
 msgid "Earn up to $185"
 msgstr "Зарабляйце да 185 долараў"
 
-#: templates/index.html:472
+#: templates/index.html:474
 msgid "Price $129.00"
 msgstr "Цана $129.00"
 
@@ -1263,14 +1262,14 @@ msgstr "Увядзіце сапраўдны адрас электроннай п
 msgid ""
 "Enter a valid “slug” consisting of letters, numbers, underscores or hyphens."
 msgstr ""
-"Увядзіце сапраўдны \"смоўж\", які складаецца з літар, лічбаў, падкрэслівання"
-" або злучкоў."
+"Увядзіце сапраўдны \"смоўж\", які складаецца з літар, лічбаў, падкрэслівання "
+"або злучкоў."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:297
 #: venv/lib64/python3.12/site-packages/django/core/validators.py:297
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
-" hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
 msgstr ""
 "Увядзіце сапраўдны \"смоўж\", які складаецца з літар Юнікода, лічбаў, "
 "падкрэслівання або злучкоў."
@@ -1548,21 +1547,21 @@ msgstr "Дата (без часу)"
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1562
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 msgstr ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 msgstr ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1575
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1575
@@ -1584,11 +1583,11 @@ msgstr "Дзесятковы лік"
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1864
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 msgstr ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1868
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1868
@@ -1786,8 +1785,7 @@ msgid "Many-to-many relationship"
 msgstr "Адносіны шмат да многіх"
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the
-#. label
+#. characters will prevent the default label_suffix to be appended to the label
 #: venv/lib/python3.12/site-packages/django/forms/boundfield.py:185
 #: venv/lib64/python3.12/site-packages/django/forms/boundfield.py:185
 msgid ":?.!"
@@ -1851,8 +1849,7 @@ msgstr "Адпраўлены файл пусты."
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:644
 #: venv/lib64/python3.12/site-packages/django/forms/fields.py:644
 #, python-format
-msgid ""
-"Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -1972,8 +1969,7 @@ msgstr "Please correct the duplicate data for %(field)s."
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:906
 #, python-format
 msgid "Please correct the duplicate data for %(field)s, which must be unique."
-msgstr ""
-"Please correct the duplicate data for %(field)s, which must be unique."
+msgstr "Please correct the duplicate data for %(field)s, which must be unique."
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:913
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:913
@@ -1997,8 +1993,7 @@ msgstr "Убудаванае значэнне не супадае з бацьк�
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1450
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:1450
-msgid ""
-"Select a valid choice. That choice is not one of the available choices."
+msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 "Выберыце правільны выбар. Гэты выбар не з'яўляецца адным з даступных "
 "варыянтаў."
@@ -2567,8 +2562,8 @@ msgid ""
 "hijacked by third parties."
 msgstr ""
 "Вы бачыце гэта паведамленне, таму што гэты HTTPS-сайт патрабуе, каб ваш вэб-"
-"браўзер адправіў загаловак Referer, але ён не быў адпраўлены. Гэты загаловак"
-" неабходны з меркаванняў бяспекі, каб пераканацца, што ваш браўзер не "
+"браўзер адправіў загаловак Referer, але ён не быў адпраўлены. Гэты загаловак "
+"неабходны з меркаванняў бяспекі, каб пераканацца, што ваш браўзер не "
 "ўзламаны трэцімі асобамі."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:40
@@ -2585,17 +2580,17 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:45
 #: venv/lib64/python3.12/site-packages/django/views/csrf.py:45
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
-" including the “Referrer-Policy: no-referrer” header, please remove them. "
-"The CSRF protection requires the “Referer” header to do strict referer "
-"checking. If you’re concerned about privacy, use alternatives like <a "
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
 "rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
-"Калі вы выкарыстоўваеце тэг <meta name=\"referrer\" content=\"no-referrer\">"
-" або ўключаеце загаловак «Referrer-Policy: no-referrer», выдаліце ​​іх. "
-"Абарона CSRF патрабуе строгай праверкі загалоўка \"Referer\". Калі вы "
-"турбуецеся аб прыватнасці, выкарыстоўвайце такія альтэрнатывы, як <a "
-"rel=\"noreferrer\" …> для спасылак на староннія сайты."
+"Калі вы выкарыстоўваеце тэг <meta name=\"referrer\" content=\"no-referrer\"> "
+"або ўключаеце загаловак «Referrer-Policy: no-referrer», выдаліце ​​іх. Абарона "
+"CSRF патрабуе строгай праверкі загалоўка \"Referer\". Калі вы турбуецеся аб "
+"прыватнасці, выкарыстоўвайце такія альтэрнатывы, як <a rel=\"noreferrer\" …> "
+"для спасылак на староннія сайты."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:54
 #: venv/lib64/python3.12/site-packages/django/views/csrf.py:54
@@ -2664,11 +2659,11 @@ msgstr "No %(verbose_name_plural)s available"
 #: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:680
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 msgstr ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:720
 #: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:720
@@ -2741,15 +2736,15 @@ msgstr ""
 #: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:208
 #, python-format
 msgid ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 msgstr ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:217
 #: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:217
@@ -2930,11 +2925,11 @@ msgstr ""
 #: wallet/views.py:89
 #, python-format
 msgid ""
-"You must complete all %(total)d tasks before binding your wallet. Completed:"
-" %(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed: "
+"%(completed)d"
 msgstr ""
-"You must complete all %(total)d tasks before binding your wallet. Completed:"
-" %(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed: "
+"%(completed)d"
 
 #: wallet/views.py:99
 msgid "Wallet address is required."

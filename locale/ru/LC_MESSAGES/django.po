@@ -3,7 +3,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-02-19 16:31+0000\n"
+"POT-Creation-Date: 2026-02-22 09:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11,7 +11,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
+"(n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #: AmazonProject/settings.py:124
 msgid "English"
@@ -105,9 +107,9 @@ msgstr "История пополнений"
 #: accounts/templates/accounts/activities.html:350
 #: accounts/templates/accounts/activities.html:372
 #: accounts/templates/accounts/me.html:618
-#: balance/templates/balance/wallet_dashboard.html:332
+#: balance/templates/balance/wallet_dashboard.html:335
 #: products/templates/products/partials/task_panel.html:41
-#: templates/index.html:412
+#: templates/index.html:414
 msgid "Recharge"
 msgstr "Перезарядка"
 
@@ -326,7 +328,7 @@ msgstr "Настройки"
 
 #: accounts/templates/accounts/me.html:625
 #: products/templates/products/partials/task_panel.html:204
-#: templates/index.html:419
+#: templates/index.html:421
 msgid "Withdraw"
 msgstr "Отзывать"
 
@@ -472,7 +474,7 @@ msgstr "Создайте свою учетную запись Amazon"
 
 #: accounts/templates/accounts/user_register.html:106
 msgid "Create account"
-msgstr "Зарегистрироваться"
+msgstr "Регистрация"
 
 #: accounts/templates/accounts/user_register.html:111
 msgid "Mobile number"
@@ -557,8 +559,7 @@ msgstr "Номер телефона уже существует"
 #: accounts/views.py:948
 msgid "Phone number already exists. Please use a different phone number."
 msgstr ""
-"Номер телефона уже существует. Пожалуйста, используйте другой номер "
-"телефона."
+"Номер телефона уже существует. Пожалуйста, используйте другой номер телефона."
 
 #: accounts/views.py:950
 msgid "Username already exists. Please choose a different username."
@@ -661,7 +662,7 @@ msgstr "Непрочитано"
 msgid "Continue task"
 msgstr "Продолжить задачу"
 
-#: accounts/views.py:1408 templates/index.html:433
+#: accounts/views.py:1408 templates/index.html:435
 msgid "Start task"
 msgstr "Запустить задачу"
 
@@ -707,25 +708,23 @@ msgstr "Вернуться к панели управления кошелько
 msgid "Wallet dashboard"
 msgstr "Панель управления кошельком"
 
-#: balance/templates/balance/wallet_dashboard.html:294 templates/base.html:282
+#: balance/templates/balance/wallet_dashboard.html:297 templates/base.html:282
 msgid "Balance"
 msgstr "Баланс"
 
-#: balance/templates/balance/wallet_dashboard.html:303
-#: templates/index.html:381
+#: balance/templates/balance/wallet_dashboard.html:306 templates/index.html:383
 msgid "Product commission"
 msgstr "Комиссия за продукт"
 
-#: balance/templates/balance/wallet_dashboard.html:315
-#: templates/index.html:393
+#: balance/templates/balance/wallet_dashboard.html:318 templates/index.html:395
 msgid "Referral commission"
 msgstr "Реферальная комиссия"
 
-#: balance/templates/balance/wallet_dashboard.html:344
+#: balance/templates/balance/wallet_dashboard.html:347
 msgid "Enter amount"
 msgstr "Введите сумму"
 
-#: balance/templates/balance/wallet_dashboard.html:350
+#: balance/templates/balance/wallet_dashboard.html:353
 msgid "Continue to payment"
 msgstr "Перейти к оплате"
 
@@ -864,8 +863,7 @@ msgstr "Ожидающий"
 #: chat/templates/chat/user_support_portal.html:647
 msgid "Start chatting with customer service—ask anything you need."
 msgstr ""
-"Начните переписываться со службой поддержки — спрашивайте все, что вам "
-"нужно."
+"Начните переписываться со службой поддержки — спрашивайте все, что вам нужно."
 
 #: chat/templates/chat/user_support_portal.html:649
 msgid "Pick a user from the left to see the conversation."
@@ -900,7 +898,7 @@ msgid "Remaining"
 msgstr "Оставшийся"
 
 #: products/templates/products/partials/task_panel.html:79
-#: templates/index.html:358
+#: templates/index.html:360
 msgid "N/A"
 msgstr "Н/Д"
 
@@ -988,8 +986,7 @@ msgstr "Вы не имеете права"
 
 #: products/templates/products/partials/task_panel.html:224
 msgid "Please contact support to enable tasks"
-msgstr ""
-"Пожалуйста, свяжитесь со службой поддержки, чтобы активировать задачи."
+msgstr "Пожалуйста, свяжитесь со службой поддержки, чтобы активировать задачи."
 
 #: products/templates/products/products.html:5
 msgid "Products"
@@ -1063,8 +1060,8 @@ msgid ""
 "Commission earnings are fully logged and accessible inside the wallet "
 "dashboard."
 msgstr ""
-"Комиссионные доходы полностью регистрируются и доступны на панели управления"
-" кошелька."
+"Комиссионные доходы полностью регистрируются и доступны на панели управления "
+"кошелька."
 
 #: products/templates/products/regulation_policy.html:290
 msgid "Data Protection"
@@ -1073,8 +1070,8 @@ msgstr "Защита данных"
 #: products/templates/products/regulation_policy.html:292
 msgid ""
 "We collect only the data required to manage task assignments and payments. "
-"Personal information is encrypted, stored securely, and never shared without"
-" consent unless required by law. Users must keep task data confidential to "
+"Personal information is encrypted, stored securely, and never shared without "
+"consent unless required by law. Users must keep task data confidential to "
 "protect merchants and platform integrity."
 msgstr ""
 "Мы собираем только те данные, которые необходимы для управления назначением "
@@ -1133,57 +1130,57 @@ msgstr "Вы не в сети. Пожалуйста, переподключит�
 msgid "Me"
 msgstr "Мне"
 
-#: templates/index.html:352
+#: templates/index.html:354
 msgid "Hello"
 msgstr "Привет"
 
-#: templates/index.html:354
+#: templates/index.html:356
 msgid "No phone"
 msgstr "Нет телефона"
 
-#: templates/index.html:357
+#: templates/index.html:359
 msgid "Invite code"
 msgstr "Пригласительный код"
 
-#: templates/index.html:372
+#: templates/index.html:374
 msgid "Total Recharged"
 msgstr "Всего пополнено"
 
-#: templates/index.html:402
+#: templates/index.html:404
 msgid "Lucky order bonus"
 msgstr "Бонус за счастливый заказ"
 
-#: templates/index.html:426
+#: templates/index.html:428
 msgid "About us"
 msgstr "О нас"
 
-#: templates/index.html:439
+#: templates/index.html:441
 msgid "Available products"
 msgstr "Доступные продукты"
 
-#: templates/index.html:457
+#: templates/index.html:459
 msgid "Featured opportunity"
 msgstr "Рекомендуемая возможность"
 
-#: templates/index.html:459
+#: templates/index.html:461
 #, python-format
 msgid "Earn $%(amount)s"
 msgstr "Заработайте $%(сумма)s"
 
-#: templates/index.html:460
+#: templates/index.html:462
 #, python-format
 msgid "Price $%(price)s"
 msgstr "Цена $%(цена)с"
 
-#: templates/index.html:469
+#: templates/index.html:471
 msgid "Prime pick drop"
 msgstr "Выпадение прайм-пика"
 
-#: templates/index.html:471
+#: templates/index.html:473
 msgid "Earn up to $185"
 msgstr "Заработайте до $185"
 
-#: templates/index.html:472
+#: templates/index.html:474
 msgid "Price $129.00"
 msgstr "Цена $129,00"
 
@@ -1268,8 +1265,8 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/core/validators.py:297
 #: venv/lib64/python3.12/site-packages/django/core/validators.py:297
 msgid ""
-"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or"
-" hyphens."
+"Enter a valid “slug” consisting of Unicode letters, numbers, underscores, or "
+"hyphens."
 msgstr ""
 "Введите действительный «слаг», состоящий из букв Юникода, цифр, символов "
 "подчеркивания или дефисов."
@@ -1341,8 +1338,7 @@ msgid ""
 "%(offset)s, e.g. %(offset)s, %(valid_value1)s, %(valid_value2)s, and so on."
 msgstr ""
 "Убедитесь, что это значение кратно размеру шага %(limit_value)s, начиная с "
-"%(offset)s, например %(смещение)s, %(valid_value1)s, %(valid_value2)s и "
-"т. д."
+"%(offset)s, например %(смещение)s, %(valid_value1)s, %(valid_value2)s и т. д."
 
 #: venv/lib/python3.12/site-packages/django/core/validators.py:473
 #: venv/lib64/python3.12/site-packages/django/core/validators.py:473
@@ -1550,8 +1546,8 @@ msgstr "Дата (без времени)"
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1562
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ] format."
+"“%(value)s” value has an invalid format. It must be in YYYY-MM-DD HH:MM[:ss[."
+"uuuuuu]][TZ] format."
 msgstr ""
 "Значение «%(value)s» имеет недопустимый формат. Он должен быть в формате "
 "ГГГГ-ММ-ДД ЧЧ:ММ[:сс[.uuuuuu]][TZ]."
@@ -1560,11 +1556,11 @@ msgstr ""
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1570
 #, python-format
 msgid ""
-"“%(value)s” value has the correct format (YYYY-MM-DD "
-"HH:MM[:ss[.uuuuuu]][TZ]) but it is an invalid date/time."
+"“%(value)s” value has the correct format (YYYY-MM-DD HH:MM[:ss[.uuuuuu]]"
+"[TZ]) but it is an invalid date/time."
 msgstr ""
-"Значение «%(value)s» имеет правильный формат (ГГГГ-ММ-ДД "
-"ЧЧ:ММ[:сс[.uuuuuu]][TZ]), но это недопустимая дата/время."
+"Значение «%(value)s» имеет правильный формат (ГГГГ-ММ-ДД ЧЧ:ММ[:сс[.uuuuuu]]"
+"[TZ]), но это недопустимая дата/время."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:1575
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1575
@@ -1586,8 +1582,8 @@ msgstr "Десятичное число"
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:1864
 #, python-format
 msgid ""
-"“%(value)s” value has an invalid format. It must be in [DD] "
-"[[HH:]MM:]ss[.uuuuuu] format."
+"“%(value)s” value has an invalid format. It must be in [DD] [[HH:]MM:]ss[."
+"uuuuuu] format."
 msgstr ""
 "Значение «%(value)s» имеет недопустимый формат. Он должен быть в формате "
 "[DD] [[HH:]MM:]ss[.uuuuuu]."
@@ -1695,8 +1691,8 @@ msgid ""
 "“%(value)s” value has an invalid format. It must be in HH:MM[:ss[.uuuuuu]] "
 "format."
 msgstr ""
-"Значение «%(value)s» имеет недопустимый формат. Он должен быть в формате "
-"ЧЧ:ММ[:сс[.уууууу]]."
+"Значение «%(value)s» имеет недопустимый формат. Он должен быть в формате ЧЧ:"
+"ММ[:сс[.уууууу]]."
 
 #: venv/lib/python3.12/site-packages/django/db/models/fields/__init__.py:2530
 #: venv/lib64/python3.12/site-packages/django/db/models/fields/__init__.py:2530
@@ -1789,8 +1785,7 @@ msgid "Many-to-many relationship"
 msgstr "Отношения «многие ко многим»"
 
 #. Translators: If found as last label character, these punctuation
-#. characters will prevent the default label_suffix to be appended to the
-#. label
+#. characters will prevent the default label_suffix to be appended to the label
 #: venv/lib/python3.12/site-packages/django/forms/boundfield.py:185
 #: venv/lib64/python3.12/site-packages/django/forms/boundfield.py:185
 msgid ":?.!"
@@ -1855,8 +1850,7 @@ msgstr "Отправленный файл пуст."
 #: venv/lib/python3.12/site-packages/django/forms/fields.py:644
 #: venv/lib64/python3.12/site-packages/django/forms/fields.py:644
 #, python-format
-msgid ""
-"Ensure this filename has at most %(max)d character (it has %(length)d)."
+msgid "Ensure this filename has at most %(max)d character (it has %(length)d)."
 msgid_plural ""
 "Ensure this filename has at most %(max)d characters (it has %(length)d)."
 msgstr[0] ""
@@ -2007,8 +2001,7 @@ msgstr "Встроенное значение не соответствует р
 
 #: venv/lib/python3.12/site-packages/django/forms/models.py:1450
 #: venv/lib64/python3.12/site-packages/django/forms/models.py:1450
-msgid ""
-"Select a valid choice. That choice is not one of the available choices."
+msgid "Select a valid choice. That choice is not one of the available choices."
 msgstr ""
 "Выберите правильный вариант. Этот выбор не является одним из доступных "
 "вариантов."
@@ -2027,8 +2020,7 @@ msgid ""
 "may be ambiguous or it may not exist."
 msgstr ""
 "%(datetime)s невозможно интерпретировать в часовом поясе "
-"%(current_timezone)s; оно может быть неоднозначным или может не "
-"существовать."
+"%(current_timezone)s; оно может быть неоднозначным или может не существовать."
 
 #: venv/lib/python3.12/site-packages/django/forms/widgets.py:527
 #: venv/lib64/python3.12/site-packages/django/forms/widgets.py:527
@@ -2578,9 +2570,9 @@ msgid ""
 "hijacked by third parties."
 msgstr ""
 "Вы видите это сообщение, потому что этот сайт HTTPS требует, чтобы ваш веб-"
-"браузер отправил «заголовок Referer», но он не был отправлен. Этот заголовок"
-" необходим из соображений безопасности, чтобы гарантировать, что ваш браузер"
-" не будет захвачен третьими лицами."
+"браузер отправил «заголовок Referer», но он не был отправлен. Этот заголовок "
+"необходим из соображений безопасности, чтобы гарантировать, что ваш браузер "
+"не будет захвачен третьими лицами."
 
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:40
 #: venv/lib64/python3.12/site-packages/django/views/csrf.py:40
@@ -2596,15 +2588,15 @@ msgstr ""
 #: venv/lib/python3.12/site-packages/django/views/csrf.py:45
 #: venv/lib64/python3.12/site-packages/django/views/csrf.py:45
 msgid ""
-"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or"
-" including the “Referrer-Policy: no-referrer” header, please remove them. "
-"The CSRF protection requires the “Referer” header to do strict referer "
-"checking. If you’re concerned about privacy, use alternatives like <a "
+"If you are using the <meta name=\"referrer\" content=\"no-referrer\"> tag or "
+"including the “Referrer-Policy: no-referrer” header, please remove them. The "
+"CSRF protection requires the “Referer” header to do strict referer checking. "
+"If you’re concerned about privacy, use alternatives like <a "
 "rel=\"noreferrer\" …> for links to third-party sites."
 msgstr ""
-"Если вы используете тег <meta name=\"referrer\" content=\"no-referrer\"> или"
-" включаете заголовок «Referrer-Policy: no-referrer», удалите их. Защита CSRF"
-" требует, чтобы заголовок «Referer» выполнял строгую проверку ссылки. Если "
+"Если вы используете тег <meta name=\"referrer\" content=\"no-referrer\"> или "
+"включаете заголовок «Referrer-Policy: no-referrer», удалите их. Защита CSRF "
+"требует, чтобы заголовок «Referer» выполнял строгую проверку ссылки. Если "
 "вас беспокоит конфиденциальность, используйте альтернативы, такие как <a "
 "rel=\"noreferrer\"…> для ссылок на сторонние сайты."
 
@@ -2675,11 +2667,11 @@ msgstr "Нет доступных %(verbose_name_plural)s"
 #: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:680
 #, python-format
 msgid ""
-"Future %(verbose_name_plural)s not available because "
-"%(class_name)s.allow_future is False."
+"Future %(verbose_name_plural)s not available because %(class_name)s."
+"allow_future is False."
 msgstr ""
-"Будущее %(verbose_name_plural)s недоступно, поскольку "
-"%(class_name)s.allow_future имеет значение False."
+"Будущее %(verbose_name_plural)s недоступно, поскольку %(class_name)s."
+"allow_future имеет значение False."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/dates.py:720
 #: venv/lib64/python3.12/site-packages/django/views/generic/dates.py:720
@@ -2697,8 +2689,7 @@ msgstr "%(verbose_name) не найдено, соответствующее за
 #: venv/lib64/python3.12/site-packages/django/views/generic/list.py:70
 msgid "Page is not “last”, nor can it be converted to an int."
 msgstr ""
-"Страница не является «последней» и не может быть преобразована в целое "
-"число."
+"Страница не является «последней» и не может быть преобразована в целое число."
 
 #: venv/lib/python3.12/site-packages/django/views/generic/list.py:77
 #: venv/lib64/python3.12/site-packages/django/views/generic/list.py:77
@@ -2747,24 +2738,23 @@ msgid ""
 "View <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
 "target=\"_blank\" rel=\"noopener\">release notes</a> for Django %(version)s"
 msgstr ""
-"Просмотрите <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/releases/\" "
-"target=\"_blank\" rel=\"noopener\">примечания к выпуску</a> для Django "
+"Просмотрите <a href=\"https://docs.djangoproject.com/en/%(version)s/releases/"
+"\" target=\"_blank\" rel=\"noopener\">примечания к выпуску</a> для Django "
 "%(version)s"
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:208
 #: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:208
 #, python-format
 msgid ""
-"You are seeing this page because <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> is in your settings file "
-"and you have not configured any URLs."
+"You are seeing this page because <a href=\"https://docs.djangoproject.com/en/"
+"%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> is in your settings file and you have not "
+"configured any URLs."
 msgstr ""
-"Вы видите эту страницу, потому что <a "
-"href=\"https://docs.djangoproject.com/en/%(version)s/ref/settings/#debug\" "
-"target=\"_blank\" rel=\"noopener\">DEBUG=True</a> находится в вашем файле "
-"настроек и вы не настроили никаких URL-адресов."
+"Вы видите эту страницу, потому что <a href=\"https://docs.djangoproject.com/"
+"en/%(version)s/ref/settings/#debug\" target=\"_blank\" "
+"rel=\"noopener\">DEBUG=True</a> находится в вашем файле настроек и вы не "
+"настроили никаких URL-адресов."
 
 #: venv/lib/python3.12/site-packages/django/views/templates/default_urlconf.html:217
 #: venv/lib64/python3.12/site-packages/django/views/templates/default_urlconf.html:217
@@ -2945,8 +2935,8 @@ msgstr ""
 #: wallet/views.py:89
 #, python-format
 msgid ""
-"You must complete all %(total)d tasks before binding your wallet. Completed:"
-" %(completed)d"
+"You must complete all %(total)d tasks before binding your wallet. Completed: "
+"%(completed)d"
 msgstr ""
 "Вы должны выполнить все задачи %(total)d, прежде чем привязывать свой "
 "кошелек. Завершено: %(завершено)d"
@@ -3122,7 +3112,8 @@ msgstr "При обработке вывода средств произошла
 #, fuzzy, python-format
 #~ msgid ""
 #~ "\n"
-#~ "                Complete all %(completed)s of %(total)s tasks to unlock wallet binding.\n"
+#~ "                Complete all %(completed)s of %(total)s tasks to unlock "
+#~ "wallet binding.\n"
 #~ "                "
 #~ msgstr ""
 #~ "Выполните все задачи %(completes)s из %(total)s, чтобы разблокировать "

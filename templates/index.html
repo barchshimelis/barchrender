@@ -334,9 +334,11 @@
         }
     }
 </style>
+<link rel="stylesheet" href="{% static 'css/responsive.css' %}">
 {% endblock %}
 
 {% block content %}
+<div class="page-container">
 <div class="mobile-shell">
     <section class="glass-card hero-card">
         <div class="hero-avatar">
@@ -481,6 +483,7 @@
         {% url 'products:products' as mission_default_url %}
         
     </section>
+</div>
 </div>
 {% endblock %}
 
